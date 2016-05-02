@@ -1,0 +1,21 @@
+# ;; -*- mode: org; coding: utf-8 -*-
+
+#+TITLE: GNU Gbank NEWS
+
+* Latest News
+
+** dd Month year
+
+GNU Gbank version 0.0.1-alpha is released.
+
+Here is a summary of the changes since version 0.0.0. See GNU Gbank's
+git summary [1] and git log [2] for a complete description:
+
+
+[1] http://git.savannah.gnu.org/cgit/gbank.git
+[2] http://git.savannah.gnu.org/cgit/gbank.git/log/
+
+
+* Older News
+
+For older News, see http://www.gnu.org/software/gbank/news.html

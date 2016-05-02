@@ -1,0 +1,42 @@
+# ;; -*- mode: org; coding: utf-8 -*-
+
+#+TITLE: GNU Gbank README
+
+* GNU Gbank
+
+GNU Gbank [1]
+a Guile [3] binding for GObject Introspection [2].
+
+** The name
+
+Unimaginatively named after Sbank [5], unimaginatively named after
+pybank, a Python binding for GO bject Introspection.
+
+** What else
+
+Gbank is entirely written in Guile [3], no C code.
+
+
+** Savannah
+
+GNU Gbank also has a Savannah [4] project page.
+
+** License
+
+GNU Gbank is a free software, distributed under the terms of the GNU
+General Public License GPLv3 or higher. You must be aware there is no
+warranty whatsoever for GNU Gbank. This is described in full in the
+licenses.
+
+
+[1] http://www.gnu.org/software/gbank/
+[2] https://developer.gnome.org/gi/
+
+GNU Guile
+an interpreter and compiler for the Scheme [6] programming language
+[3] http://www.gnu.org/software/guile/
+
+
+[4] https://savannah.gnu.org/projects/gbank/
+[5] http://rotty.xx.vu/software/sbank/
+[6] http://schemers.org/
