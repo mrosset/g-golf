@@ -1,0 +1,9 @@
+# Package Information for pkg-config
+
+prefix=@prefix@
+
+module_directory=@prefix@/share/gbank
+
+Name: Gbank
+Description: A Guile binding for GObject Introspection
+Version: @VERSION@
