@@ -1,0 +1,231 @@
+@c -*-texinfo-*-
+@c This is part of the GNU Gbank Reference Manual.
+@c Copyright (C) 2016 Free Software Foundation, Inc.
+
+
+@copying
+This manual documents GNU Gbank version @value{VERSION}.
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License.''
+@end copying
+
+
+@defindex bi
+
+
+@node Base Info
+@subsection Base Info
+
+Gbank Base Info low level API.@*
+GIBaseInfo — Base struct for all GITypelib structs.
+
+
+@subheading Description
+
+@code{GIBaseInfo} is the common base struct of all other *Info structs
+accessible through the @code{GIRepository API}.
+
+Most @code{GIRepository APIs} returning a @code{GIBaseInfo} is actually
+creating a new struct, in other words, @ref{gbank-bi-unref} has to be
+called when done accessing the data. @code{GIBaseInfos} are normally
+accessed by calling either @ref{gbank-ir-find-by-name},
+@ref{gbank-ir-find-by-gtype} or @ref{gbank-ir-get-info}.
+
+@example
+@strong{Example:} Getting the Button of the Gtk typelib
+@end example
+
+@lisp
+,use (gbank gi)
+(gbank-ir-require "Gtk")
+(gbank-ir-find-by-name "Gtk" "Button")
+@print{}
+$4 = #<pointer 0x20e0000>
+... use button info ...
+(gbank-bi-unref $4)
+@end lisp
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       @*
+@ @ +--- GIArgInfo	       @*
+@ @ +--- GICallableInfo	       @*
+@ @ +--- GIConstantInfo        @*
+@ @ +--- GIFieldInfo           @*
+@ @ +--- GIPropertyInfo        @*
+@ @ +--- GIRegisteredTypeInfo  @*
+@ @ +--- GITypeInfo
+@end indentedblock
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{gbank-bi-ref}
+@item @ref{gbank-bi-unref}
+@item @ref{gbank-bi-equal}
+@item @ref{gbank-bi-get-type}
+@item @ref{gbank-bi-get-typelib}
+@item @ref{gbank-bi-get-namespace}
+@item @ref{gbank-bi-get-name}
+@item @ref{gbank-bi-get-attribute}
+@item @ref{gbank-bi-iterate-attributes}
+@item @ref{gbank-bi-get-container}
+@item @ref{gbank-bi-is-deprecated}
+@end table
+@end indentedblock
+
+Note: in this section, the @var{info}, @var{info1} and @var{info2}
+arguments are [must be] pointers to a @code{GIBaseInfo}.
+
+@anchor{gbank-bi-ref}
+@deffn Procedure gbank-bi-ref info
+
+Returns the same @var{info}.
+
+Increases the reference count of @var{info}.
+@end deffn
+
+
+@anchor{gbank-bi-unref}
+@deffn Procedure gbank-bi-unref info
+
+Returns nothing.
+
+Decreases the reference count of @var{info}. When its reference count
+drops to 0, the @var{info} is freed.
+@end deffn
+
+
+@anchor{gbank-bi-equal}
+@deffn Procedure gbank-bi-equal info1 info2
+
+Returns #t if and only if @var{info1} equals @var{info2}.
+
+Compares two @code{GIBaseInfo}.
+
+Using pointer comparison is not practical since many functions return
+different instances of @code{GIBaseInfo} that refers to the same part of
+the @code{TypeLib}: use this procedure instead to do @code{GIBaseInfo}
+comparisons.
+@end deffn
+
+@anchor{gbank-bi-get-type}
+@deffn Procedure gbank-bi-get-type info
+
+Returns the info type of @var{info}.
+@end deffn
+
+
+@anchor{gbank-bi-get-typelib}
+@deffn Procedure gbank-bi-get-typelib info
+
+Returns a pointer to the @code{GITypelib} the @var{info} belongs to.
+@end deffn
+
+
+@anchor{gbank-bi-get-namespace}
+@deffn Procedure gbank-bi-get-namespace info
+
+Returns the namespace of @var{info}
+@end deffn
+
+
+@anchor{gbank-bi-get-name}
+@deffn Procedure gbank-bi-get-name info
+
+Returns the name of @var{info} or @code{#f} if it lacks a name.
+
+What the name represents depends on the @code{GIInfoType} of the
+info. For instance for @code{GIFunctionInfo} it is the name of the
+function.
+@end deffn
+
+
+@anchor{gbank-bi-get-attribute}
+@deffn Procedure gbank-bi-get-attribute info name
+
+Returns the value of the attribute or @code{#f} if not such attribute
+exists.
+@end deffn
+
+
+@anchor{gbank-bi-iterate-attributes}
+@deffn Procedure gbank-bi-iterate-attributes info proc
+
+Returns nothing.
+
+Iterate and calls @var{proc} over all attributes associated with this
+node. @var{proc} must be a procedure of two arguments, the @var{name}
+and the @var{value} of the attribute.
+@end deffn
+
+
+@anchor{gbank-bi-get-container}
+@deffn Procedure gbank-bi-get-container info
+
+Returns a pointer to a @code{GIBaseInfo}.
+
+The container is the parent @code{GIBaseInfo}. For instance, the parent
+of a @code{GIFunctionInfo} is an @code{GIObjectInfo} or
+@code{GIInterfaceInfo}.
+@end deffn
+
+
+@anchor{gbank-bi-is-deprecated}
+@deffn Procedure gbank-bi-is-deprecated info
+
+Returns @code{#t} if deprecated.
+
+Obtain whether @var{info} represents a metadata which is deprecated or
+not.
+@end deffn
+
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%gbank-bi-info-type}
+@end table
+@end indentedblock
+
+
+@anchor{%gbank-bi-info-type}
+@defvar %gbank-bi-info-type
+
+An instance of @code{<enum>}, who's members are the scheme
+representation of the @code{GIInfoType}:
+
+@indentedblock
+invalid		@*
+function	@*
+callback	@*
+struct		@*
+boxed		@*
+enum		@*
+flags		@*
+object		@*
+interface	@*
+constant	@*
+error-domain	@*
+union		@*
+value		@*
+signal		@*
+vfunc		@*
+property	@*
+field		@*
+arg		@*
+type		@*
+unresolved
+@end indentedblock
+@end defvar

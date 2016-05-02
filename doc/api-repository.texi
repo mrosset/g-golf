@@ -1,0 +1,211 @@
+@c -*-texinfo-*-
+@c This is part of the GNU Gbank Reference Manual.
+@c Copyright (C) 2016 Free Software Foundation, Inc.
+
+
+@copying
+This manual documents GNU Gbank version @value{VERSION}.
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License.''
+@end copying
+
+
+@defindex ir
+
+
+@node Repository
+@subsection Repository
+
+Gbank Introspection Repository low level API. @*
+GIRepository — GObject Introspection repository manager.
+
+
+@subheading Description
+
+@code{GIRepository} is used to manage repositories of
+namespaces. Namespaces are represented on disk by type libraries
+(.typelib files).
+
+
+@subheading Object Hierarchy
+
+@indentedblock
+GObject           @*
+|___ GIRepository
+@end indentedblock
+
+
+@subheading Procedures
+
+
+@indentedblock
+@table @code
+@item @ref{gbank-ir-get-default}
+@item @ref{gbank-ir-get-dependencies}
+@item @ref{gbank-ir-get-loaded-namespaces}
+@item @ref{gbank-ir-get-n-infos}
+@item @ref{gbank-ir-get-info}
+@item @ref{gbank-ir-get-typelib-path}
+@item @ref{gbank-ir-require}
+@item @ref{gbank-ir-get-c-prefix}
+@item @ref{gbank-ir-get-shared-library}
+@item @ref{gbank-ir-get-version}
+@item @ref{gbank-ir-find-by-gtype}
+@item @ref{gbank-ir-find-by-name}
+@end table
+@end indentedblock
+
+
+Note: in this section, the @var{repository} optional keyword argument is
+[must be] a pointer to a @code{GIRepository} or @code{%null-pointer}.
+
+
+@anchor{gbank-ir-get-default}
+@deffn Procedure gbank-ir-get-default
+
+Returns a pointer to the singleton process-global default
+@code{GIRepository}.
+
+GObject Introspection does not currently support multiple repositories
+in a particular process, but this procedure is provided in the unlikely
+eventuality that it would become possible.
+
+All Gbank low level API procedures on GIRepository also accept an
+optional @var{#:repository} keyword argument which defaults to
+@code{%null-pointer}, meaning this singleton process-global default
+GIRepository.
+@end deffn
+
+@anchor{gbank-ir-get-dependencies}
+@deffn Procedure gbank-ir-get-dependencies namespace #:key repository
+
+Returns a list of all (transitive) versioned dependencies for
+@var{namespace}. Returned string are of the form
+@code{namespace-version}.
+
+Note: The @var{namespace} must have already been loaded using a
+procedure such as @code{gbank-ir-require} before calling this procedure.
+@end deffn
+
+
+@anchor{gbank-ir-get-loaded-namespaces}
+@deffn Procedure gbank-ir-get-loaded-namespaces #:key repository
+
+Return the list of currently loaded namespaces.
+@end deffn
+
+@anchor{gbank-ir-get-n-infos}
+@deffn Procedure gbank-ir-get-n-infos namespace #:key repository
+
+Returns the number of metadata entries in @var{namespace}. The
+@var{namespace} must have already been loaded before calling this
+procedure.
+@end deffn
+
+
+@anchor{gbank-ir-get-info}
+@deffn Procedure gbank-ir-get-info namespace index #:key repository
+
+Returns a pointer to a particular metadata entry in the given
+@var{namespace}.
+
+The @var{namespace} must have already been loaded before calling this
+procedure.  See @code{gbank-ir-get-n-infos} to find the maximum number
+of entries.
+
+@var{index} is a 0-based offset into @var{namespace} for entry.
+@end deffn
+
+
+@anchor{gbank-ir-get-typelib-path}
+@deffn Procedure gbank-ir-get-typelib-path namespace #:key repository
+
+Returns the full path to the .typelib file @var{namespace} was loaded
+from, if loaded. If @var{namespace} is not loaded or does not exist, it
+will return @code{#f}. If the typelib for @var{namespace} was included
+in a shared library, it returns the special string "<builtin>".
+@end deffn
+
+
+@anchor{gbank-ir-require}
+@deffn Procedure gbank-ir-require namespace #:key version repository
+
+Returns a pointer a @code{GITypelib} structure, if the @code{Typelib}
+file for @var{namespace} exists. Otherwise, it raises an error.
+
+Force the @var{namespace} to be loaded if it isn't already. If
+@var{namespace} is not loaded, this procedure will search for a
+@code{".typelib"} file using the repository search path. In addition, a
+version version of namespace may be specified. If version is not
+specified, the latest will be used.
+@end deffn
+
+
+@anchor{gbank-ir-get-c-prefix}
+@deffn Procedure gbank-ir-get-c-prefix namespace #:key repository
+
+Returns the "C prefix", or the C level namespace associated with the
+given introspection @var{namespace}. Each C symbol starts with this
+prefix, as well each @code{GType} in the library.
+
+Note: The @var{namespace} must have already been loaded using a
+procedure such as @code{gbank-ir-require} before calling this procedure.
+@end deffn
+
+
+@anchor{gbank-ir-get-shared-library}
+@deffn Procedure gbank-ir-get-shared-library namespace #:key repository
+
+Returns a list of paths to the shared C libraries associated with the
+given @var{namespace}. There may be no shared library path associated,
+in which case this procedure will return an empty list.
+@end deffn
+
+
+@anchor{gbank-ir-get-version}
+@deffn Procedure gbank-ir-get-version  namespace #:key repository
+
+Returns the loaded version associated with the given @var{namespace}.
+
+Note: The @var{namespace} must have already been loaded using a
+procedure such as @code{gbank-ir-require} before calling this procedure.
+@end deffn
+
+
+@anchor{gbank-ir-find-by-gtype}
+@deffn Procedure gbank-ir-find-by-gtype gtype #:key repository
+
+Returns a pointer to a @code{GIBaseInfo} representing metadata about
+type, or @code{%null-pointer}.
+
+Searches all loaded namespaces for a particular @code{GType}. Note that
+in order to locate the metadata, the namespace corresponding to the type
+must first have been loaded. There is currently no mechanism for
+determining the namespace which corresponds to an arbitrary @code{GType}
+- thus, this procedure will operate most reliably when you know the
+@code{GType} to originate from be from a loaded namespace.
+@end deffn
+
+
+@anchor{gbank-ir-find-by-name}
+@deffn Procedure gbank-ir-find-by-name namespace name #:key repository
+
+Returns a pointer to a @code{GIBaseInfo} representing metadata about
+type, or @code{%null-pointer}.
+
+Searches for a particular entry in @var{namespace}. Before calling this
+function for a particular namespace, you must call
+@code{gbank-ir-require} once to load the @var{namespace}, or otherwise
+ensure the @var{namespace} has already been loaded.
+@end deffn
+
+
+@c @subheading Types and Values
+

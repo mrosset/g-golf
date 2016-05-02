@@ -1,0 +1,183 @@
+@c -*-texinfo-*-
+@c This is part of the GNU Gbank Reference Manual.
+@c Copyright (C) 2016 Free Software Foundation, Inc.
+
+
+@copying
+This manual documents GNU Gbank version @value{VERSION}.
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License.''
+@end copying
+
+
+@node API Overview
+@subsection Overview of the Gbank API
+
+This describe the Gbank low level API.  By low level, we mean the part
+of the Gbank API where [almost all] procedures are a one to one binding
+to their corresponding @code{GI} function, and both arguments and
+returned values are pointers, except for enums, strings, numbers and
+booleans.
+
+@indentedblock
+@strong{Special Note:} we plan to work on a higher level API, using GOOPS
+(@pxref{GOOPS,,, guile, The GNU Guile Reference Manual}), as it has been
+done for @uref{https://www.gnu.org/software/guile-gnome, Guile-Gnome}.
+
+This means that somewhere in between this initial [mock up]
+@value{VERSION} version and 0.1.0, or maybe 0.2.0, we probably will
+break the above arguments and returned values statement, so that where
+ever appropriate, these will become GOOPS classes and instances for the
+Gbank low level API as well, except for enums, strings, numbers and
+booleans.
+
+Once we will be happy with the design and will have tested it on a
+wrapper, let's say Clutter, once we will have fixed all manual entries,
+then we will remove this special note.
+
+Till then, code and design review is more then welcome, testing upon a
+wrapper is welcome too, but be well aware of this special note, and keep
+in mind that things may change in a way that either version 0.1.0 or
+0.2.0 will probably break earlier Gbank user code, that you must
+consider, till then, experimental.
+@end indentedblock
+
+
+@subheading Procedures
+
+The Gbank low level API procedure names always start with @code{gbank-},
+followed by two letters and an hyphen, representing the GObject
+Introspection section (@xref{Abreviations}), followed by the
+section function name it implements. For example, from the GIRepository
+section:
+
+@example
+g_irepository_get_loaded_namespaces
+->
+@ref{gbank-ir-get-loaded-namespaces}
+@end example
+
+
+@subheading Types and Values
+
+Tyeps and values are actually bound to variables. The Gbank low level
+API variable names use the exact same convention as for procedures,
+except that they always start with @code{%gbank-}.  For example, from
+the GIBaseInfo section:
+
+@example
+GIInfoType
+->
+@ref{%gbank-bi-info-type}
+@end example
+
+Note: The Gbank Reference Manual follows the GObject Introspection
+manual and list 'Types and Values' in their corresponding section. for
+example @ref{Base Info}. However, in the Gbank source code, all 'Types
+and Values' are defined in the @code{(gbank gi types)} module, which we
+think is more convenient both for developers and Gbank users.
+
+
+@anchor{Abreviations}
+@subheading Abreviations
+
+In the table below we list respectively the abreviation, its GObject
+Introspection section, and, when applicable, its Gbank section and the
+corresponding Gbank source code module.
+
+@indentedblock
+@multitable @columnfractions .1 .2 .2 .3
+@headitem Abr. @tab GI Section @tab Gbank Section @tab Gbank module
+
+@item @code{-ir-}
+@tab @uref{@value{UGIRepository}, GIRepository}
+@tab @ref{Repository}
+@tab @code{(gbank gi repository)}
+
+@item @code{-ct-}
+@tab @uref{@value{UGIcommontypes}, common types}
+@tab n/a
+@tab @code{(gbank gi types)}
+
+@item @code{-bi-}
+@tab @uref{@value{UGIBaseInfo}, GIBaseInfo}
+@tab @ref{Base Info}
+@tab @code{(gbank gi base-info)}
+
+@item @code{-ci-}
+@tab @uref{@value{UGICallableInfo}, GICallableInfo}
+@tab @ref{Callable Info}
+@tab @code{(gbank gi callable-info)}
+
+@item @code{-fi-}
+@tab @uref{@value{UGIFunctionInfo}, GIFunctionInfo}
+
+@item @code{-cb-}
+@tab @uref{@value{UGICallbackInfo}, GICallbackInfo}
+
+@item @code{-si-}
+@tab @uref{@value{UGISignalInfo}, GISignalInfo}
+
+@item @code{-vf-}
+@tab @uref{@value{UGIVFuncInfo}, GIVFuncInfo}
+
+@item @code{-rt-}
+@tab @uref{@value{UGIRegisteredTypeInfo}, GIRegisteredTypeInfo}
+
+@item @code{-ei-}
+@tab @uref{@value{UGIEnumInfo}, GIEnumInfo}
+
+@item @code{-st-}
+@tab @uref{@value{UGIStructInfo}, GIStructInfo}
+
+@item @code{-ui-}
+@tab @uref{@value{UGIUnionInfo}, GIUnionInfo}
+
+@item @code{-oi-}
+@tab @uref{@value{UGIObjectInfo}, GIObjectInfo}
+
+@item @code{-ii-}
+@tab @uref{@value{UGIInterfaceInfo}, GIInterfaceInfo}
+
+@item @code{-ai-}
+@tab @uref{@value{UGIArgInfo}, GIArgInfo}
+
+@item @code{-ct-}
+@tab @uref{@value{UGIConstantInfo}, GIConstantInfo}
+
+@item @code{-fi-}
+@tab @uref{@value{UGIFieldInfo}, GIFieldInfo}
+
+@item @code{-pi-}
+@tab @uref{@value{UGIPropertyInfo}, GIPropertyInfo}
+
+@item @code{-ti-}
+@tab @uref{@value{UGITypeInfo}, GITypeInfo}
+
+@item @code{-vi-}
+@tab @uref{@value{UGIValueInfo}, GIValueInfo}
+
+@end multitable
+@end indentedblock
+
+
+@subheading Modules
+
+As you did notice reading the above listed abreviations table, Gbank
+GObject Introspection modules are defined in the @code{gi} subdirectory,
+such as @code{(gbank gi repository)}.  Where you may load these modules
+individually, the easiest way to use Gbank is to import the @code{gi}
+module: it imports and re-exports the public interface of all Gbank
+support and Gbank GObject Introspection modules: @code{(use-modules
+(gbank gi))}.
+
+Most Gbank low level API modules correspond to a GObject Intropection
+section, except for @code{init}, @code{utils} and @code{types}.
+
