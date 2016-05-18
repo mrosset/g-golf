@@ -79,16 +79,16 @@ GNU Gbank needs the following software to run:
 
 @item
 Autoconf >= 2.69
-
 @item
 Automake >= 1.14
-
 @item
 @uref{@value{UGUILE}, Guile}>= 2.0.11
-
 @item 
-@uref{@value{UGI}, GObject-Introspection-1.0} >= 1.46.0
-
+@uref{@value{UGI}, GObject-Introspection-1.0} >= 1.48.0
+@item
+@uref{@value{UGLIB}, Glib-2.0} >= 2.48.0
+@item
+@uref{@value{UGOBJECT}, Gobject-2.0} >= 2.48.0
 @end itemize
 
 
@@ -150,10 +150,8 @@ Like for any other GNU Tool Chain compatible software, you may install
 the documentation locally using @code{make install-info}, @code{make
 install-html} and/or @code{make install-pdf}. The documentation is
 installed in @code{$prefix/share/doc/gbank}
-
-Note that as it is, Gbank's documentation still is a mock-up.
-
 @end enumerate
+
 
 @node Contact
 @section Contact
