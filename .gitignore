@@ -24,12 +24,14 @@ doc/gbank.t2p
 *.cp
 *.cps
 *.fn
+*.fns
 *.ky
 *.log
 *.pg
 *.toc
 *.tp
 *.vr
+*.vrs
 *.html
 *.info
 *.pdf
