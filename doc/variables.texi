@@ -58,7 +58,7 @@ Documentation License.''
 @set UGIFieldInfo https://developer.gnome.org/gi/stable/gi-GIFieldInfo.html
 @set UGIPropertyInfo https://developer.gnome.org/gi/stable/gi-GIPropertyInfo.html
 @set UGITypeInfo https://developer.gnome.org/gi/stable/gi-GITypeInfo.html
-@set UGIValueInfohttps://developer.gnome.org/gi/stable/gi-GIValueInfo.html
+@set UGIValueInfo https://developer.gnome.org/gi/stable/gi-GIValueInfo.html
 
 @set UGLIB https://developer.gnome.org/glib/stable/
 @set UGOBJECT https://developer.gnome.org/gobject/stable/
