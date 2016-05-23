@@ -24,10 +24,17 @@ AUTOMAKE_OPTIONS = gnu
 
 info_TEXINFOS = gbank.texi
 
-gbank_TEXINFOS =	\
-  version.texi		\
-  variables.texi	\
-  preface.texi     	\
-  introduction.texi	\
-  using-gbank.texi	\
+gbank_TEXINFOS = \
+  version.texi			\
+  variables.texi		\
+  preface.texi     		\
+  introduction.texi		\
+  using-gbank.texi		\
+  api-base-info.texi		\
+  api-callable-info.texi	\
+  api-overview.texi		\
+  api-repository.texi		\
+  api-support-modules.texi	\
+  api.texi			\
+  indices.texi			\
   fdl.texi
