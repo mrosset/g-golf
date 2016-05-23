@@ -46,8 +46,7 @@
 
 (g-export !set
 	  e-value
-	  e-sym
-	  slot-set!)
+	  e-sym)
 
 
 (define-class <enum> ()
