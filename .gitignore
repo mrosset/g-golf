@@ -16,6 +16,7 @@ gbank-*.tar.gz.sig
 Makefile
 Makefile.in
 meta/guild
+meta/gbank-1.0.pc
 doc/version.texi
 doc/stamp-vti
 doc/gbank.t2p
