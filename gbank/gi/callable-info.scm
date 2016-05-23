@@ -33,6 +33,7 @@
   #:use-module (gbank gi types)
 
   #:export (gbank-ci-get-n-args
+	    gbank-ci-get-arg
 	    gbank-ci-get-caller-owns
 	    gbank-ci-get-return-type
 	    gbank-ci-may-return-null))
@@ -44,6 +45,9 @@
 
 (define (gbank-ci-get-n-args info)
   (g-callable-info-get-n-args info))
+
+(define (gbank-ci-get-arg info n)
+  (g-callable-info-get-arg info n))
 
 (define (gbank-ci-get-caller-owns info)
   (e-sym %gbank-ai-transfer
@@ -66,6 +70,12 @@
                       (dynamic-func "g_callable_info_get_n_args"
 				    %libgirepository)
                       (list '*)))
+
+(define g-callable-info-get-arg
+  (pointer->procedure '*
+                      (dynamic-func "g_callable_info_get_arg"
+				    %libgirepository)
+                      (list '* int)))
 
 (define g-callable-info-get-caller-owns
   (pointer->procedure int
