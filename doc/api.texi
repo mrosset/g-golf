@@ -34,16 +34,20 @@ Documentation License.''
 @section Gbank
 
 @menu
-* API Overview::                Overview of the Gbank API.
-* Repository::                  GObject Introspection repository manager.
-* Base Info::                   Base struct for all GITypelib structs.
-* Callable Info::		Struct representing a callable.
+* API Overview::        Overview of the Gbank API.
+* Repository::          GObject Introspection repository manager.
+* Base Info::           Base struct for all GITypelib structs.
+* Callable Info::	Struct representing a callable.
+* Enum Info::		Structs representing an enumeration and its values.
+* Arg Info::		Struct representing an argument.
 @end menu
 
 @include api-overview.texi
 @include api-repository.texi
 @include api-base-info.texi
 @include api-callable-info.texi
+@include api-enum-info.texi
+@include api-arg-info.texi
 
 
 @node Support
