@@ -37,6 +37,7 @@ SOURCES = \
 	gbank/support/enum.scm		\
 	gbank/support.scm		\
 	gbank/gi/init.scm		\
+	gbank/gi/glib.scm		\
 	gbank/gi/utils.scm		\
 	gbank/gi/types.scm		\
 	gbank/gi/repository.scm		\
