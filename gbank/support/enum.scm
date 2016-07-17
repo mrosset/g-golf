@@ -40,35 +40,45 @@
   #:use-module (gbank support goops)
   #:use-module (gbank support g-export)
   #:use-module (gbank support utils)
+  #:use-module (gbank support keyword)
   
   #:export (<enum>))
 
 
-(g-export !set
+(g-export !value-set
 	  e-value
 	  e-sym)
 
 
 (define-class <enum> ()
-  (set #:getter !set
-       #:init-keyword #:set))
+  (value-set #:accessor !value-set #:init-keyword #:value-set))
 
 (define-method (initialize (self <enum>) initargs)
-  (let-keywords initargs #t
-		((set #f))
-    (if set
-	(let ((real-set (map (lambda (i)
-			       (cons i (list-ref set i)))
-			  (iota (length set)))))
-	  (next-method self (list #:set real-set)))
-	(warning "initialize <enum>"
-		 "<enum> instance set can't be empty."
-		 (current-output-port)))))
+  (receive (kw enum-kw)
+      (split-keyword-args initargs '(#:value-set))
+    ;; (dimfi kw enum-kw)
+    (let-keywords initargs #t
+		  ((value-set #f))
+      (if value-set
+	  (if (pair? (car value-set))
+	      (next-method self initargs)
+	      (let ((real-value-set (map (lambda (i)
+					   (cons (list-ref value-set i) i))
+				      (iota (length value-set)))))
+		(next-method self (append kw
+					  (list #:value-set real-value-set)))))
+	  (begin
+	    (warning "initialize <enum>"
+		     "<enum> instance value-set should not be empty."
+		     (current-output-port))
+	    (next-method self initargs))))))
 
 (define-method (e-value (self <enum>) (item <symbol>))
-  (list-index (lambda (x) (eq? (cdr x) item))
-	      (!set self)))
+  (assq-ref (!value-set self) item))
 
 (define-method (e-sym (self <enum>) (item <integer>))
-  (and (> item 0)
-       (assq-ref (!set self) item)))
+  (let ((entry (find (lambda (x)
+		       (= (cdr x) item))
+		     (!value-set self))))
+    (and entry
+	 (car entry))))
