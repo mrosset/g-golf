@@ -183,7 +183,7 @@ procedure such as @code{gbank-ir-require} before calling this procedure.
 @deffn Procedure gbank-ir-find-by-gtype gtype #:key repository
 
 Returns a pointer to a @code{GIBaseInfo} representing metadata about
-type, or @code{%null-pointer}.
+@var{gtype}, or @code{#f}.
 
 Searches all loaded namespaces for a particular @code{GType}. Note that
 in order to locate the metadata, the namespace corresponding to the type
@@ -198,7 +198,7 @@ determining the namespace which corresponds to an arbitrary @code{GType}
 @deffn Procedure gbank-ir-find-by-name namespace name #:key repository
 
 Returns a pointer to a @code{GIBaseInfo} representing metadata about
-type, or @code{%null-pointer}.
+type, or @code{#f}.
 
 Searches for a particular entry in @var{namespace}. Before calling this
 function for a particular namespace, you must call

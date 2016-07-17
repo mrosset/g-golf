@@ -1,0 +1,111 @@
+@c -*-texinfo-*-
+@c This is part of the GNU Gbank Reference Manual.
+@c Copyright (C) 2016 Free Software Foundation, Inc.
+
+
+@copying
+This manual documents GNU Gbank version @value{VERSION}.
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License.''
+@end copying
+
+
+@defindex rt
+
+
+@node Registered Type Info
+@subsection Registered Type Info
+
+Gbank Registered Type Info low level API.@*
+GIRegisteredTypeInfo — Struct representing a struct with a @code{GType}. 
+
+
+@subheading Description
+
+@code{GIRegisteredTypeInfo} represents an entity with a @code{GType}
+associated. Could be either a @code{GIEnumInfo}, @code{GIInterfaceInfo},
+@code{GIObjectInfo}, @code{GIStructInfo} or a @code{GIUnionInfo}.
+
+A registered type info struct has a name and a type function.
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo					@*
+@ @ +----GIRegisteredTypeInfo			@*
+@ @ @ @ @ @ @ @ @ @ @ +----GIEnumInfo		@*
+@ @ @ @ @ @ @ @ @ @ @ +----GIInterfaceInfo	@*
+@ @ @ @ @ @ @ @ @ @ @ +----GIObjectInfo		@*
+@ @ @ @ @ @ @ @ @ @ @ +----GIStructInfo		@*
+@ @ @ @ @ @ @ @ @ @ @ +----GIUnionInfo
+@end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{gbank-rt-get-type-name}
+@item @ref{gbank-rt-get-type-init}
+@item @ref{gbank-rt-get-g-type}
+@end table
+@end indentedblock
+
+Note: in this section, the @var{info} argument is [must be] a pointer to
+a @code{GIRegisteredTypeInfo}.
+
+
+@anchor{gbank-rt-get-type-name}
+@deffn Procedure gbank-rt-get-type-name info
+
+Returns the type name.
+
+Obtain the type name of the struct within the GObject type system. This
+type can be passed to g_type_name() to get a GType.
+@end deffn
+
+
+@anchor{gbank-rt-get-type-init}
+@deffn Procedure gbank-rt-get-type-init info
+
+Returns the name of the type init function.
+
+Obtain the type init function for @var{info}. The type init function is
+the function which will register the @code{GType} within the
+@code{GObject} type system. Usually this is not called by langauge
+bindings or applications.
+@end deffn
+
+
+@anchor{gbank-rt-get-g-type}
+@deffn Procedure gbank-rt-get-g-type info
+
+Returns the @code{GType}. FIXME when this effectively works.
+
+Obtain the @code{GType} for this registered type or @code{G_TYPE_NONE}
+which a special meaning. It means that either there is no type
+information associated with this info or that the shared library which
+provides the type_init function for this info cannot be called.
+@end deffn
+
+
+@c @subheading Types and Values
+
+
+@c @indentedblock
+@c @table @code
+@c @ref{...}
+@c @end table
+@c @end indentedblock
+
+
+@c @anchor{}
+@c @defvar

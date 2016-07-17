@@ -62,3 +62,12 @@ Documentation License.''
 
 @set UGLIB https://developer.gnome.org/glib/stable/
 @set UGOBJECT https://developer.gnome.org/gobject/stable/
+
+@c GG -> Guile-Gnome
+@set UGG https://www.gnu.org/software/guile-gnome
+
+@c GGMGOU Guile-Gnome Manual GObject Utils
+@set UGGMGOU https://www.gnu.org/software/guile-gnome/docs/gobject/html/gnome-gobject-utils.html#gnome-gobject-utils
+
+@c GGMGOG Guile-Gnome Manual GObject Generics
+@set UGGMGOG https://www.gnu.org/software/guile-gnome/docs/gobject/html/gnome-gobject-generics.html#gnome-gobject-generics

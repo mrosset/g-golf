@@ -46,20 +46,78 @@ GIBaseInfo           	       		@*
 
 @indentedblock
 @table @code
+@item @ref{gbank-enum-import}
 @item @ref{gbank-ei-get-n-values}
+@item @ref{gbank-ei-get-value}
+@item @ref{gbank-ei-get-n-methods}
+@item @ref{gbank-ei-get-method}
+@item @ref{gbank-vi-get-value}
 @end table
 @end indentedblock
 
-Note: in this section, the @var{info} argument is [must be] a pointer to
-a @code{GIEumInfo}.
+Note: in this section, unless otherwise specified, the @var{info}
+argument is [must be] a pointer to a @code{GIEumInfo}.
+
+
+@anchor{gbank-enum-import}
+@deffn Procedure gbank-enum-import info
+
+Returns a @code{<genum>} instance.
+
+Obtain the values this enumeration contains and construct ...
+@end deffn
 
 
 @anchor{gbank-ei-get-n-values}
 @deffn Procedure gbank-ei-get-n-values info
 
-Returns the the number of enumeration values.
+Returns the number of values.
 
 Obtain the number of values this enumeration contains.
+@end deffn
+
+
+@anchor{gbank-ei-get-value}
+@deffn Procedure gbank-ei-get-value info index
+
+Returns a pointer to a @code{GIValueInfo} or #f if type tag is wrong.
+
+Obtain a value for this enumeration.  The @code{GIValueInfo} must be
+free'd using @code{gbank-bi-unref} when done.
+
+@var{index} is a 0-based offset into @var{info} for a value.
+@end deffn
+
+
+@anchor{gbank-ei-get-n-methods}
+@deffn Procedure gbank-ei-get-n-methods info
+
+Returns the number of methods.
+
+Obtain the number of methods this enumeration has.
+@end deffn
+
+
+@anchor{gbank-ei-get-method}
+@deffn Procedure gbank-ei-get-method info index
+
+Returns a pointer to a @code{GIFunctionInfo} or #f if type tag is wrong.
+
+Obtain a method for this enumeration.  The @code{GIFunctionInfo} must be
+free'd using @code{gbank-bi-unref} when done.
+
+@var{index} is a 0-based offset into @var{info} for a method.
+@end deffn
+
+
+@anchor{gbank-vi-get-value}
+@deffn Procedure gbank-vi-get-value info
+
+Returns the enumeration value.
+
+Obtain a value of the @code{GIValueInfo}.
+
+@var{info} is [must be] a pointer to a @code{GIValueInfo}.
 @end deffn
 
 

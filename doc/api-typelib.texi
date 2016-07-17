@@ -1,0 +1,140 @@
+@c -*-texinfo-*-
+@c This is part of the GNU Gbank Reference Manual.
+@c Copyright (C) 2016 Free Software Foundation, Inc.
+
+
+@copying
+This manual documents GNU Gbank version @value{VERSION}.
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License.''
+@end copying
+
+
+@defindex tl
+
+
+@node Typelib
+@subsection Typelib
+
+Gbank Typelib low level API.@*
+GITypelib — Layout and accessors for typelib.
+
+
+@subheading Description
+
+TODO.
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{gbank-typelib-new}
+@item @ref{call-with-input-typelib}
+@item @ref{gbank-tl-new-from-memory}
+@item @ref{gbank-tl-free}
+@item @ref{gbank-tl-get-namespace}
+@end table
+@end indentedblock
+
+Note: in this section, the @var{typelib} argument is [must be] a pointer
+to a @code{GITypelib}.
+
+
+@anchor{gbank-typelib-new}
+@deffn Procedure gbank-typelib-new file
+
+Returns a pointer to a new @code{GITypelib}.
+
+@var{file}  must be a valid typelib filename.
+
+This procedure actually sets things up and calls
+@ref{gbank-tl-new-from-memory}.
+@end deffn
+
+
+@anchor{call-with-input-typelib}
+@deffn Procedure call-with-input-typelib file proc
+
+Returns the value(s) returned by @var{proc}.
+
+@var{file} must be a valid typelib filename. Makes a new
+@code{GITypelib} by calling @code{(gbank-typelib-new file)} and calls
+@code{(proc typelib)} with the resulting @code{GITypelib}.
+
+When @var{proc} returns, the @code{GITypelib} is free'd by calling
+@code{gbank-tl-free}. Otherwise the [Glib - C] memory chunk might not be
+free'd automatically, though the scheme pointer returned by
+@code{gbank-typelib-new} will be garbage collected in the usual way if
+not otherwise referenced.
+@end deffn
+
+
+@anchor{gbank-tl-new-from-memory}
+@deffn Procedure gbank-tl-new-from-memory pointer size gerror
+
+Returns a pointer to a new @code{GITypelib}.
+
+@var{pointer} must be the address of a memory chunk containing the
+typelib, @var{size} is the number of bytes of the memory chunk
+containing the typelib, and @var{gerror} a pointer to a @code{GError}.
+
+Creates a new @code{GITypelib} from a memory location. The memory block
+pointed to by typelib will be automatically @code{g_free()}d when the
+repository is destroyed.
+@end deffn
+
+
+@anchor{gbank-tl-free}
+@deffn Procedure gbank-tl-free typelib
+
+Returns nothing.
+
+Free a GITypelib.
+@end deffn
+
+
+@anchor{gbank-tl-get-namespace}
+@deffn Procedure gbank-tl-get-namespace typelib
+
+Returns the namespace of @var{typelib}.
+@end deffn
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%gbank-ai-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@c @anchor{%gbank-ai-transfer}
+@c @defvar %gbank-ai-transfer
+
+@c An instance of @code{<enum>}, who's members are the scheme
+@c representation of the @code{GITransfer}:
+
+@c @indentedblock
+@c nothing		@*
+@c container	@*
+@c everything
+@c @end indentedblock
+@c @end defvar
