@@ -111,16 +111,30 @@
 					       (string->pointer namespace))
 		    'gchar*))
 
+#;(define* (gbank-ir-find-by-gtype gtype
+				 #:key (repository %null-pointer))
+  (let ((pointer (g-irepository-find-by-gtype repository
+					      gtype)))
+    (if (null-pointer? pointer)
+	#f
+	pointer)))
+
 (define* (gbank-ir-find-by-gtype gtype
 				 #:key (repository %null-pointer))
-  (g-irepository-find-by-gtype repository
-			       gtype))
+  (let ((pointer (g-irepository-find-by-gtype repository
+					      (string->pointer gtype))))
+    (if (null-pointer? pointer)
+	#f
+	pointer)))
 
 (define* (gbank-ir-find-by-name namespace name
 				#:key (repository %null-pointer))
-  (g-irepository-find-by-name repository
-			      (string->pointer namespace)
-			      (string->pointer name)))
+  (let ((pointer (g-irepository-find-by-name repository
+					     (string->pointer namespace)
+					     (string->pointer name))))
+    (if (null-pointer? pointer)
+	#f
+	pointer)))
 
 
 ;;;
@@ -187,14 +201,20 @@
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-find-by-name
+#;(define g-irepository-find-by-gtype
   (pointer->procedure '*
-                      (dynamic-func "g_irepository_find_by_name"
+                      (dynamic-func "g_irepository_find_by_gtype"
 				    %libgirepository)
-                      (list '* '* '*)))
+                      (list '* int)))
 
 (define g-irepository-find-by-gtype
   (pointer->procedure '*
                       (dynamic-func "g_irepository_find_by_gtype"
 				    %libgirepository)
-                      (list '* int)))
+                      (list '* '*)))
+
+(define g-irepository-find-by-name
+  (pointer->procedure '*
+                      (dynamic-func "g_irepository_find_by_name"
+				    %libgirepository)
+                      (list '* '* '*)))
