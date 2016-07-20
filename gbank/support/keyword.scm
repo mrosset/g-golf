@@ -22,30 +22,37 @@
 
 ;;; Commentary:
 
+;; this file is a copy of (grip keyword)
+;; http://www.nongnu.org/grip/
+
 ;;; Code:
 
 
-(eval-when (expand load eval)
-  (use-modules (oop goops))
-  (default-duplicate-binding-handler
-    '(merge-generics replace warn-override-core warn last)))
-
-
-(define-module (gbank support)
-  #:use-module (gbank support modules)
-  #:use-module (gbank support goops)
-  #:use-module (gbank support g-export)
-  #:use-module (gbank support utils)
-  #:use-module (gbank support enum)
+(define-module (gbank support keyword)
   #:use-module (gbank support push)
-  #:use-module (gbank support keyword))
+  
+  #:export (split-keyword-args))
 
 
-(eval-when (expand load eval)
-  (re-export-public-interface (oop goops)
-			      (gbank support goops)
-			      (gbank support g-export)
-			      (gbank support utils)
-			      (gbank support enum)
-			      (gbank support push)
-			      (gbank support keyword)))
+(define (split-keyword-args-1 args grab a b)
+  (if (null? args)
+      (values a b)
+      (if (memq (car args) grab)
+	  (split-keyword-args-1 (cddr args)
+				grab
+				a
+				(push*! (car args) (cadr args) b))
+	  (split-keyword-args-1 (cddr args)
+				grab
+				(push*! (car args) (cadr args) a)
+				b))))
+
+(define (split-keyword-args args grab-these)
+  (split-keyword-args-1 args grab-these (list) (list)))
+
+
+#!
+
+;; missing good example/mini tests
+
+!#
