@@ -30,22 +30,30 @@ pkgconfigdir=$(libdir)/pkgconfig
 pkgconfig_DATA=meta/gbank-1.0.pc
 
 SOURCES = \
-	gbank/support/modules.scm	\
-	gbank/support/goops.scm		\
-	gbank/support/g-export.scm	\
-	gbank/support/utils.scm		\
-	gbank/support/enum.scm		\
-	gbank/support.scm		\
-	gbank/gi/init.scm		\
-	gbank/gi/glib.scm		\
-	gbank/gi/utils.scm		\
-	gbank/gi/types.scm		\
-	gbank/gi/repository.scm		\
-	gbank/gi/base-info.scm		\
-	gbank/gi/callable-info.scm	\
-	gbank/gi/enum-info.scm		\
-	gbank/gi/arg-info.scm		\
-	gbank/gi/type-info.scm		\
+	gbank/support/modules.scm		\
+	gbank/support/goops.scm			\
+	gbank/support/g-export.scm		\
+	gbank/support/utils.scm			\
+	gbank/support/enum.scm			\
+	gbank/support/push.scm			\
+	gbank/support/keyword.scm		\
+	gbank/support.scm			\
+	gbank/gi/init.scm			\
+	gbank/gi/glib/mem-alloc.scm		\
+	gbank/gi/glib.scm			\
+	gbank/gi/gobject/type-info.scm		\
+	gbank/gi/gobject/enum-flags.scm		\
+	gbank/gi/gobject.scm			\
+	gbank/gi/utils.scm			\
+	gbank/gi/types.scm			\
+	gbank/gi/repository.scm			\
+	gbank/gi/base-info.scm			\
+	gbank/gi/callable-info.scm		\
+	gbank/gi/registered-type-info.scm	\
+	gbank/gi/enum-info.scm			\
+	gbank/gi/arg-info.scm			\
+	gbank/gi/type-info.scm			\
+	gbank/gi/typelib.scm			\
 	gbank/gi.scm
 
 # NOCOMP_SOURCES= \
