@@ -18,8 +18,10 @@ Documentation License.''
 
 #+TITLE: GNU Gbank TODO file
 
-* TODO
+* TODO [50%]
 
+- [ ] gbank-ir-find-by-* should return #f if no gtype is found
+- [ ] gbank-* procs to return #f, not %null-pointer when they fail
 - [X] verify gbank-ci-get-caller-owns returned value
 
   The manual says it returns TRUE if the caller owns the return value,
