@@ -24,58 +24,31 @@
 
 ;;; Code:
 
+(eval-when (expand load eval)
+  (use-modules (oop goops))
+  (default-duplicate-binding-handler
+    '(merge-generics replace warn-override-core warn last)))
 
 (define-module (gbank gi glib)
+  #:use-module (ice-9 binary-ports)
+  #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
+  #:use-module (gbank support modules)
+  #:use-module (gbank support goops)
+  #:use-module (gbank support g-export)
+  #:use-module (gbank support utils)
+  #:use-module (gbank support enum)
   #:use-module (gbank gi init)
+  #:use-module (gbank gi glib mem-alloc))
 
-  #:export (gbank-gl-malloc
-	    gbank-gl-malloc0
-	    gbank-gl-free
-	    gbank-gl-memdup))
-
-
-;;;
-;;; Glib Low level API
-;;;
-
-(define (gbank-gl-malloc n)
-  (g-malloc n))
-
-(define (gbank-gl-malloc0 n)
-  (g-malloc0 n))
-
-(define (gbank-gl-free pointer)
-  (g-free pointer))
-
-(define (gbank-gl-memdup pointer n)
-  (g-memdup pointer n))
-
-
-;;;
-;;; Glib Bindings
-;;;
-
-(define g-malloc
-  (pointer->procedure '*
-                      (dynamic-func "g_malloc"
-				    %libglib)
-                      (list int)))
-
-(define g-malloc0
-  (pointer->procedure '*
-                      (dynamic-func "g_malloc0"
-				    %libglib)
-                      (list int)))
-
-(define g-free
-  (pointer->procedure void
-                      (dynamic-func "g_free"
-				    %libglib)
-                      (list '*)))
-
-(define g-memdup
-  (pointer->procedure '*
-                      (dynamic-func "g_memdup"
-				    %libglib)
-                      (list '* int)))
+(eval-when (expand load eval)
+  (re-export-public-interface (oop goops)
+			      (ice-9 binary-ports)
+			      (rnrs bytevectors)
+			      (system foreign)
+			      (gbank support goops)
+			      (gbank support g-export)
+			      (gbank support utils)
+			      (gbank support enum)
+			      (gbank gi init)
+			      (gbank gi glib mem-alloc)))
