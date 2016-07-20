@@ -27,7 +27,8 @@
 
 (define-module (gbank gi types)
   #:use-module (oop goops)  
-  #:use-module (gbank support enum)
+  ;; #:use-module (gbank support enum)
+  #:use-module (gbank gi gobject enum-flags)
 
   #:export (%gbank-bi-info-type
 	    %gbank-ai-direction
@@ -42,27 +43,29 @@
 ;;;
 
 (define %gbank-bi-info-type
-  (make <enum>
-    #:set '(invalid
-	    function
-	    callback
-	    struct
-	    boxed
-	    enum
-	    flags
-	    object
-	    interface
-	    constant
-	    error-domain ;; invalid_0 - deleted
-	    union
-	    value
-	    signal
-	    vfunc
-	    property
-	    field
-	    arg
-	    type
-	    unresolved)))
+  (make <genum>
+    #:type-name "GIInfoType"
+    #:scm-name "gi-info-type"
+    #:value-set '(invalid
+		  function
+		  callback
+		  struct
+		  boxed
+		  enum
+		  flags
+		  object
+		  interface
+		  constant
+		  error-domain ;; invalid_0 - deleted
+		  union
+		  value
+		  signal
+		  vfunc
+		  property
+		  field
+		  arg
+		  type
+		  unresolved)))
 
 
 ;;;
@@ -70,23 +73,29 @@
 ;;;
 
 (define %gbank-ai-direction
-  (make <enum>
-    #:set '(in
-	    out
-	    inout)))
+  (make <genum>
+    #:type-name "GIDirection"
+    #:scm-name "gi-direction"
+    #:value-set '(in
+		  out
+		  inout)))
 
 (define %gbank-ai-scope
-  (make <enum>
-    #:set '(invalid
-	    call
-	    async
-	    notified)))
+  (make <genum>
+    #:type-name "GIScopeType"
+    #:scm-name "gi-scope-type"
+    #:value-set '(invalid
+		  call
+		  async
+		  notified)))
 
 (define %gbank-ai-transfer
-  (make <enum>
-    #:set '(nothing
-	    container
-	    everything)))
+  (make <genum>
+    #:type-name "GITransfer"
+    #:scm-name "gi-transfer"
+    #:value-set '(nothing
+		  container
+		  everything)))
 
 
 ;;;
@@ -94,33 +103,37 @@
 ;;;
 
 (define %gbank-ct-type-tag
-  (make <enum>
-    #:set '(void
-	    boolean
-	    int8
-	    uint8
-	    int16
-	    uint16
-	    int32
-	    uint32
-	    int64
-	    uint64
-	    float
-	    double
-	    gtype
-	    utf8
-	    filename
-	    array
-	    interface
-	    glist
-	    gslist
-	    ghash
-	    error
-	    unichar)))
+  (make <genum>
+    #:type-name "GITypeTag"
+    #:scm-name "gi-type-tag"
+    #:value-set '(void
+		  boolean
+		  int8
+		  uint8
+		  int16
+		  uint16
+		  int32
+		  uint32
+		  int64
+		  uint64
+		  float
+		  double
+		  gtype
+		  utf8
+		  filename
+		  array
+		  interface
+		  glist
+		  gslist
+		  ghash
+		  error
+		  unichar)))
 
 (define %gbank-ct-array-type
-  (make <enum>
-    #:set '(c
-	    array
-	    ptr-array
-	    byte-array)))
+  (make <genum>
+    #:type-name "GIArrayType"
+    #:scm-name "gi-array-type"
+    #:value-set '(c
+		  array
+		  ptr-array
+		  byte-array)))
