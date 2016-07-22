@@ -26,39 +26,39 @@
 ;;; Code:
 
 
-(define-module (gbank gi callable-info)
+(define-module (golf gi callable-info)
   #:use-module (system foreign)
-  #:use-module (gbank support enum)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi utils)
-  #:use-module (gbank gi types)
+  #:use-module (golf support enum)
+  #:use-module (golf gi init)
+  #:use-module (golf gi utils)
+  #:use-module (golf gi types)
 
-  #:export (gbank-ci-get-n-args
-	    gbank-ci-get-arg
-	    gbank-ci-get-caller-owns
-	    gbank-ci-get-return-type
-	    gbank-ci-may-return-null))
+  #:export (golf-ci-get-n-args
+	    golf-ci-get-arg
+	    golf-ci-get-caller-owns
+	    golf-ci-get-return-type
+	    golf-ci-may-return-null))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (gbank-ci-get-n-args info)
+(define (golf-ci-get-n-args info)
   (g-callable-info-get-n-args info))
 
-(define (gbank-ci-get-arg info n)
+(define (golf-ci-get-arg info n)
   (g-callable-info-get-arg info n))
 
-(define (gbank-ci-get-caller-owns info)
-  (e-sym %gbank-ai-transfer
+(define (golf-ci-get-caller-owns info)
+  (e-sym %golf-ai-transfer
 	 (g-callable-info-get-caller-owns info)))
 
-(define (gbank-ci-get-return-type info)
+(define (golf-ci-get-return-type info)
   (g-callable-info-get-return-type info))
 
-(define (gbank-ci-may-return-null info)
-  (gbank-gtype->scm (g-callable-info-may-return-null info)
+(define (golf-ci-may-return-null info)
+  (golf-gtype->scm (g-callable-info-may-return-null info)
 		    'gboolean))
 
 

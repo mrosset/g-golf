@@ -26,56 +26,56 @@
 ;;; Code:
 
 
-(define-module (gbank gi arg-info)
+(define-module (golf gi arg-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (gbank support enum)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi utils)
-  #:use-module (gbank gi types)
+  #:use-module (golf support enum)
+  #:use-module (golf gi init)
+  #:use-module (golf gi utils)
+  #:use-module (golf gi types)
 
-  #:export (gbank-ai-get-closure
-	    gbank-ai-get-destroy
-	    gbank-ai-get-direction
-	    gbank-ai-get-ownership-transfer
-	    gbank-ai-get-scope
-	    gbank-ai-get-type
-	    gbank-ai-may-be-null
-	    gbank-ai-is-optional
-	    gbank-ai-is-return-value))
+  #:export (golf-ai-get-closure
+	    golf-ai-get-destroy
+	    golf-ai-get-direction
+	    golf-ai-get-ownership-transfer
+	    golf-ai-get-scope
+	    golf-ai-get-type
+	    golf-ai-may-be-null
+	    golf-ai-is-optional
+	    golf-ai-is-return-value))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (gbank-ai-get-closure info)
+(define (golf-ai-get-closure info)
   (g-arg-info-get-closure info))
 
-(define (gbank-ai-get-destroy info)
+(define (golf-ai-get-destroy info)
   (g-arg-info-get-destroy info))
 
-(define (gbank-ai-get-direction info)
-  (e-sym %gbank-ai-direction
+(define (golf-ai-get-direction info)
+  (e-sym %golf-ai-direction
 	 (g-arg-info-get-direction info)))
 
-(define (gbank-ai-get-ownership-transfer info)
-  (e-sym %gbank-ai-transfer
+(define (golf-ai-get-ownership-transfer info)
+  (e-sym %golf-ai-transfer
 	 (g-arg-info-get-ownership-transfer info)))
 
-(define (gbank-ai-get-scope info)
-  (e-sym %gbank-ai-scope
+(define (golf-ai-get-scope info)
+  (e-sym %golf-ai-scope
 	 (g-arg-info-get-scope info)))
 
-(define (gbank-ai-get-type info)
+(define (golf-ai-get-type info)
   (g-arg-info-get-type info))
 
-(define (gbank-ai-may-be-null info)
-  (gbank-gtype->scm (g-arg-info-may-be-null info)
+(define (golf-ai-may-be-null info)
+  (golf-gtype->scm (g-arg-info-may-be-null info)
 		    'gboolean))
 
-(define (gbank-ai-is-return-value info)
-  (gbank-gtype->scm (g-arg-info-is-return-value info)
+(define (golf-ai-is-return-value info)
+  (golf-gtype->scm (g-arg-info-is-return-value info)
 		    'gboolean))
 
 

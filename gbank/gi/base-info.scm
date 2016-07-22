@@ -26,79 +26,79 @@
 ;;; Code:
 
 
-(define-module (gbank gi base-info)
+(define-module (golf gi base-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (gbank support enum)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi utils)
-  #:use-module (gbank gi types)
+  #:use-module (golf support enum)
+  #:use-module (golf gi init)
+  #:use-module (golf gi utils)
+  #:use-module (golf gi types)
 
-  #:export (gbank-bi-ref
-	    gbank-bi-unref
-	    gbank-bi-equal
-	    gbank-bi-get-type
-	    gbank-bi-get-typelib
-	    gbank-bi-get-namespace
-	    gbank-bi-get-name
-	    gbank-bi-get-attribute
-	    gbank-bi-iterate-attributes
-	    gbank-bi-get-container
-	    gbank-bi-is-deprecated))
+  #:export (golf-bi-ref
+	    golf-bi-unref
+	    golf-bi-equal
+	    golf-bi-get-type
+	    golf-bi-get-typelib
+	    golf-bi-get-namespace
+	    golf-bi-get-name
+	    golf-bi-get-attribute
+	    golf-bi-iterate-attributes
+	    golf-bi-get-container
+	    golf-bi-is-deprecated))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (gbank-bi-ref info)
+(define (golf-bi-ref info)
   (g-base-info-ref info))
 
-(define (gbank-bi-unref info)
+(define (golf-bi-unref info)
   (g-base-info-unref info))
 
-(define (gbank-bi-equal info1 info2)
-  (gbank-gtype->scm (g-base-info-equal info1 info2)
+(define (golf-bi-equal info1 info2)
+  (golf-gtype->scm (g-base-info-equal info1 info2)
 		    'gboolean))
   
-(define (gbank-bi-get-type info)
-  (e-sym %gbank-bi-info-type
+(define (golf-bi-get-type info)
+  (e-sym %golf-bi-info-type
 	 (g-base-info-get-type info)))
 
-(define (gbank-bi-get-typelib info)
+(define (golf-bi-get-typelib info)
   (g-base-info-get-typelib info))
 
-(define (gbank-bi-get-namespace info)
-  (gbank-gtype->scm (g-base-info-get-namespace info)
+(define (golf-bi-get-namespace info)
+  (golf-gtype->scm (g-base-info-get-namespace info)
 		    'gchar*))
 
-(define (gbank-bi-get-name info)
+(define (golf-bi-get-name info)
   (let ((pointer (g-base-info-get-name info)))
     (if (null-pointer? pointer)
 	#f
-	(gbank-gtype->scm pointer 'gchar*))))
+	(golf-gtype->scm pointer 'gchar*))))
 
-(define (gbank-bi-get-attribute info name)
+(define (golf-bi-get-attribute info name)
   (let ((pointer (g-base-info-get-attribute info
 					    (string->pointer name))))
     (if (null-pointer? pointer)
 	#f
-	(gbank-gtype->scm pointer 'gchar*))))
+	(golf-gtype->scm pointer 'gchar*))))
 
-(define (gbank-bi-iterate-attributes info proc)
-  (let ((iter (gbank-attribute-iter-new))
-	(name (gbank-pointer-new))
-	(value (gbank-pointer-new)))
+(define (golf-bi-iterate-attributes info proc)
+  (let ((iter (golf-attribute-iter-new))
+	(name (golf-pointer-new))
+	(value (golf-pointer-new)))
     (while (> (g-base-info-iterate-attributes info iter name value)
 	      0)
       (proc name value))
     (values)))
 
-(define (gbank-bi-get-container info)
+(define (golf-bi-get-container info)
   (g-base-info-get-container info))
 
-(define (gbank-bi-is-deprecated info)
-  (gbank-gtype->scm (g-base-info-is-deprecated info)
+(define (golf-bi-is-deprecated info)
+  (golf-gtype->scm (g-base-info-is-deprecated info)
 		    'gboolean))
 
 

@@ -29,7 +29,7 @@
 ;;; Code:
 
 
-(define-module (gbank support g-export)
+(define-module (golf support g-export)
   #:use-module (oop goops)
 
   #:export (module-g-export!

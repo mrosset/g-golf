@@ -26,64 +26,64 @@
 ;;; Code:
 
 
-(define-module (gbank gi type-info)
+(define-module (golf gi type-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (gbank support enum)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi utils)
-  #:use-module (gbank gi types)
+  #:use-module (golf support enum)
+  #:use-module (golf gi init)
+  #:use-module (golf gi utils)
+  #:use-module (golf gi types)
 
-  #:export (gbank-ti-type-tag-to-string
-	    gbank-ti-info-type-to-string
-	    gbank-ti-is-pointer
-	    gbank-ti-get-tag
-	    gbank-ti-get-param-type
-	    gbank-ti-get-interface
-	    gbank-ti-get-array-length
-	    gbank-ti-get-array-fixed-size
-	    gbank-ti-is-zero-terminated
-	    gbank-ti-get-array-type))
+  #:export (golf-ti-type-tag-to-string
+	    golf-ti-info-type-to-string
+	    golf-ti-is-pointer
+	    golf-ti-get-tag
+	    golf-ti-get-param-type
+	    golf-ti-get-interface
+	    golf-ti-get-array-length
+	    golf-ti-get-array-fixed-size
+	    golf-ti-is-zero-terminated
+	    golf-ti-get-array-type))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (gbank-ti-type-tag-to-string type-tag)
-  (gbank-gtype->scm (g-type-tag-to-string type-tag)
+(define (golf-ti-type-tag-to-string type-tag)
+  (golf-gtype->scm (g-type-tag-to-string type-tag)
 		    'gchar*))
 
-(define (gbank-ti-info-type-to-string info-type)
-  (gbank-gtype->scm (g-info-type-to-string info-type)
+(define (golf-ti-info-type-to-string info-type)
+  (golf-gtype->scm (g-info-type-to-string info-type)
 		    'gchar*))
 
-(define (gbank-ti-is-pointer info-type)
-  (gbank-gtype->scm (g-type-info-is-pointer info-type)
+(define (golf-ti-is-pointer info-type)
+  (golf-gtype->scm (g-type-info-is-pointer info-type)
 		    'gboolean))
 
-(define (gbank-ti-get-tag info-type)
-  (e-sym %gbank-ct-type-tag
+(define (golf-ti-get-tag info-type)
+  (e-sym %golf-ct-type-tag
 	 (g-type-info-get-tag info-type)))
 
-(define (gbank-ti-get-param-type info-type n)
+(define (golf-ti-get-param-type info-type n)
   (g-type-info-get-param-type info-type n))
 
-(define (gbank-ti-get-interface info-type)
+(define (golf-ti-get-interface info-type)
   (g-type-info-get-interface info-type))
 
-(define (gbank-ti-get-array-length info-type)
+(define (golf-ti-get-array-length info-type)
   (g-type-info-get-array-length info-type))
 
-(define (gbank-ti-get-array-fixed-size info-type)
+(define (golf-ti-get-array-fixed-size info-type)
   (g-type-info-get-array-fixed-size info-type))
 
-(define (gbank-ti-is-zero-terminated info-type)
-  (gbank-gtype->scm (g-type-info-is-zero-terminated info-type)
+(define (golf-ti-is-zero-terminated info-type)
+  (golf-gtype->scm (g-type-info-is-zero-terminated info-type)
 		    'gboolean))
 
-(define (gbank-ti-get-array-type info-type)
-  (e-sym %gbank-ct-array-type
+(define (golf-ti-get-array-type info-type)
+  (e-sym %golf-ct-array-type
 	 (g-type-info-get-array-type info-type)))
 
 

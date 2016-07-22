@@ -26,24 +26,24 @@
 ;;; Code:
 
 
-(define-module (gbank gi types)
+(define-module (golf gi types)
   #:use-module (oop goops)  
-  ;; #:use-module (gbank support enum)
-  #:use-module (gbank gi gobject enum-flags)
+  ;; #:use-module (golf support enum)
+  #:use-module (golf gi gobject enum-flags)
 
-  #:export (%gbank-bi-info-type
-	    %gbank-ai-direction
-	    %gbank-ai-scope
-	    %gbank-ai-transfer
-	    %gbank-ct-type-tag
-	    %gbank-ct-array-type))
+  #:export (%golf-bi-info-type
+	    %golf-ai-direction
+	    %golf-ai-scope
+	    %golf-ai-transfer
+	    %golf-ct-type-tag
+	    %golf-ct-array-type))
 
 
 ;;;
 ;;; Base Info
 ;;;
 
-(define %gbank-bi-info-type
+(define %golf-bi-info-type
   (make <genum>
     #:type-name "GIInfoType"
     #:scm-name "gi-info-type"
@@ -73,7 +73,7 @@
 ;;; Arg Info
 ;;;
 
-(define %gbank-ai-direction
+(define %golf-ai-direction
   (make <genum>
     #:type-name "GIDirection"
     #:scm-name "gi-direction"
@@ -81,7 +81,7 @@
 		  out
 		  inout)))
 
-(define %gbank-ai-scope
+(define %golf-ai-scope
   (make <genum>
     #:type-name "GIScopeType"
     #:scm-name "gi-scope-type"
@@ -90,7 +90,7 @@
 		  async
 		  notified)))
 
-(define %gbank-ai-transfer
+(define %golf-ai-transfer
   (make <genum>
     #:type-name "GITransfer"
     #:scm-name "gi-transfer"
@@ -103,7 +103,7 @@
 ;;; Common Types
 ;;;
 
-(define %gbank-ct-type-tag
+(define %golf-ct-type-tag
   (make <genum>
     #:type-name "GITypeTag"
     #:scm-name "gi-type-tag"
@@ -130,7 +130,7 @@
 		  error
 		  unichar)))
 
-(define %gbank-ct-array-type
+(define %golf-ct-array-type
   (make <genum>
     #:type-name "GIArrayType"
     #:scm-name "gi-array-type"

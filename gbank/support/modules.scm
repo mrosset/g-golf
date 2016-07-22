@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (gbank support modules)
+(define-module (golf support modules)
   #:export (re-export-public-interface))
 
 

@@ -29,7 +29,7 @@
 ;;; Code:
 
 
-(define-module (gbank support utils)
+(define-module (golf support utils)
   #:export (storage-get
 	    storage-set
 	    displayln

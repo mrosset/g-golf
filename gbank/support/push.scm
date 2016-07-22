@@ -29,7 +29,7 @@
 ;;; Code:
 
 
-(define-module (gbank support push)
+(define-module (golf support push)
   #:use-module (srfi srfi-1)
 
   #:export (push

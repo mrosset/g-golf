@@ -26,62 +26,62 @@
 ;;; Code:
 
 
-(define-module (gbank gi repository)
+(define-module (golf gi repository)
   #:use-module (system foreign)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi utils)
+  #:use-module (golf gi init)
+  #:use-module (golf gi utils)
 
-  #:export (gbank-ir-get-default
-	    gbank-ir-get-dependencies
-	    gbank-ir-get-loaded-namespaces
-	    gbank-ir-get-n-infos
-	    gbank-ir-get-info
-	    gbank-ir-get-typelib-path
-	    gbank-ir-require
-	    gbank-ir-get-c-prefix
-	    gbank-ir-get-shared-library
-	    gbank-ir-get-version
-	    gbank-ir-find-by-gtype
-	    gbank-ir-find-by-name))
+  #:export (golf-ir-get-default
+	    golf-ir-get-dependencies
+	    golf-ir-get-loaded-namespaces
+	    golf-ir-get-n-infos
+	    golf-ir-get-info
+	    golf-ir-get-typelib-path
+	    golf-ir-require
+	    golf-ir-get-c-prefix
+	    golf-ir-get-shared-library
+	    golf-ir-get-version
+	    golf-ir-find-by-gtype
+	    golf-ir-find-by-name))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (gbank-ir-get-default)
+(define (golf-ir-get-default)
   (g-irepository-get-default))
   
-(define* (gbank-ir-get-dependencies namespace
+(define* (golf-ir-get-dependencies namespace
 				    #:key (repository %null-pointer))
-  (gbank-gtype->scm (g-irepository-get-dependencies repository
+  (golf-gtype->scm (g-irepository-get-dependencies repository
 						    (string->pointer namespace))
 		    'gchar**))
 
-(define* (gbank-ir-get-loaded-namespaces #:key (repository %null-pointer))
-  (gbank-gtype->scm (g-irepository-get-loaded-namespaces repository)
+(define* (golf-ir-get-loaded-namespaces #:key (repository %null-pointer))
+  (golf-gtype->scm (g-irepository-get-loaded-namespaces repository)
 		    'gchar**))
 
-(define* (gbank-ir-get-n-infos namespace
+(define* (golf-ir-get-n-infos namespace
 			       #:key (repository %null-pointer))
   (g-irepository-get-n-infos repository
 			     (string->pointer namespace)))
 
-(define* (gbank-ir-get-info namespace index
+(define* (golf-ir-get-info namespace index
 			    #:key (repository %null-pointer))
   (g-irepository-get-info repository
 			  (string->pointer namespace)
 			  index))
 
-(define* (gbank-ir-get-typelib-path namespace
+(define* (golf-ir-get-typelib-path namespace
 				    #:key (repository %null-pointer))
   (let ((pointer (g-irepository-get-typelib-path repository
 						 (string->pointer namespace))))
     (if (null-pointer? pointer)
 	#f
-	(gbank-gtype->scm pointer 'gchar*))))
+	(golf-gtype->scm pointer 'gchar*))))
 
-(define* (gbank-ir-require namespace
+(define* (golf-ir-require namespace
 			   #:key (version #f) (repository %null-pointer))
   (with-gerror g-error
 	       (g-irepository-require repository
@@ -92,27 +92,27 @@
 				      0
 				      g-error)))
 
-(define* (gbank-ir-get-c-prefix namespace
+(define* (golf-ir-get-c-prefix namespace
 				#:key (repository %null-pointer))
-  (gbank-gtype->scm (g-irepository-get-c-prefix repository
+  (golf-gtype->scm (g-irepository-get-c-prefix repository
 						(string->pointer namespace))
 		    'gchar*))
 
-(define* (gbank-ir-get-shared-library namespace
+(define* (golf-ir-get-shared-library namespace
 				      #:key (repository %null-pointer))
   (let ((pointer (g-irepository-get-shared-library repository
 						   (string->pointer namespace))))
     (if (null-pointer? pointer)
 	'()
-	(gbank-gtype->scm pointer 'gchar*,))))
+	(golf-gtype->scm pointer 'gchar*,))))
 
-(define* (gbank-ir-get-version namespace
+(define* (golf-ir-get-version namespace
 			       #:key (repository %null-pointer))
-  (gbank-gtype->scm (g-irepository-get-version repository
+  (golf-gtype->scm (g-irepository-get-version repository
 					       (string->pointer namespace))
 		    'gchar*))
 
-#;(define* (gbank-ir-find-by-gtype gtype
+#;(define* (golf-ir-find-by-gtype gtype
 				 #:key (repository %null-pointer))
   (let ((pointer (g-irepository-find-by-gtype repository
 					      gtype)))
@@ -120,7 +120,7 @@
 	#f
 	pointer)))
 
-(define* (gbank-ir-find-by-gtype gtype
+(define* (golf-ir-find-by-gtype gtype
 				 #:key (repository %null-pointer))
   (let ((pointer (g-irepository-find-by-gtype repository
 					      (string->pointer gtype))))
@@ -128,7 +128,7 @@
 	#f
 	pointer)))
 
-(define* (gbank-ir-find-by-name namespace name
+(define* (golf-ir-find-by-name namespace name
 				#:key (repository %null-pointer))
   (let ((pointer (g-irepository-find-by-name repository
 					     (string->pointer namespace)

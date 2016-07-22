@@ -26,13 +26,13 @@
 ;;; Code:
 
 
-(define-module (gbank gi gobject enum-flags)
+(define-module (golf gi gobject enum-flags)
   #:use-module (ice-9 optargs)
   #:use-module (oop goops)
-  #:use-module (gbank support goops)
-  #:use-module (gbank support g-export)
-  #:use-module (gbank support utils)
-  #:use-module (gbank support enum)
+  #:use-module (golf support goops)
+  #:use-module (golf support g-export)
+  #:use-module (golf support utils)
+  #:use-module (golf support enum)
 
   #:export (<genum>))
 

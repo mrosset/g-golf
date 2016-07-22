@@ -26,38 +26,38 @@
 ;;; Code:
 
 
-(define-module (gbank gi utils)
+(define-module (golf gi utils)
   #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
-  #:use-module (gbank gi glib)
+  #:use-module (golf gi glib)
 
   #:export (%gpointer-size
-	    gbank-pointer-new
-	    gbank-pointer-inc
+	    golf-pointer-new
+	    golf-pointer-inc
 	    with-gerror
-	    gbank-gtype->scm
-	    gbank-attribute-iter-new
-	    gbank-gstudly-caps-exand
-	    %gbank-gtype-name->scm-name-exceptions
-	    gbank-gtype-name->scm-name
-	    gbank-gtype-name->class-name
+	    golf-gtype->scm
+	    golf-attribute-iter-new
+	    golf-gstudly-caps-exand
+	    %golf-gtype-name->scm-name-exceptions
+	    golf-gtype-name->scm-name
+	    golf-gtype-name->class-name
 	    gtype-class-name->method-name))
 
 
 (define %gpointer-size 8)
   
-(define (gbank-pointer-new)
+(define (golf-pointer-new)
   ;; (bytevector->pointer (make-bytevector %gpointer-size 0))
   ;; The above would work iif none of Glib, Gobject and GI would ever call
   ;; any of there respective *_free functions upon pointers returned by
   ;; this procedure [it segfaults - C can't free Guile's mem]. This
   ;; statement is _not_ guaranteed, hence we have to allocate using the
   ;; glib API.
-  (gbank-gl-malloc0 %gpointer-size))
+  (golf-gl-malloc0 %gpointer-size))
 
-(define* (gbank-pointer-inc pointer
+(define* (golf-pointer-inc pointer
 			    #:optional
 			    (offset %gpointer-size))
   (make-pointer (+ (pointer-address pointer)
@@ -66,20 +66,20 @@
 (define-syntax with-gerror
   (syntax-rules ()
     ((with-gerror ?var ?body)
-     (let* ((?var (gbank-pointer-new))
+     (let* ((?var (golf-pointer-new))
 	    (result ?body)
 	    (d-pointer (dereference-pointer ?var)))
        (if (null-pointer? d-pointer)
 	   (begin
-	     (gbank-gl-free ?var)
+	     (golf-gl-free ?var)
 	     result)
 	   (match (parse-c-struct d-pointer
 				  (list uint32 int8 '*))
 	     ((domain code message)
-	      (gbank-gl-free ?var)
+	      (golf-gl-free ?var)
 	      (error (pointer->string message)))))))))
 
-(define (gbank-gtype->scm gvalue gtype)
+(define (golf-gtype->scm gvalue gtype)
   (case gtype
     ((gchar**) (gchar**->scm gvalue))
     ((gchar*,) (gchar*,->scm gvalue))
@@ -88,7 +88,7 @@
     (else
      (error "no such gtype: " gtype))))
 
-(define (gbank-attribute-iter-new)
+(define (golf-attribute-iter-new)
   (make-c-struct (list '* '* '* '*)
 		 (list %null-pointer
 		       %null-pointer
@@ -97,7 +97,7 @@
 
 
 ;;;
-;;; gbank-gtype->scm procedures
+;;; golf-gtype->scm procedures
 ;;;
 
 (define (gchar**->scm pointer)
@@ -106,7 +106,7 @@
 	(dereference-pointer pointer)
     (if (null-pointer? d-pointer)
 	(reverse! result)
-	(gchar**->scm-1 (gbank-pointer-inc pointer)
+	(gchar**->scm-1 (golf-pointer-inc pointer)
 			(cons (pointer->string d-pointer)
 			      result)))))
   (gchar**->scm-1 pointer '()))
@@ -125,7 +125,7 @@
 
 ;; Based on Guile-Gnome (gobject gw utils)
 
-(define (gbank-gstudly-caps-exand nstr)
+(define (golf-gstudly-caps-exand nstr)
   ;; GStudlyCapsExpand
   (do ((idx (- (string-length nstr) 1)
 	    (- idx 1)))
@@ -158,15 +158,15 @@
                                 (substring nstr idx
                                            (string-length nstr))))))))
 
-;; Default name transformations can be overridden, but gbank won't define
+;; Default name transformations can be overridden, but golf won't define
 ;; exceptions for now, let's see.
-(define %gbank-gtype-name->scm-name-exceptions
+(define %golf-gtype-name->scm-name-exceptions
   '(;; (GEnum . genum)
     ))
 
-(define (gbank-gtype-name->scm-name type-name)
-  (or (assoc-ref %gbank-gtype-name->scm-name-exceptions type-name)
-      (string-trim-right (gbank-gstudly-caps-exand
+(define (golf-gtype-name->scm-name type-name)
+  (or (assoc-ref %golf-gtype-name->scm-name-exceptions type-name)
+      (string-trim-right (golf-gstudly-caps-exand
 			  ;; only change _ to -
 			  ;; other chars are not valid in a type name
 			  (string-map (lambda (c) (if (eq? c #\_) #\- c))
@@ -175,9 +175,9 @@
 
 ;; "GtkAccelGroup" => <gtk-accel-group>
 ;; "GSource*" => <g-source*>
-(define (gbank-gtype-name->class-name type-name)
+(define (golf-gtype-name->class-name type-name)
   (string->symbol (string-append "<"
-				 (gbank-gstudly-caps-exand type-name)
+				 (golf-gstudly-caps-exand type-name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well

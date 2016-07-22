@@ -27,21 +27,21 @@
 ;; an essential procedure for FFI users, which to get the symbol from an
 ;; integer, since all C functions return enum as int.
 
-;; Then gbank will, in the end, extensively use goops, so I decided to
+;; Then golf will, in the end, extensively use goops, so I decided to
 ;; start here.
 
 ;;; Code:
 
 
-(define-module (gbank support enum)
+(define-module (golf support enum)
   #:use-module (ice-9 receive)
   #:use-module (ice-9 optargs)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
-  #:use-module (gbank support goops)
-  #:use-module (gbank support g-export)
-  #:use-module (gbank support utils)
-  #:use-module (gbank support keyword)
+  #:use-module (golf support goops)
+  #:use-module (golf support g-export)
+  #:use-module (golf support utils)
+  #:use-module (golf support keyword)
   
   #:export (<enum>))
 

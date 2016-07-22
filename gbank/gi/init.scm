@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (gbank gi init)
+(define-module (golf gi init)
   #:use-module (system foreign)
 
   #:export (%libgirepository

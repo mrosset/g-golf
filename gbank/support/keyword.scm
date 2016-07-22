@@ -29,8 +29,8 @@
 ;;; Code:
 
 
-(define-module (gbank support keyword)
-  #:use-module (gbank support push)
+(define-module (golf support keyword)
+  #:use-module (golf support push)
   
   #:export (split-keyword-args))
 

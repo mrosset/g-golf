@@ -29,10 +29,10 @@
 ;;; Code:
 
 
-(define-module (gbank support goops)
+(define-module (golf support goops)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
-  #:use-module (gbank support modules)
+  #:use-module (golf support modules)
 
   #:export (class-direct-virtual-slots
 	    class-virtual-slots

@@ -26,57 +26,57 @@
 ;;; Code:
 
 
-(define-module (gbank gi typelib)
+(define-module (golf gi typelib)
   #:use-module (ice-9 binary-ports)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi glib)
-  #:use-module (gbank gi utils)
+  #:use-module (golf gi init)
+  #:use-module (golf gi glib)
+  #:use-module (golf gi utils)
 
-  #:export (gbank-typelib-new
+  #:export (golf-typelib-new
 	    call-with-input-typelib
-	    gbank-tl-new-from-memory
-	    gbank-tl-free
-	    ;; gbank-tl-symbol
-	    gbank-tl-get-name-space))
+	    golf-tl-new-from-memory
+	    golf-tl-free
+	    ;; golf-tl-symbol
+	    golf-tl-get-name-space))
 
 
 ;;;
 ;;; Utils [None GI Low Level API]
 ;;;
 
-(define (gbank-typelib-new filename)
+(define (golf-typelib-new filename)
   (let* ((bv (call-with-input-file filename get-bytevector-all #:binary #t))
 	 (bv-pointer (bytevector->pointer bv))
 	 (bv-length (bytevector-length bv))
-	 (g-bv (gbank-gl-memdup bv-pointer bv-length)))
+	 (g-bv (golf-gl-memdup bv-pointer bv-length)))
     (with-gerror gerror
-		 (gbank-tl-new-from-memory g-bv bv-length gerror))))
+		 (golf-tl-new-from-memory g-bv bv-length gerror))))
 
 (define (call-with-typelib proc typelib)
   (call-with-values
       (lambda () (proc typelib))
     (lambda vals
-      (gbank-tl-free typelib)
+      (golf-tl-free typelib)
       (apply values vals))))
 
 (define (call-with-input-typelib file proc)
-  (call-with-typelib proc (gbank-typelib-new file)))
+  (call-with-typelib proc (golf-typelib-new file)))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (gbank-tl-new-from-memory bv-pointer bv-length gerror)
+(define (golf-tl-new-from-memory bv-pointer bv-length gerror)
   (g-typelib-new-from-memory bv-pointer bv-length gerror))
 
-(define (gbank-tl-free typelib)
+(define (golf-tl-free typelib)
   (g-typelib-free typelib))
 
-(define (gbank-tl-get-name-space typelib)
-  (gbank-gtype->scm (g-typelib-get-namespace typelib)
+(define (golf-tl-get-name-space typelib)
+  (golf-gtype->scm (g-typelib-get-namespace typelib)
 		    'gchar*))
 
 

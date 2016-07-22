@@ -26,23 +26,23 @@
 ;;; Code:
 
 
-(define-module (gbank gi gobject type-info)
+(define-module (golf gi gobject type-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (gbank gi init)
-  #:use-module (gbank gi utils)
-  #:use-module (gbank gi gobject enum-flags)
+  #:use-module (golf gi init)
+  #:use-module (golf gi utils)
+  #:use-module (golf gi gobject enum-flags)
 
-  #:export (gbank-go-type-name
-	    %gbank-gt-fundamental-flags))
+  #:export (golf-go-type-name
+	    %golf-gt-fundamental-flags))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (gbank-go-type-name id)
-  (gbank-gtype->scm (g-type-name id)
+(define (golf-go-type-name id)
+  (golf-gtype->scm (g-type-name id)
 		    'gchar*))
 
 
@@ -61,7 +61,7 @@
 ;;; Gtype*
 ;;;
 
-(define %gbank-gt-fundamental-flags
+(define %golf-gt-fundamental-flags
   (make <genum>
     #:type-name "GTypeFundamentalFlags"
     #:scm-name "g-type-fundamental-flags"
