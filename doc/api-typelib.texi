@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -23,7 +23,7 @@ Documentation License.''
 @node Typelib
 @subsection Typelib
 
-Gbank Typelib low level API.@*
+G-Golf Typelib low level API.@*
 GITypelib — Layout and accessors for typelib.
 
 
@@ -45,11 +45,11 @@ TODO.
 
 @indentedblock
 @table @code
-@item @ref{gbank-typelib-new}
+@item @ref{golf-typelib-new}
 @item @ref{call-with-input-typelib}
-@item @ref{gbank-tl-new-from-memory}
-@item @ref{gbank-tl-free}
-@item @ref{gbank-tl-get-namespace}
+@item @ref{golf-tl-new-from-memory}
+@item @ref{golf-tl-free}
+@item @ref{golf-tl-get-namespace}
 @end table
 @end indentedblock
 
@@ -57,15 +57,15 @@ Note: in this section, the @var{typelib} argument is [must be] a pointer
 to a @code{GITypelib}.
 
 
-@anchor{gbank-typelib-new}
-@deffn Procedure gbank-typelib-new file
+@anchor{golf-typelib-new}
+@deffn Procedure golf-typelib-new file
 
 Returns a pointer to a new @code{GITypelib}.
 
 @var{file}  must be a valid typelib filename.
 
 This procedure actually sets things up and calls
-@ref{gbank-tl-new-from-memory}.
+@ref{golf-tl-new-from-memory}.
 @end deffn
 
 
@@ -75,19 +75,19 @@ This procedure actually sets things up and calls
 Returns the value(s) returned by @var{proc}.
 
 @var{file} must be a valid typelib filename. Makes a new
-@code{GITypelib} by calling @code{(gbank-typelib-new file)} and calls
+@code{GITypelib} by calling @code{(golf-typelib-new file)} and calls
 @code{(proc typelib)} with the resulting @code{GITypelib}.
 
 When @var{proc} returns, the @code{GITypelib} is free'd by calling
-@code{gbank-tl-free}. Otherwise the [Glib - C] memory chunk might not be
+@code{golf-tl-free}. Otherwise the [Glib - C] memory chunk might not be
 free'd automatically, though the scheme pointer returned by
-@code{gbank-typelib-new} will be garbage collected in the usual way if
+@code{golf-typelib-new} will be garbage collected in the usual way if
 not otherwise referenced.
 @end deffn
 
 
-@anchor{gbank-tl-new-from-memory}
-@deffn Procedure gbank-tl-new-from-memory pointer size gerror
+@anchor{golf-tl-new-from-memory}
+@deffn Procedure golf-tl-new-from-memory pointer size gerror
 
 Returns a pointer to a new @code{GITypelib}.
 
@@ -101,8 +101,8 @@ repository is destroyed.
 @end deffn
 
 
-@anchor{gbank-tl-free}
-@deffn Procedure gbank-tl-free typelib
+@anchor{golf-tl-free}
+@deffn Procedure golf-tl-free typelib
 
 Returns nothing.
 
@@ -110,8 +110,8 @@ Free a GITypelib.
 @end deffn
 
 
-@anchor{gbank-tl-get-namespace}
-@deffn Procedure gbank-tl-get-namespace typelib
+@anchor{golf-tl-get-namespace}
+@deffn Procedure golf-tl-get-namespace typelib
 
 Returns the namespace of @var{typelib}.
 @end deffn
@@ -121,13 +121,13 @@ Returns the namespace of @var{typelib}.
 
 @c @indentedblock
 @c @table @code
-@c @item @ref{%gbank-ai-transfer}
+@c @item @ref{%golf-ai-transfer}
 @c @end table
 @c @end indentedblock
 
 
-@c @anchor{%gbank-ai-transfer}
-@c @defvar %gbank-ai-transfer
+@c @anchor{%golf-ai-transfer}
+@c @defvar %golf-ai-transfer
 
 @c An instance of @code{<enum>}, who's members are the scheme
 @c representation of the @code{GITransfer}:

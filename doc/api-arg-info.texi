@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -23,7 +23,7 @@ Documentation License.''
 @node Arg Info
 @subsection Arg Info
 
-Gbank Arg Info low level API.@*
+G-Golf Arg Info low level API.@*
 GIArgInfo — Struct representing an argument.
 
 
@@ -45,7 +45,7 @@ GIBaseInfo           	       @*
 
 @indentedblock
 @table @code
-@item @ref{gbank-ai-get-closure}
+@item @ref{golf-ai-get-closure}
 @end table
 @end indentedblock
 
@@ -53,8 +53,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIArgInfo}.
 
 
-@anchor{gbank-ai-get-closure}
-@deffn Procedure gbank-ai-get-closure info
+@anchor{golf-ai-get-closure}
+@deffn Procedure golf-ai-get-closure info
 
 Returns the index of the user data argument or -1 if there is none.
 
@@ -67,13 +67,13 @@ arguments which are callbacks.
 
 @indentedblock
 @table @code
-@item @ref{%gbank-ai-transfer}
+@item @ref{%golf-ai-transfer}
 @end table
 @end indentedblock
 
 
-@anchor{%gbank-ai-transfer}
-@defvar %gbank-ai-transfer
+@anchor{%golf-ai-transfer}
+@defvar %golf-ai-transfer
 
 An instance of @code{<enum>}, who's members are the scheme
 representation of the @code{GITransfer}:

@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -17,20 +17,20 @@ Documentation License.''
 @end copying
 
 
-@set TITLE GNU Gbank Reference Manual
+@set TITLE GNU G-Golf Reference Manual
 
 @set MANUAL-REVISION 1
 
 @set UGUILE http://www.gnu.org/software/guile
 @set USCHEME http://schemers.org
 
-@set UGBANK http://www.gnu.org/software/gbank/
-@set UGBANK-RELEASES http://ftp.gnu.org/gnu/gbank/
-@set UGBANK-LATEST http://ftp.gnu.org/gnu/gbank/gbank-@value{VERSION}.tar.gz
-@set UGBANK-SAVANNAH https://savannah.gnu.org/projects/gbank
-@set UGBANK-LISTINFO https://lists.gnu.org/mailman/listinfo/gbank-user
-@set UGBANK-BUGS-TRACKER https://savannah.gnu.org/bugs/?group=gbank
-@set UGBANK-BUGS-LISTINFO https://lists.gnu.org/mailman/listinfo/bug-gbank
+@set UGGOLF http://www.gnu.org/software/g-golf/
+@set UGGOLF-RELEASES http://ftp.gnu.org/gnu/g-golf/
+@set UGGOLF-LATEST http://ftp.gnu.org/gnu/g-golf/g-golf-@value{VERSION}.tar.gz
+@set UGGOLF-SAVANNAH https://savannah.gnu.org/projects/g-golf
+@set UGGOLF-LISTINFO https://lists.gnu.org/mailman/listinfo/g-golf-user
+@set UGGOLF-BUGS-TRACKER https://savannah.gnu.org/bugs/?group=g-golf
+@set UGGOLF-BUGS-LISTINFO https://lists.gnu.org/mailman/listinfo/bug-g-golf
 
 @set UGRIP http://www.nongnu.org/grip/index.html
 @set UGRIP-GNOME http://www.nongnu.org/grip/index.html

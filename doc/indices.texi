@@ -1,6 +1,6 @@
 \input texinfo
 @c -*- mode: texinfo; coding: utf-8 -*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
@@ -19,7 +19,7 @@ features, to make it easier to locate the desired sections.
 @unnumbered Procedure Index
 
 This is an alphabetical list of all the procedures, methods and macros
-in Gbank.
+in G-Golf.
 
 @c @subheading Repository
 @c @printindex ir
@@ -35,7 +35,7 @@ in Gbank.
 @unnumbered Variable Index
 
 This is an alphabetical list of all the important variables and
-constants in Gbank.
+constants in G-Golf.
 
 @printindex vr
 
@@ -45,7 +45,7 @@ constants in Gbank.
 @unnumbered Type Index
 
 This is an alphabetical list of all the important data types defined in
-the Gbank.
+the G-Golf.
 
 @printindex tp
 

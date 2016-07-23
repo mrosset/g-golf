@@ -1,10 +1,10 @@
 @c -*- mode: texinfo; coding: utf-8 -*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -21,20 +21,20 @@ Documentation License.''
 @chapter Introduction
 
 @menu
-* About Gbank::
+* About G-Golf::
 @c * The name::
 @c * What else::
 @c * Savannah::
-* Obtaining and Installing Gbank::
+* Obtaining and Installing G-Golf::
 * Contact::
 * Reporting Bugs::
 @end menu
 
 
-@node About Gbank
-@section About Gbank
+@node About G-Golf
+@section About G-Golf
 
-GNU Gbank @*
+GNU G-Golf @*
 a @uref{@value{UGUILE}, Guile}@footnote{GNU @uref{@value{UGUILE},
 Guile}@*an interpreter and compiler for the @uref{@value{USCHEME},
 Scheme} programming language.}  binding for @uref{@value{UGI}, GObject
@@ -50,30 +50,30 @@ Introspection.
 
 @subheading What else
 
-Gbank is entirely written in @uref{@value{UGUILE}, Guile}, no C
+G-Golf is entirely written in @uref{@value{UGUILE}, Guile}, no C
 code.
 
 
 @subheading Savannah
 
-GNU Gbank also has a @uref{@value{UGBANK-SAVANNAH}, Savannah} project
+GNU G-Golf also has a @uref{@value{UGOLF-SAVANNAH}, Savannah} project
 page.
 
 
-@node Obtaining and Installing Gbank
-@section Obtaining and Installing Gbank
+@node Obtaining and Installing G-Golf
+@section Obtaining and Installing G-Golf
 
-GNU Gbank can be obtained from the following archive site
-@uref{@value{UGBANK-RELEASES}}.  The file will be named
-gbank-version.tar.gz. The current version is @value{VERSION}, so the
+GNU G-Golf can be obtained from the following archive site
+@uref{@value{UGOLF-RELEASES}}.  The file will be named
+golf-version.tar.gz. The current version is @value{VERSION}, so the
 file you should grab is:
 
-@tie{}@tie{}@tie{}@tie{}@uref{@value{UGBANK-LATEST}}
+@tie{}@tie{}@tie{}@tie{}@uref{@value{UGOLF-LATEST}}
 
 
 @subheading Dependencies
 
-GNU Gbank needs the following software to run:
+GNU G-Golf needs the following software to run:
 
 @itemize @bullet
 
@@ -99,14 +99,14 @@ proceed with the following steps:
 
 @example
 cd <download-path>
-tar zxf gbank-@value{VERSION}.tar.gz
-cd gbank-@value{VERSION}
+tar zxf golf-@value{VERSION}.tar.gz
+cd golf-@value{VERSION}
 ./configure [--prefix=/your/prefix]
 make
 make install
 @end example
 
-Happy Gbank!
+Happy G-Golf!
 
 @*
 @strong{Notes:}
@@ -122,7 +122,7 @@ could use
 @end example
 
 @item
-To install Gbank, @code{make install}, you must have @code{write
+To install G-Golf, @code{make install}, you must have @code{write
 permissions} for (a) @code{$prefix} and (b) guile's @code{site-ccache}
 dirs [see below].
 @ifhtml
@@ -130,14 +130,14 @@ dirs [see below].
 @end ifhtml
 
 @item
-Gbank's modules are installed in the @code{$prefix/share/gbank}
+G-Golf's modules are installed in the @code{$prefix/share/g-golf}
 directory.
 @ifhtml
 @*@*
 @end ifhtml
 
 @item
-Gbank's compiled modules are installed in the Guile's
+G-Golf's compiled modules are installed in the Guile's
 @code{site-ccache} directory.  If you want to know its location, enter
 the following expression in a terminal:
 
@@ -149,7 +149,7 @@ guile -c "(display (%site-ccache-dir)) (newline)"
 Like for any other GNU Tool Chain compatible software, you may install
 the documentation locally using @code{make install-info}, @code{make
 install-html} and/or @code{make install-pdf}. The documentation is
-installed in @code{$prefix/share/doc/gbank}
+installed in @code{$prefix/share/doc/g-golf}
 @end enumerate
 
 
@@ -159,14 +159,14 @@ installed in @code{$prefix/share/doc/gbank}
 
 @subheading Mailing list
 
-Gbank uses the following mailing list:
+G-Golf uses the following mailing list:
 
 @itemize @bullet
-@item gbank-user at gnu dot org
+@item golf-user at gnu dot org
 @end itemize
 
 You can (un)subscribe to the list by following instructions on the
-@uref{@value{UGBANK-LISTINFO}, list information page}.
+@uref{@value{UGOLF-LISTINFO}, list information page}.
 
 
 @subheading IRC
@@ -181,13 +181,13 @@ Most of the time you can find me on irc, channel @emph{#guile},
 @node Reporting Bugs
 @section Reporting Bugs
 
-Gbank has a @uref{@value{UGBANK-BUGS-TRACKER}, bugs tracker}. You
+G-Golf has a @uref{@value{UGOLF-BUGS-TRACKER}, bugs tracker}. You
 may send your bugs report here:
 
 @itemize @bullet
-@item bug-gbank at gnu dot org
+@item bug-g-golf at gnu dot org
 @end itemize
 
 You can (un)subscribe to the bugs report list by following instructions
-on the @uref{@value{UGBANK-BUGS-LISTINFO}, list information page}.
+on the @uref{@value{UGOLF-BUGS-LISTINFO}, list information page}.
 

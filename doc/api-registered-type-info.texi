@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -23,7 +23,7 @@ Documentation License.''
 @node Registered Type Info
 @subsection Registered Type Info
 
-Gbank Registered Type Info low level API.@*
+G-Golf Registered Type Info low level API.@*
 GIRegisteredTypeInfo — Struct representing a struct with a @code{GType}. 
 
 
@@ -53,9 +53,9 @@ GIBaseInfo					@*
 
 @indentedblock
 @table @code
-@item @ref{gbank-rt-get-type-name}
-@item @ref{gbank-rt-get-type-init}
-@item @ref{gbank-rt-get-g-type}
+@item @ref{golf-rt-get-type-name}
+@item @ref{golf-rt-get-type-init}
+@item @ref{golf-rt-get-g-type}
 @end table
 @end indentedblock
 
@@ -63,8 +63,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIRegisteredTypeInfo}.
 
 
-@anchor{gbank-rt-get-type-name}
-@deffn Procedure gbank-rt-get-type-name info
+@anchor{golf-rt-get-type-name}
+@deffn Procedure golf-rt-get-type-name info
 
 Returns the type name.
 
@@ -73,8 +73,8 @@ type can be passed to g_type_name() to get a GType.
 @end deffn
 
 
-@anchor{gbank-rt-get-type-init}
-@deffn Procedure gbank-rt-get-type-init info
+@anchor{golf-rt-get-type-init}
+@deffn Procedure golf-rt-get-type-init info
 
 Returns the name of the type init function.
 
@@ -85,8 +85,8 @@ bindings or applications.
 @end deffn
 
 
-@anchor{gbank-rt-get-g-type}
-@deffn Procedure gbank-rt-get-g-type info
+@anchor{golf-rt-get-g-type}
+@deffn Procedure golf-rt-get-g-type info
 
 Returns the @code{GType}. FIXME when this effectively works.
 

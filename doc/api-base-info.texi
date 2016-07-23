@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -23,7 +23,7 @@ Documentation License.''
 @node Base Info
 @subsection Base Info
 
-Gbank Base Info low level API.@*
+G-Golf Base Info low level API.@*
 GIBaseInfo — Base struct for all GITypelib structs.
 
 
@@ -33,23 +33,23 @@ GIBaseInfo — Base struct for all GITypelib structs.
 accessible through the @code{GIRepository API}.
 
 Most @code{GIRepository APIs} returning a @code{GIBaseInfo} is actually
-creating a new struct, in other words, @ref{gbank-bi-unref} has to be
+creating a new struct, in other words, @ref{golf-bi-unref} has to be
 called when done accessing the data. @code{GIBaseInfos} are normally
-accessed by calling either @ref{gbank-ir-find-by-name},
-@ref{gbank-ir-find-by-gtype} or @ref{gbank-ir-get-info}.
+accessed by calling either @ref{golf-ir-find-by-name},
+@ref{golf-ir-find-by-gtype} or @ref{golf-ir-get-info}.
 
 @example
 @strong{Example:} Getting the Button of the Gtk typelib
 @end example
 
 @lisp
-,use (gbank gi)
-(gbank-ir-require "Gtk")
-(gbank-ir-find-by-name "Gtk" "Button")
+,use (g-golf gi)
+(golf-ir-require "Gtk")
+(golf-ir-find-by-name "Gtk" "Button")
 @print{}
 $4 = #<pointer 0x20e0000>
 ... use button info ...
-(gbank-bi-unref $4)
+(golf-bi-unref $4)
 @end lisp
 
 
@@ -70,25 +70,25 @@ GIBaseInfo           	       @*
 
 @indentedblock
 @table @code
-@item @ref{gbank-bi-ref}
-@item @ref{gbank-bi-unref}
-@item @ref{gbank-bi-equal}
-@item @ref{gbank-bi-get-type}
-@item @ref{gbank-bi-get-typelib}
-@item @ref{gbank-bi-get-namespace}
-@item @ref{gbank-bi-get-name}
-@item @ref{gbank-bi-get-attribute}
-@item @ref{gbank-bi-iterate-attributes}
-@item @ref{gbank-bi-get-container}
-@item @ref{gbank-bi-is-deprecated}
+@item @ref{golf-bi-ref}
+@item @ref{golf-bi-unref}
+@item @ref{golf-bi-equal}
+@item @ref{golf-bi-get-type}
+@item @ref{golf-bi-get-typelib}
+@item @ref{golf-bi-get-namespace}
+@item @ref{golf-bi-get-name}
+@item @ref{golf-bi-get-attribute}
+@item @ref{golf-bi-iterate-attributes}
+@item @ref{golf-bi-get-container}
+@item @ref{golf-bi-is-deprecated}
 @end table
 @end indentedblock
 
 Note: in this section, the @var{info}, @var{info1} and @var{info2}
 arguments are [must be] pointers to a @code{GIBaseInfo}.
 
-@anchor{gbank-bi-ref}
-@deffn Procedure gbank-bi-ref info
+@anchor{golf-bi-ref}
+@deffn Procedure golf-bi-ref info
 
 Returns the same @var{info}.
 
@@ -96,8 +96,8 @@ Increases the reference count of @var{info}.
 @end deffn
 
 
-@anchor{gbank-bi-unref}
-@deffn Procedure gbank-bi-unref info
+@anchor{golf-bi-unref}
+@deffn Procedure golf-bi-unref info
 
 Returns nothing.
 
@@ -106,8 +106,8 @@ drops to 0, the @var{info} is freed.
 @end deffn
 
 
-@anchor{gbank-bi-equal}
-@deffn Procedure gbank-bi-equal info1 info2
+@anchor{golf-bi-equal}
+@deffn Procedure golf-bi-equal info1 info2
 
 Returns #t if and only if @var{info1} equals @var{info2}.
 
@@ -119,29 +119,29 @@ the @code{TypeLib}: use this procedure instead to do @code{GIBaseInfo}
 comparisons.
 @end deffn
 
-@anchor{gbank-bi-get-type}
-@deffn Procedure gbank-bi-get-type info
+@anchor{golf-bi-get-type}
+@deffn Procedure golf-bi-get-type info
 
 Returns the info type of @var{info}.
 @end deffn
 
 
-@anchor{gbank-bi-get-typelib}
-@deffn Procedure gbank-bi-get-typelib info
+@anchor{golf-bi-get-typelib}
+@deffn Procedure golf-bi-get-typelib info
 
 Returns a pointer to the @code{GITypelib} the @var{info} belongs to.
 @end deffn
 
 
-@anchor{gbank-bi-get-namespace}
-@deffn Procedure gbank-bi-get-namespace info
+@anchor{golf-bi-get-namespace}
+@deffn Procedure golf-bi-get-namespace info
 
 Returns the namespace of @var{info}
 @end deffn
 
 
-@anchor{gbank-bi-get-name}
-@deffn Procedure gbank-bi-get-name info
+@anchor{golf-bi-get-name}
+@deffn Procedure golf-bi-get-name info
 
 Returns the name of @var{info} or @code{#f} if it lacks a name.
 
@@ -151,16 +151,16 @@ function.
 @end deffn
 
 
-@anchor{gbank-bi-get-attribute}
-@deffn Procedure gbank-bi-get-attribute info name
+@anchor{golf-bi-get-attribute}
+@deffn Procedure golf-bi-get-attribute info name
 
 Returns the value of the attribute or @code{#f} if not such attribute
 exists.
 @end deffn
 
 
-@anchor{gbank-bi-iterate-attributes}
-@deffn Procedure gbank-bi-iterate-attributes info proc
+@anchor{golf-bi-iterate-attributes}
+@deffn Procedure golf-bi-iterate-attributes info proc
 
 Returns nothing.
 
@@ -170,8 +170,8 @@ and the @var{value} of the attribute.
 @end deffn
 
 
-@anchor{gbank-bi-get-container}
-@deffn Procedure gbank-bi-get-container info
+@anchor{golf-bi-get-container}
+@deffn Procedure golf-bi-get-container info
 
 Returns a pointer to a @code{GIBaseInfo}.
 
@@ -181,8 +181,8 @@ of a @code{GIFunctionInfo} is an @code{GIObjectInfo} or
 @end deffn
 
 
-@anchor{gbank-bi-is-deprecated}
-@deffn Procedure gbank-bi-is-deprecated info
+@anchor{golf-bi-is-deprecated}
+@deffn Procedure golf-bi-is-deprecated info
 
 Returns @code{#t} if deprecated.
 
@@ -195,13 +195,13 @@ not.
 
 @indentedblock
 @table @code
-@item @ref{%gbank-bi-info-type}
+@item @ref{%golf-bi-info-type}
 @end table
 @end indentedblock
 
 
-@anchor{%gbank-bi-info-type}
-@defvar %gbank-bi-info-type
+@anchor{%golf-bi-info-type}
+@defvar %golf-bi-info-type
 
 An instance of @code{<enum>}, who's members are the scheme
 representation of the @code{GIInfoType}:

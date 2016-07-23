@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -23,7 +23,7 @@ Documentation License.''
 @node Repository
 @subsection Repository
 
-Gbank Introspection Repository low level API. @*
+G-Golf Introspection Repository low level API. @*
 GIRepository — GObject Introspection repository manager.
 
 
@@ -47,18 +47,18 @@ GObject           @*
 
 @indentedblock
 @table @code
-@item @ref{gbank-ir-get-default}
-@item @ref{gbank-ir-get-dependencies}
-@item @ref{gbank-ir-get-loaded-namespaces}
-@item @ref{gbank-ir-get-n-infos}
-@item @ref{gbank-ir-get-info}
-@item @ref{gbank-ir-get-typelib-path}
-@item @ref{gbank-ir-require}
-@item @ref{gbank-ir-get-c-prefix}
-@item @ref{gbank-ir-get-shared-library}
-@item @ref{gbank-ir-get-version}
-@item @ref{gbank-ir-find-by-gtype}
-@item @ref{gbank-ir-find-by-name}
+@item @ref{golf-ir-get-default}
+@item @ref{golf-ir-get-dependencies}
+@item @ref{golf-ir-get-loaded-namespaces}
+@item @ref{golf-ir-get-n-infos}
+@item @ref{golf-ir-get-info}
+@item @ref{golf-ir-get-typelib-path}
+@item @ref{golf-ir-require}
+@item @ref{golf-ir-get-c-prefix}
+@item @ref{golf-ir-get-shared-library}
+@item @ref{golf-ir-get-version}
+@item @ref{golf-ir-find-by-gtype}
+@item @ref{golf-ir-find-by-name}
 @end table
 @end indentedblock
 
@@ -67,8 +67,8 @@ Note: in this section, the @var{repository} optional keyword argument is
 [must be] a pointer to a @code{GIRepository} or @code{%null-pointer}.
 
 
-@anchor{gbank-ir-get-default}
-@deffn Procedure gbank-ir-get-default
+@anchor{golf-ir-get-default}
+@deffn Procedure golf-ir-get-default
 
 Returns a pointer to the singleton process-global default
 @code{GIRepository}.
@@ -77,32 +77,32 @@ GObject Introspection does not currently support multiple repositories
 in a particular process, but this procedure is provided in the unlikely
 eventuality that it would become possible.
 
-All Gbank low level API procedures on GIRepository also accept an
+All G-Golf low level API procedures on GIRepository also accept an
 optional @var{#:repository} keyword argument which defaults to
 @code{%null-pointer}, meaning this singleton process-global default
 GIRepository.
 @end deffn
 
-@anchor{gbank-ir-get-dependencies}
-@deffn Procedure gbank-ir-get-dependencies namespace #:key repository
+@anchor{golf-ir-get-dependencies}
+@deffn Procedure golf-ir-get-dependencies namespace #:key repository
 
 Returns a list of all (transitive) versioned dependencies for
 @var{namespace}. Returned string are of the form
 @code{namespace-version}.
 
 Note: The @var{namespace} must have already been loaded using a
-procedure such as @code{gbank-ir-require} before calling this procedure.
+procedure such as @code{golf-ir-require} before calling this procedure.
 @end deffn
 
 
-@anchor{gbank-ir-get-loaded-namespaces}
-@deffn Procedure gbank-ir-get-loaded-namespaces #:key repository
+@anchor{golf-ir-get-loaded-namespaces}
+@deffn Procedure golf-ir-get-loaded-namespaces #:key repository
 
 Return the list of currently loaded namespaces.
 @end deffn
 
-@anchor{gbank-ir-get-n-infos}
-@deffn Procedure gbank-ir-get-n-infos namespace #:key repository
+@anchor{golf-ir-get-n-infos}
+@deffn Procedure golf-ir-get-n-infos namespace #:key repository
 
 Returns the number of metadata entries in @var{namespace}. The
 @var{namespace} must have already been loaded before calling this
@@ -110,22 +110,22 @@ procedure.
 @end deffn
 
 
-@anchor{gbank-ir-get-info}
-@deffn Procedure gbank-ir-get-info namespace index #:key repository
+@anchor{golf-ir-get-info}
+@deffn Procedure golf-ir-get-info namespace index #:key repository
 
 Returns a pointer to a particular metadata entry in the given
 @var{namespace}.
 
 The @var{namespace} must have already been loaded before calling this
-procedure.  See @code{gbank-ir-get-n-infos} to find the maximum number
+procedure.  See @code{golf-ir-get-n-infos} to find the maximum number
 of entries.
 
 @var{index} is a 0-based offset into @var{namespace} for entry.
 @end deffn
 
 
-@anchor{gbank-ir-get-typelib-path}
-@deffn Procedure gbank-ir-get-typelib-path namespace #:key repository
+@anchor{golf-ir-get-typelib-path}
+@deffn Procedure golf-ir-get-typelib-path namespace #:key repository
 
 Returns the full path to the .typelib file @var{namespace} was loaded
 from, if loaded. If @var{namespace} is not loaded or does not exist, it
@@ -134,8 +134,8 @@ in a shared library, it returns the special string "<builtin>".
 @end deffn
 
 
-@anchor{gbank-ir-require}
-@deffn Procedure gbank-ir-require namespace #:key version repository
+@anchor{golf-ir-require}
+@deffn Procedure golf-ir-require namespace #:key version repository
 
 Returns a pointer a @code{GITypelib} structure, if the @code{Typelib}
 file for @var{namespace} exists. Otherwise, it raises an error.
@@ -148,20 +148,20 @@ specified, the latest will be used.
 @end deffn
 
 
-@anchor{gbank-ir-get-c-prefix}
-@deffn Procedure gbank-ir-get-c-prefix namespace #:key repository
+@anchor{golf-ir-get-c-prefix}
+@deffn Procedure golf-ir-get-c-prefix namespace #:key repository
 
 Returns the "C prefix", or the C level namespace associated with the
 given introspection @var{namespace}. Each C symbol starts with this
 prefix, as well each @code{GType} in the library.
 
 Note: The @var{namespace} must have already been loaded using a
-procedure such as @code{gbank-ir-require} before calling this procedure.
+procedure such as @code{golf-ir-require} before calling this procedure.
 @end deffn
 
 
-@anchor{gbank-ir-get-shared-library}
-@deffn Procedure gbank-ir-get-shared-library namespace #:key repository
+@anchor{golf-ir-get-shared-library}
+@deffn Procedure golf-ir-get-shared-library namespace #:key repository
 
 Returns a list of paths to the shared C libraries associated with the
 given @var{namespace}. There may be no shared library path associated,
@@ -169,18 +169,18 @@ in which case this procedure will return an empty list.
 @end deffn
 
 
-@anchor{gbank-ir-get-version}
-@deffn Procedure gbank-ir-get-version  namespace #:key repository
+@anchor{golf-ir-get-version}
+@deffn Procedure golf-ir-get-version  namespace #:key repository
 
 Returns the loaded version associated with the given @var{namespace}.
 
 Note: The @var{namespace} must have already been loaded using a
-procedure such as @code{gbank-ir-require} before calling this procedure.
+procedure such as @code{golf-ir-require} before calling this procedure.
 @end deffn
 
 
-@anchor{gbank-ir-find-by-gtype}
-@deffn Procedure gbank-ir-find-by-gtype gtype #:key repository
+@anchor{golf-ir-find-by-gtype}
+@deffn Procedure golf-ir-find-by-gtype gtype #:key repository
 
 Returns a pointer to a @code{GIBaseInfo} representing metadata about
 @var{gtype}, or @code{#f}.
@@ -194,15 +194,15 @@ determining the namespace which corresponds to an arbitrary @code{GType}
 @end deffn
 
 
-@anchor{gbank-ir-find-by-name}
-@deffn Procedure gbank-ir-find-by-name namespace name #:key repository
+@anchor{golf-ir-find-by-name}
+@deffn Procedure golf-ir-find-by-name namespace name #:key repository
 
 Returns a pointer to a @code{GIBaseInfo} representing metadata about
 type, or @code{#f}.
 
 Searches for a particular entry in @var{namespace}. Before calling this
 function for a particular namespace, you must call
-@code{gbank-ir-require} once to load the @var{namespace}, or otherwise
+@code{golf-ir-require} once to load the @var{namespace}, or otherwise
 ensure the @var{namespace} has already been loaded.
 @end deffn
 

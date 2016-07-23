@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -21,32 +21,32 @@ Documentation License.''
 @subsubsection Abreviations
 
 In the table below we list respectively the abreviation, its GObject
-Introspection section, and, when applicable, its Gbank section and the
-corresponding Gbank source code module.
+Introspection section, and, when applicable, its G-Golf section and the
+corresponding G-Golf source code module.
 
 @indentedblock
 @multitable @columnfractions .1 .2 .2 .3
-@headitem Abr. @tab GI Section @tab Gbank Section @tab Gbank module
+@headitem Abr. @tab GI Section @tab G-Golf Section @tab G-Golf module
 
 @item @code{-ir-}
 @tab @uref{@value{UGIRepository}, GIRepository}
 @tab @ref{Repository}
-@tab @code{(gbank gi repository)}
+@tab @code{(g-golf gi repository)}
 
 @item @code{-ct-}
 @tab @uref{@value{UGIcommontypes}, common types}
 @tab n/a
-@tab @code{(gbank gi types)}
+@tab @code{(g-golf gi types)}
 
 @item @code{-bi-}
 @tab @uref{@value{UGIBaseInfo}, GIBaseInfo}
 @tab @ref{Base Info}
-@tab @code{(gbank gi base-info)}
+@tab @code{(g-golf gi base-info)}
 
 @item @code{-ci-}
 @tab @uref{@value{UGICallableInfo}, GICallableInfo}
 @tab @ref{Callable Info}
-@tab @code{(gbank gi callable-info)}
+@tab @code{(g-golf gi callable-info)}
 
 @item @code{-fi-}
 @tab @uref{@value{UGIFunctionInfo}, GIFunctionInfo}
@@ -63,12 +63,12 @@ corresponding Gbank source code module.
 @item @code{-rt-}
 @tab @uref{@value{UGIRegisteredTypeInfo}, GIRegisteredTypeInfo}
 @tab @ref{Registered Type Info}
-@tab @code{(gbank gi registered-type-info)}
+@tab @code{(g-golf gi registered-type-info)}
 
 @item @code{-ei-}
 @tab @uref{@value{UGIEnumInfo}, GIEnumInfo}
 @tab @ref{Enum Info}
-@tab @code{(gbank gi enum-info)}
+@tab @code{(g-golf gi enum-info)}
 
 @item @code{-st-}
 @tab @uref{@value{UGIStructInfo}, GIStructInfo}
@@ -85,7 +85,7 @@ corresponding Gbank source code module.
 @item @code{-ai-}
 @tab @uref{@value{UGIArgInfo}, GIArgInfo}
 @tab @ref{Arg Info}
-@tab @code{(gbank gi arg-info)}
+@tab @code{(g-golf gi arg-info)}
 
 @item @code{-ct-}
 @tab @uref{@value{UGIConstantInfo}, GIConstantInfo}
@@ -99,12 +99,12 @@ corresponding Gbank source code module.
 @item @code{-ti-}
 @tab @uref{@value{UGITypeInfo}, GITypeInfo}
 @c @tab @ref{Type Info}
-@c @tab @code{(gbank gi type-info)}
+@c @tab @code{(g-golf gi type-info)}
 
 @item @code{-vi-}
 @tab @uref{@value{UGIValueInfo}, GIValueInfo}
 @tab n/a
-@tab @code{(gbank gi enum-info)}
+@tab @code{(g-golf gi enum-info)}
 
 @end multitable
 @end indentedblock

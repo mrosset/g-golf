@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -20,21 +20,21 @@ Documentation License.''
 @node API Reference
 @chapter API Reference
 
-@c Gbank Reference Manual still is a mock-up: any help is more then
+@c G-Golf Reference Manual still is a mock-up: any help is more then
 @c welcome to improve this situation, thanks!
 
 
 @menu
-* Gbank::
+* G-Golf::
 * Support::
 @end menu
 
 
-@node Gbank
-@section Gbank
+@node G-Golf
+@section G-Golf
 
 @menu
-* API Overview::        Overview of the Gbank API.
+* API Overview::        Overview of the G-Golf API.
 
 @subheading GIRepository
 
@@ -65,10 +65,10 @@ Documentation License.''
 @node Support
 @section Support
 
-Gbank uses a series of support modules, each documented in the following
+G-Golf uses a series of support modules, each documented in the following
 subsections. You may either import them all, like this
-@code{(use-modules (gbank support))}, or individually, such as
-@code{(use-modules (gbank support modules))}, @code{(use-modules (gbank
+@code{(use-modules (g-golf support))}, or individually, such as
+@code{(use-modules (g-golf support modules))}, @code{(use-modules (g-golf
 support goops))}, ...
 
 

@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -21,9 +21,9 @@ Documentation License.''
 @subsection API Overview
 
 
-@subheading Gbank Low Level API
+@subheading G-Golf Low Level API
 
-The Gbank low level API is the part of the Gbank API where [almost all]
+The G-Golf low level API is the part of the G-Golf API where [almost all]
 procedures are a one to one binding to their corresponding @code{GI}
 (@code{Glib} and @code{GObject}) function, and both arguments and
 returned values are pointers, except for enums, strings, numbers and
@@ -32,16 +32,16 @@ booleans.
 As an example. you may already do:
 
 @lisp
-,use (gbank gi)
-(gbank-ir-require "Clutter")
+,use (g-golf gi)
+(golf-ir-require "Clutter")
 @print{}
 $2 = #<pointer 0x1681600>
 @end lisp
 
 
-@subheading Gbank High Level API
+@subheading G-Golf High Level API
 
-Gbank will also provide a higher level API, using GOOPS (@pxref{GOOPS,,,
+G-Golf will also provide a higher level API, using GOOPS (@pxref{GOOPS,,,
 guile, The GNU Guile Reference Manual}), as it has been done for
 @uref{@value{UGG}, Guile-Gnome}.
 
@@ -52,7 +52,7 @@ guile, The GNU Guile Reference Manual}), as it has been done for
 This means that somewhere in between this initial @value{VERSION}
 version and 0.1.0, or maybe 0.2.0, we probably will break the above
 arguments and returned values statement, so that where ever appropriate,
-these will become GOOPS classes and instances for the Gbank low level
+these will become GOOPS classes and instances for the G-Golf low level
 API as well, except for enums, strings, numbers and booleans.
 
 Once we will be happy with the design and will have tested it on a
@@ -62,23 +62,23 @@ entries, then we will remove this special note.
 Till then, code and design review is more then welcome, testing upon a
 wrapper is welcome too, but be well aware of this special note, and keep
 in mind that things may change in a way that either version 0.1.0 or
-0.2.0 will probably break earlier Gbank user code, that you must
+0.2.0 will probably break earlier G-Golf user code, that you must
 consider, till then, experimental.
 @end indentedblock
 
-Gbank higher level API will follow @uref{@value{UGG}, Guile-Gnome}'s
+G-Golf higher level API will follow @uref{@value{UGG}, Guile-Gnome}'s
 naming conventions for classes, slot names, generic functions and
 methods (see the next section @ref{Naming Conventions} for further
 details).
 
-Until the above @strong{Special Note} disappears from Gbank's Reference
+Until the above @strong{Special Note} disappears from G-Golf's Reference
 Manual, you won't be able to try the following code snipset, but here is
 what you will be able to do, at least this is the idea, once the higher
 level API will exist:
 
 @lisp
-,use (gbank gi)
-(gbank-ir-require "Clutter")
+,use (g-golf gi)
+(golf-ir-require "Clutter")
 @c @print{}
 @c $2 = #<<gi-typelib> 18237a0>
 (make <clutter-stage>)
@@ -93,8 +93,8 @@ $3 = #<<clutter-stage> 22782a0>
 
 @subheading GI Funtions
 
-Gbank low level API procedure names that bind a GI function always start
-with @code{gbank-}, followed by two letters and an hyphen, representing
+G-Golf low level API procedure names that bind a GI function always start
+with @code{golf-}, followed by two letters and an hyphen, representing
 the GObject Introspection section (@xref{Abreviations}), followed by the
 section function name it implements. For example, from the GIRepository
 section:
@@ -102,44 +102,44 @@ section:
 @example
 g_irepository_get_loaded_namespaces
 ->
-@ref{gbank-ir-get-loaded-namespaces}
+@ref{golf-ir-get-loaded-namespaces}
 @end example
 
 
 @subheading GI Types and Values
 
-Gbank low level API variables that bind GI types and values use the
+G-Golf low level API variables that bind GI types and values use the
 exact same convention as for procedures, except that they always start
-with @code{%gbank-}.  For example, from the GIBaseInfo section:
+with @code{%golf-}.  For example, from the GIBaseInfo section:
 
 @example
 GIInfoType
 ->
-@ref{%gbank-bi-info-type}
+@ref{%golf-bi-info-type}
 @end example
 
-Note: The Gbank Reference Manual follows the GObject Introspection
+Note: The G-Golf Reference Manual follows the GObject Introspection
 manual and list 'Types and Values' in their corresponding section. for
-example @ref{Base Info}. However, in the Gbank source code, all 'Types
-and Values' are defined in the @code{(gbank gi types)} module, which we
-think is more convenient both for developers and Gbank users.
+example @ref{Base Info}. However, in the G-Golf source code, all 'Types
+and Values' are defined in the @code{(g-golf gi types)} module, which we
+think is more convenient both for developers and G-Golf users.
 
 
-@subheading Gbank
+@subheading G-Golf
 
-Gbank does not just bind the @code{GObject Introspection} library, that
+G-Golf does not just bind the @code{GObject Introspection} library, that
 would not buy us much.  It comes with its own set of procedures, syntax
 and variables, aimed at not just reading a typelib, but making its
 functionality available from @uref{@value{UGUILE}, Guile}.
 
-Gbank procedure and syntax names also always start with @code{gbank-}
+G-Golf procedure and syntax names also always start with @code{golf-}
 followed by their name: the name, however, will never start neither
 contain anywhere else the two reserved letters followed by a hyphen used
 for @code{GI}, @code{Glib} and @code{GObject} functions, types and
 variable (@xref{Abreviations}).
 
-Gbank variables follow the same above described rule except that their
-name starts with @code{%gbank-}.
+G-Golf variables follow the same above described rule except that their
+name starts with @code{%golf-}.
 
 
 @subheading Exceptions
@@ -183,14 +183,14 @@ clutter_actor_hide -> clutter-actor-hide
 @dots{}
 @end lisp
 
-Once Gbank high level API is also implemented, Gnome libraries GObject
+Once G-Golf high level API is also implemented, Gnome libraries GObject
 classes and methods will become GOOPS citizen (@pxref{GOOPS,,, guile,
 The GNU Guile Reference Manual}), and in the land of generic function
 multi methods polimorphic object oriented systems, users just have fun:
 
 @lisp
-,use (gbank gi)
-(gbank-ir-require "Clutter")
+,use (g-golf gi)
+(golf-ir-require "Clutter")
 @print{}
 $2 = #<<gi-typelib> 18237a0>
 (make <clutter-actor>)
@@ -204,22 +204,22 @@ $3 = #<<clutter-actor> 32124b0>
 @include api-abreviations.texi
 
 
-@node Gbank Modules
-@subsubsection Gbank Modules
+@node G-Golf Modules
+@subsubsection G-Golf Modules
 
-Gbank GObject Introspection modules are defined in the @code{gi}
-subdirectory, such as @code{(gbank gi repository)}.
+G-Golf GObject Introspection modules are defined in the @code{gi}
+subdirectory, such as @code{(g-golf gi repository)}.
 
 Where you may load these modules individually, the easiest way to use
-Gbank is to import the @code{gi} module: it imports and re-exports the
+G-Golf is to import the @code{gi} module: it imports and re-exports the
 public interface of (oop goops), (ice-9 binary-ports), (rnrs
-bytevectors), (system foreign), all Gbank support and Gbank GObject
+bytevectors), (system foreign), all G-Golf support and G-Golf GObject
 Introspection modules:
 
 @lisp
-(use-modules (gbank gi))
+(use-modules (g-golf gi))
 @end lisp
 
-Most Gbank low level API modules correspond to a GObject Intropection
+Most G-Golf low level API modules correspond to a GObject Intropection
 section, except for @code{init}, @code{utils} and @code{types}.
 

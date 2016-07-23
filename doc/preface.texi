@@ -1,10 +1,10 @@
 @c -*-texinfo-*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -20,44 +20,44 @@ Documentation License.''
 @node Preface
 @unnumbered Preface
 
-This manual describes how to use Gbank.  It relates particularly to
-Gbank version @value{VERSION}.
+This manual describes how to use G-Golf.  It relates particularly to
+G-Golf version @value{VERSION}.
 
 @menu
 * Contributors to this manual::
-* Gbank License::
+* G-Golf License::
 @end menu
 
 
 @node Contributors to this manual
 @unnumberedsec Contributors to this Manual
 
-Like Gbank itself, the Gbank reference manual is a living
+Like G-Golf itself, the G-Golf reference manual is a living
 entity. Right now, the contributor to this manual is:
 
 @itemize @bullet
 @item David Pirotte
 @end itemize
 
-who is also the author and maintainer of Gbank.
+who is also the author and maintainer of G-Golf.
 
-You are most welcome to join and help.  Visit Gbank's web site at
-@uref{@value{UGBANK}} to find out how to get involved.
+You are most welcome to join and help.  Visit G-Golf's web site at
+@uref{@value{UG-GOLF}} to find out how to get involved.
 
 
-@node Gbank License
-@unnumberedsec The Gbank License
+@node G-Golf License
+@unnumberedsec The G-Golf License
 @cindex copying
 @cindex GPL
 @cindex license
 
-GNU Gbank is Free Software.  GNU Gbank is copyrighted, not public
+GNU G-Golf is Free Software.  GNU G-Golf is copyrighted, not public
 domain, and there are restrictions on its distribution or
 redistribution:
 
 @itemize @bullet
 @item
-GNU Gbank and supporting files are published under the terms of the GNU
+GNU G-Golf and supporting files are published under the terms of the GNU
 General Public License version 3 or later.  See the file @file{LICENSE}.
 
 @item
@@ -65,11 +65,11 @@ This manual is published under the terms of the GNU Free Documentation
 License (@pxref{GNU Free Documentation License}).
 @end itemize
 
-You must be aware there is no warranty whatsoever for GNU Gbank.  This
+You must be aware there is no warranty whatsoever for GNU G-Golf.  This
 is described in full in the license.
 
 
 @c Local Variables:
-@c TeX-master: "gbank.texi"
+@c TeX-master: "g-golf.texi"
 @c ispell-local-dictionary: "american"
 @c End:

@@ -1,9 +1,9 @@
 \input texinfo
 @c -*- mode: texinfo; coding: utf-8 -*-
-@c This is part of the GNU Gbank Reference Manual.
+@c This is part of the GNU G-Golf Reference Manual.
 @c Copyright (C) 2016 Free Software Foundation, Inc.
 
-@setfilename gbank.info
+@setfilename g-golf.info
 
 @documentencoding UTF-8
 @paragraphindent none
@@ -17,7 +17,7 @@
 
 
 @copying
-This manual documents GNU Gbank version @value{VERSION}.
+This manual documents GNU G-Golf version @value{VERSION}.
 
 Copyright (C) 2016 Free Software Foundation, Inc.
 
@@ -32,7 +32,7 @@ Documentation License.''
 
 @dircategory Software
 @direntry
-* GNU Gbank: (gbank).  
+* GNU G-Golf: (g-golf).  
 @end direntry
 
 @c Choices for setchapternewpage are {on,off,odd}.
@@ -49,12 +49,12 @@ Documentation License.''
 
 @titlepage
 @sp 10
-@title GNU Gbank
+@title GNU G-Golf
 @subtitle @
   Edition @value{EDITION}, @
   revision @value{MANUAL-REVISION}, @
-  for use with GNU Gbank @value{VERSION}
-@author The GNU Gbank Developpers
+  for use with GNU G-Golf @value{VERSION}
+@author The GNU G-Golf Developpers
 
 @c the next two commands start the copyright
 @page
@@ -74,7 +74,7 @@ Documentation License.''
 @menu
 * Preface::
 * Introduction::
-* Using Gbank::
+* Using G-Golf::
 * API Reference::
 
 Appendices
@@ -96,7 +96,7 @@ Indices
 
 @include preface.texi
 @include introduction.texi
-@include using-gbank.texi
+@include using-g-golf.texi
 @include api.texi
 
 @node GNU Free Documentation License
