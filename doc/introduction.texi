@@ -56,7 +56,7 @@ code.
 
 @subheading Savannah
 
-GNU G-Golf also has a @uref{@value{UGOLF-SAVANNAH}, Savannah} project
+GNU G-Golf also has a @uref{@value{UGGOLF-SAVANNAH}, Savannah} project
 page.
 
 
@@ -64,11 +64,11 @@ page.
 @section Obtaining and Installing G-Golf
 
 GNU G-Golf can be obtained from the following archive site
-@uref{@value{UGOLF-RELEASES}}.  The file will be named
+@uref{@value{UGGOLF-RELEASES}}.  The file will be named
 golf-version.tar.gz. The current version is @value{VERSION}, so the
 file you should grab is:
 
-@tie{}@tie{}@tie{}@tie{}@uref{@value{UGOLF-LATEST}}
+@tie{}@tie{}@tie{}@tie{}@uref{@value{UGGOLF-LATEST}}
 
 
 @subheading Dependencies
@@ -166,7 +166,7 @@ G-Golf uses the following mailing list:
 @end itemize
 
 You can (un)subscribe to the list by following instructions on the
-@uref{@value{UGOLF-LISTINFO}, list information page}.
+@uref{@value{UGGOLF-LISTINFO}, list information page}.
 
 
 @subheading IRC
@@ -181,7 +181,7 @@ Most of the time you can find me on irc, channel @emph{#guile},
 @node Reporting Bugs
 @section Reporting Bugs
 
-G-Golf has a @uref{@value{UGOLF-BUGS-TRACKER}, bugs tracker}. You
+G-Golf has a @uref{@value{UGGOLF-BUGS-TRACKER}, bugs tracker}. You
 may send your bugs report here:
 
 @itemize @bullet
@@ -189,5 +189,5 @@ may send your bugs report here:
 @end itemize
 
 You can (un)subscribe to the bugs report list by following instructions
-on the @uref{@value{UGOLF-BUGS-LISTINFO}, list information page}.
+on the @uref{@value{UGGOLF-BUGS-LISTINFO}, list information page}.
 

@@ -42,7 +42,7 @@ entity. Right now, the contributor to this manual is:
 who is also the author and maintainer of G-Golf.
 
 You are most welcome to join and help.  Visit G-Golf's web site at
-@uref{@value{UG-GOLF}} to find out how to get involved.
+@uref{@value{UGGOLF}} to find out how to get involved.
 
 
 @node G-Golf License
