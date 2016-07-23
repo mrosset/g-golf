@@ -33,15 +33,15 @@
 ;;; Code:
 
 
-(define-module (golf support enum)
+(define-module (g-golf support enum)
   #:use-module (ice-9 receive)
   #:use-module (ice-9 optargs)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
-  #:use-module (golf support goops)
-  #:use-module (golf support g-export)
-  #:use-module (golf support utils)
-  #:use-module (golf support keyword)
+  #:use-module (g-golf support goops)
+  #:use-module (g-golf support g-export)
+  #:use-module (g-golf support utils)
+  #:use-module (g-golf support keyword)
   
   #:export (<enum>))
 

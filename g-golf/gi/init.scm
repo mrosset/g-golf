@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (golf gi init)
+(define-module (g-golf gi init)
   #:use-module (system foreign)
 
   #:export (%libgirepository

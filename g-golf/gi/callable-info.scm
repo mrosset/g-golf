@@ -26,39 +26,39 @@
 ;;; Code:
 
 
-(define-module (golf gi callable-info)
+(define-module (g-golf gi callable-info)
   #:use-module (system foreign)
-  #:use-module (golf support enum)
-  #:use-module (golf gi init)
-  #:use-module (golf gi utils)
-  #:use-module (golf gi types)
+  #:use-module (g-golf support enum)
+  #:use-module (g-golf gi init)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi types)
 
-  #:export (golf-ci-get-n-args
-	    golf-ci-get-arg
-	    golf-ci-get-caller-owns
-	    golf-ci-get-return-type
-	    golf-ci-may-return-null))
+  #:export (g-golf-ci-get-n-args
+	    g-golf-ci-get-arg
+	    g-golf-ci-get-caller-owns
+	    g-golf-ci-get-return-type
+	    g-golf-ci-may-return-null))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (golf-ci-get-n-args info)
+(define (g-golf-ci-get-n-args info)
   (g-callable-info-get-n-args info))
 
-(define (golf-ci-get-arg info n)
+(define (g-golf-ci-get-arg info n)
   (g-callable-info-get-arg info n))
 
-(define (golf-ci-get-caller-owns info)
-  (e-sym %golf-ai-transfer
+(define (g-golf-ci-get-caller-owns info)
+  (e-sym %g-golf-ai-transfer
 	 (g-callable-info-get-caller-owns info)))
 
-(define (golf-ci-get-return-type info)
+(define (g-golf-ci-get-return-type info)
   (g-callable-info-get-return-type info))
 
-(define (golf-ci-may-return-null info)
-  (golf-gtype->scm (g-callable-info-may-return-null info)
+(define (g-golf-ci-may-return-null info)
+  (g-golf-gtype->scm (g-callable-info-may-return-null info)
 		    'gboolean))
 
 

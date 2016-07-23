@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (golf support modules)
+(define-module (g-golf support modules)
   #:export (re-export-public-interface))
 
 

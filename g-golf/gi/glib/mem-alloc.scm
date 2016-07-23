@@ -26,30 +26,30 @@
 ;;; Code:
 
 
-(define-module (golf gi glib mem-alloc)
+(define-module (g-golf gi glib mem-alloc)
   #:use-module (system foreign)
-  #:use-module (golf gi init)
+  #:use-module (g-golf gi init)
 
-  #:export (golf-gl-malloc
-	    golf-gl-malloc0
-	    golf-gl-free
-	    golf-gl-memdup))
+  #:export (g-golf-gl-malloc
+	    g-golf-gl-malloc0
+	    g-golf-gl-free
+	    g-golf-gl-memdup))
 
 
 ;;;
 ;;; Glib Low level API
 ;;;
 
-(define (golf-gl-malloc n)
+(define (g-golf-gl-malloc n)
   (g-malloc n))
 
-(define (golf-gl-malloc0 n)
+(define (g-golf-gl-malloc0 n)
   (g-malloc0 n))
 
-(define (golf-gl-free pointer)
+(define (g-golf-gl-free pointer)
   (g-free pointer))
 
-(define (golf-gl-memdup pointer n)
+(define (g-golf-gl-memdup pointer n)
   (g-memdup pointer n))
 
 

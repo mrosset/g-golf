@@ -29,8 +29,8 @@
 ;;; Code:
 
 
-(define-module (golf support keyword)
-  #:use-module (golf support push)
+(define-module (g-golf support keyword)
+  #:use-module (g-golf support push)
   
   #:export (split-keyword-args))
 

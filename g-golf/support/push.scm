@@ -29,7 +29,7 @@
 ;;; Code:
 
 
-(define-module (golf support push)
+(define-module (g-golf support push)
   #:use-module (srfi srfi-1)
 
   #:export (push

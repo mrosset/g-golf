@@ -26,61 +26,61 @@
 ;;; Code:
 
 
-(define-module (golf gi enum-info)
+(define-module (g-golf gi enum-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (golf support utils)
-  #:use-module (golf gi gobject enum-flags)
-  #:use-module (golf gi init)
-  #:use-module (golf gi utils)
-  #:use-module (golf gi base-info)
-  #:use-module (golf gi registered-type-info)
+  #:use-module (g-golf support utils)
+  #:use-module (g-golf gi gobject enum-flags)
+  #:use-module (g-golf gi init)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi base-info)
+  #:use-module (g-golf gi registered-type-info)
 
-  #:export (golf-enum-import
+  #:export (g-golf-enum-import
 
-	    golf-ei-get-n-values
-	    golf-ei-get-value
-	    golf-ei-get-n-methods
-	    golf-ei-get-method
+	    g-golf-ei-get-n-values
+	    g-golf-ei-get-value
+	    g-golf-ei-get-n-methods
+	    g-golf-ei-get-method
 
-	    golf-vi-get-value))
+	    g-golf-vi-get-value))
 
 
 ;;;
 ;;; Build Interface
 ;;;
 
-#;(define (golf-enum-import info)
-  (let* ((type-name (golf-rt-get-type-name info))
-	 (class-name (golf-gtype-name->class-name type-name))
-	 (e-vals (golf-enum-get-values info)))
+#;(define (g-golf-enum-import info)
+  (let* ((type-name (g-golf-rt-get-type-name info))
+	 (class-name (g-golf-gtype-name->class-name type-name))
+	 (e-vals (g-golf-enum-get-values info)))
     (dimfi e-vals)
     (make-class (list <enum>) '()
 		#:name class-name
 		#:set e-vals)))
 
-(define (golf-enum-import info)
-  (let* ((type-name (golf-rt-get-type-name info))
-	 (scm-name (golf-gtype-name->scm-name type-name))
-	 (e-vals (golf-enum-get-values info)))
+(define (g-golf-enum-import info)
+  (let* ((type-name (g-golf-rt-get-type-name info))
+	 (scm-name (g-golf-gtype-name->scm-name type-name))
+	 (e-vals (g-golf-enum-get-values info)))
     (make <genum>
       #:type-name type-name
       #:scm-name scm-name
       #:value-set e-vals)))
 
-(define (golf-enum-get-values info)
-  (let ((nb (golf-ei-get-n-values info)))
+(define (g-golf-enum-get-values info)
+  (let ((nb (g-golf-ei-get-n-values info)))
     (and (> nb 0)
-	 (golf-enum-get-values-1 info nb 0 '()))))
+	 (g-golf-enum-get-values-1 info nb 0 '()))))
 
-(define (golf-enum-get-values-1 info nb i set)
+(define (g-golf-enum-get-values-1 info nb i set)
   (if (= i nb)
       (reverse! set)
-      (let* ((value-info (golf-ei-get-value info i))
-	     (name (golf-bi-get-name value-info))
-	     (value (golf-vi-get-value value-info)))
-	(golf-bi-unref value-info)
-	(golf-enum-get-values-1 info
+      (let* ((value-info (g-golf-ei-get-value info i))
+	     (name (g-golf-bi-get-name value-info))
+	     (value (g-golf-vi-get-value value-info)))
+	(g-golf-bi-unref value-info)
+	(g-golf-enum-get-values-1 info
 				 nb
 				 (+ i 1)
 				 (cons (cons name value)
@@ -91,25 +91,25 @@
 ;;; Low level API
 ;;;
 
-(define (golf-ei-get-n-values info)
+(define (g-golf-ei-get-n-values info)
   (g-enum-info-get-n-values info))
 
-(define (golf-ei-get-value info index)
+(define (g-golf-ei-get-value info index)
   (let ((pointer (g-enum-info-get-value info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (golf-ei-get-n-methods info)
+(define (g-golf-ei-get-n-methods info)
   (g-enum-info-get-n-methods info))
 
-(define (golf-ei-get-method info index)
+(define (g-golf-ei-get-method info index)
   (let ((pointer (g-enum-info-get-method info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (golf-vi-get-value info)
+(define (g-golf-vi-get-value info)
   (g-value-info-get-value info))
 
 

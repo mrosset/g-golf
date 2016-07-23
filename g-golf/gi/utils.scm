@@ -26,38 +26,38 @@
 ;;; Code:
 
 
-(define-module (golf gi utils)
+(define-module (g-golf gi utils)
   #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
-  #:use-module (golf gi glib)
+  #:use-module (g-golf gi glib)
 
   #:export (%gpointer-size
-	    golf-pointer-new
-	    golf-pointer-inc
+	    g-golf-pointer-new
+	    g-golf-pointer-inc
 	    with-gerror
-	    golf-gtype->scm
-	    golf-attribute-iter-new
-	    golf-gstudly-caps-exand
-	    %golf-gtype-name->scm-name-exceptions
-	    golf-gtype-name->scm-name
-	    golf-gtype-name->class-name
+	    g-golf-gtype->scm
+	    g-golf-attribute-iter-new
+	    g-golf-gstudly-caps-exand
+	    %g-golf-gtype-name->scm-name-exceptions
+	    g-golf-gtype-name->scm-name
+	    g-golf-gtype-name->class-name
 	    gtype-class-name->method-name))
 
 
 (define %gpointer-size 8)
   
-(define (golf-pointer-new)
+(define (g-golf-pointer-new)
   ;; (bytevector->pointer (make-bytevector %gpointer-size 0))
   ;; The above would work iif none of Glib, Gobject and GI would ever call
   ;; any of there respective *_free functions upon pointers returned by
   ;; this procedure [it segfaults - C can't free Guile's mem]. This
   ;; statement is _not_ guaranteed, hence we have to allocate using the
   ;; glib API.
-  (golf-gl-malloc0 %gpointer-size))
+  (g-golf-gl-malloc0 %gpointer-size))
 
-(define* (golf-pointer-inc pointer
+(define* (g-golf-pointer-inc pointer
 			    #:optional
 			    (offset %gpointer-size))
   (make-pointer (+ (pointer-address pointer)
@@ -66,20 +66,20 @@
 (define-syntax with-gerror
   (syntax-rules ()
     ((with-gerror ?var ?body)
-     (let* ((?var (golf-pointer-new))
+     (let* ((?var (g-golf-pointer-new))
 	    (result ?body)
 	    (d-pointer (dereference-pointer ?var)))
        (if (null-pointer? d-pointer)
 	   (begin
-	     (golf-gl-free ?var)
+	     (g-golf-gl-free ?var)
 	     result)
 	   (match (parse-c-struct d-pointer
 				  (list uint32 int8 '*))
 	     ((domain code message)
-	      (golf-gl-free ?var)
+	      (g-golf-gl-free ?var)
 	      (error (pointer->string message)))))))))
 
-(define (golf-gtype->scm gvalue gtype)
+(define (g-golf-gtype->scm gvalue gtype)
   (case gtype
     ((gchar**) (gchar**->scm gvalue))
     ((gchar*,) (gchar*,->scm gvalue))
@@ -88,7 +88,7 @@
     (else
      (error "no such gtype: " gtype))))
 
-(define (golf-attribute-iter-new)
+(define (g-golf-attribute-iter-new)
   (make-c-struct (list '* '* '* '*)
 		 (list %null-pointer
 		       %null-pointer
@@ -97,7 +97,7 @@
 
 
 ;;;
-;;; golf-gtype->scm procedures
+;;; g-golf-gtype->scm procedures
 ;;;
 
 (define (gchar**->scm pointer)
@@ -106,7 +106,7 @@
 	(dereference-pointer pointer)
     (if (null-pointer? d-pointer)
 	(reverse! result)
-	(gchar**->scm-1 (golf-pointer-inc pointer)
+	(gchar**->scm-1 (g-golf-pointer-inc pointer)
 			(cons (pointer->string d-pointer)
 			      result)))))
   (gchar**->scm-1 pointer '()))
@@ -125,7 +125,7 @@
 
 ;; Based on Guile-Gnome (gobject gw utils)
 
-(define (golf-gstudly-caps-exand nstr)
+(define (g-golf-gstudly-caps-exand nstr)
   ;; GStudlyCapsExpand
   (do ((idx (- (string-length nstr) 1)
 	    (- idx 1)))
@@ -160,13 +160,13 @@
 
 ;; Default name transformations can be overridden, but golf won't define
 ;; exceptions for now, let's see.
-(define %golf-gtype-name->scm-name-exceptions
+(define %g-golf-gtype-name->scm-name-exceptions
   '(;; (GEnum . genum)
     ))
 
-(define (golf-gtype-name->scm-name type-name)
-  (or (assoc-ref %golf-gtype-name->scm-name-exceptions type-name)
-      (string-trim-right (golf-gstudly-caps-exand
+(define (g-golf-gtype-name->scm-name type-name)
+  (or (assoc-ref %g-golf-gtype-name->scm-name-exceptions type-name)
+      (string-trim-right (g-golf-gstudly-caps-exand
 			  ;; only change _ to -
 			  ;; other chars are not valid in a type name
 			  (string-map (lambda (c) (if (eq? c #\_) #\- c))
@@ -175,9 +175,9 @@
 
 ;; "GtkAccelGroup" => <gtk-accel-group>
 ;; "GSource*" => <g-source*>
-(define (golf-gtype-name->class-name type-name)
+(define (g-golf-gtype-name->class-name type-name)
   (string->symbol (string-append "<"
-				 (golf-gstudly-caps-exand type-name)
+				 (g-golf-gstudly-caps-exand type-name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well

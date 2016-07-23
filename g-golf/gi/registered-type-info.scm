@@ -26,31 +26,31 @@
 ;;; Code:
 
 
-(define-module (golf gi registered-type-info)
+(define-module (g-golf gi registered-type-info)
   #:use-module (system foreign)
-  #:use-module (golf gi init)
-  #:use-module (golf gi utils)
-  #:use-module (golf gi types)
+  #:use-module (g-golf gi init)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi types)
 
-  #:export (golf-rt-get-type-name
-	    golf-rt-get-type-init
-	    golf-rt-get-g-type))
+  #:export (g-golf-rt-get-type-name
+	    g-golf-rt-get-type-init
+	    g-golf-rt-get-g-type))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (golf-rt-get-type-name info)
-  (golf-gtype->scm (g-registered-type-info-get-type-name info)
+(define (g-golf-rt-get-type-name info)
+  (g-golf-gtype->scm (g-registered-type-info-get-type-name info)
 		    'gchar*))
 
 ;; this should not be called by language bindings
-(define (golf-rt-get-type-init info)
-  (golf-gtype->scm (g-registered-type-info-get-type-init info)
+(define (g-golf-rt-get-type-init info)
+  (g-golf-gtype->scm (g-registered-type-info-get-type-init info)
 		    'gchar*))
 
-(define (golf-rt-get-g-type info)
+(define (g-golf-rt-get-g-type info)
   (g-registered-type-info-get-g-type info))
 
 

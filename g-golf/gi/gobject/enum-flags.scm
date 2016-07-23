@@ -26,13 +26,13 @@
 ;;; Code:
 
 
-(define-module (golf gi gobject enum-flags)
+(define-module (g-golf gi gobject enum-flags)
   #:use-module (ice-9 optargs)
   #:use-module (oop goops)
-  #:use-module (golf support goops)
-  #:use-module (golf support g-export)
-  #:use-module (golf support utils)
-  #:use-module (golf support enum)
+  #:use-module (g-golf support goops)
+  #:use-module (g-golf support g-export)
+  #:use-module (g-golf support utils)
+  #:use-module (g-golf support enum)
 
   #:export (<genum>))
 

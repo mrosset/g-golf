@@ -29,7 +29,7 @@
 ;;; Code:
 
 
-(define-module (golf support utils)
+(define-module (g-golf support utils)
   #:export (storage-get
 	    storage-set
 	    displayln

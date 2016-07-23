@@ -26,56 +26,56 @@
 ;;; Code:
 
 
-(define-module (golf gi arg-info)
+(define-module (g-golf gi arg-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (golf support enum)
-  #:use-module (golf gi init)
-  #:use-module (golf gi utils)
-  #:use-module (golf gi types)
+  #:use-module (g-golf support enum)
+  #:use-module (g-golf gi init)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi types)
 
-  #:export (golf-ai-get-closure
-	    golf-ai-get-destroy
-	    golf-ai-get-direction
-	    golf-ai-get-ownership-transfer
-	    golf-ai-get-scope
-	    golf-ai-get-type
-	    golf-ai-may-be-null
-	    golf-ai-is-optional
-	    golf-ai-is-return-value))
+  #:export (g-golf-ai-get-closure
+	    g-golf-ai-get-destroy
+	    g-golf-ai-get-direction
+	    g-golf-ai-get-ownership-transfer
+	    g-golf-ai-get-scope
+	    g-golf-ai-get-type
+	    g-golf-ai-may-be-null
+	    g-golf-ai-is-optional
+	    g-golf-ai-is-return-value))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (golf-ai-get-closure info)
+(define (g-golf-ai-get-closure info)
   (g-arg-info-get-closure info))
 
-(define (golf-ai-get-destroy info)
+(define (g-golf-ai-get-destroy info)
   (g-arg-info-get-destroy info))
 
-(define (golf-ai-get-direction info)
-  (e-sym %golf-ai-direction
+(define (g-golf-ai-get-direction info)
+  (e-sym %g-golf-ai-direction
 	 (g-arg-info-get-direction info)))
 
-(define (golf-ai-get-ownership-transfer info)
-  (e-sym %golf-ai-transfer
+(define (g-golf-ai-get-ownership-transfer info)
+  (e-sym %g-golf-ai-transfer
 	 (g-arg-info-get-ownership-transfer info)))
 
-(define (golf-ai-get-scope info)
-  (e-sym %golf-ai-scope
+(define (g-golf-ai-get-scope info)
+  (e-sym %g-golf-ai-scope
 	 (g-arg-info-get-scope info)))
 
-(define (golf-ai-get-type info)
+(define (g-golf-ai-get-type info)
   (g-arg-info-get-type info))
 
-(define (golf-ai-may-be-null info)
-  (golf-gtype->scm (g-arg-info-may-be-null info)
+(define (g-golf-ai-may-be-null info)
+  (g-golf-gtype->scm (g-arg-info-may-be-null info)
 		    'gboolean))
 
-(define (golf-ai-is-return-value info)
-  (golf-gtype->scm (g-arg-info-is-return-value info)
+(define (g-golf-ai-is-return-value info)
+  (g-golf-gtype->scm (g-arg-info-is-return-value info)
 		    'gboolean))
 
 
