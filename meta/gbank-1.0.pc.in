@@ -2,8 +2,8 @@
 
 prefix=@prefix@
 
-module_directory=@prefix@/share/gbank
+module_directory=@prefix@/share/g-golf
 
-Name: Gbank
-Description: A Guile binding for GObject Introspection
+Name: G-Golf
+Description: Gnome: (Guile Object Library for).
 Version: @VERSION@

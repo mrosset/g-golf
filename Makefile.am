@@ -3,21 +3,21 @@
 #### Copyright (C) 2016
 #### Free Software Foundation, Inc.
 
-#### This file is part of GNU Gbank.
+#### This file is part of GNU G-Golf
 
-#### GNU Gbank is free software: you can redistribute it and/or
-#### modify it under the terms of the GNU General Public License as
-#### published by the Free Software Foundation, either version 3 of
-#### the License, or (at your option) any later version.
+#### GNU G-Golf is free software; you can redistribute it and/or modify
+#### it under the terms of the GNU Lesser General Public License as
+#### published by the Free Software Foundation; either version 3 of the
+#### License, or (at your option) any later version.
 
-#### GNU Gbank is distributed in the hope that it will be useful, but
+#### GNU G-Golf is distributed in the hope that it will be useful, but
 #### WITHOUT ANY WARRANTY; without even the implied warranty of
 #### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-#### General Public License for more details.
+#### Lesser General Public License for more details.
 
-#### You should have received a copy of the GNU General Public License
-#### along with GNU Gbank.  If not, see
-#### <http://www.gnu.org/licenses/>.
+#### You should have received a copy of the GNU Lesser General Public
+#### License along with GNU G-Golf.  If not, see
+#### <https://www.gnu.org/licenses/lgpl.html>.
 ####
 
 
@@ -27,41 +27,41 @@ moddir=$(prefix)/share
 godir=$(gccache)
 
 pkgconfigdir=$(libdir)/pkgconfig
-pkgconfig_DATA=meta/gbank-1.0.pc
+pkgconfig_DATA=meta/g-golf-1.0.pc
 
 SOURCES = \
-	gbank/support/modules.scm		\
-	gbank/support/goops.scm			\
-	gbank/support/g-export.scm		\
-	gbank/support/utils.scm			\
-	gbank/support/enum.scm			\
-	gbank/support/push.scm			\
-	gbank/support/keyword.scm		\
-	gbank/support.scm			\
-	gbank/gi/init.scm			\
-	gbank/gi/glib/mem-alloc.scm		\
-	gbank/gi/glib.scm			\
-	gbank/gi/gobject/type-info.scm		\
-	gbank/gi/gobject/enum-flags.scm		\
-	gbank/gi/gobject.scm			\
-	gbank/gi/utils.scm			\
-	gbank/gi/types.scm			\
-	gbank/gi/repository.scm			\
-	gbank/gi/base-info.scm			\
-	gbank/gi/callable-info.scm		\
-	gbank/gi/registered-type-info.scm	\
-	gbank/gi/enum-info.scm			\
-	gbank/gi/arg-info.scm			\
-	gbank/gi/type-info.scm			\
-	gbank/gi/typelib.scm			\
-	gbank/gi.scm
+	g-golf/support/modules.scm		\
+	g-golf/support/goops.scm			\
+	g-golf/support/g-export.scm		\
+	g-golf/support/utils.scm			\
+	g-golf/support/enum.scm			\
+	g-golf/support/push.scm			\
+	g-golf/support/keyword.scm		\
+	g-golf/support.scm			\
+	g-golf/gi/init.scm			\
+	g-golf/gi/glib/mem-alloc.scm		\
+	g-golf/gi/glib.scm			\
+	g-golf/gi/gobject/type-info.scm		\
+	g-golf/gi/gobject/enum-flags.scm		\
+	g-golf/gi/gobject.scm			\
+	g-golf/gi/utils.scm			\
+	g-golf/gi/types.scm			\
+	g-golf/gi/repository.scm			\
+	g-golf/gi/base-info.scm			\
+	g-golf/gi/callable-info.scm		\
+	g-golf/gi/registered-type-info.scm	\
+	g-golf/gi/enum-info.scm			\
+	g-golf/gi/arg-info.scm			\
+	g-golf/gi/type-info.scm			\
+	g-golf/gi/typelib.scm			\
+	g-golf/gi.scm
 
 # NOCOMP_SOURCES= \
-# 	$(wildcard gbank/glade/*)	\
-# 	$(wildcard gbank/icons/*)	\
-# 	$(wildcard gbank/latex/*)	\
-# 	$(wildcard gbank/gtkrc/*)	\
-# 	$(shell find $(top_srcdir)/gbank/pof -type f)
+# 	$(wildcard g-golf/glade/*)	\
+# 	$(wildcard g-golf/icons/*)	\
+# 	$(wildcard g-golf/latex/*)	\
+# 	$(wildcard g-golf/gtkrc/*)	\
+# 	$(shell find $(top_srcdir)/g-golf/pof -type f)
 
 EXTRA_DIST = \
 	AUTHORS				\
@@ -73,23 +73,23 @@ EXTRA_DIST = \
 	README				\
 	env.in				\
 	meta/guild.in			\
-	meta/gbank-1.0.pc.in		\
+	meta/g-golf-1.0.pc.in		\
 	$(wildcard org/*)		\
 	$(wildcard am/*)		\
 	$(wildcard m4/*)		\
 	$(SOURCES)
 # 	$(NOCOMP_SOURCES)
 
-# bin_SCRIPTS = gbank/gbank
+# bin_SCRIPTS = g-golf/g-golf
 
 CLEANFILES = \
-	meta/gbank-1.0.pc		\
+	meta/g-golf-1.0.pc		\
 	$(GOBJECTS)
 # 	$(bin_SCRIPTS)
 
 ETAGS_ARGS = \
-	gbank				\
 	$(SOURCES)
+# g-golf
 
 SUBDIRS = \
 	doc
@@ -101,9 +101,9 @@ distclean-local:
 	rm -rf build-aux
 	rm -f configure
 	rm -f *~
-	rm -f gbank-*.tar.gz
-	rm -f gbank-*.tar.gz.sig
-	rm -rf doc/gbank
+	rm -f g-golf-*.tar.gz
+	rm -f g-golf-*.tar.gz.sig
+	rm -rf doc/g-golf
 	rm -f doc/*.info
 	rm -f doc/*.pdf
 	rm -f doc/*~
@@ -111,7 +111,7 @@ distclean-local:
 	rm -f doc/*.log doc/*.pg doc/*.toc doc/*.tp doc/*.vr doc/*.vrs
 	rm -f doc/Makefile.in
 	rm -f doc/stamp-vti
-	rm -f gbank/*~
+	rm -f g-golf/*~
 	rm -f org/*~
 
 # * .PHONY: gen-pof:

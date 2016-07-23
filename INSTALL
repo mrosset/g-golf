@@ -1,37 +1,37 @@
 # ;; -*- mode: org; coding: utf-8 -*-
 
-#+TITLE: GNU Gbank INSTALL
+#+TITLE: GNU G-Golf INSTALL
 
-* GNU Gbank
+* GNU G-Golf
 
-GNU Gbank
-a Guile binding for GObject Introspection
+GNU G-Golf
+Gnome: (Guile Object Library for)
 
 ** Dependencies
 
-GNU Gbank needs the following software to run:
+GNU G-Golf needs the following software to run:
 
 	Autoconf			>= 2.69
 	Automake			>= 1.14
-	Guile 				>= 2.0.11
-	GObject-Introspection-1.0	>= 1.46.0
+	Guile 				>= 2.0.12
+	GObject-Introspection-1.0	>= 1.48.0
 
 ** Quickstart
 
-The latest release is gbank-0.0.1-alpha.tar.gz  - other releases are
-available here: http://ftp.gnu.org/gnu/gbank/
+The latest release is g-golf-0.0.1-alpha.tar.gz  - other releases are
+available here: http://ftp.gnu.org/gnu/g-golf/
 
 Assuming you have satisfied the dependencies, open a terminal and
 proceed with the following steps:
 
 	cd <download-path>
-	tar zxf gbank-0.0.1-alpha.tar.gz
-	cd gbank-0.0.1-alpha
+	tar zxf g-golf-0.0.1-alpha.tar.gz
+	cd g-golf-0.0.1-alpha
 	./configure [--prefix=/your/prefix]
 	make
 	make install
 
-Happy Gbank!
+Happy G-Golf!
 
 *** Notes
 
@@ -40,12 +40,12 @@ Happy Gbank!
 
 		configure --prefix=/opt
 
-[2] To install GNU Gbank, you must have write permissions for (a)
-    $prefix and (b) guile’s site-ccache dirs.
+[2] To install GNU G-Golf, you must have write permissions for (a)
+    $prefix and (b) guile’s site-ccache directories.
 
-[3] GNU Gbank's modules are installed in the $prefix/share/gbank.
+[3] GNU G-Golf's modules are installed in the $prefix/share/g-golf.
 
-[4] GNU Gbank's compiled modules are installed in the Guile's
+[4] GNU G-Golf's compiled modules are installed in the Guile's
     site-ccache directory.  If you want to know its location, enter the
     following expression in a terminal:
 
@@ -54,8 +54,7 @@ Happy Gbank!
 [5] Like for any other GNU Tool Chain compatible software, you may
     install the documentation locally using make install-info, make
     install-html and/or make install-pdf. The documentation is installed
-    in $prefix/share/doc/gbank. Note that as it is, GNU Gbank’s
-    documentation still is a mock-up.
+    in $prefix/share/doc/g-golf.
 
 
 * the GNU standard INSTALL file content

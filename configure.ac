@@ -1,34 +1,35 @@
 dnl -*- Autoconf -*-
 dnl
-dnl   configuration script for GNU Gbank
+dnl   configuration script for GNU G-Golf
 dnl   Process this file with autoconf to produce configure.
 dnl
 
-define(GBANK_CONFIGURE_COPYRIGHT,[[
+define(G_GOLF_CONFIGURE_COPYRIGHT,[[
 
 Copyright (C) 2016
 Free Software Foundation, Inc.
 
-This file is part of GNU Gbank.
+This file is part of GNU G-Golf
 
-GNU Gbank is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.
+GNU G-Golf is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 3 of the
+License, or (at your option) any later version.
 
-GNU Gbank is distributed in the hope that it will be useful, but
+GNU G-Golf is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
+Lesser General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with GNU Gbank.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU Lesser General Public
+License along with GNU G-Golf.  If not, see
+<https://www.gnu.org/licenses/lgpl.html>.
 
 ]])
 
 AC_PREREQ(2.69)
 
-AC_INIT([gbank], [0.1.0-mockup-1], [david at altosw dot be])
+AC_INIT([g-golf], [0.1.0-mockup-1], [david at altosw dot be])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -44,14 +45,14 @@ dnl AC_PROG_CC
 dnl AC_STDC_HEADERS
 dnl LT_INIT([disable-static])
 
-AC_COPYRIGHT(GBANK_CONFIGURE_COPYRIGHT)
-AC_CONFIG_SRCDIR([gbank])
+AC_COPYRIGHT(G_GOLF_CONFIGURE_COPYRIGHT)
+AC_CONFIG_SRCDIR([g-golf])
 
 AC_CHECK_PROG(have_makeinfo, makeinfo, yes, no)
 AM_CONDITIONAL(HAVE_MAKEINFO, test "$have_makeinfo" = yes)
 
 GUILE_PKG([2.2, 2.0])
-GUILE_PROGS([2.0.11])
+GUILE_PROGS([2.0.12])
 GUILE_SITE_DIR
 GUILE_SITE_CCACHE_DIR
 
@@ -62,7 +63,7 @@ PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.48.0)
 AC_CONFIG_FILES([env], [chmod +x env])
 AC_CONFIG_FILES([meta/guild], [chmod +x meta/guild])
 AC_CONFIG_FILES([
-	meta/gbank-1.0.pc
+	meta/g-golf-1.0.pc
 	Makefile
 	doc/Makefile])
 

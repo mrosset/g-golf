@@ -3,8 +3,8 @@
 
 #+BEGIN_COMMENT
 
-This document is part of GNU Gbank.
-Copyright (C)  2016 Free Software Foundation, Inc.
+This document is part of GNU G-Golf.
+Copyright (C) 2016 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -16,13 +16,13 @@ Documentation License.''
 #+END_COMMENT
 
 
-#+TITLE: GNU Gbank TODO file
+#+TITLE: GNU G-Golf TODO file
 
 * TODO [50%]
 
-- [ ] gbank-ir-find-by-* should return #f if no gtype is found
-- [ ] gbank-* procs to return #f, not %null-pointer when they fail
-- [X] verify gbank-ci-get-caller-owns returned value
+- [ ] g-golf-ir-find-by-* should return #f if no gtype is found
+- [ ] g-golf-* procs to return #f, not %null-pointer when they fail
+- [X] verify g-golf-ci-get-caller-owns returned value
 
   The manual says it returns TRUE if the caller owns the return value,
   FALSE otherwise, but the function definition, in the manualstill, is
