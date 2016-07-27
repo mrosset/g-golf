@@ -21,9 +21,6 @@
 ####
 
 
-gev=$(GUILE_EFFECTIVE_VERSION)
-gccache=$(GUILE_SITE_CCACHE)
-
 GOBJECTS = $(SOURCES:%.scm=%.go)
 
 nobase_mod_DATA = $(SOURCES) $(NOCOMP_SOURCES)
