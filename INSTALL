@@ -13,8 +13,11 @@ GNU G-Golf needs the following software to run:
 
 	Autoconf			>= 2.69
 	Automake			>= 1.14
-	Guile 				>= 2.0.12
+	Texinfo				>= 6.1
+	Guile 				>= 2.0.12 [allows 2.2]
 	GObject-Introspection-1.0	>= 1.48.0
+	Glib-2.0			>= 2.48.0
+	Gobject-2.0			>= 2.48.0
 
 ** Quickstart
 
@@ -40,10 +43,14 @@ Happy G-Golf!
 
 		configure --prefix=/opt
 
-[2] To install GNU G-Golf, you must have write permissions for (a)
-    $prefix and (b) guile’s site-ccache directories.
+[2] To install GNU G-Golf, you must have write permissions for $prefix,
+    Guile’s global site and site-ccache directories.
 
-[3] GNU G-Golf's modules are installed in the $prefix/share/g-golf.
+[3] GNU G-Golf's modules are installed in Guile's global site
+    directory. If you want to know its location, enter the following
+    expression in a terminal:
+
+		guile -c "(display  (%global-site-dir)) (newline)"
 
 [4] GNU G-Golf's compiled modules are installed in the Guile's
     site-ccache directory.  If you want to know its location, enter the
