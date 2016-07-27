@@ -5,20 +5,28 @@
 * GNU G-Golf
 
 GNU G-Golf [1]
-Gnome: (Guile Object Library for).
+Gnome: (Guile [2] Object Library for).
 
 ** Description
 
-G-Golf is ...
+G-Golf is a Guile Object Library for Gnome.
+
+G-Golf is a library, composed of a direct binding to GObject
+Introspection [3] plus a higher functionality layer, which, importing
+Gnome libraries, makes GOBject classes and methods GOOPS [4] citizen.
+
+G-Golf is a tool to develop modern graphical applications in Guile
+Scheme.
+
 
 ** What else
 
-G-Golf is entirely written in Guile [3], no C code.
+G-Golf is entirely written in Guile, no C code.
 
 
 ** Savannah
 
-GNU G-Golf also has a Savannah [4] project page.
+GNU G-Golf also has a Savannah [5] project page.
 
 ** License
 
@@ -29,13 +37,10 @@ the license.
 
 
 [1] http://www.gnu.org/software/g-golf/
-[2] https://developer.gnome.org/gi/
-
-GNU Guile
-an interpreter and compiler for the Scheme [6] programming language
-[3] http://www.gnu.org/software/guile/
-
-
-[4] https://savannah.gnu.org/projects/g-golf/
-[5] http://rotty.xx.vu/software/sbank/
+[2] GNU Guile
+    an interpreter and compiler for the Scheme [6] programming language
+    http://www.gnu.org/software/guile/
+[3] https://developer.gnome.org/gi/
+[4] http://www.gnu.org/software/guile/manual/html_node/GOOPS.html#GOOPS
+[5] https://savannah.gnu.org/projects/g-golf/
 [6] http://schemers.org/
