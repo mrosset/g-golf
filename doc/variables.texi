@@ -24,13 +24,13 @@ Documentation License.''
 @set UGUILE http://www.gnu.org/software/guile
 @set USCHEME http://schemers.org
 
-@set UGGOLF http://www.gnu.org/software/g-golf/
-@set UGGOLF-RELEASES http://ftp.gnu.org/gnu/g-golf/
-@set UGGOLF-LATEST http://ftp.gnu.org/gnu/g-golf/g-golf-@value{VERSION}.tar.gz
-@set UGGOLF-SAVANNAH https://savannah.gnu.org/projects/g-golf
-@set UGGOLF-LISTINFO https://lists.gnu.org/mailman/listinfo/g-golf-user
-@set UGGOLF-BUGS-TRACKER https://savannah.gnu.org/bugs/?group=g-golf
-@set UGGOLF-BUGS-LISTINFO https://lists.gnu.org/mailman/listinfo/bug-g-golf
+@set UG-GOLF http://www.gnu.org/software/g-golf/
+@set UG-GOLF-RELEASES http://ftp.gnu.org/gnu/g-golf/
+@set UG-GOLF-LATEST http://ftp.gnu.org/gnu/g-golf/g-golf-@value{VERSION}.tar.gz
+@set UG-GOLF-SAVANNAH https://savannah.gnu.org/projects/g-golf
+@set UG-GOLF-LISTINFO https://lists.gnu.org/mailman/listinfo/g-golf-user
+@set UG-GOLF-BUGS-TRACKER https://savannah.gnu.org/bugs/?group=g-golf
+@set UG-GOLF-BUGS-LISTINFO https://lists.gnu.org/mailman/listinfo/bug-g-golf
 
 @set UGRIP http://www.nongnu.org/grip/index.html
 @set UGRIP-GNOME http://www.nongnu.org/grip/index.html
@@ -38,6 +38,7 @@ Documentation License.''
 
 @set USBANK http://rotty.xx.vu/software/sbank/
 
+@set UGI-wiki https://wiki.gnome.org/Projects/GObjectIntrospection
 @set UGI https://developer.gnome.org/gi
 @set UGIRepository https://developer.gnome.org/gi/stable/GIRepository.html
 @set UGIcommontypes https://developer.gnome.org/gi/stable/gi-common-types.html
@@ -61,7 +62,11 @@ Documentation License.''
 @set UGIValueInfo https://developer.gnome.org/gi/stable/gi-GIValueInfo.html
 
 @set UGLIB https://developer.gnome.org/glib/stable/
+@set UGLIB-Mem-Alloc https://developer.gnome.org/glib/stable/glib-Memory-Allocation.html
+
 @set UGOBJECT https://developer.gnome.org/gobject/stable/
+@set UGOBJECT-Enum-Flags https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html
+@set UGOBJECT-Type-Info https://developer.gnome.org/gobject/stable/gobject-Type-Information.html
 
 @c GG -> Guile-Gnome
 @set UGG https://www.gnu.org/software/guile-gnome

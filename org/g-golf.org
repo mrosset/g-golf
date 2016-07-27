@@ -18,7 +18,9 @@ Documentation License.''
 
 #+TITLE: GNU G-Golf TODO file
 
-* TODO [50%]
+* Source
+
+** [50%]
 
 - [ ] g-golf-ir-find-by-* should return #f if no gtype is found
 - [ ] g-golf-* procs to return #f, not %null-pointer when they fail
@@ -32,3 +34,10 @@ Documentation License.''
 
   Done, I talked to ebassy on #introspection and he fixed the bug in the
   manual: this functionindeed returns a GITransfer enum value,
+
+* Manual
+
+** [%]
+
+- [ ] review all %g-golf- entries: they are now <genum>, not <enum>
+- [ ] fix the contact, do we want g-golf-user or guile-user?

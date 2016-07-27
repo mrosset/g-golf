@@ -46,12 +46,12 @@ GIBaseInfo           	       		@*
 
 @indentedblock
 @table @code
-@item @ref{golf-enum-import}
-@item @ref{golf-ei-get-n-values}
-@item @ref{golf-ei-get-value}
-@item @ref{golf-ei-get-n-methods}
-@item @ref{golf-ei-get-method}
-@item @ref{golf-vi-get-value}
+@item @ref{g-golf-enum-import}
+@item @ref{g-golf-ei-get-n-values}
+@item @ref{g-golf-ei-get-value}
+@item @ref{g-golf-ei-get-n-methods}
+@item @ref{g-golf-ei-get-method}
+@item @ref{g-golf-vi-get-value}
 @end table
 @end indentedblock
 
@@ -59,8 +59,8 @@ Note: in this section, unless otherwise specified, the @var{info}
 argument is [must be] a pointer to a @code{GIEumInfo}.
 
 
-@anchor{golf-enum-import}
-@deffn Procedure golf-enum-import info
+@anchor{g-golf-enum-import}
+@deffn Procedure g-golf-enum-import info
 
 Returns a @code{<genum>} instance.
 
@@ -68,8 +68,8 @@ Obtain the values this enumeration contains and construct ...
 @end deffn
 
 
-@anchor{golf-ei-get-n-values}
-@deffn Procedure golf-ei-get-n-values info
+@anchor{g-golf-ei-get-n-values}
+@deffn Procedure g-golf-ei-get-n-values info
 
 Returns the number of values.
 
@@ -77,20 +77,20 @@ Obtain the number of values this enumeration contains.
 @end deffn
 
 
-@anchor{golf-ei-get-value}
-@deffn Procedure golf-ei-get-value info index
+@anchor{g-golf-ei-get-value}
+@deffn Procedure g-golf-ei-get-value info index
 
 Returns a pointer to a @code{GIValueInfo} or #f if type tag is wrong.
 
 Obtain a value for this enumeration.  The @code{GIValueInfo} must be
-free'd using @code{golf-bi-unref} when done.
+free'd using @code{g-golf-bi-unref} when done.
 
 @var{index} is a 0-based offset into @var{info} for a value.
 @end deffn
 
 
-@anchor{golf-ei-get-n-methods}
-@deffn Procedure golf-ei-get-n-methods info
+@anchor{g-golf-ei-get-n-methods}
+@deffn Procedure g-golf-ei-get-n-methods info
 
 Returns the number of methods.
 
@@ -98,20 +98,20 @@ Obtain the number of methods this enumeration has.
 @end deffn
 
 
-@anchor{golf-ei-get-method}
-@deffn Procedure golf-ei-get-method info index
+@anchor{g-golf-ei-get-method}
+@deffn Procedure g-golf-ei-get-method info index
 
 Returns a pointer to a @code{GIFunctionInfo} or #f if type tag is wrong.
 
 Obtain a method for this enumeration.  The @code{GIFunctionInfo} must be
-free'd using @code{golf-bi-unref} when done.
+free'd using @code{g-golf-bi-unref} when done.
 
 @var{index} is a 0-based offset into @var{info} for a method.
 @end deffn
 
 
-@anchor{golf-vi-get-value}
-@deffn Procedure golf-vi-get-value info
+@anchor{g-golf-vi-get-value}
+@deffn Procedure g-golf-vi-get-value info
 
 Returns the enumeration value.
 
@@ -125,13 +125,13 @@ Obtain a value of the @code{GIValueInfo}.
 
 @c @indentedblock
 @c @table @code
-@c @item @ref{%golf-ai-transfer}
+@c @item @ref{%g-golf-ai-transfer}
 @c @end table
 @c @end indentedblock
 
 
-@c @anchor{%golf-ai-transfer}
-@c @defvar %golf-ai-transfer
+@c @anchor{%g-golf-ai-transfer}
+@c @defvar %g-golf-ai-transfer
 
 @c An instance of @code{<enum>}, who's members are the scheme
 @c representation of the @code{GITransfer}:

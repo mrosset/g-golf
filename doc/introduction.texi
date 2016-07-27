@@ -22,7 +22,7 @@ Documentation License.''
 
 @menu
 * About G-Golf::
-@c * The name::
+@c * Description::
 @c * What else::
 @c * Savannah::
 * Obtaining and Installing G-Golf::
@@ -35,17 +35,23 @@ Documentation License.''
 @section About G-Golf
 
 GNU G-Golf @*
-a @uref{@value{UGUILE}, Guile}@footnote{GNU @uref{@value{UGUILE},
-Guile}@*an interpreter and compiler for the @uref{@value{USCHEME},
-Scheme} programming language.}  binding for @uref{@value{UGI}, GObject
-Introspection}.
+Gnome: (Guile Object Library for).
 
 
-@subheading The name
+@subheading Description
 
-Unimaginatively named after @uref{@value{USBANK}, Sbank},
-unimaginatively named after pybank, a Python binding for GObject
-Introspection.
+G-Golf is a Guile@footnote{GNU @uref{@value{UGUILE}, Guile}@*an
+interpreter and compiler for the @uref{@value{USCHEME}, Scheme}
+programming language.} Object Library for Gnome.
+
+G-Golf is a library, composed of a direct binding to
+@uref{@value{UGI-wiki}, GObject Introspection} plus a higher
+functionality layer, which, importing Gnome libraries, makes GOBject
+classes and methods GOOPS citizen (@pxref{GOOPS,,, guile, The GNU Guile
+Reference Manual}).
+
+G-Golf is a tool to develop modern graphical applications in Guile
+Scheme.
 
 
 @subheading What else
@@ -56,7 +62,7 @@ code.
 
 @subheading Savannah
 
-GNU G-Golf also has a @uref{@value{UGGOLF-SAVANNAH}, Savannah} project
+GNU G-Golf also has a @uref{@value{UG-GOLF-SAVANNAH}, Savannah} project
 page.
 
 
@@ -64,11 +70,11 @@ page.
 @section Obtaining and Installing G-Golf
 
 GNU G-Golf can be obtained from the following archive site
-@uref{@value{UGGOLF-RELEASES}}.  The file will be named
-golf-version.tar.gz. The current version is @value{VERSION}, so the
+@uref{@value{UG-GOLF-RELEASES}}.  The file will be named
+g-golf-version.tar.gz. The current version is @value{VERSION}, so the
 file you should grab is:
 
-@tie{}@tie{}@tie{}@tie{}@uref{@value{UGGOLF-LATEST}}
+@tie{}@tie{}@tie{}@tie{}@uref{@value{UG-GOLF-LATEST}}
 
 
 @subheading Dependencies
@@ -82,7 +88,7 @@ Autoconf >= 2.69
 @item
 Automake >= 1.14
 @item
-@uref{@value{UGUILE}, Guile}>= 2.0.11
+@uref{@value{UGUILE}, Guile}>= 2.0.12
 @item 
 @uref{@value{UGI}, GObject-Introspection-1.0} >= 1.48.0
 @item
@@ -99,8 +105,8 @@ proceed with the following steps:
 
 @example
 cd <download-path>
-tar zxf golf-@value{VERSION}.tar.gz
-cd golf-@value{VERSION}
+tar zxf g-golf-@value{VERSION}.tar.gz
+cd g-golf-@value{VERSION}
 ./configure [--prefix=/your/prefix]
 make
 make install
@@ -162,11 +168,11 @@ installed in @code{$prefix/share/doc/g-golf}
 G-Golf uses the following mailing list:
 
 @itemize @bullet
-@item golf-user at gnu dot org
+@item g-golf-user at gnu dot org
 @end itemize
 
 You can (un)subscribe to the list by following instructions on the
-@uref{@value{UGGOLF-LISTINFO}, list information page}.
+@uref{@value{UG-GOLF-LISTINFO}, list information page}.
 
 
 @subheading IRC
@@ -181,7 +187,7 @@ Most of the time you can find me on irc, channel @emph{#guile},
 @node Reporting Bugs
 @section Reporting Bugs
 
-G-Golf has a @uref{@value{UGGOLF-BUGS-TRACKER}, bugs tracker}. You
+G-Golf has a @uref{@value{UG-GOLF-BUGS-TRACKER}, bugs tracker}. You
 may send your bugs report here:
 
 @itemize @bullet
@@ -189,5 +195,5 @@ may send your bugs report here:
 @end itemize
 
 You can (un)subscribe to the bugs report list by following instructions
-on the @uref{@value{UGGOLF-BUGS-LISTINFO}, list information page}.
+on the @uref{@value{UG-GOLF-BUGS-LISTINFO}, list information page}.
 

@@ -18,7 +18,10 @@ Documentation License.''
 
 
 @node Abreviations
-@subsubsection Abreviations
+@subsection Abreviations
+
+
+@subheading GObject Introspection
 
 In the table below we list respectively the abreviation, its GObject
 Introspection section, and, when applicable, its G-Golf section and the
@@ -105,6 +108,49 @@ corresponding G-Golf source code module.
 @tab @uref{@value{UGIValueInfo}, GIValueInfo}
 @tab n/a
 @tab @code{(g-golf gi enum-info)}
+
+@end multitable
+@end indentedblock
+
+
+@subheading GObject
+
+In the table below we list respectively the abreviation, its GObject
+section, and, when applicable, its G-Golf section and the corresponding
+G-Golf source code module.
+
+@indentedblock
+@multitable @columnfractions .1 .2 .2 .3
+@headitem Abr. @tab GObject Section @tab G-Golf Section @tab G-Golf module
+
+@item @code{-go-}
+@tab @uref{@value{UGOBJECT-Enum-Flags}, Enumeration and Flag Types}
+@tab @c @ref{Repository}
+@tab @code{(g-golf gi gobject enum-flags)}
+
+@item
+@tab @uref{@value{UGOBJECT-Type-Info}, Type Information}
+@tab @c 
+@tab @code{(g-golf gi gobject type-info)}
+
+@end multitable
+@end indentedblock
+
+
+@subheading Glib
+
+In the table below we list respectively the abreviation, its Glib
+section, and, when applicable, its G-Golf section and the corresponding
+G-Golf source code module.
+
+@indentedblock
+@multitable @columnfractions .1 .2 .2 .3
+@headitem Abr. @tab Glib Section @tab G-Golf Section @tab G-Golf module
+
+@item @code{-gl-}
+@tab @uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
+@tab @c @ref{Repository}
+@tab @code{(g-golf gi glib mem-alloc)}
 
 @end multitable
 @end indentedblock

@@ -25,17 +25,26 @@ AUTOMAKE_OPTIONS = gnu
 
 info_TEXINFOS = g-golf.texi
 
-gbank_TEXINFOS = \
+g_golf_TEXINFOS = \
   version.texi			\
   variables.texi		\
   preface.texi     		\
   introduction.texi		\
   using-g-golf.texi		\
+  api-abreviations.texi		\
+  api-arg-info.texi		\
   api-base-info.texi		\
   api-callable-info.texi	\
+  api-enum-info.texi		\
   api-overview.texi		\
+  api-registered-type-info.texi	\
   api-repository.texi		\
+  api-typelib.texi		\
   api-support-modules.texi	\
+  api-gobject-enum-flags.texi	\
+  api-gobject.texi		\
+  api-support.texi		\
+  api-gir.texi			\
   api.texi			\
   indices.texi			\
   fdl.texi

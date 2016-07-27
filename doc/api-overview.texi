@@ -17,23 +17,24 @@ Documentation License.''
 @end copying
 
 
-@node API Overview
-@subsection API Overview
+@c @node API Overview
+@c @subsection API Overview
 
 
 @subheading G-Golf Low Level API
 
-The G-Golf low level API is the part of the G-Golf API where [almost all]
-procedures are a one to one binding to their corresponding @code{GI}
-(@code{Glib} and @code{GObject}) function, and both arguments and
-returned values are pointers, except for enums, strings, numbers and
-booleans.
+The G-Golf low level API is the part of the G-Golf API where [almost
+all] procedures are a one to one binding to their corresponding
+@code{GObject Introspection} function, and both arguments and returned
+values are pointers, except for enums, strings, numbers and
+booleans. This is also true for the minimal ’bootstrap’ bindings G-golf
+must implement with @code{Glib} and @code{GObject}.
 
-As an example. you may already do:
+Here is an example:
 
 @lisp
 ,use (g-golf gi)
-(golf-ir-require "Clutter")
+(g-golf-ir-require "Clutter")
 @print{}
 $2 = #<pointer 0x1681600>
 @end lisp
@@ -41,29 +42,28 @@ $2 = #<pointer 0x1681600>
 
 @subheading G-Golf High Level API
 
-G-Golf will also provide a higher level API, using GOOPS (@pxref{GOOPS,,,
-guile, The GNU Guile Reference Manual}), as it has been done for
-@uref{@value{UGG}, Guile-Gnome}.
-
+G-Golf will also provide a higher level API, using @code{GOOPS}
+(@pxref{GOOPS,,, guile, The GNU Guile Reference Manual}), as it has been
+done for @uref{@value{UGG}, Guile-Gnome}.
 
 @indentedblock
 @strong{Special Note:}
 
 This means that somewhere in between this initial @value{VERSION}
 version and 0.1.0, or maybe 0.2.0, we probably will break the above
-arguments and returned values statement, so that where ever appropriate,
-these will become GOOPS classes and instances for the G-Golf low level
-API as well, except for enums, strings, numbers and booleans.
+statement, so that where ever appropriate, arguments and returned values
+will become GOOPS classes and instances for the G-Golf low level API as
+well.
 
 Once we will be happy with the design and will have tested it on a
 wrapper, let's say @code{Clutter}, once we will have fixed all manual
 entries, then we will remove this special note.
 
-Till then, code and design review is more then welcome, testing upon a
-wrapper is welcome too, but be well aware of this special note, and keep
-in mind that things may change in a way that either version 0.1.0 or
-0.2.0 will probably break earlier G-Golf user code, that you must
-consider, till then, experimental.
+Till then, code and design review is more then welcome, testing upon the
+gnome library of your choice is welcome too, but be well aware of this
+special note, and keep in mind that things may change in a way that
+either version 0.1.0 or 0.2.0 will probably break earlier G-Golf user
+code, that you must consider, till then, experimental.
 @end indentedblock
 
 G-Golf higher level API will follow @uref{@value{UGG}, Guile-Gnome}'s
@@ -78,7 +78,7 @@ level API will exist:
 
 @lisp
 ,use (g-golf gi)
-(golf-ir-require "Clutter")
+(g-golf-ir-require "Clutter")
 @c @print{}
 @c $2 = #<<gi-typelib> 18237a0>
 (make <clutter-stage>)
@@ -86,15 +86,24 @@ level API will exist:
 $3 = #<<clutter-stage> 22782a0>
 @end lisp
 
+Or even better:
+
+@lisp
+,use (g-golf clutter)
+(make <clutter-stage>)
+@print{}
+$3 = #<<clutter-stage> 22782a0>
+@end lisp
+
 
 @node Naming Conventions
-@subsubsection Naming Conventions
+@subsection Naming Conventions
 
 
 @subheading GI Funtions
 
 G-Golf low level API procedure names that bind a GI function always start
-with @code{golf-}, followed by two letters and an hyphen, representing
+with @code{g-golf-}, followed by two letters and an hyphen, representing
 the GObject Introspection section (@xref{Abreviations}), followed by the
 section function name it implements. For example, from the GIRepository
 section:
@@ -102,7 +111,7 @@ section:
 @example
 g_irepository_get_loaded_namespaces
 ->
-@ref{golf-ir-get-loaded-namespaces}
+@ref{g-golf-ir-get-loaded-namespaces}
 @end example
 
 
@@ -110,12 +119,12 @@ g_irepository_get_loaded_namespaces
 
 G-Golf low level API variables that bind GI types and values use the
 exact same convention as for procedures, except that they always start
-with @code{%golf-}.  For example, from the GIBaseInfo section:
+with @code{%g-golf-}.  For example, from the GIBaseInfo section:
 
 @example
 GIInfoType
 ->
-@ref{%golf-bi-info-type}
+@ref{%g-golf-bi-info-type}
 @end example
 
 Note: The G-Golf Reference Manual follows the GObject Introspection
@@ -132,14 +141,14 @@ would not buy us much.  It comes with its own set of procedures, syntax
 and variables, aimed at not just reading a typelib, but making its
 functionality available from @uref{@value{UGUILE}, Guile}.
 
-G-Golf procedure and syntax names also always start with @code{golf-}
+G-Golf procedure and syntax names also always start with @code{g-golf-}
 followed by their name: the name, however, will never start neither
 contain anywhere else the two reserved letters followed by a hyphen used
 for @code{GI}, @code{Glib} and @code{GObject} functions, types and
 variable (@xref{Abreviations}).
 
 G-Golf variables follow the same above described rule except that their
-name starts with @code{%golf-}.
+name starts with @code{%g-golf-}.
 
 
 @subheading Exceptions
@@ -190,7 +199,7 @@ multi methods polimorphic object oriented systems, users just have fun:
 
 @lisp
 ,use (g-golf gi)
-(golf-ir-require "Clutter")
+(g-golf-ir-require "Clutter")
 @print{}
 $2 = #<<gi-typelib> 18237a0>
 (make <clutter-actor>)
@@ -202,24 +211,3 @@ $3 = #<<clutter-actor> 32124b0>
 
 
 @include api-abreviations.texi
-
-
-@node G-Golf Modules
-@subsubsection G-Golf Modules
-
-G-Golf GObject Introspection modules are defined in the @code{gi}
-subdirectory, such as @code{(g-golf gi repository)}.
-
-Where you may load these modules individually, the easiest way to use
-G-Golf is to import the @code{gi} module: it imports and re-exports the
-public interface of (oop goops), (ice-9 binary-ports), (rnrs
-bytevectors), (system foreign), all G-Golf support and G-Golf GObject
-Introspection modules:
-
-@lisp
-(use-modules (g-golf gi))
-@end lisp
-
-Most G-Golf low level API modules correspond to a GObject Intropection
-section, except for @code{init}, @code{utils} and @code{types}.
-

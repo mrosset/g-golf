@@ -17,47 +17,41 @@ Documentation License.''
 @end copying
 
 
-@node API Reference
-@chapter API Reference
 
-@c G-Golf Reference Manual still is a mock-up: any help is more then
-@c welcome to improve this situation, thanks!
+G-Golf uses a series of support modules, each documented in the following
+subsections. You may either import them all, like this
+@code{(use-modules (g-golf support))}, or individually, such as
+@code{(use-modules (g-golf support modules))}, @code{(use-modules (g-golf
+support goops))}, ...
 
 
 @menu
-* API Overview::
-* GObject Introspection::
-* GObject::
-* Glib::
-* Support::
+* Modules::
+* Goops::
+* G-export::
+* Utils::
+* Enum::
 @end menu
 
 
-@node API Overview
-@section API Overview
-
-@include api-overview.texi
+@include api-support-modules.texi
 
 
-@node GObject Introspection
-@section GObject Introspection
+@node Goops
+@subsection Goops
 
-@include api-gir.texi
+@node G-export
+@subsection G-export
 
+@node Utils
+@subsection Utils
 
-@node GObject
-@section GObject
-
-@c @include api-gobject.texi
-
-
-@node Glib
-@section Glib
-
-@c @include api-glib.texi
+@node Enum
+@subsection Enum
 
 
-@node Support
-@section Support
+@anchor{<enum>}
+@deffn Class <enum>
 
-@include api-support.texi
+
+@end deffn

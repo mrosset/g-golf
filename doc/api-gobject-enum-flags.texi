@@ -1,0 +1,59 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 Free Software Foundation, Inc.
+
+
+@copying
+This manual documents GNU G-Golf version @value{VERSION}.
+
+Copyright (C) 2016 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
+copy of the license is included in the section entitled ``GNU Free
+Documentation License.''
+@end copying
+
+
+@c @defindex tl
+
+
+@node Enumeration and Flag Types
+@subsection Enumeration and Flag Types
+
+G-Golf GObject Enumeration and Flag Types low level API.@*
+Enumeration and Flag Types — Enumeration and flags types.
+
+
+@subheading Description
+
+TODO.
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{<genum>}
+@end table
+@end indentedblock
+
+@c Note: in this section, the @var{typelib} argument is [must be] a pointer
+@c to a @code{GITypelib}.
+
+
+@anchor{<genum>}
+@deffn Class <enum>
+
+@end deffn

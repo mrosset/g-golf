@@ -33,10 +33,10 @@ GIBaseInfo — Base struct for all GITypelib structs.
 accessible through the @code{GIRepository API}.
 
 Most @code{GIRepository APIs} returning a @code{GIBaseInfo} is actually
-creating a new struct, in other words, @ref{golf-bi-unref} has to be
+creating a new struct, in other words, @ref{g-golf-bi-unref} has to be
 called when done accessing the data. @code{GIBaseInfos} are normally
-accessed by calling either @ref{golf-ir-find-by-name},
-@ref{golf-ir-find-by-gtype} or @ref{golf-ir-get-info}.
+accessed by calling either @ref{g-golf-ir-find-by-name},
+@ref{g-golf-ir-find-by-gtype} or @ref{g-golf-ir-get-info}.
 
 @example
 @strong{Example:} Getting the Button of the Gtk typelib
@@ -44,12 +44,12 @@ accessed by calling either @ref{golf-ir-find-by-name},
 
 @lisp
 ,use (g-golf gi)
-(golf-ir-require "Gtk")
-(golf-ir-find-by-name "Gtk" "Button")
+(g-golf-ir-require "Gtk")
+(g-golf-ir-find-by-name "Gtk" "Button")
 @print{}
 $4 = #<pointer 0x20e0000>
 ... use button info ...
-(golf-bi-unref $4)
+(g-golf-bi-unref $4)
 @end lisp
 
 
@@ -70,25 +70,25 @@ GIBaseInfo           	       @*
 
 @indentedblock
 @table @code
-@item @ref{golf-bi-ref}
-@item @ref{golf-bi-unref}
-@item @ref{golf-bi-equal}
-@item @ref{golf-bi-get-type}
-@item @ref{golf-bi-get-typelib}
-@item @ref{golf-bi-get-namespace}
-@item @ref{golf-bi-get-name}
-@item @ref{golf-bi-get-attribute}
-@item @ref{golf-bi-iterate-attributes}
-@item @ref{golf-bi-get-container}
-@item @ref{golf-bi-is-deprecated}
+@item @ref{g-golf-bi-ref}
+@item @ref{g-golf-bi-unref}
+@item @ref{g-golf-bi-equal}
+@item @ref{g-golf-bi-get-type}
+@item @ref{g-golf-bi-get-typelib}
+@item @ref{g-golf-bi-get-namespace}
+@item @ref{g-golf-bi-get-name}
+@item @ref{g-golf-bi-get-attribute}
+@item @ref{g-golf-bi-iterate-attributes}
+@item @ref{g-golf-bi-get-container}
+@item @ref{g-golf-bi-is-deprecated}
 @end table
 @end indentedblock
 
 Note: in this section, the @var{info}, @var{info1} and @var{info2}
 arguments are [must be] pointers to a @code{GIBaseInfo}.
 
-@anchor{golf-bi-ref}
-@deffn Procedure golf-bi-ref info
+@anchor{g-golf-bi-ref}
+@deffn Procedure g-golf-bi-ref info
 
 Returns the same @var{info}.
 
@@ -96,8 +96,8 @@ Increases the reference count of @var{info}.
 @end deffn
 
 
-@anchor{golf-bi-unref}
-@deffn Procedure golf-bi-unref info
+@anchor{g-golf-bi-unref}
+@deffn Procedure g-golf-bi-unref info
 
 Returns nothing.
 
@@ -106,8 +106,8 @@ drops to 0, the @var{info} is freed.
 @end deffn
 
 
-@anchor{golf-bi-equal}
-@deffn Procedure golf-bi-equal info1 info2
+@anchor{g-golf-bi-equal}
+@deffn Procedure g-golf-bi-equal info1 info2
 
 Returns #t if and only if @var{info1} equals @var{info2}.
 
@@ -119,29 +119,29 @@ the @code{TypeLib}: use this procedure instead to do @code{GIBaseInfo}
 comparisons.
 @end deffn
 
-@anchor{golf-bi-get-type}
-@deffn Procedure golf-bi-get-type info
+@anchor{g-golf-bi-get-type}
+@deffn Procedure g-golf-bi-get-type info
 
 Returns the info type of @var{info}.
 @end deffn
 
 
-@anchor{golf-bi-get-typelib}
-@deffn Procedure golf-bi-get-typelib info
+@anchor{g-golf-bi-get-typelib}
+@deffn Procedure g-golf-bi-get-typelib info
 
 Returns a pointer to the @code{GITypelib} the @var{info} belongs to.
 @end deffn
 
 
-@anchor{golf-bi-get-namespace}
-@deffn Procedure golf-bi-get-namespace info
+@anchor{g-golf-bi-get-namespace}
+@deffn Procedure g-golf-bi-get-namespace info
 
 Returns the namespace of @var{info}
 @end deffn
 
 
-@anchor{golf-bi-get-name}
-@deffn Procedure golf-bi-get-name info
+@anchor{g-golf-bi-get-name}
+@deffn Procedure g-golf-bi-get-name info
 
 Returns the name of @var{info} or @code{#f} if it lacks a name.
 
@@ -151,16 +151,16 @@ function.
 @end deffn
 
 
-@anchor{golf-bi-get-attribute}
-@deffn Procedure golf-bi-get-attribute info name
+@anchor{g-golf-bi-get-attribute}
+@deffn Procedure g-golf-bi-get-attribute info name
 
 Returns the value of the attribute or @code{#f} if not such attribute
 exists.
 @end deffn
 
 
-@anchor{golf-bi-iterate-attributes}
-@deffn Procedure golf-bi-iterate-attributes info proc
+@anchor{g-golf-bi-iterate-attributes}
+@deffn Procedure g-golf-bi-iterate-attributes info proc
 
 Returns nothing.
 
@@ -170,8 +170,8 @@ and the @var{value} of the attribute.
 @end deffn
 
 
-@anchor{golf-bi-get-container}
-@deffn Procedure golf-bi-get-container info
+@anchor{g-golf-bi-get-container}
+@deffn Procedure g-golf-bi-get-container info
 
 Returns a pointer to a @code{GIBaseInfo}.
 
@@ -181,8 +181,8 @@ of a @code{GIFunctionInfo} is an @code{GIObjectInfo} or
 @end deffn
 
 
-@anchor{golf-bi-is-deprecated}
-@deffn Procedure golf-bi-is-deprecated info
+@anchor{g-golf-bi-is-deprecated}
+@deffn Procedure g-golf-bi-is-deprecated info
 
 Returns @code{#t} if deprecated.
 
@@ -195,13 +195,13 @@ not.
 
 @indentedblock
 @table @code
-@item @ref{%golf-bi-info-type}
+@item @ref{%g-golf-bi-info-type}
 @end table
 @end indentedblock
 
 
-@anchor{%golf-bi-info-type}
-@defvar %golf-bi-info-type
+@anchor{%g-golf-bi-info-type}
+@defvar %g-golf-bi-info-type
 
 An instance of @code{<enum>}, who's members are the scheme
 representation of the @code{GIInfoType}:

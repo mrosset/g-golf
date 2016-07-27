@@ -51,11 +51,11 @@ GIBaseInfoInfo         	                     @*
 
 @indentedblock
 @table @code
-@item @ref{golf-ci-get-n-args}
-@item @ref{golf-ci-get-arg}
-@item @ref{golf-ci-get-caller-owns}
-@item @ref{golf-ci-get-return-type}
-@item @ref{golf-ci-may-return-null}
+@item @ref{g-golf-ci-get-n-args}
+@item @ref{g-golf-ci-get-arg}
+@item @ref{g-golf-ci-get-caller-owns}
+@item @ref{g-golf-ci-get-return-type}
+@item @ref{g-golf-ci-may-return-null}
 @end table
 @end indentedblock
 
@@ -63,8 +63,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GICallableInfo}.
 
 
-@anchor{golf-ci-get-n-args}
-@deffn Procedure golf-ci-get-n-args info
+@anchor{g-golf-ci-get-n-args}
+@deffn Procedure g-golf-ci-get-n-args info
 
 Returns the number of arguments this @var{info} expects.
 
@@ -73,38 +73,38 @@ Obtain the number of arguments (both IN and OUT) for this
 @end deffn
 
 
-@anchor{golf-ci-get-arg}
-@deffn Procedure golf-ci-get-arg info n
+@anchor{g-golf-ci-get-arg}
+@deffn Procedure g-golf-ci-get-arg info n
 
 Returns a pointer to the @var{n}th @code{GIArgInfo} of @var{info}.
 
-It must be freed by calling @ref{golf-bi-unref} when done accessing the
+It must be freed by calling @ref{g-golf-bi-unref} when done accessing the
 data.
 @end deffn
 
 
-@anchor{golf-ci-get-caller-owns}
-@deffn Procedure golf-ci-get-caller-owns info
+@anchor{g-golf-ci-get-caller-owns}
+@deffn Procedure g-golf-ci-get-caller-owns info
 
 Returns a @code{GITransfer} enumerated value.
 
 See whether the caller owns the return value of this callable. See
-@ref{%golf-ai-transfer} for the list of possible values.
+@ref{%g-golf-ai-transfer} for the list of possible values.
 @end deffn
 
 
-@anchor{golf-ci-get-return-type}
-@deffn Procedure golf-ci-get-return-type info
+@anchor{g-golf-ci-get-return-type}
+@deffn Procedure g-golf-ci-get-return-type info
 
 Returns a pointer to the @code{GITypeInfo}.
 
-It must be freed by calling @ref{golf-bi-unref} when done accessing the
+It must be freed by calling @ref{g-golf-bi-unref} when done accessing the
 data.
 @end deffn
 
 
-@anchor{golf-ci-may-return-null}
-@deffn Procedure golf-ci-may-return-null info
+@anchor{g-golf-ci-may-return-null}
+@deffn Procedure g-golf-ci-may-return-null info
 
 Returns @code{#t} if the callable @var{info} could return @code{NULL}.
 
