@@ -88,7 +88,7 @@ Autoconf >= 2.69
 @item
 Automake >= 1.14
 @item
-@uref{@value{UGUILE}, Guile}>= 2.0.12
+@uref{@value{UGUILE}, Guile} >= 2.0.12
 @item 
 @uref{@value{UGI}, GObject-Introspection-1.0} >= 1.48.0
 @item
@@ -128,19 +128,20 @@ could use
 @end example
 
 @item
-To install G-Golf, @code{make install}, you must have @code{write
-permissions} for (a) @code{$prefix} and (b) guile's @code{site-ccache}
-dirs [see below].
+To install GNU G-Golf, you must have @code{write permissions} for
+@code{$prefix}, Guile's global site and site-ccache directories.
 @ifhtml
 @*@*
 @end ifhtml
 
 @item
-G-Golf's modules are installed in the @code{$prefix/share/g-golf}
-directory.
-@ifhtml
-@*@*
-@end ifhtml
+GNU G-Golf's modules are installed in Guile's global site directory.  If
+you want to know its location, enter the following expression in a
+terminal:
+
+@example
+guile -c "(display (%global-site-dir)) (newline)"
+@end example
 
 @item
 G-Golf's compiled modules are installed in the Guile's
