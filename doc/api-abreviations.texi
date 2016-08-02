@@ -81,6 +81,8 @@ corresponding G-Golf source code module.
 
 @item @code{-oi-}
 @tab @uref{@value{UGIObjectInfo}, GIObjectInfo}
+@tab @ref{Object Info}
+@tab @code{(g-golf gi object-info)}
 
 @item @code{-ii-}
 @tab @uref{@value{UGIInterfaceInfo}, GIInterfaceInfo}

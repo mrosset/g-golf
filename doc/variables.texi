@@ -67,6 +67,8 @@ Documentation License.''
 @set UGOBJECT https://developer.gnome.org/gobject/stable/
 @set UGOBJECT-Enum-Flags https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html
 @set UGOBJECT-Type-Info https://developer.gnome.org/gobject/stable/gobject-Type-Information.html
+@set UGOBJECT-GObject-struct https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#GObject-struct
+
 
 @c GG -> Guile-Gnome
 @set UGG https://www.gnu.org/software/guile-gnome

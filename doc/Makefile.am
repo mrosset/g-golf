@@ -32,14 +32,15 @@ g_golf_TEXINFOS = \
   introduction.texi		\
   using-g-golf.texi		\
   api-abreviations.texi		\
-  api-arg-info.texi		\
+  api-repository.texi		\
   api-base-info.texi		\
   api-callable-info.texi	\
-  api-enum-info.texi		\
-  api-overview.texi		\
   api-registered-type-info.texi	\
-  api-repository.texi		\
+  api-enum-info.texi		\
+  api-object-info.texi		\
+  api-arg-info.texi		\
   api-typelib.texi		\
+  api-overview.texi		\
   api-support-modules.texi	\
   api-gobject-enum-flags.texi	\
   api-gobject.texi		\

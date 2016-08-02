@@ -52,6 +52,7 @@
   #:use-module (g-golf gi callable-info)
   #:use-module (g-golf gi registered-type-info)
   #:use-module (g-golf gi enum-info)
+  #:use-module (g-golf gi object-info)
   #:use-module (g-golf gi arg-info)
   #:use-module (g-golf gi type-info))
 
@@ -77,6 +78,7 @@
 			      (g-golf gi callable-info)
 			      (g-golf gi registered-type-info)
 			      (g-golf gi enum-info)
+			      (g-golf gi object-info)
 			      (g-golf gi arg-info)
 			      (g-golf gi type-info)
 			      (g-golf gi typelib)))

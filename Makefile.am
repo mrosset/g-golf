@@ -31,9 +31,9 @@ pkgconfig_DATA=meta/g-golf-1.0.pc
 
 SOURCES = \
 	g-golf/support/modules.scm		\
-	g-golf/support/goops.scm			\
+	g-golf/support/goops.scm		\
 	g-golf/support/g-export.scm		\
-	g-golf/support/utils.scm			\
+	g-golf/support/utils.scm		\
 	g-golf/support/enum.scm			\
 	g-golf/support/push.scm			\
 	g-golf/support/keyword.scm		\
@@ -42,15 +42,16 @@ SOURCES = \
 	g-golf/gi/glib/mem-alloc.scm		\
 	g-golf/gi/glib.scm			\
 	g-golf/gi/gobject/type-info.scm		\
-	g-golf/gi/gobject/enum-flags.scm		\
+	g-golf/gi/gobject/enum-flags.scm	\
 	g-golf/gi/gobject.scm			\
 	g-golf/gi/utils.scm			\
 	g-golf/gi/types.scm			\
-	g-golf/gi/repository.scm			\
+	g-golf/gi/repository.scm		\
 	g-golf/gi/base-info.scm			\
 	g-golf/gi/callable-info.scm		\
 	g-golf/gi/registered-type-info.scm	\
 	g-golf/gi/enum-info.scm			\
+	g-golf/gi/object-info.scm		\
 	g-golf/gi/arg-info.scm			\
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\

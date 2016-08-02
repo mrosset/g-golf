@@ -43,7 +43,8 @@ section, but there are some exceptions, such as @code{init},
 * Base Info::             Base struct for all GITypelib structs.
 * Callable Info::	  Struct representing a callable.
 * Registered Type Info::  Struct representing a struct with a GType.
-* Enum Info::		  Structs representing an enumeration and its values.
+* Enum Info::		  Struct representing an enumeration and its values.
+* Object Info::	  	  Struct representing a GObject.
 * Arg Info::		  Struct representing an argument.
 
 
@@ -59,6 +60,7 @@ section, but there are some exceptions, such as @code{init},
 @include api-callable-info.texi
 @include api-registered-type-info.texi
 @include api-enum-info.texi
+@include api-object-info.texi
 @include api-arg-info.texi
 
 @include api-typelib.texi
