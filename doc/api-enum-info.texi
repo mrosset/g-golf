@@ -47,10 +47,13 @@ GIBaseInfo           	       		@*
 @indentedblock
 @table @code
 @item @ref{g-golf-enum-import}
+@item @ref{g-golf-enum-get-values}
+
 @item @ref{g-golf-ei-get-n-values}
 @item @ref{g-golf-ei-get-value}
 @item @ref{g-golf-ei-get-n-methods}
 @item @ref{g-golf-ei-get-method}
+
 @item @ref{g-golf-vi-get-value}
 @end table
 @end indentedblock
@@ -64,7 +67,18 @@ argument is [must be] a pointer to a @code{GIEumInfo}.
 
 Returns a @code{<genum>} instance.
 
-Obtain the values this enumeration contains and construct ...
+Obtain the values this enumeration contains and construct a
+@code{<genum>} instance.
+@end deffn
+
+
+@anchor{g-golf-enum-get-values}
+@deffn Procedure g-golf-enum-get-values info
+
+Returns a list of @code{(name . value)} @var{info} contains.
+
+Obtain and build a list of pairs @code{(name . value)} this enumeration
+contains.
 @end deffn
 
 

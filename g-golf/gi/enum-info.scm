@@ -37,6 +37,7 @@
   #:use-module (g-golf gi registered-type-info)
 
   #:export (g-golf-enum-import
+	    g-golf-enum-get-values
 
 	    g-golf-ei-get-n-values
 	    g-golf-ei-get-value
@@ -50,15 +51,6 @@
 ;;; Build Interface
 ;;;
 
-#;(define (g-golf-enum-import info)
-  (let* ((type-name (g-golf-rt-get-type-name info))
-	 (class-name (g-golf-gtype-name->class-name type-name))
-	 (e-vals (g-golf-enum-get-values info)))
-    (dimfi e-vals)
-    (make-class (list <enum>) '()
-		#:name class-name
-		#:set e-vals)))
-
 (define (g-golf-enum-import info)
   (let* ((type-name (g-golf-rt-get-type-name info))
 	 (scm-name (g-golf-gtype-name->scm-name type-name))
@@ -69,22 +61,23 @@
       #:value-set e-vals)))
 
 (define (g-golf-enum-get-values info)
-  (let ((nb (g-golf-ei-get-n-values info)))
-    (and (> nb 0)
-	 (g-golf-enum-get-values-1 info nb 0 '()))))
-
-(define (g-golf-enum-get-values-1 info nb i set)
-  (if (= i nb)
-      (reverse! set)
-      (let* ((value-info (g-golf-ei-get-value info i))
-	     (name (g-golf-bi-get-name value-info))
-	     (value (g-golf-vi-get-value value-info)))
-	(g-golf-bi-unref value-info)
-	(g-golf-enum-get-values-1 info
-				 nb
-				 (+ i 1)
-				 (cons (cons name value)
-				       set)))))
+  (letrec ((get-enum-values
+	    (lambda (info n i v-set)
+	      (if (= i n)
+		  (reverse! v-set)
+		  (let* ((value-info (g-golf-ei-get-value info i))
+			 (name (g-golf-bi-get-name value-info))
+			 (value (g-golf-vi-get-value value-info)))
+		    (g-golf-bi-unref value-info)
+		    (get-enum-values info
+				     n
+				     (+ i 1)
+				     (cons (cons name value)
+					   v-set)))))))
+    (get-enum-values info
+		     (g-golf-ei-get-n-values info)
+		     0
+		     '())))
 
 
 ;;;
@@ -122,7 +115,6 @@
                       (dynamic-func "g_enum_info_get_n_values"
 				    %libgirepository)
                       (list '*)))
-
 
 (define g-enum-info-get-value
   (pointer->procedure '*
