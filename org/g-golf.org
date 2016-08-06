@@ -22,22 +22,24 @@ Documentation License.''
 
 ** [50%]
 
+- [ ] e-sym -> e-name will be better
 - [ ] g-golf-ir-find-by-* should return #f if no gtype is found
 - [ ] g-golf-* procs to return #f, not %null-pointer when they fail
 - [X] verify g-golf-ci-get-caller-owns returned value
 
   The manual says it returns TRUE if the caller owns the return value,
-  FALSE otherwise, but the function definition, in the manualstill, is
+  FALSE otherwise, but the function definition, in the manual is
 
 	GITransfer
 	g_callable_info_get_caller_owns (GICallableInfo *info);
 
   Done, I talked to ebassy on #introspection and he fixed the bug in the
-  manual: this functionindeed returns a GITransfer enum value,
+  manual: this function indeed returns a GITransfer enum value.
 
 * Manual
 
 ** [%]
 
+- [ ] adding ((rnrs) :version (6)) to section 3.2
 - [ ] review all %g-golf- entries: they are now <genum>, not <enum>
 - [ ] fix the contact, do we want g-golf-user or guile-user?
