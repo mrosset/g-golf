@@ -31,6 +31,8 @@
   #:use-module (ice-9 receive)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
+  #:use-module (srfi srfi-1)
+  #:use-module (srfi srfi-60)
   #:use-module (g-golf gi glib)
 
   #:export (%gpointer-size
@@ -43,7 +45,9 @@
 	    %g-golf-gtype-name->scm-name-exceptions
 	    g-golf-gtype-name->scm-name
 	    g-golf-gtype-name->class-name
-	    gtype-class-name->method-name))
+	    gtype-class-name->method-name
+	    g-golf-gflags->integer
+	    g-golf-integer->gflags))
 
 
 (define %gpointer-size 8)
@@ -186,3 +190,19 @@
     (string->symbol
      (string-append (substring class-string 1 (1- (string-length class-string)))
                     ":" (symbol->string name)))))
+
+(define (g-golf-gflags->integer gflags flags)
+  (list->integer
+   (reverse (map (lambda (name)
+		   (if (member name flags) #t #f))
+	      (e-syms gflags)))))
+
+(define (g-golf-integer->gflags gflags n)
+  (let ((names (e-syms gflags)))
+    (fold-right (lambda (name bool result)
+		  (if bool
+		      (cons name result)
+		      result))
+		'()
+		names
+		(reverse (integer->list n (length names))))))
