@@ -25,31 +25,31 @@
 
 ;;; Code:
 
-(eval-when (expand load eval)
-  (use-modules (oop goops))
-  (default-duplicate-binding-handler
-    '(merge-generics replace warn-override-core warn last)))
 
-(define-module (g-golf gi gobject)
-  #:use-module (system foreign)
-  #:use-module (g-golf support modules)
-  #:use-module (g-golf support goops)
-  #:use-module (g-golf support g-export)
-  #:use-module (g-golf support utils)
-  #:use-module (g-golf support enum)
-  #:use-module (g-golf gi init)
-  #:use-module (g-golf gi gobject type-info)
+(define-module (g-golf gi gobject types)
+  #:use-module (oop goops)  
   #:use-module (g-golf gi gobject enum-flags)
-  #:use-module (g-golf gi gobject types))
 
-(eval-when (expand load eval)
-  (re-export-public-interface (oop goops)
-			      (system foreign)
-			      (g-golf support goops)
-			      (g-golf support g-export)
-			      (g-golf support utils)
-			      (g-golf support enum)
-			      (g-golf gi init)
-			      (g-golf gi gobject type-info)
-			      (g-golf gi gobject enum-flags)
-			      (g-golf gi gobject types)))
+  #:export (%g-golf-go-g-param-flags))
+
+
+;;;
+;;; GParamSpec
+;;;
+
+(define %g-golf-go-g-param-flags
+  (make <genum>
+    #:type-name "GParamFlags"
+    #:scm-name "g-param-flags"
+    #:value-set '(readable
+		  writable
+		  readwrite
+		  construct
+		  construct-only
+		  lax-validation
+		  static-name
+		  private
+		  static-nick
+		  static-blurb
+		  explicit-notify
+		  deprecated)))
