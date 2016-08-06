@@ -43,6 +43,7 @@ SOURCES = \
 	g-golf/gi/glib.scm			\
 	g-golf/gi/gobject/type-info.scm		\
 	g-golf/gi/gobject/enum-flags.scm	\
+	g-golf/gi/gobject/types.scm		\
 	g-golf/gi/gobject.scm			\
 	g-golf/gi/utils.scm			\
 	g-golf/gi/types.scm			\
@@ -53,6 +54,7 @@ SOURCES = \
 	g-golf/gi/enum-info.scm			\
 	g-golf/gi/object-info.scm		\
 	g-golf/gi/arg-info.scm			\
+	g-golf/gi/property-info.scm		\
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\
 	g-golf/gi.scm
