@@ -195,10 +195,10 @@
   (list->integer
    (reverse (map (lambda (name)
 		   (if (member name flags) #t #f))
-	      (e-syms gflags)))))
+	      (e-names gflags)))))
 
 (define (g-golf-integer->gflags gflags n)
-  (let ((names (e-syms gflags)))
+  (let ((names (e-names gflags)))
     (fold-right (lambda (name bool result)
 		  (if bool
 		      (cons name result)

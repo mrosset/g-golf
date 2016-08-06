@@ -62,7 +62,7 @@
 		    'gboolean))
   
 (define (g-golf-bi-get-type info)
-  (e-sym %g-golf-bi-info-type
+  (e-name %g-golf-bi-info-type
 	 (g-base-info-get-type info)))
 
 (define (g-golf-bi-get-typelib info)

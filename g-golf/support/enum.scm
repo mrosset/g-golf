@@ -49,9 +49,9 @@
 
 (g-export !value-set
 	  e-value
-	  e-sym
+	  e-name
 	  e-values
-	  e-syms)
+	  e-names)
 
 
 (define-class <enum> ()
@@ -85,7 +85,7 @@
 	 (match x ((name . id) id)))
     (!value-set self)))
 
-(define-method (e-sym (self <enum>) (item <integer>))
+(define-method (e-name (self <enum>) (item <integer>))
   (let ((entry (find (lambda (x)
 		       (= (match x ((name . id) id))
 			  item))
@@ -93,7 +93,7 @@
     (and entry
 	 (match entry ((name . id) name)))))
 
-(define-method (e-syms (self <enum>))
+(define-method (e-names (self <enum>))
   (map (lambda (x)
 	 (match x ((name . id) name)))
     (!value-set self)))

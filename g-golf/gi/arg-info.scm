@@ -56,15 +56,15 @@
   (g-arg-info-get-destroy info))
 
 (define (g-golf-ai-get-direction info)
-  (e-sym %g-golf-ai-direction
+  (e-name %g-golf-ai-direction
 	 (g-arg-info-get-direction info)))
 
 (define (g-golf-ai-get-ownership-transfer info)
-  (e-sym %g-golf-ai-transfer
+  (e-name %g-golf-ai-transfer
 	 (g-arg-info-get-ownership-transfer info)))
 
 (define (g-golf-ai-get-scope info)
-  (e-sym %g-golf-ai-scope
+  (e-name %g-golf-ai-scope
 	 (g-arg-info-get-scope info)))
 
 (define (g-golf-ai-get-type info)
