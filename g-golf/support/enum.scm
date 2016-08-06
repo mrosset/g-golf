@@ -36,6 +36,7 @@
 (define-module (g-golf support enum)
   #:use-module (ice-9 receive)
   #:use-module (ice-9 optargs)
+  #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support goops)
@@ -48,7 +49,9 @@
 
 (g-export !value-set
 	  e-value
-	  e-sym)
+	  e-sym
+	  e-values
+	  e-syms)
 
 
 (define-class <enum> ()
@@ -77,9 +80,20 @@
 (define-method (e-value (self <enum>) (item <symbol>))
   (assq-ref (!value-set self) item))
 
+(define-method (e-values (self <enum>))
+  (map (lambda (x)
+	 (match x ((name . id) id)))
+    (!value-set self)))
+
 (define-method (e-sym (self <enum>) (item <integer>))
   (let ((entry (find (lambda (x)
-		       (= (cdr x) item))
+		       (= (match x ((name . id) id))
+			  item))
 		     (!value-set self))))
     (and entry
-	 (car entry))))
+	 (match entry ((name . id) name)))))
+
+(define-method (e-syms (self <enum>))
+  (map (lambda (x)
+	 (match x ((name . id) name)))
+    (!value-set self)))
