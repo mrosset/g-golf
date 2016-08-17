@@ -76,5 +76,5 @@ The @code{<genum>} class is a subclass of @code{<enum>}.  Its
 @end indentedblock
 
 Use @code{(describe <genum>)} or GOOPS introspection methods for a
-complete pedigree.
+complete definition.
 @end deftp
