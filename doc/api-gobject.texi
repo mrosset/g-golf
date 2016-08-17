@@ -36,10 +36,10 @@ they might be some exception in the future.
 @menu
 
 * Enumeration and Flag Types::  Gobject Enumeration and Flag Types.
-@c * Type Information::		Gobject Type Information.
+* GParamSpec::  Gobject GParamSpec.
 
 @end menu
 
 
 @include api-gobject-enum-flags.texi
-@c @include api-gobject-type-info.texi
+@include api-gobject-g-param-spec.texi

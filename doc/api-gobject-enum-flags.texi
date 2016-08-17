@@ -29,7 +29,12 @@ Enumeration and Flag Types — Enumeration and flags types.
 
 @subheading Description
 
-TODO.
+The GLib type system provides fundamental types for enumeration and
+flags types. (Flags types are like enumerations, but allow their values
+to be combined by bitwise or). A registered enumeration or flags type
+associates a name and a nickname with each allowed value. When an
+enumeration or flags type is registered with the GLib type system, it
+can be used as value type for object properties.
 
 
 @c @subheading Struct Hierarchy
@@ -43,6 +48,9 @@ TODO.
 
 @subheading Procedures
 
+
+@subheading Types and Values
+
 @indentedblock
 @table @code
 @item @ref{<genum>}
@@ -54,6 +62,19 @@ TODO.
 
 
 @anchor{<genum>}
-@deffn Class <enum>
+@deftp Class <genum>
 
-@end deffn
+The @code{<genum>} class is a subclass of @code{<enum>}.  Its
+@code{class-slots} are:
+
+@indentedblock
+@table @code
+@item @emph{type-name}
+@item @emph{scm-name}
+@item @emph{value-set}
+@end table
+@end indentedblock
+
+Use @code{(describe <genum>)} or GOOPS introspection methods for a
+complete pedigree.
+@end deftp

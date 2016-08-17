@@ -73,14 +73,19 @@ arguments which are callbacks.
 
 
 @anchor{%g-golf-ai-transfer}
-@defvar %g-golf-ai-transfer
+@defivar <genum> %g-golf-ai-transfer
 
-An instance of @code{<enum>}, who's members are the scheme
+An instance of @code{<genum>}, who's members are the scheme
 representation of the @code{GITransfer}:
 
+@indentedblock
+@emph{type-name}: GITransfer  @*
+@emph{scm-name}: gi-transfer  @*
+@emph{value-set}:
 @indentedblock
 nothing		@*
 container	@*
 everything
 @end indentedblock
-@end defvar
+@end indentedblock
+@end defivar

@@ -201,11 +201,15 @@ not.
 
 
 @anchor{%g-golf-bi-info-type}
-@defvar %g-golf-bi-info-type
+@defivar <genum> %g-golf-bi-info-type
 
-An instance of @code{<enum>}, who's members are the scheme
+An instance of @code{<genum>}, who's members are the scheme
 representation of the @code{GIInfoType}:
 
+@indentedblock
+@emph{type-name}: GIInfoType  @*
+@emph{scm-name}: gi-info-type @*
+@emph{value-set}:
 @indentedblock
 invalid		@*
 function	@*
@@ -228,4 +232,5 @@ arg		@*
 type		@*
 unresolved
 @end indentedblock
-@end defvar
+@end indentedblock
+@end defivar

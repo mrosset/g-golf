@@ -45,7 +45,7 @@ constants in G-Golf.
 @unnumbered Type Index
 
 This is an alphabetical list of all the important data types defined in
-the G-Golf.
+the G-Golf Programmers Manual.
 
 @printindex tp
 

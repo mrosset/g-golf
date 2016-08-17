@@ -48,7 +48,7 @@ Documentation License.''
 @node GObject
 @section GObject
 
-@c @include api-gobject.texi
+@include api-gobject.texi
 
 
 @node Glib

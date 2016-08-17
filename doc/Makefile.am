@@ -43,6 +43,7 @@ g_golf_TEXINFOS = \
   api-overview.texi		\
   api-support-modules.texi	\
   api-gobject-enum-flags.texi	\
+  api-gobject-g-param-spec.texi \
   api-gobject.texi		\
   api-support.texi		\
   api-gir.texi			\
