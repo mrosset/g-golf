@@ -55,7 +55,7 @@
 
 
 (define-class <enum> ()
-  (value-set #:accessor !value-set #:init-keyword #:value-set))
+  (value-set #:getter !value-set #:init-keyword #:value-set))
 
 (define-method (initialize (self <enum>) initargs)
   (receive (kw enum-kw)
@@ -71,11 +71,9 @@
 				      (iota (length value-set)))))
 		(next-method self (append kw
 					  (list #:value-set real-value-set)))))
-	  (begin
-	    (warning "initialize <enum>"
-		     "<enum> instance value-set should not be empty."
-		     (current-output-port))
-	    (next-method self initargs))))))
+	  (error "initialize <enum>"
+		 "<enum> instance value-set can not be empty."
+		 (current-output-port))))))
 
 (define-method (e-value (self <enum>) (item <symbol>))
   (assq-ref (!value-set self) item))
