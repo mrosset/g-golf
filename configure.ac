@@ -29,7 +29,10 @@ License along with GNU G-Golf.  If not, see
 
 AC_PREREQ(2.69)
 
-AC_INIT([g-golf], [0.1.0-mockup-1], [david at altosw dot be])
+AC_INIT(
+  [g-golf],
+  [0.1.0-mockup-1],
+  [david at altosw dot be])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -51,7 +54,7 @@ AC_CONFIG_SRCDIR([g-golf])
 AC_CHECK_PROG(have_makeinfo, makeinfo, yes, no)
 AM_CONDITIONAL(HAVE_MAKEINFO, test "$have_makeinfo" = yes)
 
-GUILE_PKG([2.2, 2.0])
+GUILE_PKG([2.2 2.0])
 GUILE_PROGS([2.0.12])
 GUILE_SITE_DIR
 GUILE_GLOBAL_SITE_DIR
@@ -61,8 +64,12 @@ PKG_CHECK_MODULES(GI, gobject-introspection-1.0 >= 1.48.0)
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.48.0)
 PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.48.0)
 
-AC_CONFIG_FILES([pre-inst-env], [chmod +x pre-inst-env])
-AC_CONFIG_FILES([meta/guild], [chmod +x meta/guild])
+AC_CONFIG_FILES(
+  [pre-inst-env],
+  [chmod +x pre-inst-env])
+AC_CONFIG_FILES(
+  [meta/guild],
+  [chmod +x meta/guild])
 AC_CONFIG_FILES([
   meta/g-golf-1.0.pc
   Makefile
