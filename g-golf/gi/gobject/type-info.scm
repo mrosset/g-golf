@@ -33,6 +33,12 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi gobject enum-flags)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (g-golf-go-type-name
 	    %g-golf-gt-fundamental-flags))
 

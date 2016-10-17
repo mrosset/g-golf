@@ -30,6 +30,12 @@
   #:use-module (oop goops)  
   #:use-module (g-golf gi gobject enum-flags)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (%g-golf-go-g-param-flags))
 
 

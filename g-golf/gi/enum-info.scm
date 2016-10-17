@@ -36,6 +36,12 @@
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (g-golf-enum-import
 	    g-golf-enum-get-values
 

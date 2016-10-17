@@ -35,6 +35,12 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (g-golf-property-import
 
 	    g-golf-pi-get-flags))

@@ -34,6 +34,12 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi types)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (g-golf-ti-type-tag-to-string
 	    g-golf-ti-info-type-to-string
 	    g-golf-ti-is-pointer

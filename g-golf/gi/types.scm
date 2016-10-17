@@ -31,6 +31,12 @@
   ;; #:use-module (g-golf support enum)
   #:use-module (g-golf gi gobject enum-flags)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (%g-golf-bi-info-type
 	    %g-golf-ai-direction
 	    %g-golf-ai-scope

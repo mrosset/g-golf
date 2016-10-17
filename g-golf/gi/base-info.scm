@@ -34,6 +34,12 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi types)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (g-golf-bi-ref
 	    g-golf-bi-unref
 	    g-golf-bi-equal

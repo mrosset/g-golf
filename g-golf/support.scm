@@ -26,20 +26,29 @@
 ;;; Code:
 
 
-(eval-when (expand load eval)
+;; useless in guile-2.2, we have to declare #:duplicates in each module
+;; we keep it in case things change in the future, who knows...
+#;(eval-when (expand load eval)
   (use-modules (oop goops))
   (default-duplicate-binding-handler
     '(merge-generics replace warn-override-core warn last)))
 
 
 (define-module (g-golf support)
+  #:use-module (oop goops)
   #:use-module (g-golf support modules)
   #:use-module (g-golf support goops)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support push)
-  #:use-module (g-golf support keyword))
+  #:use-module (g-golf support keyword)
+
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last))
 
 
 (eval-when (expand load eval)

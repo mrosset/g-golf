@@ -40,6 +40,12 @@
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (g-golf-object-import
 
 	    g-golf-oi-get-abstract
