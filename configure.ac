@@ -67,9 +67,6 @@ PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.48.0)
 AC_CONFIG_FILES(
   [pre-inst-env],
   [chmod +x pre-inst-env])
-AC_CONFIG_FILES(
-  [meta/guild],
-  [chmod +x meta/guild])
 AC_CONFIG_FILES([
   meta/g-golf-1.0.pc
   Makefile

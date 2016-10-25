@@ -75,7 +75,6 @@ EXTRA_DIST = \
 	NEWS				\
 	README				\
 	pre-inst-env.in			\
-	meta/guild.in			\
 	meta/g-golf-1.0.pc.in		\
 	$(wildcard org/*)		\
 	$(wildcard am/*)		\
