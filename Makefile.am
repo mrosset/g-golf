@@ -94,6 +94,7 @@ ETAGS_ARGS = \
 # g-golf
 
 SUBDIRS = \
+	test-suite			\
 	doc
 
 distclean-local:
