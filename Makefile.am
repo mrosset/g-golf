@@ -76,7 +76,6 @@ EXTRA_DIST = \
 	README				\
 	pre-inst-env.in			\
 	meta/g-golf-1.0.pc.in		\
-	$(wildcard org/*)		\
 	$(wildcard am/*)		\
 	$(wildcard m4/*)		\
 	$(SOURCES)
@@ -115,7 +114,6 @@ distclean-local:
 	rm -f doc/Makefile.in
 	rm -f doc/stamp-vti
 	rm -f g-golf/*~
-	rm -f org/*~
 
 # * .PHONY: gen-pof:
 
