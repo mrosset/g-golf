@@ -35,7 +35,7 @@
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
   #:use-module (g-golf gobject enum-flags)
-  #:use-module (g-golf gi init)
+  #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)

@@ -29,7 +29,7 @@
 (define-module (g-golf gobject type-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
-  #:use-module (g-golf gi init)
+  #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gobject enum-flags)
 

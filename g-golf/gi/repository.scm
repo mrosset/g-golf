@@ -28,7 +28,7 @@
 
 (define-module (g-golf gi repository)
   #:use-module (system foreign)
-  #:use-module (g-golf gi init)
+  #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
 
   #:export (g-golf-ir-get-default

@@ -30,7 +30,7 @@
   #:use-module (ice-9 binary-ports)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
-  #:use-module (g-golf gi init)
+  #:use-module (g-golf init)
   #:use-module (g-golf glib)
   #:use-module (g-golf gi utils)
 

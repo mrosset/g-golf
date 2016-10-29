@@ -44,7 +44,7 @@
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
-  #:use-module (g-golf gi init)
+  #:use-module (g-golf init)
   #:use-module (g-golf glib mem-alloc)
 
   #:duplicates (merge-generics
@@ -62,5 +62,5 @@
 			      (g-golf support g-export)
 			      (g-golf support utils)
 			      (g-golf support enum)
-			      (g-golf gi init)
+			      (g-golf init)
 			      (g-golf glib mem-alloc)))

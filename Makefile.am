@@ -38,7 +38,7 @@ SOURCES = \
 	g-golf/support/push.scm			\
 	g-golf/support/keyword.scm		\
 	g-golf/support.scm			\
-	g-golf/gi/init.scm			\
+	g-golf/init.scm				\
 	g-golf/glib/mem-alloc.scm		\
 	g-golf/glib.scm				\
 	g-golf/gobject/type-info.scm		\

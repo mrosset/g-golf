@@ -28,7 +28,7 @@
 
 (define-module (g-golf glib mem-alloc)
   #:use-module (system foreign)
-  #:use-module (g-golf gi init)
+  #:use-module (g-golf init)
 
   #:export (g-golf-gl-malloc
 	    g-golf-gl-malloc0
