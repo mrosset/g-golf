@@ -34,8 +34,8 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-60)
   #:use-module (g-golf support)
-  #:use-module (g-golf gi glib)
-  #:use-module (g-golf gi gobject)
+  #:use-module (g-golf glib)
+  #:use-module (g-golf gobject)
 
   #:export (%gpointer-size
 	    g-golf-pointer-new

@@ -26,9 +26,12 @@
 ;;; Code:
 
 
-(define-module (g-golf gi gobject types)
-  #:use-module (oop goops)  
-  #:use-module (g-golf gi gobject enum-flags)
+(define-module (g-golf gobject type-info)
+  #:use-module (oop goops)
+  #:use-module (system foreign)
+  #:use-module (g-golf gi init)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gobject enum-flags)
 
   #:duplicates (merge-generics
 		replace
@@ -36,26 +39,39 @@
 		warn
 		last)
 
-  #:export (%g-golf-go-g-param-flags))
+  #:export (g-golf-go-type-name
+	    %g-golf-gt-fundamental-flags))
 
 
 ;;;
-;;; GParamSpec
+;;; GObject Low level API
 ;;;
 
-(define %g-golf-go-g-param-flags
+(define (g-golf-go-type-name id)
+  (g-golf-gtype->scm (g-type-name id)
+		    'gchar*))
+
+
+;;;
+;;; GObject Bindings
+;;;
+
+(define g-type-name
+  (pointer->procedure '*
+                      (dynamic-func "g_type_name"
+				    %libgobject)
+                      (list int64)))
+
+
+;;;
+;;; Gtype*
+;;;
+
+(define %g-golf-gt-fundamental-flags
   (make <genum>
-    #:type-name "GParamFlags"
-    #:scm-name "g-param-flags"
-    #:value-set '(readable
-		  writable
-		  readwrite
-		  construct
-		  construct-only
-		  lax-validation
-		  static-name
-		  private
-		  static-nick
-		  static-blurb
-		  explicit-notify
-		  deprecated)))
+    #:type-name "GTypeFundamentalFlags"
+    #:scm-name "g-type-fundamental-flags"
+    #:value-set '(classed
+		  instantiable
+		  derivable
+		  deep-derivable)))

@@ -31,7 +31,7 @@
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
   #:use-module (g-golf gi init)
-  #:use-module (g-golf gi glib)
+  #:use-module (g-golf glib)
   #:use-module (g-golf gi utils)
 
   #:export (g-golf-typelib-new

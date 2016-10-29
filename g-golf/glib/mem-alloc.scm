@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (g-golf gi glib mem-alloc)
+(define-module (g-golf glib mem-alloc)
   #:use-module (system foreign)
   #:use-module (g-golf gi init)
 

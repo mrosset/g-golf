@@ -30,7 +30,7 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
-  #:use-module (g-golf gi gobject enum-flags)
+  #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf gi init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)

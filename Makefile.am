@@ -39,12 +39,12 @@ SOURCES = \
 	g-golf/support/keyword.scm		\
 	g-golf/support.scm			\
 	g-golf/gi/init.scm			\
-	g-golf/gi/glib/mem-alloc.scm		\
-	g-golf/gi/glib.scm			\
-	g-golf/gi/gobject/type-info.scm		\
-	g-golf/gi/gobject/enum-flags.scm	\
-	g-golf/gi/gobject/types.scm		\
-	g-golf/gi/gobject.scm			\
+	g-golf/glib/mem-alloc.scm		\
+	g-golf/glib.scm				\
+	g-golf/gobject/type-info.scm		\
+	g-golf/gobject/enum-flags.scm		\
+	g-golf/gobject/types.scm		\
+	g-golf/gobject.scm			\
 	g-golf/gi/utils.scm			\
 	g-golf/gi/types.scm			\
 	g-golf/gi/repository.scm		\

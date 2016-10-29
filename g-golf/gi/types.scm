@@ -29,7 +29,7 @@
 (define-module (g-golf gi types)
   #:use-module (oop goops)  
   ;; #:use-module (g-golf support enum)
-  #:use-module (g-golf gi gobject enum-flags)
+  #:use-module (g-golf gobject enum-flags)
 
   #:duplicates (merge-generics
 		replace
