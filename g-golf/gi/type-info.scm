@@ -76,7 +76,10 @@
   (g-type-info-get-param-type info-type n))
 
 (define (g-golf-ti-get-interface info-type)
-  (g-type-info-get-interface info-type))
+  (let ((pointer (g-type-info-get-interface info-type)))
+    (if (null-pointer? pointer)
+	#f
+	pointer)))
 
 (define (g-golf-ti-get-array-length info-type)
   (g-type-info-get-array-length info-type))

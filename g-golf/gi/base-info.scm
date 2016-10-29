@@ -101,7 +101,10 @@
     (values)))
 
 (define (g-golf-bi-get-container info)
-  (g-base-info-get-container info))
+  (let ((pointer (g-base-info-get-container info)))
+    (if (null-pointer? pointer)
+	#f
+	pointer)))
 
 (define (g-golf-bi-is-deprecated info)
   (g-golf-gtype->scm (g-base-info-is-deprecated info)
