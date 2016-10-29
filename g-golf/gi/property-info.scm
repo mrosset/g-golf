@@ -30,9 +30,11 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
+  #:use-module (g-golf support enum)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi types)
   #:use-module (g-golf gi base-info)
 
   #:duplicates (merge-generics
@@ -43,7 +45,9 @@
 
   #:export (g-golf-property-import
 
-	    g-golf-pi-get-flags))
+	    g-golf-pi-get-flags
+	    g-golf-pi-get-ownership-transfer
+	    g-golf-pi-get-type))
 
 
 ;;;
@@ -62,6 +66,13 @@
 (define (g-golf-pi-get-flags info)
   (g-property-info-get-flags info))
 
+(define (g-golf-pi-get-ownership-transfer info)
+  (e-name %g-golf-ai-transfer
+	  (g-property-info-get-ownership-transfer info)))
+
+(define (g-golf-pi-get-type info)
+  (g-property-info-get-type info))
+
 
 ;;;
 ;;; GI Bindings
@@ -70,5 +81,17 @@
 (define g-property-info-get-flags
   (pointer->procedure uint32
                       (dynamic-func "g_property_info_get_flags"
+				    %libgirepository)
+                      (list '*)))
+
+(define g-property-info-get-ownership-transfer
+  (pointer->procedure int
+                      (dynamic-func "g_property_info_get_ownership_transfer"
+				    %libgirepository)
+                      (list '*)))
+
+(define g-property-info-get-type
+  (pointer->procedure '*
+                      (dynamic-func "g_property_info_get_type"
 				    %libgirepository)
                       (list '*)))
