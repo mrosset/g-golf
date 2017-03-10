@@ -43,7 +43,10 @@ SOURCES = \
 	g-golf/glib.scm				\
 	g-golf/gobject/type-info.scm		\
 	g-golf/gobject/enum-flags.scm		\
+	g-golf/gobject/generic-values.scm	\
 	g-golf/gobject/types.scm		\
+	g-golf/gobject/gvalue.scm		\
+	g-golf/gobject/gobject.scm		\
 	g-golf/gobject.scm			\
 	g-golf/gi/utils.scm			\
 	g-golf/gi/types.scm			\
@@ -97,6 +100,7 @@ SUBDIRS = \
 	doc
 
 distclean-local:
+	rm -f Makefile
 	rm -f Makefile.in
 	rm -f aclocal.m4
 	rm -rf autom4te.cache
@@ -111,9 +115,12 @@ distclean-local:
 	rm -f doc/*~
 	rm -f doc/*.aux doc/*.cp doc/*.cps doc/*.fn doc/*.fns doc/*.ky
 	rm -f doc/*.log doc/*.pg doc/*.toc doc/*.tp doc/*.vr doc/*.vrs
+	rm -f doc/Makefile
 	rm -f doc/Makefile.in
 	rm -f doc/stamp-vti
 	rm -f g-golf/*~
+	rm -f test-suite/Makefile
+	rm -f test-suite/Makefile.in
 
 # * .PHONY: gen-pof:
 
