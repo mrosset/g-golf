@@ -164,8 +164,8 @@
                                 (substring nstr idx
                                            (string-length nstr))))))))
 
-;; Default name transformations can be overridden, but golf won't define
-;; exceptions for now, let's see.
+;; Default name transformations can be overridden, but g-golf won't
+;; define exceptions for now, let's see.
 (define %g-golf-gtype-name->scm-name-exceptions
   '(;; (GEnum . genum)
     ))
