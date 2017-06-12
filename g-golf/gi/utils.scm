@@ -43,7 +43,7 @@
 	    with-gerror
 	    g-golf-gtype->scm
 	    g-golf-attribute-iter-new
-	    g-golf-gstudly-caps-exand
+	    g-golf-gstudly-caps-expand
 	    %g-golf-gtype-name->scm-name-exceptions
 	    g-golf-gtype-name->scm-name
 	    g-golf-gtype-name->class-name
@@ -131,7 +131,7 @@
 
 ;; Based on Guile-Gnome (gobject gw utils)
 
-(define (g-golf-gstudly-caps-exand nstr)
+(define (g-golf-gstudly-caps-expand nstr)
   ;; GStudlyCapsExpand
   (do ((idx (- (string-length nstr) 1)
 	    (- idx 1)))
@@ -172,7 +172,7 @@
 
 (define (g-golf-gtype-name->scm-name type-name)
   (or (assoc-ref %g-golf-gtype-name->scm-name-exceptions type-name)
-      (string-trim-right (g-golf-gstudly-caps-exand
+      (string-trim-right (g-golf-gstudly-caps-expand
 			  ;; only change _ to -
 			  ;; other chars are not valid in a type name
 			  (string-map (lambda (c) (if (eq? c #\_) #\- c))
@@ -183,7 +183,7 @@
 ;; "GSource*" => <g-source*>
 (define (g-golf-gtype-name->class-name type-name)
   (string->symbol (string-append "<"
-				 (g-golf-gstudly-caps-exand type-name)
+				 (g-golf-gstudly-caps-expand type-name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well
