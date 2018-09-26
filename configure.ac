@@ -6,7 +6,7 @@ dnl
 
 define(G_GOLF_CONFIGURE_COPYRIGHT,[[
 
-Copyright (C) 2016
+Copyright (C) 2016 - 2018
 Free Software Foundation, Inc.
 
 This file is part of GNU G-Golf
@@ -31,7 +31,7 @@ AC_PREREQ(2.69)
 
 AC_INIT(
   [g-golf],
-  [0.1.0-mockup-1],
+  [0.1.0],
   [david at altosw dot be])
 
 AC_CONFIG_AUX_DIR([build-aux])
@@ -54,8 +54,8 @@ AC_CONFIG_SRCDIR([g-golf])
 AC_CHECK_PROG(have_makeinfo, makeinfo, yes, no)
 AM_CONDITIONAL(HAVE_MAKEINFO, test "$have_makeinfo" = yes)
 
-GUILE_PKG([2.2 2.0])
-GUILE_PROGS([2.0.12])
+GUILE_PKG([3.0 2.2 2.0])
+GUILE_PROGS([2.0.14])
 GUILE_SITE_DIR
 GUILE_GLOBAL_SITE_DIR
 GUILE_SITE_CCACHE_DIR
