@@ -2,20 +2,38 @@
 
 #+TITLE: GNU G-Golf NEWS
 
+#+BEGIN_COMMENT
+
+Copyright (C) 2016 - 2018
+Free Software Foundation, Inc.
+
+This document is part of GNU G-Golf.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.  This file is offered as-is, without any
+warranty.
+
+#+END_COMMENT
+
+
+                G-Golf - History of user-visible changes
+                ========================================
+
+                   Please send G-Golf bug reports to
+
+                           bug-g-golf@gnu.org
+
 * Latest News
 
 ** dd Month year
 
-GNU G-Golf version 0.1.0-alpha is released.
+[[http://www.gnu.org/software/g-golf][GNU G-Golf]] version 0.1.0 is released.
 
-Here is a summary of the changes since version 0.0.0. See GNU G-Golf's
-git summary [1] and git log [2] for a complete description:
-
-
-[1] http://git.savannah.gnu.org/cgit/g-golf.git
-[2] http://git.savannah.gnu.org/cgit/g-golf.git/log/
+Here is a summary of the changes since version 0.0.0. See GNU G-Golf
+[[http://git.savannah.gnu.org/cgit/g-golf.git][git summary]] and [[http://git.savannah.gnu.org/cgit/g-golf.git/log/][git log]] for a complete description:
 
 
 * Older News
 
-For older News, see http://www.gnu.org/software/g-golf/news.html
+# For older News, see [[http://www.gnu.org/software/g-golf/news.html][here]]

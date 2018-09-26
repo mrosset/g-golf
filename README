@@ -2,9 +2,23 @@
 
 #+TITLE: GNU G-Golf README
 
+#+BEGIN_COMMENT
+
+Copyright (C) 2016 - 2018
+Free Software Foundation, Inc.
+
+This document is part of GNU G-Golf.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.  This file is offered as-is, without any
+warranty.
+
+#+END_COMMENT
+
 * GNU G-Golf
 
-GNU G-Golf [1]
+[[http://www.gnu.org/software/g-golf][GNU G-Golf]]
 Gnome: (Guile [2] Object Library for).
 
 ** Description
@@ -18,11 +32,14 @@ Gnome libraries, makes GOBject classes and methods GOOPS [4] citizen.
 G-Golf is a tool to develop modern graphical applications in Guile
 Scheme.
 
+** Latest News
 
-** What else
+XXX 2018
 
-G-Golf is entirely written in Guile, no C code.
+GNU G-Golf version 0.1.0 is released.
 
+Visit the NEWS file or see the [[http://git.savannah.gnu.org/cgit/g-golf.git/tree/NEWS][News]] page for the list of visible changes
+since the last release, as well as older news.
 
 ** Savannah
 
