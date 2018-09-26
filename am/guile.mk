@@ -1,6 +1,6 @@
 
 ####
-#### Copyright (C) 2016
+#### Copyright (C) 2016 - 2018
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf
@@ -21,10 +21,19 @@
 ####
 
 
+moddir=@SITEDIR@
+godir=@SITECCACHEDIR@
+
+
 GOBJECTS = $(SOURCES:%.scm=%.go)
 
 nobase_mod_DATA = $(SOURCES) $(NOCOMP_SOURCES)
 nobase_go_DATA = $(GOBJECTS)
+
+AM_CFLAGS = -I. -I$(srcdir) $(WARN_CFLAGS) $(DEBUG_CFLAGS)
+
+# For overriding from the command line (e.g. --debug)
+# GUILE_FLAGS =
 
 # Make sure source files are installed first, so that the mtime of
 # installed compiled files is greater than that of installed source
