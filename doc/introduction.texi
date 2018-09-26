@@ -41,12 +41,6 @@ G-Golf is a tool to develop modern graphical applications in Guile
 Scheme.
 
 
-@subheading What else
-
-G-Golf is entirely written in @uref{@value{UGUILE}, Guile}, no C
-code.
-
-
 @subheading Savannah
 
 GNU G-Golf also has a @uref{@value{UG-GOLF-SAVANNAH}, Savannah} project
