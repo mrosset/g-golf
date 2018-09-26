@@ -112,15 +112,20 @@ G-Golf source code module.
 @multitable @columnfractions .1 .2 .2 .3
 @headitem Abr. @tab GObject Section @tab G-Golf Section @tab G-Golf module
 
+@item
+@tab @uref{@value{UGOBJECT-Type-Info}, Type Information}
+@tab @c
+@tab @code{(g-golf gobject type-info)}
+
 @item @code{-go-}
 @tab @uref{@value{UGOBJECT-Enum-Flags}, Enumeration and Flag Types}
 @tab @c @ref{Repository}
-@tab @code{(g-golf gi gobject enum-flags)}
+@tab @code{(g-golf gobject enum-flags)}
 
-@item
-@tab @uref{@value{UGOBJECT-Type-Info}, Type Information}
-@tab @c 
-@tab @code{(g-golf gi gobject type-info)}
+@item @code{-go-}
+@tab @uref{@value{UGOBJECT-Gen-Vals}, Generic Values}
+@tab @c @ref{Repository}
+@tab @code{(g-golf gobject generic-values)}
 
 @end multitable
 @end indentedblock
@@ -139,7 +144,7 @@ G-Golf source code module.
 @item @code{-gl-}
 @tab @uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
 @tab @c @ref{Repository}
-@tab @code{(g-golf gi glib mem-alloc)}
+@tab @code{(g-golf glib mem-alloc)}
 
 @end multitable
 @end indentedblock

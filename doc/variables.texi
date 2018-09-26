@@ -52,9 +52,12 @@
 @set UGLIB-Mem-Alloc https://developer.gnome.org/glib/stable/glib-Memory-Allocation.html
 
 @set UGOBJECT https://developer.gnome.org/gobject/stable/
-@set UGOBJECT-Enum-Flags https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html
+
 @set UGOBJECT-Type-Info https://developer.gnome.org/gobject/stable/gobject-Type-Information.html
 @set UGOBJECT-GObject-struct https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#GObject-struct
+@set UGOBJECT-Enum-Flags https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html
+@set UGOBJECT-Gen-Vals https://developer.gnome.org/gobject/stable/gobject-Generic-values.html
+
 
 
 @c GG -> Guile-Gnome
