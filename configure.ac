@@ -64,7 +64,7 @@ PKG_CHECK_MODULES(GI, gobject-introspection-1.0 >= 1.48.0)
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.48.0)
 PKG_CHECK_MODULES(GOBJECT, gobject-2.0 >= 2.48.0)
 
-PKG_CHECK_MODULES(GUILE_LIB, guile-lib-1.0 >= 0.2.3)
+PKG_CHECK_MODULES(GUILE_LIB, guile-lib-1.0 >= 0.2.5)
 
 AC_CONFIG_FILES(
   [pre-inst-env],
