@@ -2,6 +2,20 @@
 
 #+TITLE: GNU G-Golf INSTALL
 
+#+BEGIN_COMMENT
+
+Copyright (C) 2016 - 2018
+Free Software Foundation, Inc.
+
+This document is part of GNU G-Golf.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.  This file is offered as-is, without any
+warranty.
+
+#+END_COMMENT
+
 * GNU G-Golf
 
 GNU G-Golf
@@ -13,24 +27,30 @@ GNU G-Golf needs the following software to run:
 
 	Autoconf			>= 2.69
 	Automake			>= 1.14
-	Texinfo				>= 6.1
-	Guile 				>= 2.0.12 [allows 2.2]
-	GObject-Introspection-1.0	>= 1.48.0
+	Makeinfo			>= 6.3
+	[[http://www.gnu.org/software/guile][Guile]]  				>= 2.0.14 [allows 3.0 2.2]
+	[[http://www.nongnu.org/guile-lib/][Guile-Lib]]			>= 0.2.5
 	Glib-2.0			>= 2.48.0
 	Gobject-2.0			>= 2.48.0
+	GObject-Introspection-1.0	>= 1.48.0
 
 ** Quickstart
 
-The latest release is g-golf-0.0.1-alpha.tar.gz  - other releases are
-available here: http://ftp.gnu.org/gnu/g-golf/
+G-Golf release are [[http://ftp.gnu.org/gnu/g-golf/][here]].  The latest tarballs are:
+
+		g-golf-0.1.0.tar.gz
+		g-golf-0.1.0.tar.gz.sig
+
+		[ GPG Key: A3057AD7
+		[ gpg --keyserver keys.gnupg.net --recv-keys A3057AD7
 
 Assuming you have satisfied the dependencies, open a terminal and
 proceed with the following steps:
 
 	cd <download-path>
-	tar zxf g-golf-0.0.1-alpha.tar.gz
-	cd g-golf-0.0.1-alpha
-	./configure [--prefix=/your/prefix]
+	tar zxf g-golf-0.1.0.tar.gz
+	cd g-golf-0.1.0
+	./configure [--prefix=/your/prefix] [--with-guile-site=yes]
 	make
 	make install
 
@@ -38,30 +58,72 @@ Happy G-Golf!
 
 *** Notes
 
-[1] In the above configure step, --prefix=/your/prefix is optional. The
-    default value is /usr/local. As an example, you could use:
+[1] The default and --prefix install locations for source modules and
+    compiled files (in the absence of --with-guile-site=yes) are:
 
-		configure --prefix=/opt
+	    $(datadir)/g-golf
+	    $(libdir)/g-golf/guile/$(GUILE_EFFECTIVE_VERSION)/site-ccache
 
-[2] To install GNU G-Golf, you must have write permissions for $prefix,
-    Guile’s global site and site-ccache directories.
+    If you pass --with-guile-site=yes, these locations become the Guile
+    site and site-ccache directories, respectively.
 
-[3] GNU G-Golf's modules are installed in Guile's global site
-    directory. If you want to know its location, enter the following
-    expression in a terminal:
+    The configure step reports these locations as the content of the
+    sitedir and siteccachedir variables, respectivelly the source
+    modules and compiled files install locations.  After installation,
+    you may consult these variables using pkg-config:
 
-		guile -c "(display  (%global-site-dir)) (newline)"
+	    pkg-config g-golf-1.0 --variable=sitedir
+	    pkg-config g-golf-1.0 --variable=siteccachedir
 
-[4] GNU G-Golf's compiled modules are installed in the Guile's
-    site-ccache directory.  If you want to know its location, enter the
-    following expression in a terminal:
+    You will need - unless you have used --with-guile-site=yes, or
+    unless these locations are already ’known’ by Guile - to define or
+    augment your GUILE_LOAD_PATH and GUILE_COMPILED_PATH environment
+    variables with these locations, respectively (or %load-path and
+    %load-compiled-path at run time if you prefer (See Environment
+    Variables and Load Path in the Guile Reference Manual) [fn:1]
 
-		guile -c "(display (%site-ccache-dir)) (newline)"
+[2] G-Golf also installs its libg-golf.* library files, in
+    $(libdir). The configure step reports its location as the content of
+    the libdir variable, which depends on on the content of the prefix
+    and exec_prefix variables (also reported). After nstallation, you
+    may consult these variables using pkg-config:
 
-[5] Like for any other GNU Tool Chain compatible software, you may
+	    pkg-config g-golf-1.0 --variable=prefix
+      pkg-config g-golf-1.0 --variable=exec_prefix
+      pkg-config g-golf-1.0 --variable=libdir
+
+    You will need - unless the $(libdir) location is already ’known’ by
+    your system - to either define or augment your $LD_LIBRARY_PATH
+    environment variable, or alter the /etc/ld.so.conf (or add a file in
+    /etc/ld.so.conf.d) and run (as root) ldconfig, so that G-Golf
+    finds its libg-golf.* library files [fn:2].
+
+[3] To install G-Golf, you must have write permissions to the default
+    or $(prefix) directory and its subdirs, as well as to both Guile’s
+    site and site-ccache directories if --with-guile-site=yes was
+    passed.
+
+[4] Like for any other GNU Tool Chain compatible software, you may
     install the documentation locally using make install-info, make
-    install-html and/or make install-pdf. The documentation is installed
-    in $prefix/share/doc/g-golf.
+    install-info, make install-html and/or make install-pdf.
+
+[5] Last but not least :), G-Golf comes with a test-suite, which we
+    recommend you to run (especially before Reporting Bugs):
+
+		make check
+
+Footnotes:
+
+[fn:1] In this case, you may as well decide to either alter your
+       $HOME/.guile personal file, or, if you are working in a
+       multi-user environmet, you may also opt for a global
+       configuration. In this case, the file must be named init.scm and
+       placed it here (evaluate the following expression in a terminal):
+
+         guile -c "(display (%global-site-dir))(newline)"
+
+[fn:2] Contact your administrator if you opt for the second solution but
+       don’t have write priviledges on your system.
 
 
 * the GNU standard INSTALL file content
