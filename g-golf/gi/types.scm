@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -38,6 +38,7 @@
 		last)
 
   #:export (%g-golf-bi-info-type
+            %g-golf-fi-flags
 	    %g-golf-ai-direction
 	    %g-golf-ai-scope
 	    %g-golf-ai-transfer
@@ -73,6 +74,22 @@
 		  arg
 		  type
 		  unresolved)))
+
+
+;;;
+;;; Function Info
+;;;
+
+(define %g-golf-fi-flags
+  (make <genum>
+    #:type-name "GIFunctionInfoFlags"
+    #:scm-name "gi-function-info-flags"
+    #:value-set '(is-method
+		  is-constructor
+		  is-getter
+                  is-setter
+                  wraps-vfunc
+                  throws)))
 
 
 ;;;
