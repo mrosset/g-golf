@@ -1,0 +1,89 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@defindex fi
+
+
+@node Function Info
+@subsection Function Info
+
+G-Golf Function Info low level API.@*
+GIFunctionInfo — Struct representing a function
+
+
+@subheading Description
+
+@code{GIFunctionInfo} represents a function, method or constructor. To
+find out what kind of entity a GIFunctionInfo represents, call
+@ref{g-golf-fi-get-flags}.
+
+See also @ref{Callable Info} for information on how to retreive
+arguments and other metadata.
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfoInfo         	                     @*
+@ @ +--- GICallableInfo	                     @*
+@ @ @ @ @ @ @ @ @ @ @ +--- GIFunctionInfo    @*
+@ @ @ @ @ @ @ @ @ @ @ +--- GISignalInfo      @*
+@ @ @ @ @ @ @ @ @ @ @ +--- GIVFuncInfo
+@end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-golf-fi-get-flags}
+@end table
+@end indentedblock
+
+Note: in this section, the @var{info} argument is [must be] a pointer to
+a @code{GIFunctionInfo}.
+
+
+@anchor{g-golf-fi-get-flags}
+@deffn Procedure g-golf-fi-get-flags info
+
+Returns a list of @ref{%g-golf-fi-flags}.
+
+Obtain the @code{GIFunctionInfoFlags} for @var{info}.
+@end deffn
+
+
+@subheading Types and Values
+
+
+@indentedblock
+@table @code
+@item @ref{%g-golf-fi-flags}
+@end table
+@end indentedblock
+
+
+
+@anchor{%g-golf-fi-flags}
+@defivar <genum> %g-golf-fi-flags
+
+An instance of @code{<genum>}, who's members are the scheme
+representation of the @code{GIFunctionInfoFlags}:
+
+@indentedblock
+@emph{type-name}: GIFunctionInfoFlags  @*
+@emph{scm-name}: gi-function-info-flags  @*
+@emph{value-set}:
+@indentedblock
+is-method	@*
+is-constructor	@*
+is-getter	@*
+is-setter	@*
+wraps-vfunc	@*
+throws
+@end indentedblock
+@end indentedblock
+@end defivar

@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -63,6 +63,7 @@
   #:use-module (g-golf gi repository)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi callable-info)
+  #:use-module (g-golf gi function-info)
   #:use-module (g-golf gi registered-type-info)
   #:use-module (g-golf gi enum-info)
   #:use-module (g-golf gi object-info)
@@ -104,6 +105,7 @@
 			      (g-golf gi repository)
   			      (g-golf gi base-info)
 			      (g-golf gi callable-info)
+                              (g-golf gi function-info)
 			      (g-golf gi registered-type-info)
 			      (g-golf gi enum-info)
 			      (g-golf gi object-info)

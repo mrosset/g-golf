@@ -1,6 +1,6 @@
 
 ####
-#### Copyright (C) 2016
+#### Copyright (C) 2016 - 2018
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf
@@ -53,6 +53,7 @@ SOURCES = \
 	g-golf/gi/repository.scm		\
 	g-golf/gi/base-info.scm			\
 	g-golf/gi/callable-info.scm		\
+	g-golf/gi/function-info.scm		\
 	g-golf/gi/registered-type-info.scm	\
 	g-golf/gi/enum-info.scm			\
 	g-golf/gi/object-info.scm		\
