@@ -33,6 +33,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf init)
+  #:use-module (g-golf gobject types)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi types)
   #:use-module (g-golf gi base-info)
@@ -64,7 +65,8 @@
 ;;;
 
 (define (g-golf-pi-get-flags info)
-  (g-property-info-get-flags info))
+  (g-golf-integer->gflags %g-golf-go-g-param-flags
+                          (g-property-info-get-flags info)))
 
 (define (g-golf-pi-get-ownership-transfer info)
   (e-name %g-golf-ai-transfer

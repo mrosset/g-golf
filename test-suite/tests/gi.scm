@@ -121,14 +121,8 @@
 (define-method (test-property-info (self <g-golf-test-gi>))
   (let* ((actor (g-golf-ir-find-by-name "Clutter" "Actor"))
          (property (g-golf-oi-get-property actor 5)))
-    (assert-true (g-golf-pi-get-flags property))
-    (assert-equal "background-color"
-		  (g-golf-bi-get-name property))
-    (assert-numeric-= 3 0
-                      (g-golf-pi-get-flags property))
-    (assert-equal '(readable writable)
-		  (g-golf-integer->gflags %g-golf-go-g-param-flags
-					  (g-golf-pi-get-flags property)))))
+    (assert-true (g-golf-pi-get-type property))
+    (assert-true (g-golf-pi-get-flags property))))
 
 
 ;;;
