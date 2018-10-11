@@ -40,7 +40,8 @@
 		warn
 		last)
 
-  #:export (g-golf-fi-get-flags))
+  #:export (g-golf-fi-get-flags
+            g-golf-fi-get-symbol))
 
 
 ;;;
@@ -51,6 +52,9 @@
   (g-golf-integer->gflags %g-golf-fi-flags
                           (g-function-info-get-flags info)))
 
+(define (g-golf-fi-get-symbol info)
+  (pointer->string (g-function-info-get-symbol info)))
+
 
 ;;;
 ;;; GI Bindings
@@ -59,5 +63,11 @@
 (define g-function-info-get-flags
   (pointer->procedure uint32
                       (dynamic-func "g_function_info_get_flags"
+				    %libgirepository)
+                      (list '*)))
+
+(define g-function-info-get-symbol
+  (pointer->procedure '*
+                      (dynamic-func "g_function_info_get_symbol"
 				    %libgirepository)
                       (list '*)))

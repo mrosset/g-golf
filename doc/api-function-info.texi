@@ -40,6 +40,7 @@ GIBaseInfoInfo         	                     @*
 @indentedblock
 @table @code
 @item @ref{g-golf-fi-get-flags}
+@item @ref{g-golf-fi-get-symbol}
 @end table
 @end indentedblock
 
@@ -56,6 +57,23 @@ Obtain the @code{GIFunctionInfoFlags} for @var{info}.
 @end deffn
 
 
+@anchor{g-golf-fi-get-symbol}
+@deffn Procedure g-golf-fi-get-symbol info
+
+Returns a string.
+
+Obtain the @samp{symbol} of the function@footnote{As you have noticed
+already, since @code{g-golf-fi-get-symbol} returns a string, in the
+Glib, GObject and GObject Instrospection worlds, symbol has a different
+meaning then in the Lisp/Scheme worlds.  However, since the procedure is
+part of the G-Golf low-level API, we decided to keep its name as close
+as the original name as possible, given and keeping in mind G-Golf
+@ref{Abreviations} conventions.}, which in @code{Glib} terms is the name
+of the exported function, @samp{suitable to be used as an argument to
+g_module_symbol()}.
+@end deffn
+
+
 @subheading Types and Values
 
 
@@ -64,7 +82,6 @@ Obtain the @code{GIFunctionInfoFlags} for @var{info}.
 @item @ref{%g-golf-fi-flags}
 @end table
 @end indentedblock
-
 
 
 @anchor{%g-golf-fi-flags}
