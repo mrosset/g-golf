@@ -40,6 +40,8 @@ corresponding G-Golf source code module.
 
 @item @code{-fi-}
 @tab @uref{@value{UGIFunctionInfo}, GIFunctionInfo}
+@tab @ref{Function Info}
+@tab @code{(g-golf gi function-info)}
 
 @item @code{-cb-}
 @tab @uref{@value{UGICallbackInfo}, GICallbackInfo}
