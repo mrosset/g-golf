@@ -11,7 +11,7 @@
 @subsection Function Info
 
 G-Golf Function Info low level API.@*
-GIFunctionInfo — Struct representing a function
+GIFunctionInfo — Struct representing a function.
 
 
 @subheading Description
