@@ -37,18 +37,52 @@ representation of the @code{GParamFlags}:
 @emph{scm-name}: g-param-flags @*
 @emph{value-set}:
 @indentedblock
-readable		@*
-writable		@*
-readwrite		@*
-construct		@*
-construct-only		@*
-lax-validation		@*
-static-name		@*
-private			@*
-static-nick		@*
-static-blurb		@*
-explicit-notify		@*
-deprecated
+@table @code
+@item readable
+the parameter is readable
+
+@item writable
+the parameter is writable
+
+@item readwrite
+alas for readable writable
+
+@item construct
+the parameter will be set upon object construction
+
+@item construct-only
+the parameter can only be set upon object construction
+
+@item lax-validation
+upon parameter conversion, strict validation is not required
+
+@item static-name
+the string used as name when constructing the parameter is guaranteed to
+remain valid and unmodified for the lifetime of the parameter. Since 2.8
+
+@item private
+internal
+
+@item static-nick
+the string used as nick when constructing the parameter is guaranteed to
+remain valid and unmmodified for the lifetime of the parameter. Since 2.8
+
+@item static-blurb
+the string used as blurb when constructing the parameter is guaranteed
+to remain valid and unmodified for the lifetime of the parameter. Since 2.8
+
+@item explicit-notify
+calls to @code{g_object_set_property} for this property will not
+automatically result in a @samp{notify} signal being emitted: the
+implementation must call @code{g_object_notify} themselves in case the
+property actually changes. Since: 2.42
+
+@item deprecated
+the parameter is deprecated and will be removed in a future version. A
+warning will be generated if it is used while running with
+@code{G_ENABLE_DIAGNOSTIC=1}. Since 2.26
+
+@end table
 @end indentedblock
 @end indentedblock
 @end defivar
