@@ -89,6 +89,8 @@ corresponding G-Golf source code module.
 
 @item @code{-pi-}
 @tab @uref{@value{UGIPropertyInfo}, GIPropertyInfo}
+@tab @ref{Property Info}
+@tab @code{(g-golf gi property-info)}
 
 @item @code{-ti-}
 @tab @uref{@value{UGITypeInfo}, GITypeInfo}

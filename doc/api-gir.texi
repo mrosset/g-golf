@@ -34,6 +34,7 @@ section, but there are some exceptions, such as @code{init},
 * Enum Info::		  Struct representing an enumeration and its values.
 * Object Info::	  	  Struct representing a GObject.
 * Arg Info::		  Struct representing an argument.
+* Property Info::	  Struct representing a property.
 
 
 @subheading GITypelib
@@ -51,6 +52,7 @@ section, but there are some exceptions, such as @code{init},
 @include api-enum-info.texi
 @include api-object-info.texi
 @include api-arg-info.texi
+@include api-property-info.texi
 
 @include api-typelib.texi
 

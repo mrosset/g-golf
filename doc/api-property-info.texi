@@ -1,0 +1,73 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@defindex pi
+
+
+@node Property Info
+@subsection Property Info
+
+G-Golf Property Info low level API.@*
+GIPropertyInfo — Struct representing a property.
+
+
+@subheading Description
+
+@code{GIPropertyInfo} represents a property. A property belongs to
+either a @code{GIObjectInfo} or a @code{GIInterfaceInfo}.
+
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfoInfo         	                     @*
+@ @ +--- GIPropertyInfo
+@end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-golf-pi-get-flags}
+@item @ref{g-golf-pi-get-ownership-transfer}
+@item @ref{g-golf-pi-get-type}
+@end table
+@end indentedblock
+
+Note: in this section, the @var{info} argument is [must be] a pointer to
+a @code{GIPropertyInfo}.
+
+
+@anchor{g-golf-pi-get-flags}
+@deffn Procedure g-golf-pi-get-flags info
+
+Returns a list of @ref{%g-golf-go-g-param-flags}.
+
+Obtain the flags for this property info.  See @ref{GParamSpec} for the
+list of possible flag values.
+@end deffn
+
+
+@anchor{g-golf-pi-get-ownership-transfer}
+@deffn Procedure g-golf-pi-get-ownership-transfer info
+
+Returns the ownership transfer for this property.
+
+Obtain the ownership transfer for this property. See
+@ref{%g-golf-ai-transfer} for more information about transfer values.
+@end deffn
+
+
+@anchor{g-golf-pi-get-type}
+@deffn Procedure g-golf-pi-get-type info
+
+Returns a pointer to a @code{GITypeInfo}.
+
+Obtain the type information for this property.  The @code{GITypeInfo}
+must be free'd using @code{g-golf-bi-unref} when done.
+@end deffn
