@@ -28,7 +28,7 @@ GNU G-Golf needs the following software to run:
 	Autoconf			>= 2.69
 	Automake			>= 1.14
 	Makeinfo			>= 6.3
-	[[http://www.gnu.org/software/guile][Guile]]  				>= 2.0.14 [allows 3.0 2.2]
+	[[http://www.gnu.org/software/guile][Guile]]  				>= 2.0.14 [allows 2.2 3.0]
 	[[http://www.nongnu.org/guile-lib/][Guile-Lib]]			>= 0.2.5
 	Glib-2.0			>= 2.48.0
 	Gobject-2.0			>= 2.48.0
