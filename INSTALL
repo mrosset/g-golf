@@ -34,15 +34,15 @@ GNU G-Golf needs the following software to run:
 	Gobject-2.0			>= 2.48.0
 	GObject-Introspection-1.0	>= 1.48.0
 
-** Quickstart
+** Install from the tarball
 
 G-Golf release are [[http://ftp.gnu.org/gnu/g-golf/][here]].  The latest tarballs are:
 
-		g-golf-0.1.0.tar.gz
-		g-golf-0.1.0.tar.gz.sig
+	g-golf-0.1.0.tar.gz
+	g-golf-0.1.0.tar.gz.sig
 
-		[ GPG Key: A3057AD7
-		[ gpg --keyserver keys.gnupg.net --recv-keys A3057AD7
+	[ GPG Key: A3057AD7
+	[ gpg --keyserver keys.gnupg.net --recv-keys A3057AD7
 
 Assuming you have satisfied the dependencies, open a terminal and
 proceed with the following steps:
@@ -56,7 +56,32 @@ proceed with the following steps:
 
 Happy G-Golf!
 
-*** Notes
+** Install from the source
+
+G-Golf uses Git for revision control, hosted on Savannah, you may browse
+the sources repository here.
+
+There are currently 2 [important] branches: master and devel. G-Golf
+stable branch is master, developments occur on the devel branch.
+
+So, to grab, compile and install from the source, open a terminal and:
+
+	git clone git://git.savannah.gnu.org/g-golf.git
+	cd g-golf
+	./autogen.sh
+	./configure [--prefix=/your/prefix] [--with-guile-site=yes]
+	make
+	make install
+
+The above steps ensure you’re using G-Golf bleeding edge stable
+version. If you wish to participate to developments, checkout the devel
+branch:
+
+	git checkout devel
+
+Happy hacking!
+
+** Notes
 
 [1] The default and --prefix install locations for source modules and
     compiled files (in the absence of --with-guile-site=yes) are:

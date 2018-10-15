@@ -83,7 +83,7 @@ Makeinfo >= 6.3
 @end itemize
 
 
-@subheading Quickstart
+@subheading Install from the tarball
 
 Assuming you have satisfied the dependencies, open a terminal and
 proceed with the following steps:
@@ -92,12 +92,44 @@ proceed with the following steps:
 cd <download-path>
 tar zxf g-golf-@value{VERSION}.tar.gz
 cd g-golf-@value{VERSION}
-./configure [--prefix=/your/prefix]
+./configure [--prefix=/your/prefix] [--with-guile-site=yes]
 make
 make install
 @end example
 
-Happy G-Golf!
+Happy @uref{@value{UG-GOLF}, G-Golf}!
+
+
+@subheading Install from the source
+
+@uref{@value{UG-GOLF}, G-Golf} uses @uref{@value{UGIT}, Git} for
+revision control, hosted on @uref{@value{UG-GOLF-SAVANNAH}, Savannah},
+you may browse the sources repository @uref{@value{UG-GOLF-GIT}, here}.
+
+There are currently 2 [important] branches: @code{master} and
+@code{devel}. @uref{@value{UG-GOLF}, G-Golf} stable branch is
+master, developments occur on the devel branch.
+
+So, to grab, compile and install from the source, open a terminal and:
+
+@example
+git clone git://git.savannah.gnu.org/g-golf.git
+cd g-golf
+./autogen.sh
+./configure [--prefix=/your/prefix] [--with-guile-site=yes]
+make
+make install
+@end example
+
+The above steps ensure you're using @uref{@value{UG-GOLF}, G-Golf}
+bleeding edge @code{stable} version. If you wish to participate to
+developments, checkout the @code{devel} branch:
+
+@example
+git checkout devel
+@end example
+
+Happy @code{hacking!}
 
 
 @*
