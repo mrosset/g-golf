@@ -94,8 +94,8 @@ corresponding G-Golf source code module.
 
 @item @code{-ti-}
 @tab @uref{@value{UGITypeInfo}, GITypeInfo}
-@c @tab @ref{Type Info}
-@c @tab @code{(g-golf gi type-info)}
+@tab @ref{Type Info}
+@tab @code{(g-golf gi type-info)}
 
 @item @code{-vi-}
 @tab @uref{@value{UGIValueInfo}, GIValueInfo}

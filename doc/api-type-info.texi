@@ -1,0 +1,57 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@defindex ti
+
+
+@node Type Info
+@subsection Type Info
+
+G-Golf Type Info low level API.@*
+GITypeInfo — Struct representing a type.
+
+
+@subheading Description
+
+@code{GITypeInfo} represents a type. You can retrieve a type info from
+an argument (see @ref{Arg Info}), a functions return value (see
+@ref{Function Info}), a field (see @code{GIFieldInfo}), a property (see
+@ref{Property Info}), a constant (see @code{GIConstantInfo}) or for a
+union discriminator (see @code{GIUnionInfo}).
+
+A type can either be a of a basic type which is a standard C primitive
+type or an interface type. For interface types you need to call
+@code{g-golf-ti-get-interface} to get a reference to the base info for
+that interface.
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfoInfo         	                     @*
+@ @ +--- GITypeInfo
+@end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-golf-ti-type-tag-to-string}
+@end table
+@end indentedblock
+
+Note: in this section, the @var{info} argument is [must be] a pointer to
+a @code{GITypeInfo}.
+
+
+@anchor{g-golf-ti-type-tag-to-string}
+@deffn Procedure g-golf-ti-type-tag-to-string info
+
+Returns a string.
+
+Obtain the string representation for this type info.
+@end deffn

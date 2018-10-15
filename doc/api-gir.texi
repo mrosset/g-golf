@@ -35,7 +35,7 @@ section, but there are some exceptions, such as @code{init},
 * Object Info::	  	  Struct representing a GObject.
 * Arg Info::		  Struct representing an argument.
 * Property Info::	  Struct representing a property.
-
+* Type Info::		  Struct representing a type.
 
 @subheading GITypelib
 
@@ -53,6 +53,7 @@ section, but there are some exceptions, such as @code{init},
 @include api-object-info.texi
 @include api-arg-info.texi
 @include api-property-info.texi
+@include api-type-info.texi
 
 @include api-typelib.texi
 
