@@ -4,20 +4,20 @@
 @c See the file g-golf.texi for copying conditions.
 
 
-G-Golf GObject modules are defined in the @code{gi/gobject}
-subdirectory, such as @code{(g-golf gi gobject enum-flags)}.
+G-Golf GObject modules are defined in the @code{gobject}
+subdirectory, such as @code{(g-golf gobject enum-flags)}.
 
 Where you may load these modules individually, the easiest way to use
-G-Golf is to import the @code{gi gobject} module: it imports and
-re-exports the public interface of (oop goops), (system foreign), all
-G-Golf support and G-Golf GObject modules:
+G-Golf is to import the @code{gobject} module: it imports and re-exports
+the public interface of (oop goops), (system foreign), all G-Golf
+support and G-Golf GObject modules:
 
 @lisp
-(use-modules (g-golf gi gobject))
+(use-modules (g-golf gobject))
 @end lisp
 
-G-Golf low level API modules correspond to a GObject section, though
-they might be some exception in the future.
+G-Golf GObject low level API modules correspond to a GObject section,
+though they might be some exception in the future.
 
 
 @menu
