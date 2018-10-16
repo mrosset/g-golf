@@ -13,9 +13,9 @@
 
 @menu
 * API Overview::
-* GObject Introspection::
-* GObject::
 * Glib::
+* GObject::
+* GObject Introspection::
 * Support::
 @end menu
 
@@ -26,10 +26,10 @@
 @include api-overview.texi
 
 
-@node GObject Introspection
-@section GObject Introspection
+@node Glib
+@section Glib
 
-@include api-gir.texi
+@c @include api-glib.texi
 
 
 @node GObject
@@ -38,10 +38,10 @@
 @include api-gobject.texi
 
 
-@node Glib
-@section Glib
+@node GObject Introspection
+@section GObject Introspection
 
-@c @include api-glib.texi
+@include api-gir.texi
 
 
 @node Support
