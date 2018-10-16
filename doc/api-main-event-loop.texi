@@ -1,0 +1,69 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node The Main Event Loop
+@subsection The Main Event Loop
+
+G-Golf Glib Main Event Loop low level API.@*
+The Main Event Loop — manages all available sources of events
+
+
+
+@subheading Description
+
+The main event loop manages all the available sources of events for GLib
+and GTK+ applications. These events can come from any number of
+different types of sources such as file descriptors (plain files, pipes
+or sockets) and timeouts. New types of event sources can also be added
+using @code{g-golf-gl-source-attach}.
+
+Please read @uref{@value{UGLIB-Main-Event-Loop}, The Main Event Loop}
+section from the Glib reference manual for a complete description.
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-golf-gl-main-loop-new}
+@end table
+@end indentedblock
+
+
+@anchor{g-golf-gl-main-loop-new}
+@deffn Procedure g-golf-gl-main-loop-new context is-running?
+
+Returns a pointer to a new @code{GMainLoop}.
+
+Creates a new @code{GMainLoop} structure.
+
+The @var{contect} must be a pointer to a @code{GMainContext} of
+@code{#f}, in which case the defult contect is used.  When
+@var{is-running?} is @code{#t}, it indicates that the loop is
+running. This is not very important since calling
+@code{g-golf-gl-main-loop-run} will set this to @code{#t} anyway.
+@end deffn
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{<genum>}
+@c @end table
+@c @end indentedblock

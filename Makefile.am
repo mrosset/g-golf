@@ -40,6 +40,7 @@ SOURCES = \
 	g-golf/support.scm			\
 	g-golf/init.scm				\
 	g-golf/glib/mem-alloc.scm		\
+	g-golf/glib/main-event-loop.scm		\
 	g-golf/glib.scm				\
 	g-golf/gobject/type-info.scm		\
 	g-golf/gobject/enum-flags.scm		\

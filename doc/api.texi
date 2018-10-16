@@ -29,7 +29,7 @@
 @node Glib
 @section Glib
 
-@c @include api-glib.texi
+@include api-glib.texi
 
 
 @node GObject

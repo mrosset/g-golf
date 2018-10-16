@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -46,12 +46,14 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf init)
   #:use-module (g-golf glib mem-alloc)
+  #:use-module (g-golf glib main-event-loop)
 
   #:duplicates (merge-generics
 		replace
 		warn-override-core
 		warn
 		last))
+
 
 (eval-when (expand load eval)
   (re-export-public-interface (oop goops)
@@ -63,4 +65,5 @@
 			      (g-golf support utils)
 			      (g-golf support enum)
 			      (g-golf init)
-			      (g-golf glib mem-alloc)))
+			      (g-golf glib mem-alloc)
+                              (g-golf glib main-event-loop)))

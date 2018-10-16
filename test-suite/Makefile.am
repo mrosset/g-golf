@@ -22,9 +22,11 @@
 
 
 TESTS = \
-	tests/gi.scm		\
+	tests/support.scm	\
+	tests/glib.scm		\
 	tests/gobject.scm	\
-	tests/support.scm
+	tests/gi.scm
+
 
 TEST_EXTENSIONS = .scm
 

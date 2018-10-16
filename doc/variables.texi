@@ -57,6 +57,7 @@
 
 @set UGLIB https://developer.gnome.org/glib/stable/
 @set UGLIB-Mem-Alloc https://developer.gnome.org/glib/stable/glib-Memory-Allocation.html
+@set UGLIB-Main-Event-Loop https://developer.gnome.org/glib/stable/glib-The-Main-Event-Loop.html
 
 @set UGOBJECT https://developer.gnome.org/gobject/stable/
 
