@@ -51,7 +51,7 @@
   #:use-module (g-golf gobject types)
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject gvalue)
-
+  #:use-module (g-golf gobject gobject)
 
   #:duplicates (merge-generics
 		replace
@@ -74,4 +74,5 @@
 			      (g-golf gobject enum-flags)
 			      (g-golf gobject types)
 			      (g-golf gobject generic-values)
-			      (g-golf gobject gvalue)))
+			      (g-golf gobject gvalue)
+                              (g-golf gobject gobject)))
