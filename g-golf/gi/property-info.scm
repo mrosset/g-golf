@@ -33,7 +33,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf init)
-  #:use-module (g-golf gobject types)
+  #:use-module (g-golf gobject param-spec)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi types)
   #:use-module (g-golf gi base-info)

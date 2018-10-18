@@ -48,8 +48,8 @@
   #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gobject gobject)
   #:use-module (g-golf gobject enum-flags)
-  #:use-module (g-golf gobject types)
   #:use-module (g-golf gobject generic-values)
+  #:use-module (g-golf gobject param-spec)
   #:use-module (g-golf gobject gvalue)
   #:use-module (g-golf gobject gobject)
 
@@ -72,7 +72,7 @@
 			      (g-golf gobject type-info)
 			      (g-golf gobject gobject)
 			      (g-golf gobject enum-flags)
-			      (g-golf gobject types)
 			      (g-golf gobject generic-values)
+			      (g-golf gobject param-spec)
 			      (g-golf gobject gvalue)
                               (g-golf gobject gobject)))

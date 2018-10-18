@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (g-golf gobject types)
+(define-module (g-golf gobject param-spec)
   #:use-module (oop goops)  
   #:use-module (g-golf gobject enum-flags)
 
