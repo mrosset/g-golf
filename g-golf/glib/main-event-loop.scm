@@ -30,7 +30,8 @@
   #:use-module (system foreign)
   #:use-module (g-golf init)
 
-  #:export (g-golf-gl-main-loop-new))
+  #:export (g-golf-gl-main-loop-new
+            g-golf-gl-idle-source-new))
 
 
 ;;;
@@ -40,6 +41,9 @@
 (define (g-golf-gl-main-loop-new context is-running?)
   (g-main-loop-new (if context context %null-pointer)
                    (if is-running? 1 0)))
+
+(define (g-golf-gl-idle-source-new)
+  (g-idle-source-new))
 
 
 ;;;
@@ -52,3 +56,9 @@
 				    %libglib)
                       (list '*		;; context
                             int)))	;; is-running?
+
+(define g-idle-source-new
+  (pointer->procedure '*
+                      (dynamic-func "g_idle_source_new"
+				    %libglib)
+                      (list )))	;; void

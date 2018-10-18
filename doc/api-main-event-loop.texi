@@ -41,6 +41,7 @@ section from the Glib reference manual for a complete description.
 @indentedblock
 @table @code
 @item @ref{g-golf-gl-main-loop-new}
+@item @ref{g-golf-gl-idle-source-new}
 @end table
 @end indentedblock
 
@@ -52,11 +53,26 @@ Returns a pointer to a new @code{GMainLoop}.
 
 Creates a new @code{GMainLoop} structure.
 
-The @var{contect} must be a pointer to a @code{GMainContext} of
+The @var{context} must be a pointer to a @code{GMainContext} of
 @code{#f}, in which case the defult contect is used.  When
 @var{is-running?} is @code{#t}, it indicates that the loop is
 running. This is not very important since calling
 @code{g-golf-gl-main-loop-run} will set this to @code{#t} anyway.
+@end deffn
+
+
+@anchor{g-golf-gl-idle-source-new}
+@deffn Procedure g-golf-gl-idle-source-new
+
+Returns a pointer to a new @code{GSource}.
+
+Creates a new idle source.
+
+The source will not initially be associated with any @code{GMainContext}
+and must be added to one with @code{g-golf-gl-source-attach} before it
+will be executed. Note that the default priority for idle sources is
+@code{200}, as compared to other sources which have a default priority
+of @code{300}.
 @end deffn
 
 

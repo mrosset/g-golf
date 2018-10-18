@@ -39,7 +39,8 @@
 
 
 (define-method (test-glib (self <g-golf-test-glib>))
-  (assert (g-golf-gl-main-loop-new #f #f)))
+  (assert (g-golf-gl-main-loop-new #f #f))
+  (assert (g-golf-gl-idle-source-new)))
 
 
 (exit-with-summary (run-all-defined-test-cases))
