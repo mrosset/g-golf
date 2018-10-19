@@ -65,7 +65,7 @@
 ;;;
 
 (define (g-golf-pi-get-flags info)
-  (g-golf-integer->gflags %g-golf-go-g-param-flags
+  (g-golf-integer->gflags %g-golf-go-param-flags
                           (g-property-info-get-flags info)))
 
 (define (g-golf-pi-get-ownership-transfer info)

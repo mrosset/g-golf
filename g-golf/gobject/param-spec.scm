@@ -36,14 +36,14 @@
 		warn
 		last)
 
-  #:export (%g-golf-go-g-param-flags))
+  #:export (%g-golf-go-param-flags))
 
 
 ;;;
 ;;; GParamSpec
 ;;;
 
-(define %g-golf-go-g-param-flags
+(define %g-golf-go-param-flags
   (make <genum>
     #:type-name "GParamFlags"
     #:scm-name "g-param-flags"

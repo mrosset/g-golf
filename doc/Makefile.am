@@ -1,6 +1,6 @@
 
 ####
-#### Copyright (C) 2016
+#### Copyright (C) 2016 - 2018
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf
@@ -43,7 +43,7 @@ g_golf_TEXINFOS = \
   api-overview.texi		\
   api-support-modules.texi	\
   api-gobject-enum-flags.texi	\
-  api-gobject-g-param-spec.texi \
+  api-gobject-param-spec.texi	\
   api-gobject.texi		\
   api-support.texi		\
   api-gir.texi			\

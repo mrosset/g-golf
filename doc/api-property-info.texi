@@ -46,7 +46,7 @@ a @code{GIPropertyInfo}.
 @anchor{g-golf-pi-get-flags}
 @deffn Procedure g-golf-pi-get-flags info
 
-Returns a list of @ref{%g-golf-go-g-param-flags}.
+Returns a list of @ref{%g-golf-go-param-flags}.
 
 Obtain the flags for this property info.  See @ref{GParamSpec} for the
 list of possible flag values.

@@ -21,13 +21,13 @@ required to specify parameters, such as e.g. GObject properties.
 
 @indentedblock
 @table @code
-@item @ref{%g-golf-go-g-param-flags}
+@item @ref{%g-golf-go-param-flags}
 @end table
 @end indentedblock
 
 
-@anchor{%g-golf-go-g-param-flags}
-@defivar <genum> %g-golf-go-g-param-flags
+@anchor{%g-golf-go-param-flags}
+@defivar <genum> %g-golf-go-param-flags
 
 An instance of @code{<genum>}, who's members are the scheme
 representation of the @code{GParamFlags}:
