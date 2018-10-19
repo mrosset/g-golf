@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -64,7 +64,7 @@
 	 (type-e-value (e-value %g-golf-ct-type-tag type-tag))
 	 (gtype-name (g-golf-ti-type-tag-to-string type-e-value))
 	 (gtype (bitwise-arithmetic-shift type-e-value 2))
-	 (gvalue (g-golf-go-g-value-init gtype)))
+	 (gvalue (g-golf-go-value-init gtype)))
     (g-object-get-property object
 			   (string->pointer name)
 			   gvalue)

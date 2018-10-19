@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -38,14 +38,14 @@
 		warn
 		last)
 
-  #:export (g-golf-go-g-value-init))
+  #:export (g-golf-go-value-init))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-g-value-init gtype)
+(define (g-golf-go-value-init gtype)
   ;; guile-gnome gobject.c does this:
   ;;   GValue value = { 0, };
   (let ((pointer (make-c-struct (list size_t int64 int64)
