@@ -23,6 +23,11 @@ G-Golf source code module.
 @tab @c @ref{Repository}
 @tab @code{(g-golf glib mem-alloc)}
 
+@item @code{-gl-}
+@tab @uref{@value{UGLIB-Main-Event-Loop}, The Main Event Loop}
+@tab @ref{The Main Event Loop}
+@tab @code{(g-golf glib main-event-loop)}
+
 @end multitable
 @end indentedblock
 
@@ -37,7 +42,7 @@ G-Golf source code module.
 @multitable @columnfractions .1 .2 .2 .3
 @headitem Abr. @tab GObject Section @tab G-Golf Section @tab G-Golf module
 
-@item
+@item @code{-go-}
 @tab @uref{@value{UGOBJECT-Type-Info}, Type Information}
 @tab @c
 @tab @code{(g-golf gobject type-info)}
