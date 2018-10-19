@@ -31,22 +31,27 @@ g_golf_TEXINFOS = \
   preface.texi     		\
   introduction.texi		\
   using-g-golf.texi		\
+  api.texi			\
+  api-overview.texi		\
   api-abreviations.texi		\
+  api-glib.texi			\
+  api-glib-main-event-loop.texi \
+  api-gobject.texi		\
+  api-gobject-enum-flags.texi	\
+  api-gobject-param-spec.texi	\
+  api-gir.texi			\
   api-repository.texi		\
   api-base-info.texi		\
   api-callable-info.texi	\
+  api-function-info.texi	\
   api-registered-type-info.texi	\
   api-enum-info.texi		\
   api-object-info.texi		\
   api-arg-info.texi		\
+  api-property-info.texi	\
+  api-type-info.texi		\
   api-typelib.texi		\
-  api-overview.texi		\
-  api-support-modules.texi	\
-  api-gobject-enum-flags.texi	\
-  api-gobject-param-spec.texi	\
-  api-gobject.texi		\
   api-support.texi		\
-  api-gir.texi			\
-  api.texi			\
+  api-support-modules.texi	\
   indices.texi			\
   fdl.texi

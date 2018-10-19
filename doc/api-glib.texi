@@ -29,4 +29,4 @@ though they might be some exception in the future.
 
 
 @c @include api-mem-alloc.texi
-@include api-main-event-loop.texi
+@include api-glib-main-event-loop.texi
