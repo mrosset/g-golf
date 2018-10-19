@@ -40,7 +40,7 @@
 		last)
 
   #:export (g-golf-go-type-name
-	    %g-golf-gt-fundamental-flags))
+	    %g-golf-go-fundamental-flags))
 
 
 ;;;
@@ -67,7 +67,7 @@
 ;;; Gtype*
 ;;;
 
-(define %g-golf-gt-fundamental-flags
+(define %g-golf-go-fundamental-flags
   (make <genum>
     #:type-name "GTypeFundamentalFlags"
     #:scm-name "g-type-fundamental-flags"
