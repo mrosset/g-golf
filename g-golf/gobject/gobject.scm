@@ -72,7 +72,7 @@
     ;; Incorrect: it must call g-value-ref, to be defined still, but in
     ;; the ean tme, just so it compiles (it obviusly will rase an
     ;; exception if the property type is not a gfloat ...
-    (g-golf-go-g-value-get-float gvalue)))
+    (g-golf-go-value-get-float gvalue)))
 
 (define (g-golf-go-set-property object name value)
   ;; ...

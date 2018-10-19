@@ -40,14 +40,14 @@
 		warn
 		last)
 
-  #:export (g-golf-go-g-value-get-float))
+  #:export (g-golf-go-value-get-float))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-g-value-get-float gvalue)
+(define (g-golf-go-value-get-float gvalue)
   (g-value-get-float gvalue))
 
 
