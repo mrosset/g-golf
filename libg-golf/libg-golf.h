@@ -1,4 +1,4 @@
-# Package Information for pkg-config
+/*  -*- mode: C; coding: utf-8 -*-
 
 ####
 #### Copyright (C) 2016 - 2018
@@ -21,19 +21,20 @@
 #### <https://www.gnu.org/licenses/gpl.html>.
 ####
 
-
-prefix=@prefix@
-exec_prefix=@exec_prefix@
-libdir=@libdir@
-datarootdir=@datarootdir@
-datadir=@datadir@
-
-guile_site=@guile_site@
-
-sitedir=@SITEDIR@
-siteccachedir=@SITECCACHEDIR@
+*/
 
 
-Name: G-Golf
-Description: Gnome: (Guile Object Library for).
-Version: @VERSION@
+/*
+ * misc.
+ *
+*/
+
+size_t pointer_address_size_c ();
+
+
+/*
+ * floats
+ *
+*/
+
+int float_to_int_c (float f);

@@ -26,20 +26,17 @@
 ;;; Code:
 
 
-(define-module (g-golf init)
-  #:use-module (system foreign)
+(define-module (g-golf support float)
+  #:use-module (ice-9 match)
+  #:use-module (ice-9 format)
+  #:use-module (g-golf support libg-golf)
 
-  #:export (%libgirepository
-	    %libglib
-	    %libgobject
-            %libg-golf
-            %use-par-map))
+  #:export (float->int))
 
 
-(define %libgirepository (dynamic-link "libgirepository-1.0"))
-(define %libglib (dynamic-link "libglib-2.0"))
-(define %libgobject (dynamic-link "libgobject-2.0"))
+;;;
+;;; From lig-golf
+;;;
 
-(define %libg-golf (dynamic-link "libg-golf"))
 
-(define %use-par-map (make-parameter #t))
+(define float->int float-to-int-c)

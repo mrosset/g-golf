@@ -26,20 +26,34 @@
 ;;; Code:
 
 
-(define-module (g-golf init)
+(define-module (g-golf support libg-golf)
   #:use-module (system foreign)
+  #:use-module (g-golf init)
+  
+  #:export (;; misc.
+            pointer-address-size-c
 
-  #:export (%libgirepository
-	    %libglib
-	    %libgobject
-            %libg-golf
-            %use-par-map))
+            ;; floats
+            float-to-int-c))
 
 
-(define %libgirepository (dynamic-link "libgirepository-1.0"))
-(define %libglib (dynamic-link "libglib-2.0"))
-(define %libgobject (dynamic-link "libgobject-2.0"))
+;;;
+;;; misc.
+;;;
 
-(define %libg-golf (dynamic-link "libg-golf"))
+(define pointer-address-size-c
+  (pointer->procedure size_t
+                      (dynamic-func "pointer_address_size_c"
+                                    %libg-golf)
+                      (list)))
 
-(define %use-par-map (make-parameter #t))
+
+;;;
+;;; floats
+;;;
+
+(define float-to-int-c
+  (pointer->procedure int
+                      (dynamic-func "float_to_int_c"
+                                    %libg-golf)
+                      (list float)))

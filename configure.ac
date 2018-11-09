@@ -32,7 +32,7 @@ AC_PREREQ(2.69)
 AC_INIT(
   [g-golf],
   [0.1.0],
-  [david at altosw dot be])
+  [bug-g-golf@gnu.org])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -44,9 +44,9 @@ AM_INIT_AUTOMAKE([1.14 gnu -Wall -Werror -Wno-portability -Wno-syntax \
 AM_MAINTAINER_MODE([enable])
 AM_SILENT_RULES([yes])
 
-dnl AC_PROG_CC
-dnl AC_STDC_HEADERS
-dnl LT_INIT([disable-static])
+AC_PROG_CC
+AC_STDC_HEADERS
+LT_INIT([disable-static])
 
 AC_COPYRIGHT(G_GOLF_CONFIGURE_COPYRIGHT)
 AC_CONFIG_SRCDIR([g-golf])
@@ -101,6 +101,7 @@ AC_CONFIG_FILES(
 AC_CONFIG_FILES([
   meta/g-golf-1.0.pc
   Makefile
+  libg-golf/Makefile
   doc/Makefile
   test-suite/Makefile
 ])

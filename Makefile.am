@@ -30,6 +30,8 @@ pkgconfigdir=$(libdir)/pkgconfig
 pkgconfig_DATA=meta/g-golf-1.0.pc
 
 SOURCES = \
+	g-golf/support/libg-golf.scm		\
+	g-golf/support/float.scm		\
 	g-golf/support/modules.scm		\
 	g-golf/support/goops.scm		\
 	g-golf/support/g-export.scm		\
@@ -98,6 +100,7 @@ ETAGS_ARGS = \
 # g-golf
 
 SUBDIRS = \
+	libg-golf			\
 	test-suite			\
 	doc
 
@@ -111,6 +114,11 @@ distclean-local:
 	rm -f *~
 	rm -f g-golf-*.tar.gz
 	rm -f g-golf-*.tar.gz.sig
+	rm -f libg-golf/Makefile
+	rm -f libg-golf/Makefile.in
+	rm -f libg-golf/libg-golf.la
+	rm -f libg-golf/libg-golf.lo
+	rm -f libg-golf/libg-golf.so
 	rm -rf doc/g-golf
 	rm -f doc/*.info
 	rm -f doc/*.pdf
@@ -120,9 +128,19 @@ distclean-local:
 	rm -f doc/Makefile
 	rm -f doc/Makefile.in
 	rm -f doc/stamp-vti
+	rm -f g-golf/TAGS
 	rm -f g-golf/*~
 	rm -f test-suite/Makefile
 	rm -f test-suite/Makefile.in
+	rm -f m4/libtool.m4
+	rm -f m4/ltoptions.m4
+	rm -f m4/ltsugar.m4
+	rm -f m4/ltversion.m4
+	rm -f m4/lt~obsolete.m4
+	rm -f m4/*~
+
+
+ACLOCAL_AMFLAGS = -I m4
 
 # * .PHONY: gen-pof:
 

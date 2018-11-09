@@ -1,4 +1,3 @@
-# Package Information for pkg-config
 
 ####
 #### Copyright (C) 2016 - 2018
@@ -22,18 +21,32 @@
 ####
 
 
-prefix=@prefix@
-exec_prefix=@exec_prefix@
-libdir=@libdir@
-datarootdir=@datarootdir@
-datadir=@datadir@
-
-guile_site=@guile_site@
-
-sitedir=@SITEDIR@
-siteccachedir=@SITECCACHEDIR@
+#include $(top_srcdir)/am/guile.mk
 
 
-Name: G-Golf
-Description: Gnome: (Guile Object Library for).
-Version: @VERSION@
+lib_LTLIBRARIES = \
+	libg-golf.la
+
+
+nodist_libg_golf_SOURCES = \
+	libg-golf.c
+
+libg_golf_SOURCES = \
+	libg-golf.c		\
+	libg-golf.h
+
+libg_golf_la_CFLAGS = \
+	$(AM_CFLAGS) $(GUILE_CFLAGS)
+
+libg_golf_la_LIBS = \
+	$(GUILE_LIBS)
+
+libg_golf_la_LDFLAGS = \
+	 $(GUILE_LDFLAGS)
+
+printenv:
+	printf '$(libg_golf_la_CFLAGS)\n' \
+	printf '$(libg_golf_la_LIBS)\n'   \
+	printf '$(libg_golf_la_LDFLAGS)\n'
+
+# Makefile.am ends here
