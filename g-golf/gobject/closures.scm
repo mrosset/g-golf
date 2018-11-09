@@ -53,7 +53,7 @@
 ;;;
 
 (define g-source-set-closure
-  (pointer->procedure float
+  (pointer->procedure void
                       (dynamic-func "g_source_set_closure"
 				    %libgobject)
                       (list '*		;; source
