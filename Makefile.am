@@ -114,11 +114,13 @@ distclean-local:
 	rm -f *~
 	rm -f g-golf-*.tar.gz
 	rm -f g-golf-*.tar.gz.sig
+	rm -f libg-golf/*~
 	rm -f libg-golf/Makefile
 	rm -f libg-golf/Makefile.in
 	rm -f libg-golf/libg-golf.la
 	rm -f libg-golf/libg-golf.lo
 	rm -f libg-golf/libg-golf.so
+	rm -f libg-golf/libg_golf_la-libg-golf.lo
 	rm -rf doc/g-golf
 	rm -f doc/*.info
 	rm -f doc/*.pdf

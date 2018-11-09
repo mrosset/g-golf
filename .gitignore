@@ -25,7 +25,7 @@ libg-golf/.deps/
 libg-golf/.libs/
 libg-golf/libg-golf.la
 libg-golf/libg-golf.lo
-libg-golf/libguile_cv_la-libg-golf.lo
+libg-golf/libg_golf_la-libg-golf.lo
 *~
 *.aux
 *.cp
