@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -31,7 +31,7 @@
   #:use-module (system foreign)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
-  #:use-module (g-golf gobject enum-flags)
+  #:use-module (g-golf support enum)
 
   #:duplicates (merge-generics
 		replace
@@ -68,10 +68,10 @@
 ;;;
 
 (define %g-golf-go-fundamental-flags
-  (make <genum>
-    #:type-name "GTypeFundamentalFlags"
+  (make <gi-enum>
+    #:gi-name "GTypeFundamentalFlags"
     #:scm-name "g-type-fundamental-flags"
-    #:value-set '(classed
-		  instantiable
-		  derivable
-		  deep-derivable)))
+    #:enum-set '(classed
+                 instantiable
+                 derivable
+                 deep-derivable)))

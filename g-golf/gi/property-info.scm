@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -31,7 +31,6 @@
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
-  #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf init)
   #:use-module (g-golf gobject param-spec)
   #:use-module (g-golf gi utils)
@@ -69,8 +68,8 @@
                           (g-property-info-get-flags info)))
 
 (define (g-golf-pi-get-ownership-transfer info)
-  (e-name %g-golf-ai-transfer
-	  (g-property-info-get-ownership-transfer info)))
+  (enum->symbol %g-golf-ai-transfer
+                (g-property-info-get-ownership-transfer info)))
 
 (define (g-golf-pi-get-type info)
   (g-property-info-get-type info))

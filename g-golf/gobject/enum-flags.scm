@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -40,13 +40,8 @@
 		warn
 		last)
 
-  #:export (<genum>))
+  ;; #:export ()
+  )
 
 
-(g-export !type-name
-	  !scm-name)
-
-
-(define-class <genum> (<enum>)
-  (type-name #:getter !type-name #:init-keyword #:type-name)
-  (scm-name #:getter !scm-name #:init-keyword #:scm-name))
+#;(g-export )

@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -197,14 +197,14 @@
   (list->integer
    (reverse (map (lambda (name)
 		   (if (member name flags) #t #f))
-	      (e-names gflags)))))
+	      (enum->symbols gflags)))))
 
 (define (g-golf-integer->gflags gflags n)
-  (let ((names (e-names gflags)))
-    (fold-right (lambda (name bool result)
+  (let ((symbols (enum->symbols gflags)))
+    (fold-right (lambda (symbol bool result)
 		  (if bool
-		      (cons name result)
+		      (cons symbol result)
 		      result))
 		'()
-		names
-		(reverse (integer->list n (length names))))))
+		symbols
+		(reverse (integer->list n (length symbols))))))

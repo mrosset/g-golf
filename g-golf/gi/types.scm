@@ -28,8 +28,7 @@
 
 (define-module (g-golf gi types)
   #:use-module (oop goops)  
-  ;; #:use-module (g-golf support enum)
-  #:use-module (g-golf gobject enum-flags)
+  #:use-module (g-golf support enum)
 
   #:duplicates (merge-generics
 		replace
@@ -51,29 +50,29 @@
 ;;;
 
 (define %g-golf-bi-info-type
-  (make <genum>
-    #:type-name "GIInfoType"
+  (make <gi-enum>
+    #:gi-name "GIInfoType"
     #:scm-name "gi-info-type"
-    #:value-set '(invalid
-		  function
-		  callback
-		  struct
-		  boxed
-		  enum
-		  flags
-		  object
-		  interface
-		  constant
-		  error-domain ;; invalid_0 - deleted
-		  union
-		  value
-		  signal
-		  vfunc
-		  property
-		  field
-		  arg
-		  type
-		  unresolved)))
+    #:enum-set '(invalid
+                 function
+                 callback
+                 struct
+                 boxed
+                 enum
+                 flags
+                 object
+                 interface
+                 constant
+                 error-domain ;; invalid_0 - deleted
+                 union
+                 value
+                 signal
+                 vfunc
+                 property
+                 field
+                 arg
+                 type
+                 unresolved)))
 
 
 ;;;
@@ -81,15 +80,15 @@
 ;;;
 
 (define %g-golf-fi-flags
-  (make <genum>
-    #:type-name "GIFunctionInfoFlags"
+  (make <gi-enum>
+    #:gi-name "GIFunctionInfoFlags"
     #:scm-name "gi-function-info-flags"
-    #:value-set '(is-method
-		  is-constructor
-		  is-getter
-                  is-setter
-                  wraps-vfunc
-                  throws)))
+    #:enum-set '(is-method
+                 is-constructor
+                 is-getter
+                 is-setter
+                 wraps-vfunc
+                 throws)))
 
 
 ;;;
@@ -97,67 +96,67 @@
 ;;;
 
 (define %g-golf-ai-direction
-  (make <genum>
-    #:type-name "GIDirection"
+  (make <gi-enum>
+    #:gi-name "GIDirection"
     #:scm-name "gi-direction"
-    #:value-set '(in
-		  out
-		  inout)))
+    #:enum-set '(in
+                 out
+                 inout)))
 
 (define %g-golf-ai-scope
-  (make <genum>
-    #:type-name "GIScopeType"
+  (make <gi-enum>
+    #:gi-name "GIScopeType"
     #:scm-name "gi-scope-type"
-    #:value-set '(invalid
-		  call
-		  async
-		  notified)))
+    #:enum-set '(invalid
+                 call
+                 async
+                 notified)))
 
 (define %g-golf-ai-transfer
-  (make <genum>
-    #:type-name "GITransfer"
+  (make <gi-enum>
+    #:gi-name "GITransfer"
     #:scm-name "gi-transfer"
-    #:value-set '(nothing
-		  container
-		  everything)))
+    #:enum-set '(nothing
+                 container
+                 everything)))
 
 
 ;;;
 ;;; Common Types
 ;;;
 
-(define %g-golf-ct-type-tag
-  (make <genum>
-    #:type-name "GITypeTag"
+(define %g-golf-ct-gi-tag
+  (make <gi-enum>
+    #:gi-name "GITypeTag"
     #:scm-name "gi-type-tag"
-    #:value-set '(void
-		  boolean
-		  int8
-		  uint8
-		  int16
-		  uint16
-		  int32
-		  uint32
-		  int64
-		  uint64
-		  float
-		  double
-		  gtype
-		  utf8
-		  filename
-		  array
-		  interface
-		  glist
-		  gslist
-		  ghash
-		  error
-		  unichar)))
+    #:enum-set '(void
+                 boolean
+                 int8
+                 uint8
+                 int16
+                 uint16
+                 int32
+                 uint32
+                 int64
+                 uint64
+                 float
+                 double
+                 gtype
+                 utf8
+                 filename
+                 array
+                 interface
+                 glist
+                 gslist
+                 ghash
+                 error
+                 unichar)))
 
 (define %g-golf-ct-array-type
-  (make <genum>
-    #:type-name "GIArrayType"
+  (make <gi-enum>
+    #:gi-name "GIArrayType"
     #:scm-name "gi-array-type"
-    #:value-set '(c
-		  array
-		  ptr-array
-		  byte-array)))
+    #:enum-set '(c
+                 array
+                 ptr-array
+                 byte-array)))

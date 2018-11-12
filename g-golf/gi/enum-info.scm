@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -30,7 +30,7 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
-  #:use-module (g-golf gobject enum-flags)
+  #:use-module (g-golf support enum)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
@@ -61,10 +61,10 @@
   (let* ((type-name (g-golf-rt-get-type-name info))
 	 (scm-name (g-golf-gtype-name->scm-name type-name))
 	 (e-vals (g-golf-enum-get-values info)))
-    (make <genum>
-      #:type-name type-name
+    (make <gi-enum>
+      #:gi-name type-name
       #:scm-name scm-name
-      #:value-set e-vals)))
+      #:enum-set e-vals)))
 
 (define (g-golf-enum-get-values info)
   (letrec ((get-enum-values

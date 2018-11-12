@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -69,8 +69,8 @@
 		    'gboolean))
 
 (define (g-golf-ti-get-tag info-type)
-  (e-name %g-golf-ct-type-tag
-	 (g-type-info-get-tag info-type)))
+  (enum->symbol %g-golf-ct-type-tag
+                (g-type-info-get-tag info-type)))
 
 (define (g-golf-ti-get-param-type info-type n)
   (g-type-info-get-param-type info-type n))
@@ -92,8 +92,8 @@
 		    'gboolean))
 
 (define (g-golf-ti-get-array-type info-type)
-  (e-name %g-golf-ct-array-type
-	 (g-type-info-get-array-type info-type)))
+  (enum->symbol %g-golf-ct-array-type
+                (g-type-info-get-array-type info-type)))
 
 
 ;;;

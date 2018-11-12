@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -68,8 +68,8 @@
 		    'gboolean))
   
 (define (g-golf-bi-get-type info)
-  (e-name %g-golf-bi-info-type
-	 (g-base-info-get-type info)))
+  (enum->symbol %g-golf-bi-info-type
+                (g-base-info-get-type info)))
 
 (define (g-golf-bi-get-typelib info)
   (g-base-info-get-typelib info))

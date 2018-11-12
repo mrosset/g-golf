@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -51,8 +51,8 @@
   (g-callable-info-get-arg info n))
 
 (define (g-golf-ci-get-caller-owns info)
-  (e-name %g-golf-ai-transfer
-	 (g-callable-info-get-caller-owns info)))
+  (enum->symbol %g-golf-ai-transfer
+                (g-callable-info-get-caller-owns info)))
 
 (define (g-golf-ci-get-return-type info)
   (g-callable-info-get-return-type info))

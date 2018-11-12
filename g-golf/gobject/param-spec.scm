@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -28,7 +28,7 @@
 
 (define-module (g-golf gobject param-spec)
   #:use-module (oop goops)  
-  #:use-module (g-golf gobject enum-flags)
+  #:use-module (g-golf support enum)
 
   #:duplicates (merge-generics
 		replace
@@ -44,18 +44,18 @@
 ;;;
 
 (define %g-golf-go-param-flags
-  (make <genum>
-    #:type-name "GParamFlags"
+  (make <gi-enum>
+    #:gi-name "GParamFlags"
     #:scm-name "g-param-flags"
-    #:value-set '(readable
-		  writable
-		  readwrite
-		  construct
-		  construct-only
-		  lax-validation
-		  static-name
-		  private
-		  static-nick
-		  static-blurb
-		  explicit-notify
-		  deprecated)))
+    #:enum-set '(readable
+                 writable
+                 readwrite
+                 construct
+                 construct-only
+                 lax-validation
+                 static-name
+                 private
+                 static-nick
+                 static-blurb
+                 explicit-notify
+                 deprecated)))

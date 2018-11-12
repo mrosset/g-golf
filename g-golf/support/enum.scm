@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -44,54 +44,66 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf support keyword)
   
-  #:export (<enum>))
+  #:export (<enum>
+            <gi-enum>))
 
 
-(g-export !value-set
-	  e-value
-	  e-name
-	  e-values
-	  e-names)
+(g-export enum-set
+	  enum->value
+	  enum->values
+	  enum->symbol
+	  enum->symbols
+          gi-name
+          scm-name)
 
 
 (define-class <enum> ()
-  (value-set #:getter !value-set #:init-keyword #:value-set))
+  (enum-set #:getter enum-set #:init-keyword #:enum-set))
 
 (define-method (initialize (self <enum>) initargs)
   (receive (kw enum-kw)
-      (split-keyword-args initargs '(#:value-set))
+      (split-keyword-args initargs '(#:enum-set))
     ;; (dimfi kw enum-kw)
     (let-keywords initargs #t
-		  ((value-set #f))
-      (if value-set
-	  (if (pair? (car value-set))
+		  ((enum-set #f))
+      (if enum-set
+	  (if (pair? (car enum-set))
 	      (next-method self initargs)
-	      (let ((real-value-set (map (lambda (i)
-					   (cons (list-ref value-set i) i))
-				      (iota (length value-set)))))
+	      (let ((real-enum-set (map (lambda (i)
+					   (cons (list-ref enum-set i) i))
+				      (iota (length enum-set)))))
 		(next-method self (append kw
-					  (list #:value-set real-value-set)))))
-	  (error "initialize <enum>"
-		 "<enum> instance value-set can not be empty."
+					  (list #:enum-set real-enum-set)))))
+	  (error "Initialize <enum>:"
+		 " enum-set can not be empty."
 		 (current-output-port))))))
 
-(define-method (e-value (self <enum>) (item <symbol>))
-  (assq-ref (!value-set self) item))
+(define-method (enum->value (self <enum>) (item <symbol>))
+  (assq-ref (enum-set self) item))
 
-(define-method (e-values (self <enum>))
+(define-method (enum->values (self <enum>))
   (map (lambda (x)
-	 (match x ((name . id) id)))
-    (!value-set self)))
+	 (match x ((symbol . id) id)))
+    (enum-set self)))
 
-(define-method (e-name (self <enum>) (item <integer>))
+(define-method (enum->symbol (self <enum>) (item <integer>))
   (let ((entry (find (lambda (x)
-		       (= (match x ((name . id) id))
+		       (= (match x ((symbol . id) id))
 			  item))
-		     (!value-set self))))
+		     (enum-set self))))
     (and entry
-	 (match entry ((name . id) name)))))
+	 (match entry ((symbol . id) symbol)))))
 
-(define-method (e-names (self <enum>))
+(define-method (enum->symbols (self <enum>))
   (map (lambda (x)
-	 (match x ((name . id) name)))
-    (!value-set self)))
+	 (match x ((symbol . id) symbol)))
+    (enum-set self)))
+
+
+;;;
+;;; GI Enum
+;;;
+
+(define-class <gi-enum> (<enum>)
+  (gi-name #:getter gi-name #:init-keyword #:gi-name)
+  (scm-name #:getter scm-name #:init-keyword #:scm-name))
