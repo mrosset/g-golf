@@ -1,0 +1,103 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Enum
+@subsection Enum
+
+@subheading Classes
+
+@indentedblock
+@table @code
+@item @ref{<enum>}
+@item @ref{<gi-enum>}
+@end table
+@end indentedblock
+
+@subheading Procedures and Methods
+
+@indentedblock
+@table @code
+@item @ref{enum-set}
+@item @ref{enum->value}
+@item @ref{enum->values}
+@item @ref{enum->symbol}
+@item @ref{enum->symbols}
+@item @ref{gi-name}
+@item @ref{scm-name}
+@end table
+@end indentedblock
+
+
+@anchor{<enum>}
+@deftp Class <enum>
+
+The @code{<enum>} class is for enumerated values. It (unique) slot is:
+
+@indentedblock
+@table @code
+@item @emph{enum-set}
+#:getter enum-set @*
+#:init-keyword #:enum-set
+@end table
+@end indentedblock
+@end deftp
+
+
+@anchor{enum-set}
+@deffn Method enum-set enum
+
+Returns the content of the enum-set slot for @var{enum}.
+@end deffn
+
+
+@anchor{enum->value}
+@anchor{enum->values}
+@deffn Method enum->value enum symbol
+@deffnx Method enum->values enum
+
+Returns the @var{enum} value for @var{symbol} (or @code{#f} if it does
+not exists), or the list of all values for  @var{enum}, respectively.
+@end deffn
+
+
+@anchor{enum->symbol}
+@anchor{enum->symbols}
+@deffn Method enum->symbol enum value
+@deffnx Method enum->symbols enum
+
+Returns the @var{enum} symbol for @var{value} (or @code{#f} if it does
+not exists), or the list of all symbols for  @var{enum}, respectively.
+@end deffn
+
+
+@anchor{<gi-enum>}
+@deftp Class <gi-enum>
+
+The @code{<gi-enum>} class is a subclass of @code{<enum>}.  Its
+@code{class-direct-slots} are:
+
+@indentedblock
+@table @code
+@item @emph{gi-name}
+#:getter gi-name @*
+#:init-keyword #:gi-name
+
+@item @emph{scm-name}
+#:getter scm-name @*
+#:init-keyword #:scm-name
+@end table
+@end indentedblock
+@end deftp
+
+
+@anchor{gi-name}
+@anchor{scm-name}
+@deffn Method gi-name gi-enum
+@deffnx Method scm-name gi-enum
+
+Returns the content of the gi-name or scm-name slot for @var{gi-enum},
+respectively.
+@end deffn

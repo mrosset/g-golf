@@ -22,7 +22,6 @@ support goops))}, ...
 
 @include api-support-modules.texi
 
-
 @node Goops
 @subsection Goops
 
@@ -32,12 +31,4 @@ support goops))}, ...
 @node Utils
 @subsection Utils
 
-@node Enum
-@subsection Enum
-
-
-@anchor{<enum>}
-@deffn Class <enum>
-
-
-@end deffn
+@include api-support-enum.texi

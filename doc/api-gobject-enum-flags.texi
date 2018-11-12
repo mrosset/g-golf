@@ -37,31 +37,3 @@ can be used as value type for object properties.
 
 
 @subheading Types and Values
-
-@indentedblock
-@table @code
-@item @ref{<genum>}
-@end table
-@end indentedblock
-
-@c Note: in this section, the @var{typelib} argument is [must be] a pointer
-@c to a @code{GITypelib}.
-
-
-@anchor{<genum>}
-@deftp Class <genum>
-
-The @code{<genum>} class is a subclass of @code{<enum>}.  Its
-@code{class-slots} are:
-
-@indentedblock
-@table @code
-@item @emph{type-name}
-@item @emph{scm-name}
-@item @emph{value-set}
-@end table
-@end indentedblock
-
-Use @code{(describe <genum>)} or GOOPS introspection methods for a
-complete definition.
-@end deftp
