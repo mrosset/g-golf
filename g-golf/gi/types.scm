@@ -125,7 +125,7 @@
 ;;; Common Types
 ;;;
 
-(define %g-golf-ct-gi-tag
+(define %g-golf-ct-type-tag
   (make <gi-enum>
     #:gi-name "GITypeTag"
     #:scm-name "gi-type-tag"
