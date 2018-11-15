@@ -78,8 +78,8 @@ corresponding G-Golf source code module.
 
 @item @code{-ct-}
 @tab @uref{@value{UGIcommontypes}, common types}
-@tab n/a
-@tab @code{(g-golf gi types)}
+@tab @ref{Common Types}
+@tab @code{(g-golf gi common-types)}
 
 @item @code{-bi-}
 @tab @uref{@value{UGIBaseInfo}, GIBaseInfo}
