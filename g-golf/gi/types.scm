@@ -36,10 +36,7 @@
 		warn
 		last)
 
-  #:export (%g-golf-bi-info-type
-	    %g-golf-ai-direction
-	    %g-golf-ai-scope
-	    %g-golf-ai-transfer))
+  #:export (%g-golf-bi-info-type))
 
 
 ;;;
@@ -70,33 +67,3 @@
                  arg
                  type
                  unresolved)))
-
-
-;;;
-;;; Arg Info
-;;;
-
-(define %g-golf-ai-direction
-  (make <gi-enum>
-    #:gi-name "GIDirection"
-    #:scm-name "gi-direction"
-    #:enum-set '(in
-                 out
-                 inout)))
-
-(define %g-golf-ai-scope
-  (make <gi-enum>
-    #:gi-name "GIScopeType"
-    #:scm-name "gi-scope-type"
-    #:enum-set '(invalid
-                 call
-                 async
-                 notified)))
-
-(define %g-golf-ai-transfer
-  (make <gi-enum>
-    #:gi-name "GITransfer"
-    #:scm-name "gi-transfer"
-    #:enum-set '(nothing
-                 container
-                 everything)))

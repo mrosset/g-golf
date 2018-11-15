@@ -36,6 +36,18 @@ GIBaseInfo           	       @*
 @end table
 @end indentedblock
 
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%g-golf-ai-transfer}
+@end table
+@end indentedblock
+
+
+@subheading Procedures
+
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIArgInfo}.
 
@@ -51,13 +63,6 @@ arguments which are callbacks.
 
 
 @subheading Types and Values
-
-@indentedblock
-@table @code
-@item @ref{%g-golf-ai-transfer}
-@end table
-@end indentedblock
-
 
 @anchor{%g-golf-ai-transfer}
 @defivar <genum> %g-golf-ai-transfer

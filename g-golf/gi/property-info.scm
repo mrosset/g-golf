@@ -34,9 +34,9 @@
   #:use-module (g-golf init)
   #:use-module (g-golf gobject param-spec)
   #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi types)
   #:use-module (g-golf gi base-info)
-
+  #:use-module (g-golf gi arg-info)
+  
   #:duplicates (merge-generics
 		replace
 		warn-override-core
