@@ -71,6 +71,18 @@ GIBaseInfo           	       @*
 @end table
 @end indentedblock
 
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%g-golf-bi-info-type}
+@end table
+@end indentedblock
+
+
+@subheading Procedures
+
 Note: in this section, the @var{info}, @var{info1} and @var{info2}
 arguments are [must be] pointers to a @code{GIBaseInfo}.
 
@@ -180,23 +192,16 @@ not.
 
 @subheading Types and Values
 
-@indentedblock
-@table @code
-@item @ref{%g-golf-bi-info-type}
-@end table
-@end indentedblock
-
-
 @anchor{%g-golf-bi-info-type}
 @defivar <genum> %g-golf-bi-info-type
 
-An instance of @code{<genum>}, who's members are the scheme
-representation of the @code{GIInfoType}:
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the type of a @code{GIBaseInfo} struct:
 
 @indentedblock
-@emph{type-name}: GIInfoType  @*
+@emph{gi-name}: GIInfoType  @*
 @emph{scm-name}: gi-info-type @*
-@emph{value-set}:
+@emph{enum-set}:
 @indentedblock
 invalid		@*
 function	@*

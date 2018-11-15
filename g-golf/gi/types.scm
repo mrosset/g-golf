@@ -37,33 +37,3 @@
 		last)
 
   #:export (%g-golf-bi-info-type))
-
-
-;;;
-;;; Base Info
-;;;
-
-(define %g-golf-bi-info-type
-  (make <gi-enum>
-    #:gi-name "GIInfoType"
-    #:scm-name "gi-info-type"
-    #:enum-set '(invalid
-                 function
-                 callback
-                 struct
-                 boxed
-                 enum
-                 flags
-                 object
-                 interface
-                 constant
-                 error-domain ;; invalid_0 - deleted
-                 union
-                 value
-                 signal
-                 vfunc
-                 property
-                 field
-                 arg
-                 type
-                 unresolved)))
