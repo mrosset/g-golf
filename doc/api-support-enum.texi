@@ -43,7 +43,42 @@ The @code{<enum>} class is for enumerated values. It (unique) slot is:
 #:init-keyword #:enum-set
 @end table
 @end indentedblock
+
+Notes:
+
+@itemize
+@item the @code{enum-set} can't be empty and so you must use the
+@code{#:enum-set} (#:init-keyword) when creating new @code{<enum>}
+instances;
+@ifhtml
+@*@*
+@end ifhtml
+
+@item
+the @code{#:enum-set} (#:init-keyword) accepts either a list of symbols
+or a well-formed @code{enum-set};
+@ifhtml
+@*@*
+@end ifhtml
+
+@item
+a well-formed @code{enum-set} is a list of @code{(symbol . id)} pairs,
+where @code{id} is a positive integer.
+@ifhtml
+@*@*
+@end ifhtml
+
+@item
+each @code{symbol} and each @code{id} of an @code{enum-set} must be
+unique.
+@end itemize
 @end deftp
+
+Instances of @code{<enum>} are immutable (to be more precise, I should
+say @samp{they are not meant to be mutated}@footnote{Because as it is,
+except for virtual slots, there is currently no way to effectively
+prohibit (block) a user to mutate a goops class instance (one can
+always use @code{slot-set! instance slot-name value}).}).
 
 
 @anchor{enum-set}
