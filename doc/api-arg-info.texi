@@ -68,7 +68,7 @@ arguments which are callbacks.
 
 
 @anchor{%g-golf-ai-direction}
-@defivar <genum> %g-golf-ai-direction
+@defivar <gi-enum> %g-golf-ai-direction
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the direction of a @code{GIArgInfo}:
@@ -94,7 +94,7 @@ in and out argument.
 
 
 @anchor{%g-golf-ai-scope}
-@defivar <genum> %g-golf-ai-scope
+@defivar <gi-enum> %g-golf-ai-scope
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the scope of a @code{GIArgInfo}. Scope type of a
@@ -128,7 +128,7 @@ notfied via the destroy_notify.
 
 
 @anchor{%g-golf-ai-transfer}
-@defivar <genum> %g-golf-ai-transfer
+@defivar <gi-enum> %g-golf-ai-transfer
 
 The transfer is the exchange of data between two parts, from the callee
 to the caller. The callee is either a function/method/signal or an
