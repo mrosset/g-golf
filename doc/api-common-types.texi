@@ -1,0 +1,84 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@defindex ct
+
+
+@node Common Types
+@subsection Common Types
+
+G-Golf Common Types low level API.@*
+common types - TODO
+
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%g-golf-ct-type-tag}
+@item @ref{%g-golf-ct-array-type}
+@end table
+@end indentedblock
+
+
+@anchor{%g-golf-ct-type-tag}
+@defivar <gi-enum> %g-golf-ct-type-tag
+
+An instance of @code{<gi-enum>}, who's members are the type tag of
+@code{GITypeInfo}:
+
+
+@indentedblock
+@emph{gi-name}: GITypeTag  @*
+@emph{scm-name}: gi-type-tag @*
+@emph{enum-set}:
+@indentedblock
+void		@*
+boolean		@*
+int8		@*
+uint8		@*
+int16		@*
+uint16		@*
+int32		@*
+uint32		@*
+int64		@*
+uint64		@*
+float		@*
+double		@*
+gtype		@*
+utf8		@*
+filename	@*
+array		@*
+interface	@*
+glist		@*
+gslist		@*
+ghash		@*
+error		@*
+unichar		
+@end indentedblock
+@end indentedblock
+@end defivar
+
+
+@anchor{%g-golf-ct-array-type}
+@defivar <gi-enum> %g-golf-ct-array-type
+
+An instance of @code{<gi-enum>}, who's members are the type of array in
+a @code{GITypeInfo}:
+
+
+@indentedblock
+@emph{gi-name}: GIArrayType  @*
+@emph{scm-name}: gi-array-type @*
+@emph{enum-set}:
+@indentedblock
+c		@*
+array		@*
+ptr-array	@*
+byte-array
+@end indentedblock
+@end indentedblock
+@end defivar

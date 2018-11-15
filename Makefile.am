@@ -54,6 +54,7 @@ SOURCES = \
 	g-golf/gi/utils.scm			\
 	g-golf/gi/types.scm			\
 	g-golf/gi/repository.scm		\
+	g-golf/gi/common-types.scm		\
 	g-golf/gi/base-info.scm			\
 	g-golf/gi/callable-info.scm		\
 	g-golf/gi/function-info.scm		\

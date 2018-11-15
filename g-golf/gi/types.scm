@@ -40,9 +40,7 @@
             %g-golf-fi-flags
 	    %g-golf-ai-direction
 	    %g-golf-ai-scope
-	    %g-golf-ai-transfer
-	    %g-golf-ct-type-tag
-	    %g-golf-ct-array-type))
+	    %g-golf-ai-transfer))
 
 
 ;;;
@@ -119,44 +117,3 @@
     #:enum-set '(nothing
                  container
                  everything)))
-
-
-;;;
-;;; Common Types
-;;;
-
-(define %g-golf-ct-type-tag
-  (make <gi-enum>
-    #:gi-name "GITypeTag"
-    #:scm-name "gi-type-tag"
-    #:enum-set '(void
-                 boolean
-                 int8
-                 uint8
-                 int16
-                 uint16
-                 int32
-                 uint32
-                 int64
-                 uint64
-                 float
-                 double
-                 gtype
-                 utf8
-                 filename
-                 array
-                 interface
-                 glist
-                 gslist
-                 ghash
-                 error
-                 unichar)))
-
-(define %g-golf-ct-array-type
-  (make <gi-enum>
-    #:gi-name "GIArrayType"
-    #:scm-name "gi-array-type"
-    #:enum-set '(c
-                 array
-                 ptr-array
-                 byte-array)))

@@ -41,6 +41,7 @@ g_golf_TEXINFOS = \
   api-gobject-param-spec.texi	\
   api-gir.texi			\
   api-repository.texi		\
+  api-common-types.texi		\
   api-base-info.texi		\
   api-callable-info.texi	\
   api-function-info.texi	\

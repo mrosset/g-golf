@@ -27,6 +27,7 @@ section, but there are some exceptions, such as @code{init},
 @subheading GIRepository
 
 * Repository::            GObject Introspection repository manager.
+* Common Types::          GObject Introspection common types. 
 * Base Info::             Base struct for all GITypelib structs.
 * Callable Info::	  Struct representing a callable.
 * Function Info::	  Struct representing a function.
@@ -45,6 +46,7 @@ section, but there are some exceptions, such as @code{init},
 
 
 @include api-repository.texi
+@include api-common-types.texi
 @include api-base-info.texi
 @include api-callable-info.texi
 @include api-function-info.texi
