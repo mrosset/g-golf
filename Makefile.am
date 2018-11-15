@@ -52,7 +52,6 @@ SOURCES = \
 	g-golf/gobject/gvalue.scm		\
 	g-golf/gobject.scm			\
 	g-golf/gi/utils.scm			\
-	g-golf/gi/types.scm			\
 	g-golf/gi/repository.scm		\
 	g-golf/gi/common-types.scm		\
 	g-golf/gi/base-info.scm			\
