@@ -80,6 +80,6 @@ of @code{300}.
 
 @c @indentedblock
 @c @table @code
-@c @item @ref{<genum>}
+@c @item @ref{<gi-enum>}
 @c @end table
 @c @end indentedblock
