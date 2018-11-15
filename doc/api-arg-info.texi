@@ -41,6 +41,8 @@ GIBaseInfo           	       @*
 
 @indentedblock
 @table @code
+@item @ref{%g-golf-ai-direction}
+@item @ref{%g-golf-ai-scope}
 @item @ref{%g-golf-ai-transfer}
 @end table
 @end indentedblock
@@ -64,6 +66,67 @@ arguments which are callbacks.
 
 @subheading Types and Values
 
+
+@anchor{%g-golf-ai-direction}
+@defivar <genum> %g-golf-ai-direction
+
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the direction of a @code{GIArgInfo}:
+
+@indentedblock
+@emph{gi-name}: GIDirection  @*
+@emph{scm-name}: gi-direction  @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+@item in
+in argument.
+
+@item out
+out argument.
+
+@item inout
+in and out argument.
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar
+
+
+@anchor{%g-golf-ai-scope}
+@defivar <genum> %g-golf-ai-scope
+
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the scope of a @code{GIArgInfo}. Scope type of a
+@code{GIArgInfo} representing callback, determines how the callback is
+invoked and is used to decide when the invoke structs can be freed.
+
+@indentedblock
+@emph{gi-name}: GIScopeType  @*
+@emph{scm-name}: gi-scope-type  @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+@item invalid
+The argument is not of callback type.
+
+@item call
+The callback and associated user_data is only used during the call to
+this function.
+
+@item async
+The callback and associated user_data is only used until the callback is
+invoked, and the callback. is invoked always exactly once.
+
+@item notified
+The callback and and associated user_data is used until the caller is
+notfied via the destroy_notify.
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar
+
+
 @anchor{%g-golf-ai-transfer}
 @defivar <genum> %g-golf-ai-transfer
 
@@ -78,13 +141,13 @@ within the container itself. Each container is freed differently, check
 the documentation for the types themselves for information on how to
 free them.
 
-An instance of @code{<genum>}, who's members are the scheme
+An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the @code{GITransfer}:
 
 @indentedblock
-@emph{type-name}: GITransfer  @*
+@emph{gi-name}: GITransfer  @*
 @emph{scm-name}: gi-transfer  @*
-@emph{value-set}:
+@emph{enum-set}:
 @indentedblock
 @table @code
 @item nothing
