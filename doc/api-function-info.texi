@@ -44,6 +44,19 @@ GIBaseInfoInfo         	                     @*
 @end table
 @end indentedblock
 
+
+@subheading Types and Values
+
+
+@indentedblock
+@table @code
+@item @ref{%g-golf-fi-flags}
+@end table
+@end indentedblock
+
+
+@subheading Procedures
+
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIFunctionInfo}.
 
@@ -77,23 +90,16 @@ g_module_symbol()}.
 @subheading Types and Values
 
 
-@indentedblock
-@table @code
-@item @ref{%g-golf-fi-flags}
-@end table
-@end indentedblock
-
-
 @anchor{%g-golf-fi-flags}
-@defivar <genum> %g-golf-fi-flags
+@defivar <gi-enum> %g-golf-fi-flags
 
-An instance of @code{<genum>}, who's members are the scheme
+An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the @code{GIFunctionInfoFlags}:
 
 @indentedblock
-@emph{type-name}: GIFunctionInfoFlags  @*
+@emph{gi-name}: GIFunctionInfoFlags  @*
 @emph{scm-name}: gi-function-info-flags  @*
-@emph{value-set}:
+@emph{enum-set}:
 @indentedblock
 is-method	@*
 is-constructor	@*

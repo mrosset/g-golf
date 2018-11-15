@@ -41,7 +41,8 @@
 		last)
 
   #:export (g-golf-fi-get-flags
-            g-golf-fi-get-symbol))
+            g-golf-fi-get-symbol
+             %g-golf-fi-flags))
 
 
 ;;;
@@ -71,3 +72,19 @@
                       (dynamic-func "g_function_info_get_symbol"
 				    %libgirepository)
                       (list '*)))
+
+
+;;;
+;;; Type and Values
+;;;
+
+(define %g-golf-fi-flags
+  (make <gi-enum>
+    #:gi-name "GIFunctionInfoFlags"
+    #:scm-name "gi-function-info-flags"
+    #:enum-set '(is-method
+                 is-constructor
+                 is-getter
+                 is-setter
+                 wraps-vfunc
+                 throws)))

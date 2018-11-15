@@ -37,7 +37,6 @@
 		last)
 
   #:export (%g-golf-bi-info-type
-            %g-golf-fi-flags
 	    %g-golf-ai-direction
 	    %g-golf-ai-scope
 	    %g-golf-ai-transfer))
@@ -71,22 +70,6 @@
                  arg
                  type
                  unresolved)))
-
-
-;;;
-;;; Function Info
-;;;
-
-(define %g-golf-fi-flags
-  (make <gi-enum>
-    #:gi-name "GIFunctionInfoFlags"
-    #:scm-name "gi-function-info-flags"
-    #:enum-set '(is-method
-                 is-constructor
-                 is-getter
-                 is-setter
-                 wraps-vfunc
-                 throws)))
 
 
 ;;;
