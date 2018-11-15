@@ -53,6 +53,7 @@ g_golf_TEXINFOS = \
   api-type-info.texi		\
   api-typelib.texi		\
   api-support.texi		\
+  api-support-enum.texi		\
   api-support-modules.texi	\
   indices.texi			\
   fdl.texi
