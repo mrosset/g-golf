@@ -33,6 +33,7 @@ g_golf_TEXINFOS = \
   using-g-golf.texi		\
   api.texi			\
   api-overview.texi		\
+  api-naming-conventions.texi	\
   api-abreviations.texi		\
   api-glib.texi			\
   api-glib-main-event-loop.texi \

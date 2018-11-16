@@ -1,0 +1,118 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Naming Conventions
+@subsection Naming Conventions
+
+
+@subheading GI Funtions
+
+G-Golf low level API procedure names that bind a GI function always start
+with @code{g-golf-}, followed by two letters and an hyphen, representing
+the GObject Introspection section (@xref{Abreviations}), followed by the
+section function name it implements. For example, from the GIRepository
+section:
+
+@example
+g_irepository_get_loaded_namespaces
+->
+@ref{g-golf-ir-get-loaded-namespaces}
+@end example
+
+
+@subheading GI Types and Values
+
+G-Golf low level API variables that bind GI types and values use the
+exact same convention as for procedures, except that they always start
+with @code{%g-golf-}.  For example, from the GIBaseInfo section:
+
+@example
+GIInfoType
+->
+@ref{%g-golf-bi-info-type}
+@end example
+
+Note: The G-Golf Reference Manual follows the GObject Introspection
+manual and list 'Types and Values' in their corresponding section. for
+example @ref{Base Info}. However, in the G-Golf source code, all 'Types
+and Values' are defined in the @code{(g-golf gi types)} module, which we
+think is more convenient both for developers and G-Golf users.
+
+
+@subheading G-Golf
+
+G-Golf does not just bind the @code{GObject Introspection} library, that
+would not buy us much.  It comes with its own set of procedures, syntax
+and variables, aimed at not just reading a typelib, but making its
+functionality available from @uref{@value{UGUILE}, Guile}.
+
+G-Golf procedure and syntax names also always start with @code{g-golf-}
+followed by their name: the name, however, will never start neither
+contain anywhere else the two reserved letters followed by a hyphen used
+for @code{GI}, @code{Glib} and @code{GObject} functions, types and
+variable (@xref{Abreviations}).
+
+G-Golf variables follow the same above described rule except that their
+name starts with @code{%g-golf-}.
+
+
+@subheading Exceptions
+
+There are two exceptions with respect to the naming conventions
+described above:
+
+@enumerate a
+@item
+procedure names that start with @code{call-with-input-},
+@code{call-with-output-} followed by a GI, Glib or GObject type, such
+as:
+
+@example
+@ref{call-with-input-typelib}
+@end example
+
+@item
+syntax names that start as @code{with-} followed by a GI, Glib or GObject
+type, such as:
+
+@example
+with-gerror @c @ref{with-gerror}
+@end example
+@end enumerate
+
+
+@subheading Gnome Libraries
+
+Imported Gnome libraries will follow @uref{@value{UGG}, Guile-Gnome}'s
+naming conventions, from which it will actually reuse the functionality
+developed at the time (see @uref{@value{UGGMGOG}, 9.1.1 Mapping class
+libraries to scheme} and @uref{@value{UGGMGOU}, 10.2 Usage} in @emph{the
+GNU Guile-Gnome: GObject Refence Manual}). For example, the following
+names would be transformed like this:
+
+@lisp
+ClutterActor -> clutter-actor
+clutter_actor_new -> clutter-actor-new
+clutter_actor_hide -> clutter-actor-hide
+@dots{}
+@end lisp
+
+Once G-Golf high level API is also implemented, Gnome libraries GObject
+classes and methods will become GOOPS citizen (@pxref{GOOPS,,, guile,
+The GNU Guile Reference Manual}), and in the land of generic function
+multi methods polimorphic object oriented systems, users just have fun:
+
+@lisp
+,use (g-golf gi)
+(g-golf-ir-require "Clutter")
+@print{}
+$2 = #<<gi-typelib> 18237a0>
+(make <clutter-actor>)
+@print{}
+$3 = #<<clutter-actor> 32124b0>
+(hide $3)
+@dots{}
+@end lisp
