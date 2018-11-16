@@ -8,6 +8,19 @@
 @subsection Naming Conventions
 
 
+@subheading Glib and GObject
+
+G-Golf low level API procedure names that bind a Glib or GObject
+function always use the @samp{original} name, except that @code{_} are
+replaced by @code{-}. For example:
+
+@example
+g_main_loop_new
+->
+@ref{g-main-loop-new}
+@end example
+
+
 @subheading GI Funtions
 
 G-Golf low level API procedure names that bind a GI function always start

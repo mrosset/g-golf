@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -30,52 +30,52 @@
   #:use-module (system foreign)
   #:use-module (g-golf init)
 
-  #:export (g-golf-gl-malloc
-	    g-golf-gl-malloc0
-	    g-golf-gl-free
-	    g-golf-gl-memdup))
+  #:export (g-malloc
+	    g-malloc0
+	    g-free
+	    g-memdup))
 
 
 ;;;
 ;;; Glib Low level API
 ;;;
 
-(define (g-golf-gl-malloc n)
-  (g-malloc n))
+(define (g-malloc n)
+  (g_malloc n))
 
-(define (g-golf-gl-malloc0 n)
-  (g-malloc0 n))
+(define (g-malloc0 n)
+  (g_malloc0 n))
 
-(define (g-golf-gl-free pointer)
-  (g-free pointer))
+(define (g-free pointer)
+  (g_free pointer))
 
-(define (g-golf-gl-memdup pointer n)
-  (g-memdup pointer n))
+(define (g-memdup pointer n)
+  (g_memdup pointer n))
 
 
 ;;;
 ;;; Glib Bindings
 ;;;
 
-(define g-malloc
+(define g_malloc
   (pointer->procedure '*
                       (dynamic-func "g_malloc"
 				    %libglib)
                       (list int)))
 
-(define g-malloc0
+(define g_malloc0
   (pointer->procedure '*
                       (dynamic-func "g_malloc0"
 				    %libglib)
                       (list int)))
 
-(define g-free
+(define g_free
   (pointer->procedure void
                       (dynamic-func "g_free"
 				    %libglib)
                       (list '*)))
 
-(define g-memdup
+(define g_memdup
   (pointer->procedure '*
                       (dynamic-func "g_memdup"
 				    %libglib)

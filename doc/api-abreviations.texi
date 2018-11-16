@@ -10,21 +10,24 @@
 
 @subheading Glib
 
-In the table below we list respectively the abreviation, its Glib
-section, and, when applicable, its G-Golf section and the corresponding
-G-Golf source code module.
+Glib and GObject do not use any abreviation scheme. Instead, the binding
+uses the original name, replacing @code{_} with @code{-}.
+
+In the table below we list respectively the Glib section, and, when
+applicable, its G-Golf section and the corresponding G-Golf source code
+module.
 
 @indentedblock
-@multitable @columnfractions .1 .2 .2 .3
-@headitem Abr. @tab Glib Section @tab G-Golf Section @tab G-Golf module
+@multitable @columnfractions  .3 .3 .3
+@headitem Glib Section @tab G-Golf Section @tab G-Golf module
 
-@item @code{-gl-}
-@tab @uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
+@item
+@uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
 @tab @c @ref{Repository}
 @tab @code{(g-golf glib mem-alloc)}
 
-@item @code{-gl-}
-@tab @uref{@value{UGLIB-Main-Event-Loop}, The Main Event Loop}
+@item
+@uref{@value{UGLIB-Main-Event-Loop}, The Main Event Loop}
 @tab @ref{The Main Event Loop}
 @tab @code{(g-golf glib main-event-loop)}
 

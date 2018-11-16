@@ -50,7 +50,7 @@
   (let* ((bv (call-with-input-file filename get-bytevector-all #:binary #t))
 	 (bv-pointer (bytevector->pointer bv))
 	 (bv-length (bytevector-length bv))
-	 (g-bv (g-golf-gl-memdup bv-pointer bv-length)))
+	 (g-bv (g-memdup bv-pointer bv-length)))
     (with-gerror gerror
 		 (g-golf-tl-new-from-memory g-bv bv-length gerror))))
 

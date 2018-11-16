@@ -61,7 +61,7 @@
   ;; this procedure [it segfaults - C can't free Guile's mem]. This
   ;; statement is _not_ guaranteed, hence we have to allocate using the
   ;; glib API.
-  (g-golf-gl-malloc0 %gpointer-size))
+  (g-malloc0 %gpointer-size))
 
 (define* (g-golf-pointer-inc pointer
 			    #:optional
@@ -77,12 +77,12 @@
 	    (d-pointer (dereference-pointer ?var)))
        (if (null-pointer? d-pointer)
 	   (begin
-	     (g-golf-gl-free ?var)
+	     (g-free ?var)
 	     result)
 	   (match (parse-c-struct d-pointer
 				  (list uint32 int8 '*))
 	     ((domain code message)
-	      (g-golf-gl-free ?var)
+	      (g-free ?var)
 	      (error (pointer->string message)))))))))
 
 (define (g-golf-gtype->scm gvalue gtype)
