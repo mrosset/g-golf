@@ -23,7 +23,7 @@ module.
 
 @item
 @uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
-@tab @c @ref{Repository}
+@tab @ref{Memory Allocation}
 @tab @code{(g-golf glib mem-alloc)}
 
 @item

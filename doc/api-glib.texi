@@ -22,11 +22,11 @@ though they might be some exception in the future.
 
 @menu
 
-@c * Memory Allocation::  General memory handling.
+* Memory Allocation::  General memory handling.
 * The Main Event Loop::  Manages all available sources of events.
 
 @end menu
 
 
-@c @include api-mem-alloc.texi
+@include api-glib-mem-alloc.texi
 @include api-glib-main-event-loop.texi
