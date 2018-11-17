@@ -39,7 +39,7 @@
   #:use-module (g-golf gi type-info)
   #:use-module (g-golf support enum)
   #:use-module (g-golf gobject generic-values)
-  #:use-module (g-golf gobject gvalue)
+  #:use-module (g-golf gobject params-vals)
 
   #:duplicates (merge-generics
 		replace

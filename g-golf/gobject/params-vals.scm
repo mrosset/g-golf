@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -26,7 +26,7 @@
 ;;; Code:
 
 
-(define-module (g-golf gobject gvalue)
+(define-module (g-golf gobject params-vals)
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf init)

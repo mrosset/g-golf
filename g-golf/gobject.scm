@@ -49,8 +49,8 @@
   #:use-module (g-golf gobject gobject)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf gobject generic-values)
+  #:use-module (g-golf gobject params-vals)
   #:use-module (g-golf gobject param-spec)
-  #:use-module (g-golf gobject gvalue)
   #:use-module (g-golf gobject gobject)
 
   #:duplicates (merge-generics
@@ -73,6 +73,6 @@
 			      (g-golf gobject gobject)
 			      (g-golf gobject enum-flags)
 			      (g-golf gobject generic-values)
+                              (g-golf gobject params-vals)
 			      (g-golf gobject param-spec)
-			      (g-golf gobject gvalue)
                               (g-golf gobject gobject)))
