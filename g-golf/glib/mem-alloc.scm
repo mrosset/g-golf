@@ -59,8 +59,14 @@
 (define (g-free mem)
   (g_free mem))
 
-(define (g-memdup pointer n-bytes)
-  (g_memdup pointer n-bytes))
+(define (g-memdup mem n-bytes)
+  (if (and (exact-integer? n-bytes)
+           (not (negative? n-bytes)))
+      (if (or (null-pointer? mem)
+              (zero? n-bytes))
+          #f
+          (g_memdup mem n-bytes))
+      (error "Wrong type argument: " n-bytes)))
 
 
 ;;;

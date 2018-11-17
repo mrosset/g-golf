@@ -37,6 +37,7 @@ section from the Glib reference manual for a complete description.
 @item @ref{g-malloc}
 @item @ref{g-malloc0}
 @item @ref{g-free}
+@item @ref{g-memdup}
 @end table
 @end indentedblock
 
@@ -48,7 +49,7 @@ section from the Glib reference manual for a complete description.
 
 Returns a pointer to the allocated memory, or @code{#f}.
 
-Allocated @var{n-bytes} of memory. If @var{n-bytes} is @code{0} it
+Allocates @var{n-bytes} of memory. If @var{n-bytes} is @code{0} it
 returns @code{#f}.  When using @code{g-malloc0}, the allocated memory is
 initialized to @code{0}.
 @end deffn
@@ -60,6 +61,17 @@ initialized to @code{0}.
 Returns nothing.
 
 Frees the memory pointed to by mem.
+@end deffn
+
+
+@anchor{g-memdup}
+@deffn Procedure g-memdup mem n-bytes
+
+Returns a pointer to the allocated memory, or @code{#f}.
+
+Allocates @var{n-bytes} of memory and copies @var{n-bytes} into it from
+@var{mem}. If @var{mem} is the @code{%null-pointer} or @var{n-bytes} is
+@code{0} it returns @code{#f}.
 @end deffn
 
 

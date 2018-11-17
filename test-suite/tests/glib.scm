@@ -62,6 +62,19 @@
   (assert (g-free (g-malloc 10))))
 
 
+(define-method (test-g-memdup (self <g-golf-test-glib>))
+  (let ((mem (g-malloc 10)))
+    (assert-exception (g-memdup mem -1.5))
+    (assert-exception (g-memdup mem -1))
+    (assert-exception (g-memdup mem 1.5))
+    (assert-false (g-memdup %null-pointer 10))
+    (assert-false (g-memdup mem -0))
+    (assert-false (g-memdup mem 0))
+    (assert (g-memdup mem 1))
+    (assert (g-memdup mem 10))
+    (assert (g-memdup mem 20))))
+
+
 (define-method (test-main-loop (self <g-golf-test-glib>))
   (assert (g-main-loop-new #f #f))
   (assert (g-idle-source-new)))
