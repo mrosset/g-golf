@@ -55,7 +55,7 @@ initialized to @code{0}.
 
 
 @anchor{g-free}
-@deffn Procedure g-malloc mem
+@deffn Procedure g-free mem
 
 Returns nothing.
 
