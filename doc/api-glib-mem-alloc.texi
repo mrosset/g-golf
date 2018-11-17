@@ -36,6 +36,7 @@ section from the Glib reference manual for a complete description.
 @table @code
 @item @ref{g-malloc}
 @item @ref{g-malloc0}
+@item @ref{g-free}
 @end table
 @end indentedblock
 
@@ -50,6 +51,15 @@ Returns a pointer to the allocated memory, or @code{#f}.
 Allocated @var{n-bytes} of memory. If @var{n-bytes} is @code{0} it
 returns @code{#f}.  When using @code{g-malloc0}, the allocated memory is
 initialized to @code{0}.
+@end deffn
+
+
+@anchor{g-free}
+@deffn Procedure g-malloc mem
+
+Returns nothing.
+
+Frees the memory pointed to by mem.
 @end deffn
 
 

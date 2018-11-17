@@ -56,6 +56,12 @@
   (assert (g-malloc0 1)))
 
 
+(define-method (test-g-free (self <g-golf-test-glib>))
+  (assert-exception (g-free 10))
+  (assert (g-free %null-pointer))
+  (assert (g-free (g-malloc 10))))
+
+
 (define-method (test-main-loop (self <g-golf-test-glib>))
   (assert (g-main-loop-new #f #f))
   (assert (g-idle-source-new)))

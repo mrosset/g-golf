@@ -56,8 +56,8 @@
           (g_malloc0 n-bytes))
       (error "Wrong type argument: " n-bytes)))
 
-(define (g-free pointer)
-  (g_free pointer))
+(define (g-free mem)
+  (g_free mem))
 
 (define (g-memdup pointer n-bytes)
   (g_memdup pointer n-bytes))
