@@ -35,18 +35,21 @@ section from the Glib reference manual for a complete description.
 @indentedblock
 @table @code
 @item @ref{g-malloc}
+@item @ref{g-malloc0}
 @end table
 @end indentedblock
 
 
 @anchor{g-malloc}
+@anchor{g-malloc0}
 @deffn Procedure g-malloc n-bytes
+@deffnx Procedure g-malloc0 n-bytes
 
 Returns a pointer to the allocated memory, or @code{#f}.
 
 Allocated @var{n-bytes} of memory. If @var{n-bytes} is @code{0} it
-returns @code{#f}.
-
+returns @code{#f}.  When using @code{g-malloc0}, the allocated memory is
+initialized to @code{0}.
 @end deffn
 
 

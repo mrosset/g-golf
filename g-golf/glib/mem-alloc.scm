@@ -49,7 +49,12 @@
       (error "Wrong type argument: " n-bytes)))
 
 (define (g-malloc0 n-bytes)
-  (g_malloc0 n-bytes))
+  (if (and (exact-integer? n-bytes)
+           (not (negative? n-bytes)))
+      (if (zero? n-bytes)
+          #f
+          (g_malloc0 n-bytes))
+      (error "Wrong type argument: " n-bytes)))
 
 (define (g-free pointer)
   (g_free pointer))
