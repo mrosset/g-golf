@@ -39,24 +39,26 @@
 		warn
 		last)
 
-  #:export (g-golf-go-type-name
-	    %g-golf-go-fundamental-flags))
+  #:export (g-type-name
+	    %g-fundamental-flags))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-type-name id)
-  (g-golf-gtype->scm (g-type-name id)
-		    'gchar*))
+(define (g-type-name type)
+  (let ((ptr (g_type_name type)))
+    (if (null-pointer? ptr)
+        #f
+        (g-golf-gtype->scm ptr 'gchar*))))
 
 
 ;;;
 ;;; GObject Bindings
 ;;;
 
-(define g-type-name
+(define g_type_name
   (pointer->procedure '*
                       (dynamic-func "g_type_name"
 				    %libgobject)
@@ -67,7 +69,7 @@
 ;;; Gtype*
 ;;;
 
-(define %g-golf-go-fundamental-flags
+(define %g-fundamental-flags
   (make <gi-enum>
     #:gi-name "GTypeFundamentalFlags"
     #:scm-name "g-type-fundamental-flags"

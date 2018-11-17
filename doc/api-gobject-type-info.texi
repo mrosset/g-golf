@@ -1,0 +1,50 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Type Information
+@subsection Type Information
+
+G-Golf GObject Type Information low level API.@*
+Type Information — The GLib Runtime type identification and management system
+
+
+@subheading Description
+
+The @code{GType API} is the foundation of the GObject system. It
+provides the facilities for registering and managing all fundamental
+data types, user-defined object and interface types.
+
+Please read the @uref{@value{UGOBJECT-Type-Info}, Type Information}
+section from the GObject reference manual for a complete description.
+
+
+@subheading Object Hierarchy
+
+@indentedblock
+gpointer           	       @*
+@ @ +--- GType		       @*
+@end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-type-name}
+@end table
+@end indentedblock
+
+
+@anchor{g-type-name}
+@deffn Procedure g-type-name type
+
+Returns a string or @code{#f}.
+
+Get the unique name that is assigned to a type ID. Note that this
+function (like all other GType API) cannot cope with invalid type
+IDs. It accepts validly registered type ID, but randomized type IDs
+should not be passed in and will most likely lead to a crash.
+@end deffn

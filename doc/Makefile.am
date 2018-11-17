@@ -36,8 +36,10 @@ g_golf_TEXINFOS = \
   api-naming-conventions.texi	\
   api-abreviations.texi		\
   api-glib.texi			\
+  api-glib-mem-alloc.texi	\
   api-glib-main-event-loop.texi \
   api-gobject.texi		\
+  api-gobject-type-info.texi	\
   api-gobject-enum-flags.texi	\
   api-gobject-param-spec.texi	\
   api-gir.texi			\

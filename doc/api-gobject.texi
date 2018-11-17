@@ -22,11 +22,12 @@ though they might be some exception in the future.
 
 @menu
 
+* Type Information:: The GLib Runtime type identification and management system.
 * Enumeration and Flag Types::  Gobject Enumeration and Flag Types.
 * GParamSpec::  Gobject GParamSpec.
 
 @end menu
 
-
+@include api-gobject-type-info.texi
 @include api-gobject-enum-flags.texi
 @include api-gobject-param-spec.texi

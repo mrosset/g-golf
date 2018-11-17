@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -35,15 +35,15 @@
 (g-golf-ir-require "Clutter")
 
 
+(define %align-info (g-golf-ir-find-by-name "Clutter" "ActorAlign"))
+(define %gtype (g-golf-rt-get-g-type %align-info))
+
+
 (define-class <g-golf-test-gobject> (<test-case>))
 
 
-(let* ((align-info (g-golf-ir-find-by-name "Clutter" "ActorAlign"))
-       (g-type (g-golf-rt-get-g-type align-info)))
-
-  (define-method (test-gobject (self <g-golf-test-gobject>))
-    (assert-equal "ClutterActorAlign"
-		  (g-golf-go-type-name g-type))))
+(define-method (test-gobject (self <g-golf-test-gobject>))
+  (assert-equal "ClutterActorAlign" (g-type-name %gtype)))
 
 
 (exit-with-summary (run-all-defined-test-cases))
