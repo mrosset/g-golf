@@ -40,7 +40,7 @@
 		last)
 
   #:export (g-type-name
-	    %g-fundamental-flags))
+	    %g-type-fundamental-flags))
 
 
 ;;;
@@ -66,10 +66,10 @@
 
 
 ;;;
-;;; Gtype*
+;;; Types and Values
 ;;;
 
-(define %g-fundamental-flags
+(define %g-type-fundamental-flags
   (make <gi-enum>
     #:gi-name "GTypeFundamentalFlags"
     #:scm-name "g-type-fundamental-flags"

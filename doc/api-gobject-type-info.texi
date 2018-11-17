@@ -38,6 +38,18 @@ gpointer           	       @*
 @end indentedblock
 
 
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%g-type-fundamental-flags}
+@end table
+@end indentedblock
+
+
+@subheading Procedures
+
+
 @anchor{g-type-name}
 @deffn Procedure g-type-name type
 
@@ -48,3 +60,38 @@ function (like all other GType API) cannot cope with invalid type
 IDs. It accepts validly registered type ID, but randomized type IDs
 should not be passed in and will most likely lead to a crash.
 @end deffn
+
+
+@subheading Types and Values
+
+
+@anchor{%g-type-fundamental-flags}
+@defivar <gi-enum> %g-type-fundamental-flags
+
+Bit masks used to check or determine specific characteristics of a
+fundamental type.
+
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the @code{GTypeFundamentalFlags}:
+
+@indentedblock
+@emph{gi-name}: GTypeFundamentalFlags  @*
+@emph{scm-name}: g-type-fundamental-flags  @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+@item classed
+Indicates a classed type
+
+@item instantiable
+Indicates an instantiable type (implies classed)
+
+@item derivable
+Indicates a flat derivable type
+
+@item deep-derivable
+Indicates a deep derivable type (implies derivable)
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar
