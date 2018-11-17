@@ -38,7 +38,16 @@
 (define-class <g-golf-test-glib> (<test-case>))
 
 
-(define-method (test-glib (self <g-golf-test-glib>))
+(define-method (test-g-malloc (self <g-golf-test-glib>))
+  (assert-exception (g-malloc -1.5))
+  (assert-exception (g-malloc -1))
+  (assert-exception (g-malloc 1.5))
+  (assert-false (g-malloc -0))
+  (assert-false (g-malloc 0))
+  (assert (g-malloc 1)))
+
+
+(define-method (test-main-loop (self <g-golf-test-glib>))
   (assert (g-main-loop-new #f #f))
   (assert (g-idle-source-new)))
 

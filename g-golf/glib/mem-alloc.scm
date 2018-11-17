@@ -40,17 +40,22 @@
 ;;; Glib Low level API
 ;;;
 
-(define (g-malloc n)
-  (g_malloc n))
+(define (g-malloc n-bytes)
+  (if (and (exact-integer? n-bytes)
+           (not (negative? n-bytes)))
+      (if (zero? n-bytes)
+          #f
+          (g_malloc n-bytes))
+      (error "Wrong type argument: " n-bytes)))
 
-(define (g-malloc0 n)
-  (g_malloc0 n))
+(define (g-malloc0 n-bytes)
+  (g_malloc0 n-bytes))
 
 (define (g-free pointer)
   (g_free pointer))
 
-(define (g-memdup pointer n)
-  (g_memdup pointer n))
+(define (g-memdup pointer n-bytes)
+  (g_memdup pointer n-bytes))
 
 
 ;;;

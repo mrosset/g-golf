@@ -42,10 +42,11 @@ section from the Glib reference manual for a complete description.
 @anchor{g-malloc}
 @deffn Procedure g-malloc n-bytes
 
-Returns a pointer to the allocated memory, or @code{#f} if @var{n-bytes}
-is @code{0}.
+Returns a pointer to the allocated memory, or @code{#f}.
 
-Allocated @var{n-bytes} of memory.
+Allocated @var{n-bytes} of memory. If @var{n-bytes} is @code{0} it
+returns @code{#f}.
+
 @end deffn
 
 
