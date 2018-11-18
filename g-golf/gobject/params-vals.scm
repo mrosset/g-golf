@@ -40,22 +40,22 @@
 		warn
 		last)
 
-  #:export (g-golf-go-value-get-float))
+  #:export (g-value-get-float))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-value-get-float gvalue)
-  (g-value-get-float gvalue))
+(define (g-value-get-float gvalue)
+  (g_value_get_float gvalue))
 
 
 ;;;
 ;;; GObject Bindings
 ;;;
 
-(define g-value-get-float
+(define g_value_get_float
   (pointer->procedure float
                       (dynamic-func "g_value_get_float"
 				    %libgobject)
