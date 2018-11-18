@@ -19,8 +19,8 @@ libraries based on GObject. The GObject class provides methods for
 object construction and destruction, property access methods, and signal
 support.
 
-Please read the @uref{@value{UGOBJECT-GObject-struct}, GObject} section
-from the GObject reference manual for a complete description.
+Please read the @uref{@value{UGOBJECT-GObject}, GObject} section from
+the GObject reference manual for a complete description.
 
 
 @subheading Object Hierarchy

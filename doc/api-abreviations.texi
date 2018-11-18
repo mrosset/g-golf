@@ -37,28 +37,46 @@ module.
 
 @subheading GObject
 
-In the table below we list respectively the abreviation, its GObject
-section, and, when applicable, its G-Golf section and the corresponding
-G-Golf source code module.
+Glib and GObject do not use any abreviation scheme. Instead, the binding
+uses the original name, replacing @code{_} with @code{-}.
+
+In the table below we list respectively the GObject section, and, when
+applicable, its G-Golf section and the corresponding G-Golf source code
+module.
 
 @indentedblock
-@multitable @columnfractions .1 .2 .2 .3
-@headitem Abr. @tab GObject Section @tab G-Golf Section @tab G-Golf module
+@multitable @columnfractions .3 .3 .3
+@headitem GObject Section @tab G-Golf Section @tab G-Golf module
 
-@item @code{-go-}
-@tab @uref{@value{UGOBJECT-Type-Info}, Type Information}
-@tab @c
+@item
+@uref{@value{UGOBJECT-Type-Info}, Type Information}
+@tab @ref{Type Information}
 @tab @code{(g-golf gobject type-info)}
 
-@item @code{-go-}
-@tab @uref{@value{UGOBJECT-Enum-Flags}, Enumeration and Flag Types}
-@tab @c @ref{Repository}
+@item
+@uref{@value{UGOBJECT-GObject}, GObject}
+@tab @ref{GObject_}
+@tab @code{(g-golf gobject gobject)}
+
+@item
+@uref{@value{UGOBJECT-Enum-Flags}, Enumeration and Flag Types}
+@tab @ref{Enumeration and Flag Types}
 @tab @code{(g-golf gobject enum-flags)}
 
-@item @code{-go-}
-@tab @uref{@value{UGOBJECT-Gen-Vals}, Generic Values}
-@tab @c @ref{Repository}
-@tab @code{(g-golf gobject generic-values)}
+@item
+@uref{@value{UGOBJECT-Params-Vals}, Parameters and Values}
+@tab @ref{Parameters and Values}
+@tab @code{(g-golf gobject params-vals)}
+
+@item
+@uref{@value{UGOBJECT-GParamSpec}, GParamSpec}
+@tab @ref{GParamSpec}
+@tab @code{(g-golf gobject param-spec)}
+
+@c @item
+@c @uref{@value{UGOBJECT-Gen-Vals}, Generic Values}
+@c @tab @c @ref{Repository}
+@c @tab @code{(g-golf gobject generic-values)}
 
 @end multitable
 @end indentedblock
