@@ -1,0 +1,63 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Parameters and Values
+@subsection Parameters and Values
+
+G-Golf GObject Parameters and Values low level API.@*
+Parameters and Values — Standard Parameter and Value Types
+
+
+@subheading Description
+
+@code{GValue} provides an abstract container structure which can be
+copied, transformed and compared while holding a value of any (derived)
+type, which is registered as a GType with a GTypeValueTable in its
+GTypeInfo structure. Parameter specifications for most value types can
+be created as @code{GParamSpec} derived instances, to implement
+e.g. @code{GObject properties} which operate on GValue containers.
+
+Parameter names need to start with a letter (a-z or A-Z). Subsequent
+characters can be letters, numbers or a '-'. All other characters are
+replaced by a '-' during construction.
+
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-value-get-float}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-type-fundamental-flags}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Procedures
+
+Note: in this section, the @var{value} arguments are [must be] pointers
+to a @code{GValue}.
+
+
+@anchor{g-value-get-float}
+@deffn Procedure g-value-get-float value
+
+Returns a float.
+
+Gets and returns the contents of @var{value}.
+@end deffn
+
+
+@c @subheading Types and Values
+

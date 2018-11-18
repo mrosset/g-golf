@@ -42,6 +42,7 @@ g_golf_TEXINFOS = \
   api-gobject-type-info.texi	\
   api-gobject-gobject.texi	\
   api-gobject-enum-flags.texi	\
+  api-gobject-params-vals.texi  \
   api-gobject-param-spec.texi	\
   api-gir.texi			\
   api-repository.texi		\
