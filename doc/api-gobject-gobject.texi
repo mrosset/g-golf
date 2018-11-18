@@ -1,0 +1,65 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node GObject_
+@subsection GObject_
+
+G-Golf GObject low level API.@*
+GObject — The base object type
+
+
+@subheading Description
+
+@code{GObject} is the fundamental type providing the common attributes
+and methods for all object types in @code{GTK+}, @code{Pango} and other
+libraries based on GObject. The GObject class provides methods for
+object construction and destruction, property access methods, and signal
+support.
+
+Please read the @uref{@value{UGOBJECT-GObject-struct}, GObject} section
+from the GObject reference manual for a complete description.
+
+
+@subheading Object Hierarchy
+
+@indentedblock
+GObject           	       @*
+@ @ +--- GBinding	       @*
+@ @ +--- GInitiallyUnowned     @*
+@ @ +--- GTypeModule	       @*
+@end indentedblock
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-object-get-property}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-type-fundamental-flags}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Procedures
+
+
+@anchor{g-object-get-property}
+@deffn Procedure g-object-get-property object property
+
+Returns the @var{property} value for @var{object}.
+@end deffn
+
+
+@c @subheading Types and Values
+

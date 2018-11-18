@@ -40,6 +40,7 @@ g_golf_TEXINFOS = \
   api-glib-main-event-loop.texi \
   api-gobject.texi		\
   api-gobject-type-info.texi	\
+  api-gobject-gobject.texi	\
   api-gobject-enum-flags.texi	\
   api-gobject-param-spec.texi	\
   api-gir.texi			\
