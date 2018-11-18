@@ -47,15 +47,15 @@
 		warn
 		last)
 
-  #:export (g-golf-go-get-property
-	    g-golf-go-set-property))
+  #:export (g-gobject-get-property
+	    g-gobject-set-property))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-get-property object property)
+(define (g-gobject-get-property object property)
   ;; both args, object and property, are pointers
   (let* ((name (g-golf-bi-get-name property))
 	 (type-info (g-golf-pi-get-type property))
@@ -64,7 +64,7 @@
 	 (gtype-name (g-golf-ti-type-tag-to-string type-value))
 	 (gtype (bitwise-arithmetic-shift type-value 2))
 	 (gvalue (g-golf-go-value-init gtype)))
-    (g-object-get-property object
+    (g_object_get_property object
 			   (string->pointer name)
 			   gvalue)
     ;; FIXME!
@@ -73,7 +73,7 @@
     ;; exception if the property type is not a gfloat ...
     (g-golf-go-value-get-float gvalue)))
 
-(define (g-golf-go-set-property object name value)
+(define (g-gobject-set-property object name value)
   ;; ...
   #f)
 
@@ -82,7 +82,7 @@
 ;;; GObject Bindings
 ;;;
 
-(define g-object-get-property
+(define g_object_get_property
   (pointer->procedure void
                       (dynamic-func "g_object_get_property"
 				    %libgobject)
