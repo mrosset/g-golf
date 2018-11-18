@@ -47,15 +47,15 @@
 		warn
 		last)
 
-  #:export (g-gobject-get-property
-	    g-gobject-set-property))
+  #:export (g-object-get-property
+	    g-object-set-property))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-gobject-get-property object property)
+(define (g-object-get-property object property)
   ;; both args, object and property, are pointers
   (let* ((name (g-golf-bi-get-name property))
 	 (type-info (g-golf-pi-get-type property))
@@ -73,7 +73,7 @@
     ;; exception if the property type is not a gfloat ...
     (g-golf-go-value-get-float gvalue)))
 
-(define (g-gobject-set-property object name value)
+(define (g-object-set-property object name value)
   ;; ...
   #f)
 
