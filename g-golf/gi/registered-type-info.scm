@@ -30,7 +30,6 @@
   #:use-module (system foreign)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi types)
 
   #:export (g-golf-rt-get-type-name
 	    g-golf-rt-get-type-init

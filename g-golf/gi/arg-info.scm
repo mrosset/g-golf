@@ -32,7 +32,6 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi types)
 
   #:duplicates (merge-generics
 		replace
