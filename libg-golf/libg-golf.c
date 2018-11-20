@@ -31,6 +31,8 @@
 #include <math.h>
 /* #include <libguile.h> */
 
+#include "libg-golf.h"
+
 
 /*
  * misc.
