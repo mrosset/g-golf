@@ -29,7 +29,7 @@
 (define-module (tests gi)
   #:use-module (oop goops)
   #:use-module (unit-test)
-  #:use-module (g-golf gi))
+  #:use-module (g-golf))
 
 
 (define-class <g-golf-test-gi> (<test-case>))

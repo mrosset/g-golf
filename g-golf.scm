@@ -34,7 +34,7 @@
     '(merge-generics replace warn-override-core warn last)))
 
 
-(define-module (g-golf gi)
+(define-module (g-golf)
   #:use-module (oop goops)
   #:use-module (ice-9 match)
   #:use-module (ice-9 binary-ports)

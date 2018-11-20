@@ -29,7 +29,7 @@
 (define-module (tests gobject)
   #:use-module (oop goops)
   #:use-module (unit-test)
-  #:use-module (g-golf gi))
+  #:use-module (g-golf))
 
 
 (g-golf-ir-require "Clutter")

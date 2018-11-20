@@ -64,7 +64,7 @@ SOURCES = \
 	g-golf/gi/property-info.scm		\
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\
-	g-golf/gi.scm
+	g-golf.scm
 
 # NOCOMP_SOURCES= \
 # 	$(wildcard g-golf/glade/*)	\
