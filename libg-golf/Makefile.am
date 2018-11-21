@@ -36,10 +36,10 @@ libg_golf_SOURCES = \
 	libg-golf.h
 
 libg_golf_la_CFLAGS = \
-	$(AM_CFLAGS) $(GUILE_CFLAGS)
+	$(AM_CFLAGS) $(GUILE_CFLAGS) $(GLIB_CFLAGS) $(GOBJECT_CFLAGS)
 
 libg_golf_la_LIBS = \
-	$(GUILE_LIBS)
+	$(GUILE_LIBS) $(GLIB_LIBS) $(GOBJECT_LIBS)
 
 libg_golf_la_LDFLAGS = \
 	 $(GUILE_LDFLAGS)

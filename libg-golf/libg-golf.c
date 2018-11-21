@@ -29,7 +29,8 @@
 #include <limits.h>
 #include <float.h>
 #include <math.h>
-/* #include <libguile.h> */
+
+/* #include <glib-object.h> */
 
 #include "libg-golf.h"
 
