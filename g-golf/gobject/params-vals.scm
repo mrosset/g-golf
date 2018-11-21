@@ -40,15 +40,19 @@
 		warn
 		last)
 
-  #:export (g-value-get-float))
+  #:export (g-value-get-float
+            g-value-set-float))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-value-get-float gvalue)
-  (g_value_get_float gvalue))
+(define (g-value-get-float g-value)
+  (g_value_get_float g-value))
+
+(define (g-value-set-float g-value float)
+  (g_value_set_float g-value float))
 
 
 ;;;
@@ -60,3 +64,10 @@
                       (dynamic-func "g_value_get_float"
 				    %libgobject)
                       (list '*)))
+
+(define g_value_set_float
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_float"
+				    %libgobject)
+                      (list '*
+                            float)))

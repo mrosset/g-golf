@@ -11,6 +11,25 @@ G-Golf GObject Parameters and Values low level API.@*
 Parameters and Values — Standard Parameter and Value Types
 
 
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-value-get-float}
+@item @ref{g-value-set-float}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-type-fundamental-flags}
+@c @end table
+@c @end indentedblock
+
+
 @subheading Description
 
 @code{GValue} provides an abstract container structure which can be
@@ -25,25 +44,6 @@ characters can be letters, numbers or a '-'. All other characters are
 replaced by a '-' during construction.
 
 
-
-@subheading Procedures
-
-@indentedblock
-@table @code
-@item @ref{g-value-get-float}
-@end table
-@end indentedblock
-
-
-@c @subheading Types and Values
-
-@c @indentedblock
-@c @table @code
-@c @item @ref{%g-type-fundamental-flags}
-@c @end table
-@c @end indentedblock
-
-
 @subheading Procedures
 
 Note: in this section, the @var{value} arguments are [must be] pointers
@@ -51,11 +51,20 @@ to a @code{GValue}.
 
 
 @anchor{g-value-get-float}
-@deffn Procedure g-value-get-float value
+@deffn Procedure g-value-get-float g-value
 
 Returns a float.
 
-Gets and returns the contents of @var{value}.
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-float}
+@deffn Procedure g-value-set-float g-value float
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{float}.
 @end deffn
 
 
