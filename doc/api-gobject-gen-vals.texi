@@ -1,0 +1,74 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Generic Values
+@subsection Generic Values
+
+G-Golf GObject Generic Values low level API.@*
+Generic values — A polymorphic type that can hold values of any other
+type
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-value-init}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-type-fundamental-flags}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Object Hierarchy
+
+@indentedblock
+GBoxed           	       @*
+@ @ +--- GValue		       @*
+@end indentedblock
+
+
+@subheading Description
+
+The @code{GValue} structure is basically a variable container that
+consists of a type identifier and a specific value of that type. The
+type identifier within a GValue structure always determines the type of
+the associated value. To create a undefined GValue structure, simply
+create a zero-filled GValue structure. To initialize the GValue, use the
+@ref{g-value-init} procedure. A GValue cannot be used until it is
+initialized. The basic type operations (such as freeing and copying) are
+determined by the @code{GTypeValueTable} associated with the type ID
+stored in the GValue.
+
+Please read the @uref{@value{UGOBJECT-Gen-Vals}, Generic Values} section
+from the GObject reference manual for a complete description.
+
+
+@subheading Procedures
+
+@c Note: in this section, the @var{value} arguments are [must be] pointers
+@c to a @code{GValue}.
+
+
+@anchor{g-value-init}
+@deffn Procedure g-value-init g-type
+
+Returns a pointer to a @code{GValue}.
+
+Creates and initializes a @code{GValue} with the default value for
+@var{g-type}.
+@end deffn
+
+
+@c @subheading Types and Values
+
