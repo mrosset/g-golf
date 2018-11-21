@@ -61,17 +61,17 @@
 	 (type-info (g-golf-pi-get-type property))
 	 (type-tag (g-golf-ti-get-tag type-info))
 	 (type-value (enum->value %g-golf-ct-type-tag type-tag))
-	 (gtype-name (g-golf-ti-type-tag-to-string type-value))
-	 (gtype (bitwise-arithmetic-shift type-value 2))
-	 (gvalue (g-golf-go-value-init gtype)))
+	 (type-name (g-golf-ti-type-tag-to-string type-value))
+	 (g-type (bitwise-arithmetic-shift type-value 2))
+	 (g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
-			   gvalue)
+			   g-value)
     ;; FIXME!
     ;; Incorrect: it must call g-value-ref, to be defined still, but in
     ;; the ean tme, just so it compiles (it obviusly will rase an
     ;; exception if the property type is not a gfloat ...
-    (g-golf-go-value-get-float gvalue)))
+    (g-value-get-float g-value)))
 
 (define (g-object-set-property object name value)
   ;; ...

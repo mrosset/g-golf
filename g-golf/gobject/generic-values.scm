@@ -38,27 +38,28 @@
 		warn
 		last)
 
-  #:export (g-golf-go-value-init))
+  #:export (g-value-init))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-value-init gtype)
+(define (g-value-init g-type)
   ;; guile-gnome gobject.c does this:
   ;;   GValue value = { 0, };
-  (let ((pointer (make-c-struct (list size_t int64 int64)
+  ;; Below g-value is a pointer to a (newly created) GValue
+  (let ((g-value (make-c-struct (list size_t int64 int64)
 				(list 0 0 0))))
-    (g-value-init pointer gtype)
-    pointer))
+    (g_value_init g-value g-type)
+    g-value))
 
 
 ;;;
 ;;; GObject Bindings
 ;;;
 
-(define g-value-init
+(define g_value_init
   (pointer->procedure '*
                       (dynamic-func "g_value_init"
 				    %libgobject)
