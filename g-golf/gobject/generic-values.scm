@@ -46,11 +46,8 @@
 ;;;
 
 (define (g-value-init g-type)
-  ;; guile-gnome gobject.c does this:
-  ;;   GValue value = { 0, };
-  ;; Below g-value is a pointer to a (newly created) GValue
-  (let ((g-value (make-c-struct (list size_t int64 int64)
-				(list 0 0 0))))
+  (let ((g-value (make-c-struct (list unsigned-long double double)
+                                (list 0 0 0))))
     (g_value_init g-value g-type)
     g-value))
 
@@ -63,4 +60,5 @@
   (pointer->procedure '*
                       (dynamic-func "g_value_init"
 				    %libgobject)
-                      (list '* int)))
+                      (list '*
+                            unsigned-long)))
