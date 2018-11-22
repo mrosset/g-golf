@@ -40,7 +40,8 @@
 		last)
 
   #:export (g-type-name
-	    %g-type-fundamental-flags))
+	    %g-type-fundamental-flags
+            %g-type-fundamental-types))
 
 
 ;;;
@@ -77,3 +78,30 @@
                  instantiable
                  derivable
                  deep-derivable)))
+
+(define %g-type-fundamental-types
+  (make <gi-enum>
+    #:gi-name #f ;; manually built, from the list of fundamental types
+		 ;; starting with G_TYPE_INVALID -> G_TYPE_OBJECT
+    #:scm-name "g-types"
+    #:enum-set '(invalid
+                 none
+                 interface
+                 char
+                 uchar
+                 boolean
+                 int
+                 uint
+                 long
+                 ulong
+                 int64
+                 uint64
+                 enum
+                 flags
+                 float
+                 double
+                 string
+                 pointer
+                 boxed
+                 param
+                 object)))

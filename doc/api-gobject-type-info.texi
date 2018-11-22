@@ -11,24 +11,6 @@ G-Golf GObject Type Information low level API.@*
 Type Information — The GLib Runtime type identification and management system
 
 
-@subheading Description
-
-The @code{GType API} is the foundation of the GObject system. It
-provides the facilities for registering and managing all fundamental
-data types, user-defined object and interface types.
-
-Please read the @uref{@value{UGOBJECT-Type-Info}, Type Information}
-section from the GObject reference manual for a complete description.
-
-
-@subheading Object Hierarchy
-
-@indentedblock
-gpointer           	       @*
-@ @ +--- GType		       @*
-@end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -43,8 +25,27 @@ gpointer           	       @*
 @indentedblock
 @table @code
 @item @ref{%g-type-fundamental-flags}
+@item @ref{%g-type-fundamental-types}
 @end table
 @end indentedblock
+
+
+@subheading Object Hierarchy
+
+@indentedblock
+gpointer           	       @*
+@ @ +--- GType		       @*
+@end indentedblock
+
+
+@subheading Description
+
+The @code{GType API} is the foundation of the GObject system. It
+provides the facilities for registering and managing all fundamental
+data types, user-defined object and interface types.
+
+Please read the @uref{@value{UGOBJECT-Type-Info}, Type Information}
+section from the GObject reference manual for a complete description.
 
 
 @subheading Procedures
@@ -80,6 +81,7 @@ representation of the @code{GTypeFundamentalFlags}:
 @emph{enum-set}:
 @indentedblock
 @table @code
+
 @item classed
 Indicates a classed type
 
@@ -91,6 +93,100 @@ Indicates a flat derivable type
 
 @item deep-derivable
 Indicates a deep derivable type (implies derivable)
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar
+
+
+@anchor{%g-type-fundamental-types}
+@defivar <gi-enum> %g-type-fundamental-types
+
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the @code{GType} obtained from the fundamentl types
+defined using @code{G_TYPE_MAKE_FUNDAMENTAL}, which starts
+with @code{G_TYPE_INVALID} and ends with @code{G_TYPE_OBJECT}.
+
+@indentedblock
+@emph{gi-name}: #f@footnote{There is no corresponding @code{enum} in
+GOject.  These fundamental types (in GObject) are defined using a macro,
+@code{G_TYPE_MAKE_FUNDAMENTAL}, that applies bitwise arithmetic shift
+given by @code{G_TYPE_FUNDAMENTAL_SHIFT} (which we also have to apply,
+to get to the type ID for the fundamental number @code{x}).}
+@*
+
+@emph{scm-name}: g-type-fundamental-types @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+
+@item invalid
+An invalid GType used as error return value in some functions which
+return a GType.
+
+@item none
+A fundamental type which is used as a replacement for the C void return
+type.
+
+@item interface
+The fundamental type from which all interfaces are derived.
+
+@item char
+The fundamental type corresponding to gchar. It is unconditionally an
+8-bit signed integer. This may or may not be the same type a the C type
+"gchar".
+
+@item uchar
+The fundamental type corresponding to guchar.
+
+@item boolean
+The fundamental type corresponding to gboolean.
+
+@item int
+The fundamental type corresponding to gint.
+
+@item uint
+The fundamental type corresponding to guint.
+
+@item long
+The fundamental type corresponding to glong.
+
+@item ulong
+The fundamental type corresponding to gulong.
+
+@item int64
+The fundamental type corresponding to gint64.
+
+@item uint64
+The fundamental type corresponding to guint64.
+
+@item enum
+The fundamental type from which all enumeration types are derived.
+
+@item flags
+The fundamental type from which all flags types are derived.
+
+@item float
+The fundamental type corresponding to gfloat.
+
+@item double
+The fundamental type corresponding to gdouble.
+
+@item string
+The fundamental type corresponding to nul-terminated C strings.
+
+@item pointer
+The fundamental type corresponding to gpointer.
+
+@item boxed
+The fundamental type from which all boxed types are derived.
+
+@item param
+The fundamental type from which all @ref{GParamSpec} types are derived.
+
+@item object
+The fundamental type for @ref{GObject_}.
+
 @end table
 @end indentedblock
 @end indentedblock
