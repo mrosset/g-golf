@@ -14,22 +14,6 @@ G-Golf Glib Memory Allocation low level API.@*
 Memory Allocation — general memory-handling
 
 
-@subheading Description
-These functions provide support for allocating and freeing memory.
-
-Please read the @uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
-section from the Glib reference manual for a complete description.
-
-
-@c @subheading Struct Hierarchy
-
-@c @indentedblock
-@c GIBaseInfo           	       		@*
-@c @ @ +--- GIRegisteredTypeInfo  		@*
-@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
-@c @end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -41,6 +25,33 @@ section from the Glib reference manual for a complete description.
 @end table
 @end indentedblock
 
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{<gi-enum>}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+These functions provide support for allocating and freeing memory.
+
+Please read the @uref{@value{UGLIB-Mem-Alloc}, Memory Allocation}
+section from the Glib reference manual for a complete description.
+
+
+@subheading Procedures
 
 @anchor{g-malloc}
 @anchor{g-malloc0}
@@ -76,9 +87,3 @@ Allocates @var{n-bytes} of memory and copies @var{n-bytes} into it from
 
 
 @c @subheading Types and Values
-
-@c @indentedblock
-@c @table @code
-@c @item @ref{<gi-enum>}
-@c @end table
-@c @end indentedblock

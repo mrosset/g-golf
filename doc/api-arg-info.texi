@@ -14,20 +14,6 @@ G-Golf Arg Info low level API.@*
 GIArgInfo — Struct representing an argument.
 
 
-@subheading Description
-
-@code{GIArgInfo} represents an argument. An argument is always part of a
-@code{GICallableInfo}.
-
-
-@subheading Struct Hierarchy
-
-@indentedblock
-GIBaseInfo           	       @*
-@ @ +--- GIArgInfo	       @*
-@end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -46,6 +32,20 @@ GIBaseInfo           	       @*
 @item @ref{%g-golf-ai-transfer}
 @end table
 @end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       @*
+@ @ +--- GIArgInfo	       @*
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIArgInfo} represents an argument. An argument is always part of a
+@code{GICallableInfo}.
 
 
 @subheading Procedures

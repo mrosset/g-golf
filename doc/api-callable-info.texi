@@ -14,14 +14,27 @@ G-Golf Callable Info low level API.@*
 GICallableInfo — Struct representing a callable.
 
 
-@subheading Description
+@subheading Procedures
 
-@code{GICallableInfo} represents an entity which is callable. Currently
-a function (@code{GIFunctionInfo}), virtual function,
-(@code{GIVFuncInfo}) or callback (@code{GICallbackInfo}).
+@indentedblock
+@table @code
+@item @ref{g-golf-ci-get-n-args}
+@item @ref{g-golf-ci-get-arg}
+@item @ref{g-golf-ci-get-caller-owns}
+@item @ref{g-golf-ci-get-return-type}
+@item @ref{g-golf-ci-may-return-null}
+@end table
+@end indentedblock
 
-A callable has a list of arguments (@code{GIArgInfo}), a return type,
-direction and a flag which decides if it returns null.
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @ref{...}
+@c @end table
+@c @end indentedblock
+
 
 @subheading Struct Hierarchy
 
@@ -34,17 +47,17 @@ GIBaseInfoInfo         	                     @*
 @end indentedblock
 
 
-@subheading Procedures
+@subheading Description
 
-@indentedblock
-@table @code
-@item @ref{g-golf-ci-get-n-args}
-@item @ref{g-golf-ci-get-arg}
-@item @ref{g-golf-ci-get-caller-owns}
-@item @ref{g-golf-ci-get-return-type}
-@item @ref{g-golf-ci-may-return-null}
-@end table
-@end indentedblock
+@code{GICallableInfo} represents an entity which is callable. Currently
+a function (@code{GIFunctionInfo}), virtual function,
+(@code{GIVFuncInfo}) or callback (@code{GICallbackInfo}).
+
+A callable has a list of arguments (@code{GIArgInfo}), a return type,
+direction and a flag which decides if it returns null.
+
+
+@subheading Procedures
 
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GICallableInfo}.
@@ -98,15 +111,5 @@ Returns @code{#t} if the callable @var{info} could return @code{NULL}.
 See if a callable could return NULL.
 @end deffn
 
+
 @c @subheading Types and Values
-
-
-@c @indentedblock
-@c @table @code
-@c @ref{...}
-@c @end table
-@c @end indentedblock
-
-
-@c @anchor{}
-@c @defvar

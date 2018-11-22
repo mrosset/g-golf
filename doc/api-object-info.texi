@@ -14,25 +14,6 @@ G-Golf Object Info low level API.@*
 GIObjectInfo — Structs representing a GObject.
 
 
-@subheading Description
-
-@code{GIObjectInfo} represents a @uref{@value{UGOBJECT-GObject-struct},
-GObject}. This doesn't represent a specific instance of a GObject,
-instead this represent the object type (eg class).
-
-A GObject has methods, fields, properties, signals, interfaces,
-constants and virtual functions.
-
-
-@subheading Struct Hierarchy
-
-@indentedblock
-GIBaseInfo           	       		@*
-@ @ +--- GIRegisteredTypeInfo  		@*
-@ @ @ @ @ @ @ @ @ @ @  +--- GIObjectInfo
-@end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -60,6 +41,37 @@ GIBaseInfo           	       		@*
 @item @ref{g-golf-oi-get-class-struct}
 @end table
 @end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-golf-ai-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       		@*
+@ @ +--- GIRegisteredTypeInfo  		@*
+@ @ @ @ @ @ @ @ @ @ @  +--- GIObjectInfo
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIObjectInfo} represents a @uref{@value{UGOBJECT-GObject-struct},
+GObject}. This doesn't represent a specific instance of a GObject,
+instead this represent the object type (eg class).
+
+A GObject has methods, fields, properties, signals, interfaces,
+constants and virtual functions.
+
+
+@subheading Procedures
 
 Note: in this section, unless otherwise specified, the @var{info}
 argument is [must be] a pointer to a @code{GIObjectInfo}.
@@ -273,23 +285,3 @@ the data.
 
 
 @c @subheading Types and Values
-
-@c @indentedblock
-@c @table @code
-@c @item @ref{%g-golf-ai-transfer}
-@c @end table
-@c @end indentedblock
-
-
-@c @anchor{%g-golf-ai-transfer}
-@c @defvar %g-golf-ai-transfer
-
-@c An instance of @code{<object>}, who's members are the scheme
-@c representation of the @code{GITransfer}:
-
-@c @indentedblock
-@c nothing		@*
-@c container	@*
-@c everything
-@c @end indentedblock
-@c @end defvar

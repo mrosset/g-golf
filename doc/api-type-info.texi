@@ -14,6 +14,23 @@ G-Golf Type Info low level API.@*
 GITypeInfo — Struct representing a type.
 
 
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-golf-ti-type-tag-to-string}
+@end table
+@end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfoInfo         	                     @*
+@ @ +--- GITypeInfo
+@end indentedblock
+
+
 @subheading Description
 
 @code{GITypeInfo} represents a type. You can retrieve a type info from
@@ -28,21 +45,7 @@ type or an interface type. For interface types you need to call
 that interface.
 
 
-@subheading Struct Hierarchy
-
-@indentedblock
-GIBaseInfoInfo         	                     @*
-@ @ +--- GITypeInfo
-@end indentedblock
-
-
 @subheading Procedures
-
-@indentedblock
-@table @code
-@item @ref{g-golf-ti-type-tag-to-string}
-@end table
-@end indentedblock
 
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GITypeInfo}.

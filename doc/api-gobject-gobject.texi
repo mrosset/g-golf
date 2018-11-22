@@ -11,28 +11,6 @@ G-Golf GObject low level API.@*
 GObject — The base object type
 
 
-@subheading Description
-
-@code{GObject} is the fundamental type providing the common attributes
-and methods for all object types in @code{GTK+}, @code{Pango} and other
-libraries based on GObject. The GObject class provides methods for
-object construction and destruction, property access methods, and signal
-support.
-
-Please read the @uref{@value{UGOBJECT-GObject}, GObject} section from
-the GObject reference manual for a complete description.
-
-
-@subheading Object Hierarchy
-
-@indentedblock
-GObject           	       @*
-@ @ +--- GBinding	       @*
-@ @ +--- GInitiallyUnowned     @*
-@ @ +--- GTypeModule	       @*
-@end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -51,6 +29,28 @@ GObject           	       @*
 @c @end indentedblock
 
 
+@subheading Object Hierarchy
+
+@indentedblock
+GObject           	       @*
+@ @ +--- GBinding	       @*
+@ @ +--- GInitiallyUnowned     @*
+@ @ +--- GTypeModule	       @*
+@end indentedblock
+
+
+@subheading Description
+
+@code{GObject} is the fundamental type providing the common attributes
+and methods for all object types in @code{GTK+}, @code{Pango} and other
+libraries based on GObject. The GObject class provides methods for
+object construction and destruction, property access methods, and signal
+support.
+
+Please read the @uref{@value{UGOBJECT-GObject}, GObject} section from
+the GObject reference manual for a complete description.
+
+
 @subheading Procedures
 
 
@@ -62,4 +62,3 @@ Returns the @var{property} value for @var{object}.
 
 
 @c @subheading Types and Values
-

@@ -11,12 +11,6 @@ G-Golf GObject GParamSpec low level API.@*
 GParamSpec — Metadata for parameter specifications.
 
 
-@subheading Description
-
-@code{GParamSpec} is an object structure that encapsulates the metadata
-required to specify parameters, such as e.g. GObject properties.
-
-
 @subheading Types and Values
 
 @indentedblock
@@ -25,6 +19,14 @@ required to specify parameters, such as e.g. GObject properties.
 @end table
 @end indentedblock
 
+
+@subheading Description
+
+@code{GParamSpec} is an object structure that encapsulates the metadata
+required to specify parameters, such as e.g. GObject properties.
+
+
+@subheading Types and Values
 
 @anchor{%g-golf-go-param-flags}
 @defivar <genum> %g-golf-go-param-flags

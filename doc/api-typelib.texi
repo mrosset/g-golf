@@ -14,20 +14,6 @@ G-Golf Typelib low level API.@*
 GITypelib — Layout and accessors for typelib.
 
 
-@subheading Description
-
-TODO.
-
-
-@c @subheading Struct Hierarchy
-
-@c @indentedblock
-@c GIBaseInfo           	       		@*
-@c @ @ +--- GIRegisteredTypeInfo  		@*
-@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
-@c @end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -39,6 +25,32 @@ TODO.
 @item @ref{g-golf-tl-get-namespace}
 @end table
 @end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-golf-ai-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+
+TODO.
+
+
+@subheading Procedures
 
 Note: in this section, the @var{typelib} argument is [must be] a pointer
 to a @code{GITypelib}.
@@ -105,23 +117,3 @@ Returns the namespace of @var{typelib}.
 
 
 @c @subheading Types and Values
-
-@c @indentedblock
-@c @table @code
-@c @item @ref{%g-golf-ai-transfer}
-@c @end table
-@c @end indentedblock
-
-
-@c @anchor{%g-golf-ai-transfer}
-@c @defvar %g-golf-ai-transfer
-
-@c An instance of @code{<enum>}, who's members are the scheme
-@c representation of the @code{GITransfer}:
-
-@c @indentedblock
-@c nothing		@*
-@c container	@*
-@c everything
-@c @end indentedblock
-@c @end defvar

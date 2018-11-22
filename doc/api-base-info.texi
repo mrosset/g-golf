@@ -14,45 +14,6 @@ G-Golf Base Info low level API.@*
 GIBaseInfo — Base struct for all GITypelib structs.
 
 
-@subheading Description
-
-@code{GIBaseInfo} is the common base struct of all other *Info structs
-accessible through the @code{GIRepository API}.
-
-Most @code{GIRepository APIs} returning a @code{GIBaseInfo} is actually
-creating a new struct, in other words, @ref{g-golf-bi-unref} has to be
-called when done accessing the data. @code{GIBaseInfos} are normally
-accessed by calling either @ref{g-golf-ir-find-by-name},
-@ref{g-golf-ir-find-by-gtype} or @ref{g-golf-ir-get-info}.
-
-@example
-@strong{Example:} Getting the Button of the Gtk typelib
-@end example
-
-@lisp
-,use (g-golf gi)
-(g-golf-ir-require "Gtk")
-(g-golf-ir-find-by-name "Gtk" "Button")
-@print{}
-$4 = #<pointer 0x20e0000>
-... use button info ...
-(g-golf-bi-unref $4)
-@end lisp
-
-
-@subheading Struct Hierarchy
-
-@indentedblock
-GIBaseInfo           	       @*
-@ @ +--- GIArgInfo	       @*
-@ @ +--- GICallableInfo	       @*
-@ @ +--- GIConstantInfo        @*
-@ @ +--- GIFieldInfo           @*
-@ @ +--- GIPropertyInfo        @*
-@ @ +--- GIRegisteredTypeInfo  @*
-@ @ +--- GITypeInfo
-@end indentedblock
-
 @subheading Procedures
 
 @indentedblock
@@ -79,6 +40,46 @@ GIBaseInfo           	       @*
 @item @ref{%g-golf-bi-info-type}
 @end table
 @end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       @*
+@ @ +--- GIArgInfo	       @*
+@ @ +--- GICallableInfo	       @*
+@ @ +--- GIConstantInfo        @*
+@ @ +--- GIFieldInfo           @*
+@ @ +--- GIPropertyInfo        @*
+@ @ +--- GIRegisteredTypeInfo  @*
+@ @ +--- GITypeInfo
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIBaseInfo} is the common base struct of all other *Info structs
+accessible through the @code{GIRepository API}.
+
+Most @code{GIRepository APIs} returning a @code{GIBaseInfo} is actually
+creating a new struct, in other words, @ref{g-golf-bi-unref} has to be
+called when done accessing the data. @code{GIBaseInfos} are normally
+accessed by calling either @ref{g-golf-ir-find-by-name},
+@ref{g-golf-ir-find-by-gtype} or @ref{g-golf-ir-get-info}.
+
+@example
+@strong{Example:} Getting the Button of the Gtk typelib
+@end example
+
+@lisp
+,use (g-golf gi)
+(g-golf-ir-require "Gtk")
+(g-golf-ir-find-by-name "Gtk" "Button")
+@print{}
+$4 = #<pointer 0x20e0000>
+... use button info ...
+(g-golf-bi-unref $4)
+@end lisp
 
 
 @subheading Procedures

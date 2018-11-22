@@ -14,13 +14,24 @@ G-Golf Registered Type Info low level API.@*
 GIRegisteredTypeInfo — Struct representing a struct with a @code{GType}. 
 
 
-@subheading Description
+@subheading Procedures
 
-@code{GIRegisteredTypeInfo} represents an entity with a @code{GType}
-associated. Could be either a @code{GIEnumInfo}, @code{GIInterfaceInfo},
-@code{GIObjectInfo}, @code{GIStructInfo} or a @code{GIUnionInfo}.
+@indentedblock
+@table @code
+@item @ref{g-golf-rt-get-type-name}
+@item @ref{g-golf-rt-get-type-init}
+@item @ref{g-golf-rt-get-g-type}
+@end table
+@end indentedblock
 
-A registered type info struct has a name and a type function.
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @ref{...}
+@c @end table
+@c @end indentedblock
 
 
 @subheading Struct Hierarchy
@@ -36,15 +47,16 @@ GIBaseInfo					@*
 @end indentedblock
 
 
-@subheading Procedures
+@subheading Description
 
-@indentedblock
-@table @code
-@item @ref{g-golf-rt-get-type-name}
-@item @ref{g-golf-rt-get-type-init}
-@item @ref{g-golf-rt-get-g-type}
-@end table
-@end indentedblock
+@code{GIRegisteredTypeInfo} represents an entity with a @code{GType}
+associated. Could be either a @code{GIEnumInfo}, @code{GIInterfaceInfo},
+@code{GIObjectInfo}, @code{GIStructInfo} or a @code{GIUnionInfo}.
+
+A registered type info struct has a name and a type function.
+
+
+@subheading Procedures
 
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIRegisteredTypeInfo}.
@@ -85,14 +97,3 @@ provides the type_init function for this info cannot be called.
 
 
 @c @subheading Types and Values
-
-
-@c @indentedblock
-@c @table @code
-@c @ref{...}
-@c @end table
-@c @end indentedblock
-
-
-@c @anchor{}
-@c @defvar

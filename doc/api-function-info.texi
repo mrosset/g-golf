@@ -14,27 +14,6 @@ G-Golf Function Info low level API.@*
 GIFunctionInfo — Struct representing a function.
 
 
-@subheading Description
-
-@code{GIFunctionInfo} represents a function, method or constructor. To
-find out what kind of entity a GIFunctionInfo represents, call
-@ref{g-golf-fi-get-flags}.
-
-See also @ref{Callable Info} for information on how to retreive
-arguments and other metadata.
-
-
-@subheading Struct Hierarchy
-
-@indentedblock
-GIBaseInfoInfo         	                     @*
-@ @ +--- GICallableInfo	                     @*
-@ @ @ @ @ @ @ @ @ @ @ +--- GIFunctionInfo    @*
-@ @ @ @ @ @ @ @ @ @ @ +--- GISignalInfo      @*
-@ @ @ @ @ @ @ @ @ @ @ +--- GIVFuncInfo
-@end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -53,6 +32,27 @@ GIBaseInfoInfo         	                     @*
 @item @ref{%g-golf-fi-flags}
 @end table
 @end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfoInfo         	                     @*
+@ @ +--- GICallableInfo	                     @*
+@ @ @ @ @ @ @ @ @ @ @ +--- GIFunctionInfo    @*
+@ @ @ @ @ @ @ @ @ @ @ +--- GISignalInfo      @*
+@ @ @ @ @ @ @ @ @ @ @ +--- GIVFuncInfo
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIFunctionInfo} represents a function, method or constructor. To
+find out what kind of entity a GIFunctionInfo represents, call
+@ref{g-golf-fi-get-flags}.
+
+See also @ref{Callable Info} for information on how to retreive
+arguments and other metadata.
 
 
 @subheading Procedures

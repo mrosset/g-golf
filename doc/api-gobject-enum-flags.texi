@@ -24,6 +24,12 @@ enumeration or flags type is registered with the GLib type system, it
 can be used as value type for object properties.
 
 
+@c @subheading Procedures
+
+
+@c @subheading Types and Values
+
+
 @c @subheading Struct Hierarchy
 
 @c @indentedblock
@@ -31,9 +37,3 @@ can be used as value type for object properties.
 @c @ @ +--- GIRegisteredTypeInfo  		@*
 @c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
 @c @end indentedblock
-
-
-@subheading Procedures
-
-
-@subheading Types and Values

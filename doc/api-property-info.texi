@@ -14,11 +14,15 @@ G-Golf Property Info low level API.@*
 GIPropertyInfo — Struct representing a property.
 
 
-@subheading Description
+@subheading Procedures
 
-@code{GIPropertyInfo} represents a property. A property belongs to
-either a @code{GIObjectInfo} or a @code{GIInterfaceInfo}.
-
+@indentedblock
+@table @code
+@item @ref{g-golf-pi-get-flags}
+@item @ref{g-golf-pi-get-ownership-transfer}
+@item @ref{g-golf-pi-get-type}
+@end table
+@end indentedblock
 
 
 @subheading Struct Hierarchy
@@ -29,15 +33,13 @@ GIBaseInfoInfo         	                     @*
 @end indentedblock
 
 
-@subheading Procedures
+@subheading Description
 
-@indentedblock
-@table @code
-@item @ref{g-golf-pi-get-flags}
-@item @ref{g-golf-pi-get-ownership-transfer}
-@item @ref{g-golf-pi-get-type}
-@end table
-@end indentedblock
+@code{GIPropertyInfo} represents a property. A property belongs to
+either a @code{GIObjectInfo} or a @code{GIInterfaceInfo}.
+
+
+@subheading Procedures
 
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIPropertyInfo}.

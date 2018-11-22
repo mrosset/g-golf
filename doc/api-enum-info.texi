@@ -14,21 +14,6 @@ G-Golf Enum Info low level API.@*
 GIEnumInfo — Structs representing an enumeration and its values.
 
 
-@subheading Description
-
-@code{GIEnumInfo} represents an argument. An argument is always part of a
-@code{GICallableInfo}.
-
-
-@subheading Struct Hierarchy
-
-@indentedblock
-GIBaseInfo           	       		@*
-@ @ +--- GIRegisteredTypeInfo  		@*
-@ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
-@end indentedblock
-
-
 @subheading Procedures
 
 @indentedblock
@@ -44,6 +29,33 @@ GIBaseInfo           	       		@*
 @item @ref{g-golf-vi-get-value}
 @end table
 @end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-golf-ai-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       		@*
+@ @ +--- GIRegisteredTypeInfo  		@*
+@ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIEnumInfo} represents an argument. An argument is always part of a
+@code{GICallableInfo}.
+
+
+@subheading Procedures
 
 Note: in this section, unless otherwise specified, the @var{info}
 argument is [must be] a pointer to a @code{GIEumInfo}.
@@ -123,23 +135,3 @@ Obtain a value of the @code{GIValueInfo}.
 
 
 @c @subheading Types and Values
-
-@c @indentedblock
-@c @table @code
-@c @item @ref{%g-golf-ai-transfer}
-@c @end table
-@c @end indentedblock
-
-
-@c @anchor{%g-golf-ai-transfer}
-@c @defvar %g-golf-ai-transfer
-
-@c An instance of @code{<enum>}, who's members are the scheme
-@c representation of the @code{GITransfer}:
-
-@c @indentedblock
-@c nothing		@*
-@c container	@*
-@c everything
-@c @end indentedblock
-@c @end defvar

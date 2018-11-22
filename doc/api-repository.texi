@@ -14,21 +14,6 @@ G-Golf Introspection Repository low level API. @*
 GIRepository — GObject Introspection repository manager.
 
 
-@subheading Description
-
-@code{GIRepository} is used to manage repositories of
-namespaces. Namespaces are represented on disk by type libraries
-(.typelib files).
-
-
-@subheading Object Hierarchy
-
-@indentedblock
-GObject           @*
-|___ GIRepository
-@end indentedblock
-
-
 @subheading Procedures
 
 
@@ -49,6 +34,23 @@ GObject           @*
 @end table
 @end indentedblock
 
+
+@subheading Object Hierarchy
+
+@indentedblock
+GObject           @*
+|___ GIRepository
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIRepository} is used to manage repositories of
+namespaces. Namespaces are represented on disk by type libraries
+(.typelib files).
+
+
+@subheading Procedures
 
 Note: in this section, the @var{repository} optional keyword argument is
 [must be] a pointer to a @code{GIRepository} or @code{%null-pointer}.
