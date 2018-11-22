@@ -43,9 +43,7 @@
 
 
 (define-method (test-g-value-init (self <g-golf-test-gobject>))
-  (let* ((type-value (enum->value %g-golf-ct-type-tag 'boolean))
-         (g-type (bitwise-arithmetic-shift type-value 2)))
-    (assert (g-value-init g-type))))
+  (assert (g-value-init (symbol->g-type 'float))))
 
 (define-method (test-g-type-name (self <g-golf-test-gobject>))
   (assert-equal "ClutterActorAlign" (g-type-name %gtype))
