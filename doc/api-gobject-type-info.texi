@@ -15,7 +15,10 @@ Type Information — The GLib Runtime type identification and management system
 
 @indentedblock
 @table @code
+@item @ref{g-type->symbol}
+@item @ref{symbol->g-type}
 @item @ref{g-type-name}
+@item @ref{g-type-fundamental}
 @end table
 @end indentedblock
 
@@ -51,15 +54,48 @@ section from the GObject reference manual for a complete description.
 @subheading Procedures
 
 
-@anchor{g-type-name}
-@deffn Procedure g-type-name type
+@anchor{g-type->symbol}
+@deffn Procedure g-type->symbol g-type
 
-Returns a string or @code{#f}.
+Returns a symbol.
 
-Get the unique name that is assigned to a type ID. Note that this
-function (like all other GType API) cannot cope with invalid type
+Get the symbol that correspond to the type ID @var{g-type}. Note that
+this function (like all other GType API) cannot cope with invalid type
 IDs. It accepts validly registered type ID, but randomized type IDs
 should not be passed in and will most likely lead to a crash.
+@end deffn
+
+
+@anchor{symbol->g-type}
+@deffn Procedure symbol->g-type symbol
+
+Returns a type ID.
+
+Get the type ID for @var{symbol}. Note that this function (like all
+other GType API) cannot cope with invalid type ID symbols. It accepts
+validly registered type ID symbol, but randomized type IDs should not be
+passed in and will most likely lead to a crash.
+@end deffn
+
+
+@anchor{g-type-name}
+@deffn Procedure g-type-name g-type
+
+Returns a string.
+
+Get the unique name that is assigned to @var{g-type}, a type ID. Note
+that this function (like all other GType API) cannot cope with invalid
+type IDs. It accepts validly registered type ID, but randomized type IDs
+should not be passed in and will most likely lead to a crash.
+@end deffn
+
+
+@anchor{g-type-fundamental}
+@deffn Procedure g-type-fundamental g-type
+
+Returns a type ID.
+
+Extracts the fundamental type ID portion for @var{g-type}.
 @end deffn
 
 

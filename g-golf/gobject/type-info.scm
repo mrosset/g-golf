@@ -29,6 +29,7 @@
 (define-module (g-golf gobject type-info)
   #:use-module (oop goops)
   #:use-module (system foreign)
+  #:use-module (rnrs arithmetic bitwise)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf support enum)
@@ -39,20 +40,49 @@
 		warn
 		last)
 
-  #:export (g-type-name
+  #:export (g-type->symbol
+            symbol->g-type
+            g-type-name
+            g-type-fundamental
 	    %g-type-fundamental-flags
             %g-type-fundamental-types))
+
+
+;;;
+;;; G-Golf Low level API
+;;;
+
+(define %g-type-fundamental-shift 2)
+
+(define (g-type->symbol g-type)
+  ;; note that sbank special treat the 'boxed g-type maybe I'll have to
+  ;; do it to, let's see how thngs goes, but keep this in mind ...
+  (enum->symbol %g-type-fundamental-types
+                (bitwise-arithmetic-shift-right (g-type-fundamental g-type)
+                                                %g-type-fundamental-shift)))
+
+(define (symbol->g-type symbol)
+  (bitwise-arithmetic-shift (enum->value %g-type-fundamental-types
+                                         (case symbol
+                                           ((utf8) 'string)
+                                           ((int32) 'int)
+                                           ((uint32) 'uint)
+                                           (else symbol)))
+                             %g-type-fundamental-shift))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-type-name type)
-  (let ((ptr (g_type_name type)))
+(define (g-type-name g-type)
+  (let ((ptr (g_type_name g-type)))
     (if (null-pointer? ptr)
         #f
         (g-golf-gtype->scm ptr 'gchar*))))
+
+(define (g-type-fundamental g-type)
+  (g_type_fundamental g-type))
 
 
 ;;;
@@ -64,6 +94,12 @@
                       (dynamic-func "g_type_name"
 				    %libgobject)
                       (list int64)))
+
+(define g_type_fundamental
+  (pointer->procedure size_t
+                      (dynamic-func "g_type_fundamental"
+				    %libgobject)
+                      (list unsigned-long)))
 
 
 ;;;
