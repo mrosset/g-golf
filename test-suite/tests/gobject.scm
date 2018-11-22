@@ -48,7 +48,8 @@
     (assert (g-value-init g-type))))
 
 (define-method (test-g-type-name (self <g-golf-test-gobject>))
-  (assert-equal "ClutterActorAlign" (g-type-name %gtype)))
+  (assert-equal "ClutterActorAlign" (g-type-name %gtype))
+  (assert-equal "gfloat" (g-type-name 56)))
 
 
 (exit-with-summary (run-all-defined-test-cases))
