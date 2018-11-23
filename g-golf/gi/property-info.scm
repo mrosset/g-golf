@@ -68,7 +68,7 @@
                           (g-property-info-get-flags info)))
 
 (define (g-golf-pi-get-ownership-transfer info)
-  (enum->symbol %g-golf-ai-transfer
+  (enum->symbol %g-arg-info-transfer
                 (g-property-info-get-ownership-transfer info)))
 
 (define (g-golf-pi-get-type info)

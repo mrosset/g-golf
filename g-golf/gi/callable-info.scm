@@ -51,7 +51,7 @@
   (g_callable_info_get_arg info n))
 
 (define (g-callable-info-get-caller-owns info)
-  (enum->symbol %g-golf-ai-transfer
+  (enum->symbol %g-arg-info-transfer
                 (g_callable_info_get_caller_owns info)))
 
 (define (g-callable-info-get-return-type info)

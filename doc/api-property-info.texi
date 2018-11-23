@@ -61,7 +61,7 @@ list of possible flag values.
 Returns the ownership transfer for this property.
 
 Obtain the ownership transfer for this property. See
-@ref{%g-golf-ai-transfer} for more information about transfer values.
+@ref{%g-arg-info-transfer} for more information about transfer values.
 @end deffn
 
 

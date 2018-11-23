@@ -18,7 +18,7 @@ GIArgInfo — Struct representing an argument.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-ai-get-closure}
+@item @ref{g-arg-info-get-closure}
 @end table
 @end indentedblock
 
@@ -27,9 +27,9 @@ GIArgInfo — Struct representing an argument.
 
 @indentedblock
 @table @code
-@item @ref{%g-golf-ai-direction}
-@item @ref{%g-golf-ai-scope}
-@item @ref{%g-golf-ai-transfer}
+@item @ref{%g-arg-info-direction}
+@item @ref{%g-arg-info-scope}
+@item @ref{%g-arg-info-transfer}
 @end table
 @end indentedblock
 
@@ -54,8 +54,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIArgInfo}.
 
 
-@anchor{g-golf-ai-get-closure}
-@deffn Procedure g-golf-ai-get-closure info
+@anchor{g-arg-info-get-closure}
+@deffn Procedure g-arg-info-get-closure info
 
 Returns the index of the user data argument or -1 if there is none.
 
@@ -67,8 +67,8 @@ arguments which are callbacks.
 @subheading Types and Values
 
 
-@anchor{%g-golf-ai-direction}
-@defivar <gi-enum> %g-golf-ai-direction
+@anchor{%g-arg-info-direction}
+@defivar <gi-enum> %g-arg-info-direction
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the direction of a @code{GIArgInfo}:
@@ -93,8 +93,8 @@ in and out argument.
 @end defivar
 
 
-@anchor{%g-golf-ai-scope}
-@defivar <gi-enum> %g-golf-ai-scope
+@anchor{%g-arg-info-scope}
+@defivar <gi-enum> %g-arg-info-scope
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the scope of a @code{GIArgInfo}. Scope type of a
@@ -127,8 +127,8 @@ notfied via the destroy_notify.
 @end defivar
 
 
-@anchor{%g-golf-ai-transfer}
-@defivar <gi-enum> %g-golf-ai-transfer
+@anchor{%g-arg-info-transfer}
+@defivar <gi-enum> %g-arg-info-transfer
 
 The transfer is the exchange of data between two parts, from the callee
 to the caller. The callee is either a function/method/signal or an

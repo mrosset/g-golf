@@ -40,52 +40,52 @@
 		last)
 
   #:export (;; Procedures
-            g-golf-ai-get-closure
-	    g-golf-ai-get-destroy
-	    g-golf-ai-get-direction
-	    g-golf-ai-get-ownership-transfer
-	    g-golf-ai-get-scope
-	    g-golf-ai-get-type
-	    g-golf-ai-may-be-null
-	    g-golf-ai-is-optional
-	    g-golf-ai-is-return-value
+            g-arg-info-get-closure
+	    g-arg-info-get-destroy
+	    g-arg-info-get-direction
+	    g-arg-info-get-ownership-transfer
+	    g-arg-info-get-scope
+	    g-arg-info-get-type
+	    g-arg-info-may-be-null
+	    g-arg-info-is-optional
+	    g-arg-info-is-return-value
             ;; Types and Values
-	    %g-golf-ai-direction
-	    %g-golf-ai-scope
-	    %g-golf-ai-transfer))
+	    %g-arg-info-direction
+	    %g-arg-info-scope
+	    %g-arg-info-transfer))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-ai-get-closure info)
-  (g-arg-info-get-closure info))
+(define (g-arg-info-get-closure info)
+  (g_arg_info_get_closure info))
 
-(define (g-golf-ai-get-destroy info)
-  (g-arg-info-get-destroy info))
+(define (g-arg-info-get-destroy info)
+  (g_arg_info_get_destroy info))
 
-(define (g-golf-ai-get-direction info)
-  (enum->symbol %g-golf-ai-direction
-                (g-arg-info-get-direction info)))
+(define (g-arg-info-get-direction info)
+  (enum->symbol %g-arg-info-direction
+                (g_arg_info_get_direction info)))
 
-(define (g-golf-ai-get-ownership-transfer info)
-  (enum->symbol %g-golf-ai-transfer
-                (g-arg-info-get-ownership-transfer info)))
+(define (g-arg-info-get-ownership-transfer info)
+  (enum->symbol %g-arg-info-transfer
+                (g_arg_info_get_ownership_transfer info)))
 
-(define (g-golf-ai-get-scope info)
-  (enum->symbol %g-golf-ai-scope
-                (g-arg-info-get-scope info)))
+(define (g-arg-info-get-scope info)
+  (enum->symbol %g-arg-info-scope
+                (g_arg_info_get_scope info)))
 
-(define (g-golf-ai-get-type info)
-  (g-arg-info-get-type info))
+(define (g-arg-info-get-type info)
+  (g_arg_info_get_type info))
 
-(define (g-golf-ai-may-be-null info)
-  (g-golf-gtype->scm (g-arg-info-may-be-null info)
+(define (g-arg-info-may-be-null info)
+  (g-golf-gtype->scm (g_arg_info_may_be_null info)
 		    'gboolean))
 
-(define (g-golf-ai-is-return-value info)
-  (g-golf-gtype->scm (g-arg-info-is-return-value info)
+(define (g-arg-info-is-return-value info)
+  (g-golf-gtype->scm (g_arg_info_is_return_value info)
 		    'gboolean))
 
 
@@ -94,55 +94,55 @@
 ;;;
 
 
-(define g-arg-info-get-closure
+(define g_arg_info_get_closure
   (pointer->procedure int
                       (dynamic-func "g_arg_info_get_closure"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-get-destroy
+(define g_arg_info_get_destroy
   (pointer->procedure int
                       (dynamic-func "g_arg_info_get_destroy"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-get-direction
+(define g_arg_info_get_direction
   (pointer->procedure int
                       (dynamic-func "g_arg_info_get_direction"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-get-ownership-transfer
+(define g_arg_info_get_ownership_transfer
   (pointer->procedure int
                       (dynamic-func "g_arg_info_get_ownership_transfer"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-get-scope
+(define g_arg_info_get_scope
   (pointer->procedure int
                       (dynamic-func "g_arg_info_get_scope"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-get-type
+(define g_arg_info_get_type
   (pointer->procedure '*
                       (dynamic-func "g_arg_info_get_type"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-may-be-null
+(define g_arg_info_may_be_null
   (pointer->procedure int
                       (dynamic-func "g_arg_info_may_be_null"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-is-optional
+(define g_arg_info_is_optional
   (pointer->procedure int
                       (dynamic-func "g_arg_info_is_optional"
 				    %libgirepository)
                       (list '*)))
 
-(define g-arg-info-is-return-value
+(define g_arg_info_is_return_value
   (pointer->procedure int
                       (dynamic-func "g_arg_info_is_return_value"
 				    %libgirepository)
@@ -154,7 +154,7 @@
 ;;; Tyeps and Values
 ;;;
 
-(define %g-golf-ai-direction
+(define %g-arg-info-direction
   (make <gi-enum>
     #:gi-name "GIDirection"
     #:scm-name "gi-direction"
@@ -162,7 +162,7 @@
                  out
                  inout)))
 
-(define %g-golf-ai-scope
+(define %g-arg-info-scope
   (make <gi-enum>
     #:gi-name "GIScopeType"
     #:scm-name "gi-scope-type"
@@ -171,7 +171,7 @@
                  async
                  notified)))
 
-(define %g-golf-ai-transfer
+(define %g-arg-info-transfer
   (make <gi-enum>
     #:gi-name "GITransfer"
     #:scm-name "gi-transfer"
