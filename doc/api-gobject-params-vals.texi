@@ -15,6 +15,7 @@ Parameters and Values — Standard Parameter and Value Types
 
 @indentedblock
 @table @code
+@item @ref{g-value->g-type}
 @item @ref{g-value-get-float}
 @item @ref{g-value-set-float}
 @end table
@@ -48,6 +49,16 @@ replaced by a '-' during construction.
 
 Note: in this section, the @var{value} arguments are [must be] pointers
 to a @code{GValue}.
+
+
+@anchor{g-value->g-type}
+@deffn Procedure g-value->g-type g-value
+
+Returns a symbol.
+
+Gets and returns the scheme representation (a symbol) of the
+@code{GType} for @var{g-value}.
+@end deffn
 
 
 @anchor{g-value-get-float}
