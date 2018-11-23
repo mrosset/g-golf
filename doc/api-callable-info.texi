@@ -18,11 +18,11 @@ GICallableInfo — Struct representing a callable.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-ci-get-n-args}
-@item @ref{g-golf-ci-get-arg}
-@item @ref{g-golf-ci-get-caller-owns}
-@item @ref{g-golf-ci-get-return-type}
-@item @ref{g-golf-ci-may-return-null}
+@item @ref{g-callable-info-get-n-args}
+@item @ref{g-callable-info-get-arg}
+@item @ref{g-callable-info-get-caller-owns}
+@item @ref{g-callable-info-get-return-type}
+@item @ref{g-callable-info-may-return-null}
 @end table
 @end indentedblock
 
@@ -63,8 +63,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GICallableInfo}.
 
 
-@anchor{g-golf-ci-get-n-args}
-@deffn Procedure g-golf-ci-get-n-args info
+@anchor{g-callable-info-get-n-args}
+@deffn Procedure g-callable-info-get-n-args info
 
 Returns the number of arguments this @var{info} expects.
 
@@ -73,8 +73,8 @@ Obtain the number of arguments (both IN and OUT) for this
 @end deffn
 
 
-@anchor{g-golf-ci-get-arg}
-@deffn Procedure g-golf-ci-get-arg info n
+@anchor{g-callable-info-get-arg}
+@deffn Procedure g-callable-info-get-arg info n
 
 Returns a pointer to the @var{n}th @code{GIArgInfo} of @var{info}.
 
@@ -83,8 +83,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-ci-get-caller-owns}
-@deffn Procedure g-golf-ci-get-caller-owns info
+@anchor{g-callable-info-get-caller-owns}
+@deffn Procedure g-callable-info-get-caller-owns info
 
 Returns a @code{GITransfer} enumerated value.
 
@@ -93,8 +93,8 @@ See whether the caller owns the return value of this callable. See
 @end deffn
 
 
-@anchor{g-golf-ci-get-return-type}
-@deffn Procedure g-golf-ci-get-return-type info
+@anchor{g-callable-info-get-return-type}
+@deffn Procedure g-callable-info-get-return-type info
 
 Returns a pointer to the @code{GITypeInfo}.
 
@@ -103,8 +103,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-ci-may-return-null}
-@deffn Procedure g-golf-ci-may-return-null info
+@anchor{g-callable-info-may-return-null}
+@deffn Procedure g-callable-info-may-return-null info
 
 Returns @code{#t} if the callable @var{info} could return @code{NULL}.
 

@@ -33,32 +33,32 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi arg-info)
 
-  #:export (g-golf-ci-get-n-args
-	    g-golf-ci-get-arg
-	    g-golf-ci-get-caller-owns
-	    g-golf-ci-get-return-type
-	    g-golf-ci-may-return-null))
+  #:export (g-callable-info-get-n-args
+	    g-callable-info-get-arg
+	    g-callable-info-get-caller-owns
+	    g-callable-info-get-return-type
+	    g-callable-info-may-return-null))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-ci-get-n-args info)
-  (g-callable-info-get-n-args info))
+(define (g-callable-info-get-n-args info)
+  (g_callable_info_get_n_args info))
 
-(define (g-golf-ci-get-arg info n)
-  (g-callable-info-get-arg info n))
+(define (g-callable-info-get-arg info n)
+  (g_callable_info_get_arg info n))
 
-(define (g-golf-ci-get-caller-owns info)
+(define (g-callable-info-get-caller-owns info)
   (enum->symbol %g-golf-ai-transfer
-                (g-callable-info-get-caller-owns info)))
+                (g_callable_info_get_caller_owns info)))
 
-(define (g-golf-ci-get-return-type info)
-  (g-callable-info-get-return-type info))
+(define (g-callable-info-get-return-type info)
+  (g_callable_info_get_return_type info))
 
-(define (g-golf-ci-may-return-null info)
-  (g-golf-gtype->scm (g-callable-info-may-return-null info)
+(define (g-callable-info-may-return-null info)
+  (g-golf-gtype->scm (g_callable_info_may_return_null info)
 		    'gboolean))
 
 
@@ -66,31 +66,31 @@
 ;;; GI Bindings
 ;;;
 
-(define g-callable-info-get-n-args
+(define g_callable_info_get_n_args
   (pointer->procedure int
                       (dynamic-func "g_callable_info_get_n_args"
 				    %libgirepository)
                       (list '*)))
 
-(define g-callable-info-get-arg
+(define g_callable_info_get_arg
   (pointer->procedure '*
                       (dynamic-func "g_callable_info_get_arg"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-callable-info-get-caller-owns
+(define g_callable_info_get_caller_owns
   (pointer->procedure int
                       (dynamic-func "g_callable_info_get_caller_owns"
 				    %libgirepository)
                       (list '*)))
 
-(define g-callable-info-get-return-type
+(define g_callable_info_get_return_type
   (pointer->procedure '*
                       (dynamic-func "g_callable_info_get_return_type"
 				    %libgirepository)
                       (list '*)))
 					
-(define g-callable-info-may-return-null
+(define g_callable_info_may_return_null
   (pointer->procedure int
                       (dynamic-func "g_callable_info_may_return_null"
 				    %libgirepository)
