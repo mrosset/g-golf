@@ -32,7 +32,7 @@
   #:use-module (g-golf))
 
 
-#;(g-golf-ir-require "Clutter")
+#;(g-irepository-require "Clutter")
 
 
 (define-class <g-golf-test-glib> (<test-case>))

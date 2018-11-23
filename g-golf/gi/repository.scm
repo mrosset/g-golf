@@ -31,60 +31,60 @@
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
 
-  #:export (g-golf-ir-get-default
-	    g-golf-ir-get-dependencies
-	    g-golf-ir-get-loaded-namespaces
-	    g-golf-ir-get-n-infos
-	    g-golf-ir-get-info
-	    g-golf-ir-get-typelib-path
-	    g-golf-ir-require
-	    g-golf-ir-get-c-prefix
-	    g-golf-ir-get-shared-library
-	    g-golf-ir-get-version
-	    g-golf-ir-find-by-gtype
-	    g-golf-ir-find-by-name))
+  #:export (g-irepository-get-default
+	    g-irepository-get-dependencies
+	    g-irepository-get-loaded-namespaces
+	    g-irepository-get-n-infos
+	    g-irepository-get-info
+	    g-irepository-get-typelib-path
+	    g-irepository-require
+	    g-irepository-get-c-prefix
+	    g-irepository-get-shared-library
+	    g-irepository-get-version
+	    g-irepository-find-by-gtype
+	    g-irepository-find-by-name))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-ir-get-default)
-  (g-irepository-get-default))
+(define (g-irepository-get-default)
+  (g_irepository_get_default))
   
-(define* (g-golf-ir-get-dependencies namespace
+(define* (g-irepository-get-dependencies namespace
 				    #:key (repository %null-pointer))
-  (g-golf-gtype->scm (g-irepository-get-dependencies repository
+  (g-golf-gtype->scm (g_irepository_get_dependencies repository
 						    (string->pointer namespace))
 		    'gchar**))
 
-(define* (g-golf-ir-get-loaded-namespaces #:key (repository %null-pointer))
-  (g-golf-gtype->scm (g-irepository-get-loaded-namespaces repository)
+(define* (g-irepository-get-loaded-namespaces #:key (repository %null-pointer))
+  (g-golf-gtype->scm (g_irepository_get_loaded_namespaces repository)
 		    'gchar**))
 
-(define* (g-golf-ir-get-n-infos namespace
+(define* (g-irepository-get-n-infos namespace
 			       #:key (repository %null-pointer))
-  (g-irepository-get-n-infos repository
+  (g_irepository_get_n_infos repository
 			     (string->pointer namespace)))
 
-(define* (g-golf-ir-get-info namespace index
+(define* (g-irepository-get-info namespace index
 			    #:key (repository %null-pointer))
-  (g-irepository-get-info repository
+  (g_irepository_get_info repository
 			  (string->pointer namespace)
 			  index))
 
-(define* (g-golf-ir-get-typelib-path namespace
+(define* (g-irepository-get-typelib-path namespace
 				    #:key (repository %null-pointer))
-  (let ((pointer (g-irepository-get-typelib-path repository
+  (let ((pointer (g_irepository_get_typelib_path repository
 						 (string->pointer namespace))))
     (if (null-pointer? pointer)
 	#f
 	(g-golf-gtype->scm pointer 'gchar*))))
 
-(define* (g-golf-ir-require namespace
+(define* (g-irepository-require namespace
 			   #:key (version #f) (repository %null-pointer))
   (with-gerror g-error
-	       (g-irepository-require repository
+	       (g_irepository_require repository
 				      (string->pointer namespace)
 				      (if version
 					  (string->pointer version)
@@ -92,45 +92,45 @@
 				      0
 				      g-error)))
 
-(define* (g-golf-ir-get-c-prefix namespace
+(define* (g-irepository-get-c-prefix namespace
 				#:key (repository %null-pointer))
-  (g-golf-gtype->scm (g-irepository-get-c-prefix repository
+  (g-golf-gtype->scm (g_irepository_get_c_prefix repository
 						(string->pointer namespace))
 		    'gchar*))
 
-(define* (g-golf-ir-get-shared-library namespace
+(define* (g-irepository-get-shared-library namespace
 				      #:key (repository %null-pointer))
-  (let ((pointer (g-irepository-get-shared-library repository
+  (let ((pointer (g_irepository_get_shared_library repository
 						   (string->pointer namespace))))
     (if (null-pointer? pointer)
 	'()
 	(g-golf-gtype->scm pointer 'gchar*,))))
 
-(define* (g-golf-ir-get-version namespace
+(define* (g-irepository-get-version namespace
 			       #:key (repository %null-pointer))
-  (g-golf-gtype->scm (g-irepository-get-version repository
+  (g-golf-gtype->scm (g_irepository_get_version repository
 					       (string->pointer namespace))
 		    'gchar*))
 
-#;(define* (g-golf-ir-find-by-gtype gtype
+#;(define* (g-irepository-find-by-gtype gtype
 				 #:key (repository %null-pointer))
-  (let ((pointer (g-irepository-find-by-gtype repository
+  (let ((pointer (g_irepository_find_by_gtype repository
 					      gtype)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define* (g-golf-ir-find-by-gtype gtype
+(define* (g-irepository-find-by-gtype gtype
 				 #:key (repository %null-pointer))
-  (let ((pointer (g-irepository-find-by-gtype repository
+  (let ((pointer (g_irepository_find_by_gtype repository
 					      (string->pointer gtype))))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define* (g-golf-ir-find-by-name namespace name
+(define* (g-irepository-find-by-name namespace name
 				#:key (repository %null-pointer))
-  (let ((pointer (g-irepository-find-by-name repository
+  (let ((pointer (g_irepository_find_by_name repository
 					     (string->pointer namespace)
 					     (string->pointer name))))
     (if (null-pointer? pointer)
@@ -142,79 +142,79 @@
 ;;; GI Bindings
 ;;;
 
-(define g-irepository-get-default
+(define g_irepository_get_default
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_default"
 				    %libgirepository)
                       '()))
 
-(define g-irepository-get-dependencies
+(define g_irepository_get_dependencies
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_dependencies"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-get-loaded-namespaces
+(define g_irepository_get_loaded_namespaces
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_loaded_namespaces"
 				    %libgirepository)
                       (list '*)))
 
-(define g-irepository-get-n-infos
+(define g_irepository_get_n_infos
   (pointer->procedure int
                       (dynamic-func "g_irepository_get_n_infos"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-get-info
+(define g_irepository_get_info
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_info"
 				    %libgirepository)
                       (list '* '* int)))
 
-(define g-irepository-get-typelib-path
+(define g_irepository_get_typelib_path
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_typelib_path"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-require
+(define g_irepository_require
   (pointer->procedure '*
                       (dynamic-func "g_irepository_require"
 				    %libgirepository)
                       (list '* '* '* int '*)))
 
-(define g-irepository-get-c-prefix
+(define g_irepository_get_c_prefix
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_c_prefix"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-get-shared-library
+(define g_irepository_get_shared_library
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_shared_library"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-get-version
+(define g_irepository_get_version
   (pointer->procedure '*
                       (dynamic-func "g_irepository_get_version"
 				    %libgirepository)
                       (list '* '*)))
 
-#;(define g-irepository-find-by-gtype
+#;(define g_irepository_find_by_gtype
   (pointer->procedure '*
                       (dynamic-func "g_irepository_find_by_gtype"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-irepository-find-by-gtype
+(define g_irepository_find_by_gtype
   (pointer->procedure '*
                       (dynamic-func "g_irepository_find_by_gtype"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-irepository-find-by-name
+(define g_irepository_find_by_name
   (pointer->procedure '*
                       (dynamic-func "g_irepository_find_by_name"
 				    %libgirepository)

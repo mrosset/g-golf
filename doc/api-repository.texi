@@ -19,18 +19,18 @@ GIRepository — GObject Introspection repository manager.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-ir-get-default}
-@item @ref{g-golf-ir-get-dependencies}
-@item @ref{g-golf-ir-get-loaded-namespaces}
-@item @ref{g-golf-ir-get-n-infos}
-@item @ref{g-golf-ir-get-info}
-@item @ref{g-golf-ir-get-typelib-path}
-@item @ref{g-golf-ir-require}
-@item @ref{g-golf-ir-get-c-prefix}
-@item @ref{g-golf-ir-get-shared-library}
-@item @ref{g-golf-ir-get-version}
-@item @ref{g-golf-ir-find-by-gtype}
-@item @ref{g-golf-ir-find-by-name}
+@item @ref{g-irepository-get-default}
+@item @ref{g-irepository-get-dependencies}
+@item @ref{g-irepository-get-loaded-namespaces}
+@item @ref{g-irepository-get-n-infos}
+@item @ref{g-irepository-get-info}
+@item @ref{g-irepository-get-typelib-path}
+@item @ref{g-irepository-require}
+@item @ref{g-irepository-get-c-prefix}
+@item @ref{g-irepository-get-shared-library}
+@item @ref{g-irepository-get-version}
+@item @ref{g-irepository-find-by-gtype}
+@item @ref{g-irepository-find-by-name}
 @end table
 @end indentedblock
 
@@ -56,8 +56,8 @@ Note: in this section, the @var{repository} optional keyword argument is
 [must be] a pointer to a @code{GIRepository} or @code{%null-pointer}.
 
 
-@anchor{g-golf-ir-get-default}
-@deffn Procedure g-golf-ir-get-default
+@anchor{g-irepository-get-default}
+@deffn Procedure g-irepository-get-default
 
 Returns a pointer to the singleton process-global default
 @code{GIRepository}.
@@ -72,26 +72,26 @@ optional @var{#:repository} keyword argument which defaults to
 GIRepository.
 @end deffn
 
-@anchor{g-golf-ir-get-dependencies}
-@deffn Procedure g-golf-ir-get-dependencies namespace #:key repository
+@anchor{g-irepository-get-dependencies}
+@deffn Procedure g-irepository-get-dependencies namespace #:key repository
 
 Returns a list of all (transitive) versioned dependencies for
 @var{namespace}. Returned string are of the form
 @code{namespace-version}.
 
 Note: The @var{namespace} must have already been loaded using a
-procedure such as @code{g-golf-ir-require} before calling this procedure.
+procedure such as @code{g-irepository-require} before calling this procedure.
 @end deffn
 
 
-@anchor{g-golf-ir-get-loaded-namespaces}
-@deffn Procedure g-golf-ir-get-loaded-namespaces #:key repository
+@anchor{g-irepository-get-loaded-namespaces}
+@deffn Procedure g-irepository-get-loaded-namespaces #:key repository
 
 Return the list of currently loaded namespaces.
 @end deffn
 
-@anchor{g-golf-ir-get-n-infos}
-@deffn Procedure g-golf-ir-get-n-infos namespace #:key repository
+@anchor{g-irepository-get-n-infos}
+@deffn Procedure g-irepository-get-n-infos namespace #:key repository
 
 Returns the number of metadata entries in @var{namespace}. The
 @var{namespace} must have already been loaded before calling this
@@ -99,22 +99,22 @@ procedure.
 @end deffn
 
 
-@anchor{g-golf-ir-get-info}
-@deffn Procedure g-golf-ir-get-info namespace index #:key repository
+@anchor{g-irepository-get-info}
+@deffn Procedure g-irepository-get-info namespace index #:key repository
 
 Returns a pointer to a particular metadata entry in the given
 @var{namespace}.
 
 The @var{namespace} must have already been loaded before calling this
-procedure.  See @code{g-golf-ir-get-n-infos} to find the maximum number
+procedure.  See @code{g-irepository-get-n-infos} to find the maximum number
 of entries.
 
 @var{index} is a 0-based offset into @var{namespace} for entry.
 @end deffn
 
 
-@anchor{g-golf-ir-get-typelib-path}
-@deffn Procedure g-golf-ir-get-typelib-path namespace #:key repository
+@anchor{g-irepository-get-typelib-path}
+@deffn Procedure g-irepository-get-typelib-path namespace #:key repository
 
 Returns the full path to the .typelib file @var{namespace} was loaded
 from, if loaded. If @var{namespace} is not loaded or does not exist, it
@@ -123,8 +123,8 @@ in a shared library, it returns the special string "<builtin>".
 @end deffn
 
 
-@anchor{g-golf-ir-require}
-@deffn Procedure g-golf-ir-require namespace #:key version repository
+@anchor{g-irepository-require}
+@deffn Procedure g-irepository-require namespace #:key version repository
 
 Returns a pointer a @code{GITypelib} structure, if the @code{Typelib}
 file for @var{namespace} exists. Otherwise, it raises an error.
@@ -137,20 +137,20 @@ specified, the latest will be used.
 @end deffn
 
 
-@anchor{g-golf-ir-get-c-prefix}
-@deffn Procedure g-golf-ir-get-c-prefix namespace #:key repository
+@anchor{g-irepository-get-c-prefix}
+@deffn Procedure g-irepository-get-c-prefix namespace #:key repository
 
 Returns the "C prefix", or the C level namespace associated with the
 given introspection @var{namespace}. Each C symbol starts with this
 prefix, as well each @code{GType} in the library.
 
 Note: The @var{namespace} must have already been loaded using a
-procedure such as @code{g-golf-ir-require} before calling this procedure.
+procedure such as @code{g-irepository-require} before calling this procedure.
 @end deffn
 
 
-@anchor{g-golf-ir-get-shared-library}
-@deffn Procedure g-golf-ir-get-shared-library namespace #:key repository
+@anchor{g-irepository-get-shared-library}
+@deffn Procedure g-irepository-get-shared-library namespace #:key repository
 
 Returns a list of paths to the shared C libraries associated with the
 given @var{namespace}. There may be no shared library path associated,
@@ -158,18 +158,18 @@ in which case this procedure will return an empty list.
 @end deffn
 
 
-@anchor{g-golf-ir-get-version}
-@deffn Procedure g-golf-ir-get-version  namespace #:key repository
+@anchor{g-irepository-get-version}
+@deffn Procedure g-irepository-get-version  namespace #:key repository
 
 Returns the loaded version associated with the given @var{namespace}.
 
 Note: The @var{namespace} must have already been loaded using a
-procedure such as @code{g-golf-ir-require} before calling this procedure.
+procedure such as @code{g-irepository-require} before calling this procedure.
 @end deffn
 
 
-@anchor{g-golf-ir-find-by-gtype}
-@deffn Procedure g-golf-ir-find-by-gtype gtype #:key repository
+@anchor{g-irepository-find-by-gtype}
+@deffn Procedure g-irepository-find-by-gtype gtype #:key repository
 
 Returns a pointer to a @code{GIBaseInfo} representing metadata about
 @var{gtype}, or @code{#f}.
@@ -183,15 +183,15 @@ determining the namespace which corresponds to an arbitrary @code{GType}
 @end deffn
 
 
-@anchor{g-golf-ir-find-by-name}
-@deffn Procedure g-golf-ir-find-by-name namespace name #:key repository
+@anchor{g-irepository-find-by-name}
+@deffn Procedure g-irepository-find-by-name namespace name #:key repository
 
 Returns a pointer to a @code{GIBaseInfo} representing metadata about
 type, or @code{#f}.
 
 Searches for a particular entry in @var{namespace}. Before calling this
 function for a particular namespace, you must call
-@code{g-golf-ir-require} once to load the @var{namespace}, or otherwise
+@code{g-irepository-require} once to load the @var{namespace}, or otherwise
 ensure the @var{namespace} has already been loaded.
 @end deffn
 

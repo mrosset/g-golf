@@ -32,10 +32,10 @@
   #:use-module (g-golf))
 
 
-(g-golf-ir-require "Clutter")
+(g-irepository-require "Clutter")
 
 
-(define %align-info (g-golf-ir-find-by-name "Clutter" "ActorAlign"))
+(define %align-info (g-irepository-find-by-name "Clutter" "ActorAlign"))
 (define %gtype (g-golf-rt-get-g-type %align-info))
 
 

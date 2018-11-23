@@ -32,7 +32,7 @@ section:
 @example
 g_irepository_get_loaded_namespaces
 ->
-@ref{g-golf-ir-get-loaded-namespaces}
+@ref{g-irepository-get-loaded-namespaces}
 @end example
 
 
@@ -120,7 +120,7 @@ multi methods polimorphic object oriented systems, users just have fun:
 
 @lisp
 ,use (g-golf gi)
-(g-golf-ir-require "Clutter")
+(g-irepository-require "Clutter")
 @print{}
 $2 = #<<gi-typelib> 18237a0>
 (make <clutter-actor>)

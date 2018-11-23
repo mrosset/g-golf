@@ -51,15 +51,15 @@
 ;;;
 
 (define-method (test-repository (self <g-golf-test-gi>))
-  (assert-true (g-golf-ir-require "Clutter"))
-  (assert-true (g-golf-ir-require "Gtk"))
-  (assert-true (g-golf-ir-get-typelib-path "Clutter"))
-  (assert-true (g-golf-ir-find-by-name "Clutter" "Actor"))
-  (assert-true (g-golf-ir-find-by-name "Clutter" "ActorAlign"))
-  (assert-exception (g-golf-ir-require "ClutterBlue"))
-  (assert-false (g-golf-ir-find-by-name "Gtk" "button"))
-  (assert-true (g-golf-ir-find-by-name "Gtk" "Button"))
-  (assert-true (g-golf-ir-get-version "Gtk")))
+  (assert-true (g-irepository-require "Clutter"))
+  (assert-true (g-irepository-require "Gtk"))
+  (assert-true (g-irepository-get-typelib-path "Clutter"))
+  (assert-true (g-irepository-find-by-name "Clutter" "Actor"))
+  (assert-true (g-irepository-find-by-name "Clutter" "ActorAlign"))
+  (assert-exception (g-irepository-require "ClutterBlue"))
+  (assert-false (g-irepository-find-by-name "Gtk" "button"))
+  (assert-true (g-irepository-find-by-name "Gtk" "Button"))
+  (assert-true (g-irepository-get-version "Gtk")))
 
 
 ;;;
@@ -67,7 +67,7 @@
 ;;;
 
 (define-method (test-base-info (self <g-golf-test-gi>))
-  (assert-true (g-golf-bi-get-name (g-golf-ir-find-by-name "Clutter" "Actor"))))
+  (assert-true (g-golf-bi-get-name (g-irepository-find-by-name "Clutter" "Actor"))))
 
 
 ;;;
@@ -80,7 +80,7 @@
 ;;;
 
 (define-method (test-function-info (self <g-golf-test-gi>))
-  (let* ((actor (g-golf-ir-find-by-name "Clutter" "Actor"))
+  (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
          (actor-m1 (g-golf-oi-get-method actor 0)))
     (assert-true (g-golf-fi-get-flags actor-m1))
     (assert-true (g-golf-fi-get-symbol actor-m1))))
@@ -91,7 +91,7 @@
 ;;;
 
 (define-method (test-registered-type-info (self <g-golf-test-gi>))
-  (let ((align-info (g-golf-ir-find-by-name "Clutter" "ActorAlign")))
+  (let ((align-info (g-irepository-find-by-name "Clutter" "ActorAlign")))
     (assert-true (g-golf-rt-get-g-type align-info))))
 
 
@@ -100,7 +100,7 @@
 ;;;
 
 (define-method (test-enum-info (self <g-golf-test-gi>))
-  (let ((align-info (g-golf-ir-find-by-name "Clutter" "ActorAlign")))
+  (let ((align-info (g-irepository-find-by-name "Clutter" "ActorAlign")))
     (assert-true (g-golf-ei-get-n-values align-info))
     (assert-true (g-golf-ei-get-value align-info 0))
     (assert-true (g-golf-enum-import align-info))))
@@ -111,7 +111,7 @@
 ;;;
 
 (define-method (test-object-info (self <g-golf-test-gi>))
-  (let ((actor (g-golf-ir-find-by-name "Clutter" "Actor")))
+  (let ((actor (g-irepository-find-by-name "Clutter" "Actor")))
     (assert-true (g-golf-oi-get-n-methods actor))
     (assert-true (g-golf-oi-get-method actor 0))
     (assert-true (g-golf-oi-get-property actor 5))))
@@ -127,7 +127,7 @@
 ;;;
 
 (define-method (test-property-info (self <g-golf-test-gi>))
-  (let* ((actor (g-golf-ir-find-by-name "Clutter" "Actor"))
+  (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
          (property (g-golf-oi-get-property actor 5)))
     (assert-true (g-golf-pi-get-type property))
     (assert-true (g-golf-pi-get-flags property))))
@@ -138,7 +138,7 @@
 ;;;
 
 (define-method (test-type-lib (self <g-golf-test-gi>))
-  (let ((filename (g-golf-ir-get-typelib-path "Clutter")))
+  (let ((filename (g-irepository-get-typelib-path "Clutter")))
     (assert-equal "Clutter"
 		  (call-with-input-typelib filename
 					   (lambda (typelib)

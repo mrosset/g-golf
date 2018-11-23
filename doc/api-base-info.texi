@@ -64,8 +64,8 @@ accessible through the @code{GIRepository API}.
 Most @code{GIRepository APIs} returning a @code{GIBaseInfo} is actually
 creating a new struct, in other words, @ref{g-golf-bi-unref} has to be
 called when done accessing the data. @code{GIBaseInfos} are normally
-accessed by calling either @ref{g-golf-ir-find-by-name},
-@ref{g-golf-ir-find-by-gtype} or @ref{g-golf-ir-get-info}.
+accessed by calling either @ref{g-irepository-find-by-name},
+@ref{g-irepository-find-by-gtype} or @ref{g-irepository-get-info}.
 
 @example
 @strong{Example:} Getting the Button of the Gtk typelib
@@ -73,8 +73,8 @@ accessed by calling either @ref{g-golf-ir-find-by-name},
 
 @lisp
 ,use (g-golf gi)
-(g-golf-ir-require "Gtk")
-(g-golf-ir-find-by-name "Gtk" "Button")
+(g-irepository-require "Gtk")
+(g-irepository-find-by-name "Gtk" "Button")
 @print{}
 $4 = #<pointer 0x20e0000>
 ... use button info ...
