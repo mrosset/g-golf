@@ -36,15 +36,15 @@
 		warn
 		last)
 
-  #:export (%g-golf-ct-type-tag
-	    %g-golf-ct-array-type))
+  #:export (%g-common-types-type-tag
+	    %g-common-types-array-type))
 
 
 ;;;
 ;;; Common Types
 ;;;
 
-(define %g-golf-ct-type-tag
+(define %g-common-types-type-tag
   (make <gi-enum>
     #:gi-name "GITypeTag"
     #:scm-name "gi-type-tag"
@@ -71,7 +71,7 @@
                  error
                  unichar)))
 
-(define %g-golf-ct-array-type
+(define %g-common-types-array-type
   (make <gi-enum>
     #:gi-name "GIArrayType"
     #:scm-name "gi-array-type"

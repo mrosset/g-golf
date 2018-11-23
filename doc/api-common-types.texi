@@ -18,14 +18,14 @@ common types - TODO
 
 @indentedblock
 @table @code
-@item @ref{%g-golf-ct-type-tag}
-@item @ref{%g-golf-ct-array-type}
+@item @ref{%g-common-types-type-tag}
+@item @ref{%g-common-types-array-type}
 @end table
 @end indentedblock
 
 
-@anchor{%g-golf-ct-type-tag}
-@defivar <gi-enum> %g-golf-ct-type-tag
+@anchor{%g-common-types-type-tag}
+@defivar <gi-enum> %g-common-types-type-tag
 
 An instance of @code{<gi-enum>}, who's members are the type tag of
 @code{GITypeInfo}:
@@ -63,8 +63,8 @@ unichar
 @end defivar
 
 
-@anchor{%g-golf-ct-array-type}
-@defivar <gi-enum> %g-golf-ct-array-type
+@anchor{%g-common-types-array-type}
+@defivar <gi-enum> %g-common-types-array-type
 
 An instance of @code{<gi-enum>}, who's members are the type of array in
 a @code{GITypeInfo}:

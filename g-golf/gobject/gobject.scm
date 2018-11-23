@@ -60,7 +60,7 @@
   (let* ((name (g-golf-bi-get-name property))
 	 (type-info (g-golf-pi-get-type property))
 	 (type-tag (g-golf-ti-get-tag type-info))
-	 (type-value (enum->value %g-golf-ct-type-tag type-tag))
+	 (type-value (enum->value %g-common-types-type-tag type-tag))
 	 (type-name (g-golf-ti-type-tag-to-string type-value))
 	 (g-type (bitwise-arithmetic-shift type-value 2))
 	 (g-value (g-value-init g-type)))

@@ -69,7 +69,7 @@
 		    'gboolean))
 
 (define (g-golf-ti-get-tag info-type)
-  (enum->symbol %g-golf-ct-type-tag
+  (enum->symbol %g-common-types-type-tag
                 (g-type-info-get-tag info-type)))
 
 (define (g-golf-ti-get-param-type info-type n)
@@ -92,7 +92,7 @@
 		    'gboolean))
 
 (define (g-golf-ti-get-array-type info-type)
-  (enum->symbol %g-golf-ct-array-type
+  (enum->symbol %g-common-types-array-type
                 (g-type-info-get-array-type info-type)))
 
 
