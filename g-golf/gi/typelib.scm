@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2018
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -36,10 +36,10 @@
 
   #:export (g-golf-typelib-new
 	    call-with-input-typelib
-	    g-golf-tl-new-from-memory
-	    g-golf-tl-free
-	    ;; g-golf-tl-symbol
-	    g-golf-tl-get-name-space))
+	    g-typelib-new-from-memory
+	    g-typelib-free
+	    ;; g-typelib-symbol
+	    g-typelib-get-name-space))
 
 
 ;;;
@@ -52,13 +52,13 @@
 	 (bv-length (bytevector-length bv))
 	 (g-bv (g-memdup bv-pointer bv-length)))
     (with-gerror gerror
-		 (g-golf-tl-new-from-memory g-bv bv-length gerror))))
+		 (g-typelib-new-from-memory g-bv bv-length gerror))))
 
 (define (call-with-typelib proc typelib)
   (call-with-values
       (lambda () (proc typelib))
     (lambda vals
-      (g-golf-tl-free typelib)
+      (g-typelib-free typelib)
       (apply values vals))))
 
 (define (call-with-input-typelib file proc)
@@ -69,14 +69,14 @@
 ;;; Low level API
 ;;;
 
-(define (g-golf-tl-new-from-memory bv-pointer bv-length gerror)
-  (g-typelib-new-from-memory bv-pointer bv-length gerror))
+(define (g-typelib-new-from-memory bv-pointer bv-length gerror)
+  (g_typelib_new_from_memory bv-pointer bv-length gerror))
 
-(define (g-golf-tl-free typelib)
-  (g-typelib-free typelib))
+(define (g-typelib-free typelib)
+  (g_typelib_free typelib))
 
-(define (g-golf-tl-get-name-space typelib)
-  (g-golf-gtype->scm (g-typelib-get-namespace typelib)
+(define (g-typelib-get-name-space typelib)
+  (g-golf-gtype->scm (g_typelib_get_namespace typelib)
 		    'gchar*))
 
 
@@ -84,19 +84,19 @@
 ;;; GI Bindings
 ;;;
 
-(define g-typelib-new-from-memory
+(define g_typelib_new_from_memory
   (pointer->procedure '*
                       (dynamic-func "g_typelib_new_from_memory"
 				    %libgirepository)
                       (list '* int '*)))
 
-(define g-typelib-free
+(define g_typelib_free
   (pointer->procedure void
                       (dynamic-func "g_typelib_free"
 				    %libgirepository)
                       (list '*)))
 
-(define g-typelib-get-namespace
+(define g_typelib_get_namespace
   (pointer->procedure '*
                       (dynamic-func "g_typelib_get_namespace"
 				    %libgirepository)

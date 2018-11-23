@@ -142,7 +142,7 @@
     (assert-equal "Clutter"
 		  (call-with-input-typelib filename
 					   (lambda (typelib)
-					     (g-golf-tl-get-name-space typelib))))))
+					     (g-typelib-get-name-space typelib))))))
 
 
 (exit-with-summary (run-all-defined-test-cases))

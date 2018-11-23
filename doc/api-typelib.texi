@@ -20,9 +20,9 @@ GITypelib — Layout and accessors for typelib.
 @table @code
 @item @ref{g-golf-typelib-new}
 @item @ref{call-with-input-typelib}
-@item @ref{g-golf-tl-new-from-memory}
-@item @ref{g-golf-tl-free}
-@item @ref{g-golf-tl-get-namespace}
+@item @ref{g-typelib-new-from-memory}
+@item @ref{g-typelib-free}
+@item @ref{g-typelib-get-namespace}
 @end table
 @end indentedblock
 
@@ -64,7 +64,7 @@ Returns a pointer to a new @code{GITypelib}.
 @var{file}  must be a valid typelib filename.
 
 This procedure actually sets things up and calls
-@ref{g-golf-tl-new-from-memory}.
+@ref{g-typelib-new-from-memory}.
 @end deffn
 
 
@@ -78,15 +78,15 @@ Returns the value(s) returned by @var{proc}.
 @code{(proc typelib)} with the resulting @code{GITypelib}.
 
 When @var{proc} returns, the @code{GITypelib} is free'd by calling
-@code{g-golf-tl-free}. Otherwise the [Glib - C] memory chunk might not be
+@code{g-typelib-free}. Otherwise the [Glib - C] memory chunk might not be
 free'd automatically, though the scheme pointer returned by
 @code{g-golf-typelib-new} will be garbage collected in the usual way if
 not otherwise referenced.
 @end deffn
 
 
-@anchor{g-golf-tl-new-from-memory}
-@deffn Procedure g-golf-tl-new-from-memory pointer size gerror
+@anchor{g-typelib-new-from-memory}
+@deffn Procedure g-typelib-new-from-memory pointer size gerror
 
 Returns a pointer to a new @code{GITypelib}.
 
@@ -100,8 +100,8 @@ repository is destroyed.
 @end deffn
 
 
-@anchor{g-golf-tl-free}
-@deffn Procedure g-golf-tl-free typelib
+@anchor{g-typelib-free}
+@deffn Procedure g-typelib-free typelib
 
 Returns nothing.
 
@@ -109,8 +109,8 @@ Free a GITypelib.
 @end deffn
 
 
-@anchor{g-golf-tl-get-namespace}
-@deffn Procedure g-golf-tl-get-namespace typelib
+@anchor{g-typelib-get-namespace}
+@deffn Procedure g-typelib-get-namespace typelib
 
 Returns the namespace of @var{typelib}.
 @end deffn
