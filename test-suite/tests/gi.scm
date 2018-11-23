@@ -67,7 +67,7 @@
 ;;;
 
 (define-method (test-base-info (self <g-golf-test-gi>))
-  (assert-true (g-golf-bi-get-name (g-irepository-find-by-name "Clutter" "Actor"))))
+  (assert-true (g-base-info-get-name (g-irepository-find-by-name "Clutter" "Actor"))))
 
 
 ;;;

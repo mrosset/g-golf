@@ -78,8 +78,8 @@ Obtain the number of arguments (both IN and OUT) for this
 
 Returns a pointer to the @var{n}th @code{GIArgInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing the
-data.
+It must be freed by calling @ref{g-base-info-unref} when done accessing
+the data.
 @end deffn
 
 
@@ -98,8 +98,8 @@ See whether the caller owns the return value of this callable. See
 
 Returns a pointer to the @code{GITypeInfo}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing the
-data.
+It must be freed by calling @ref{g-base-info-unref} when done accessing
+the data.
 @end deffn
 
 

@@ -39,74 +39,74 @@
 		warn
 		last)
 
-  #:export (g-golf-bi-ref
-	    g-golf-bi-unref
-	    g-golf-bi-equal
-	    g-golf-bi-get-type
-	    g-golf-bi-get-typelib
-	    g-golf-bi-get-namespace
-	    g-golf-bi-get-name
-	    g-golf-bi-get-attribute
-	    g-golf-bi-iterate-attributes
-	    g-golf-bi-get-container
-	    g-golf-bi-is-deprecated))
+  #:export (g-base-info-ref
+	    g-base-info-unref
+	    g-base-info-equal
+	    g-base-info-get-type
+	    g-base-info-get-typelib
+	    g-base-info-get-namespace
+	    g-base-info-get-name
+	    g-base-info-get-attribute
+	    g-base-info-iterate-attributes
+	    g-base-info-get-container
+	    g-base-info-is-deprecated))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-bi-ref info)
-  (g-base-info-ref info))
+(define (g-base-info-ref info)
+  (g_base_info_ref info))
 
-(define (g-golf-bi-unref info)
-  (g-base-info-unref info))
+(define (g-base-info-unref info)
+  (g_base_info_unref info))
 
-(define (g-golf-bi-equal info1 info2)
-  (g-golf-gtype->scm (g-base-info-equal info1 info2)
+(define (g-base-info-equal info1 info2)
+  (g-golf-gtype->scm (g_base_info_equal info1 info2)
 		    'gboolean))
   
-(define (g-golf-bi-get-type info)
-  (enum->symbol %g-golf-bi-info-type
-                (g-base-info-get-type info)))
+(define (g-base-info-get-type info)
+  (enum->symbol %g-base-info-info-type
+                (g_base_info_get_type info)))
 
-(define (g-golf-bi-get-typelib info)
-  (g-base-info-get-typelib info))
+(define (g-base-info-get-typelib info)
+  (g_base_info_get_typelib info))
 
-(define (g-golf-bi-get-namespace info)
-  (g-golf-gtype->scm (g-base-info-get-namespace info)
+(define (g-base-info-get-namespace info)
+  (g-golf-gtype->scm (g_base_info_get_namespace info)
 		    'gchar*))
 
-(define (g-golf-bi-get-name info)
-  (let ((pointer (g-base-info-get-name info)))
+(define (g-base-info-get-name info)
+  (let ((pointer (g_base_info_get_name info)))
     (if (null-pointer? pointer)
 	#f
 	(g-golf-gtype->scm pointer 'gchar*))))
 
-(define (g-golf-bi-get-attribute info name)
-  (let ((pointer (g-base-info-get-attribute info
+(define (g-base-info-get-attribute info name)
+  (let ((pointer (g_base_info_get_attribute info
 					    (string->pointer name))))
     (if (null-pointer? pointer)
 	#f
 	(g-golf-gtype->scm pointer 'gchar*))))
 
-(define (g-golf-bi-iterate-attributes info proc)
+(define (g-base-info-iterate-attributes info proc)
   (let ((iter (g-golf-attribute-iter-new))
 	(name (g-golf-pointer-new))
 	(value (g-golf-pointer-new)))
-    (while (> (g-base-info-iterate-attributes info iter name value)
+    (while (> (g_base_info_iterate_attributes info iter name value)
 	      0)
       (proc name value))
     (values)))
 
-(define (g-golf-bi-get-container info)
-  (let ((pointer (g-base-info-get-container info)))
+(define (g-base-info-get-container info)
+  (let ((pointer (g_base_info_get_container info)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-bi-is-deprecated info)
-  (g-golf-gtype->scm (g-base-info-is-deprecated info)
+(define (g-base-info-is-deprecated info)
+  (g-golf-gtype->scm (g_base_info_is_deprecated info)
 		    'gboolean))
 
 
@@ -114,67 +114,67 @@
 ;;; GI Bindings
 ;;;
 
-(define g-base-info-ref
+(define g_base_info_ref
   (pointer->procedure '*
                       (dynamic-func "g_base_info_ref"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-unref
+(define g_base_info_unref
   (pointer->procedure void
                       (dynamic-func "g_base_info_unref"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-equal
+(define g_base_info_equal
   (pointer->procedure int
                       (dynamic-func "g_base_info_equal"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-base-info-get-type
+(define g_base_info_get_type
   (pointer->procedure int
                       (dynamic-func "g_base_info_get_type"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-get-typelib
+(define g_base_info_get_typelib
   (pointer->procedure '*
                       (dynamic-func "g_base_info_get_typelib"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-get-namespace
+(define g_base_info_get_namespace
   (pointer->procedure '*
                       (dynamic-func "g_base_info_get_namespace"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-get-name
+(define g_base_info_get_name
   (pointer->procedure '*
                       (dynamic-func "g_base_info_get_name"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-get-attribute
+(define g_base_info_get_attribute
   (pointer->procedure '*
                       (dynamic-func "g_base_info_get_attribute"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-base-info-iterate-attributes
+(define g_base_info_iterate_attributes
   (pointer->procedure int
                       (dynamic-func "g_base_info_iterate_attributes"
 				    %libgirepository)
                       (list '* '* '* '*)))
 
-(define g-base-info-get-container
+(define g_base_info_get_container
   (pointer->procedure '*
                       (dynamic-func "g_base_info_get_container"
 				    %libgirepository)
                       (list '*)))
 
-(define g-base-info-is-deprecated
+(define g_base_info_is_deprecated
   (pointer->procedure int
                       (dynamic-func "g_base_info_is_deprecated"
 				    %libgirepository)
@@ -185,7 +185,7 @@
 ;;; Types and Values
 ;;;
 
-(define %g-golf-bi-info-type
+(define %g-base-info-info-type
   (make <gi-enum>
     #:gi-name "GIInfoType"
     #:scm-name "gi-info-type"

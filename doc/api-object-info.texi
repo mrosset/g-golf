@@ -128,7 +128,7 @@ Obtain the number of constants that this object type has.
 
 Returns a pointer to the @var{n}th @code{GIConstantInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -147,7 +147,7 @@ Obtain the number of fields that this object type has.
 
 Returns a pointer to the @var{n}th @code{GIFieldInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -166,7 +166,7 @@ Obtain the number of interfaces that this object type has.
 
 Returns a pointer to the @var{n}th @code{GIInterfaceInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -185,7 +185,7 @@ Obtain the number of methods that this object type has.
 
 Returns a pointer to the @var{n}th @code{GIFunctionInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -196,7 +196,7 @@ the data.
 Returns a pointer to a @code{GIFunctionInfo} or #f if there is no method
 available with that name.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -215,7 +215,7 @@ Obtain the number of properties that this object type has.
 
 Returns a pointer to the @var{n}th @code{GIPropertyInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -234,7 +234,7 @@ Obtain the number of signals that this object type has.
 
 Returns a pointer to the @var{n}th @code{GISignalInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -245,7 +245,7 @@ the data.
 Returns a pointer to a @code{GISignalInfo} or #f if there is no signal
 available with that name.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -264,7 +264,7 @@ Obtain the number of vfuncs that this object type has.
 
 Returns a pointer to the @var{n}th @code{GIVfuncInfo} of @var{info}.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 
@@ -279,7 +279,7 @@ Every @code{GObject} has two structures: an instance structure and a
 class structure. This function returns a pointer to the @var{info} class
 structure.
 
-It must be freed by calling @ref{g-golf-bi-unref} when done accessing
+It must be freed by calling @ref{g-base-info-unref} when done accessing
 the data.
 @end deffn
 

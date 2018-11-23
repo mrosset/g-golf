@@ -56,7 +56,7 @@
 
 (define (g-golf-property-import info)
   ;; Fixme...
-  (g-golf-bi-get-name info))
+  (g-base-info-get-name info))
 
 
 ;;;

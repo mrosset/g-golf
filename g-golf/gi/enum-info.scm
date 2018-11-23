@@ -72,9 +72,9 @@
 	      (if (= i n)
 		  (reverse! v-set)
 		  (let* ((value-info (g-golf-ei-get-value info i))
-			 (name (g-golf-bi-get-name value-info))
+			 (name (g-base-info-get-name value-info))
 			 (value (g-golf-vi-get-value value-info)))
-		    (g-golf-bi-unref value-info)
+		    (g-base-info-unref value-info)
 		    (get-enum-values info
 				     n
 				     (+ i 1)

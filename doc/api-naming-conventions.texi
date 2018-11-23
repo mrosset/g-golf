@@ -45,7 +45,7 @@ with @code{%g-golf-}.  For example, from the GIBaseInfo section:
 @example
 GIInfoType
 ->
-@ref{%g-golf-bi-info-type}
+@ref{%g-base-info-info-type}
 @end example
 
 Note: The G-Golf Reference Manual follows the GObject Introspection
