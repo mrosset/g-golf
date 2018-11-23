@@ -45,12 +45,12 @@
   #:export (g-golf-enum-import
 	    g-golf-enum-get-values
 
-	    g-golf-ei-get-n-values
-	    g-golf-ei-get-value
-	    g-golf-ei-get-n-methods
-	    g-golf-ei-get-method
+	    g-enum-info-get-n-values
+	    g-enum-info-get-value
+	    g-enum-info-get-n-methods
+	    g-enum-info-get-method
 
-	    g-golf-vi-get-value))
+	    g-value-info-get-value))
 
 
 ;;;
@@ -58,7 +58,7 @@
 ;;;
 
 (define (g-golf-enum-import info)
-  (let* ((type-name (g-golf-rt-get-type-name info))
+  (let* ((type-name (g-registered-type-info-get-type-name info))
 	 (scm-name (g-golf-gtype-name->scm-name type-name))
 	 (e-vals (g-golf-enum-get-values info)))
     (make <gi-enum>
@@ -71,9 +71,9 @@
 	    (lambda (info n i v-set)
 	      (if (= i n)
 		  (reverse! v-set)
-		  (let* ((value-info (g-golf-ei-get-value info i))
+		  (let* ((value-info (g-enum-info-get-value info i))
 			 (name (g-base-info-get-name value-info))
-			 (value (g-golf-vi-get-value value-info)))
+			 (value (g-value-info-get-value value-info)))
 		    (g-base-info-unref value-info)
 		    (get-enum-values info
 				     n
@@ -81,7 +81,7 @@
 				     (cons (cons name value)
 					   v-set)))))))
     (get-enum-values info
-		     (g-golf-ei-get-n-values info)
+		     (g-enum-info-get-n-values info)
 		     0
 		     '())))
 
@@ -90,57 +90,57 @@
 ;;; Low level API
 ;;;
 
-(define (g-golf-ei-get-n-values info)
-  (g-enum-info-get-n-values info))
+(define (g-enum-info-get-n-values info)
+  (g_enum_info_get_n_values info))
 
-(define (g-golf-ei-get-value info index)
-  (let ((pointer (g-enum-info-get-value info index)))
+(define (g-enum-info-get-value info index)
+  (let ((pointer (g_enum_info_get_value info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-ei-get-n-methods info)
-  (g-enum-info-get-n-methods info))
+(define (g-enum-info-get-n-methods info)
+  (g_enum_info_get_n_methods info))
 
-(define (g-golf-ei-get-method info index)
-  (let ((pointer (g-enum-info-get-method info index)))
+(define (g-enum-info-get-method info index)
+  (let ((pointer (g_enum_info_get_method info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-vi-get-value info)
-  (g-value-info-get-value info))
+(define (g-value-info-get-value info)
+  (g_value_info_get_value info))
 
 
 ;;;
 ;;; GI Bindings
 ;;;
 
-(define g-enum-info-get-n-values
+(define g_enum_info_get_n_values
   (pointer->procedure int
                       (dynamic-func "g_enum_info_get_n_values"
 				    %libgirepository)
                       (list '*)))
 
-(define g-enum-info-get-value
+(define g_enum_info_get_value
   (pointer->procedure '*
                       (dynamic-func "g_enum_info_get_value"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-enum-info-get-n-methods
+(define g_enum_info_get_n_methods
   (pointer->procedure int
                       (dynamic-func "g_enum_info_get_n_methods"
 				    %libgirepository)
                       (list '*)))
 
-(define g-enum-info-get-method
+(define g_enum_info_get_method
   (pointer->procedure '*
                       (dynamic-func "g_enum_info_get_method"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-value-info-get-value
+(define g_value_info_get_value
   (pointer->procedure int64
                       (dynamic-func "g_value_info_get_value"
 				    %libgirepository)

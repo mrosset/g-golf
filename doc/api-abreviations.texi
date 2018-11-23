@@ -174,7 +174,7 @@ corresponding G-Golf source code module.
 @item @code{-vi-}
 @tab @uref{@value{UGIValueInfo}, GIValueInfo}
 @tab n/a
-@tab @code{(g-golf gi enum-info)}
+@tab n/a
 
 @end multitable
 @end indentedblock

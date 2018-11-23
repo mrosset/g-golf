@@ -18,9 +18,9 @@ GIRegisteredTypeInfo — Struct representing a struct with a @code{GType}.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-rt-get-type-name}
-@item @ref{g-golf-rt-get-type-init}
-@item @ref{g-golf-rt-get-g-type}
+@item @ref{g-registered-type-info-get-type-name}
+@item @ref{g-registered-type-info-get-type-init}
+@item @ref{g-registered-type-info-get-g-type}
 @end table
 @end indentedblock
 
@@ -62,8 +62,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIRegisteredTypeInfo}.
 
 
-@anchor{g-golf-rt-get-type-name}
-@deffn Procedure g-golf-rt-get-type-name info
+@anchor{g-registered-type-info-get-type-name}
+@deffn Procedure g-registered-type-info-get-type-name info
 
 Returns the type name.
 
@@ -72,8 +72,8 @@ type can be passed to g_type_name() to get a GType.
 @end deffn
 
 
-@anchor{g-golf-rt-get-type-init}
-@deffn Procedure g-golf-rt-get-type-init info
+@anchor{g-registered-type-info-get-type-init}
+@deffn Procedure g-registered-type-info-get-type-init info
 
 Returns the name of the type init function.
 
@@ -84,8 +84,8 @@ bindings or applications.
 @end deffn
 
 
-@anchor{g-golf-rt-get-g-type}
-@deffn Procedure g-golf-rt-get-g-type info
+@anchor{g-registered-type-info-get-g-type}
+@deffn Procedure g-registered-type-info-get-g-type info
 
 Returns the @code{GType}. FIXME when this effectively works.
 

@@ -31,45 +31,45 @@
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
 
-  #:export (g-golf-rt-get-type-name
-	    g-golf-rt-get-type-init
-	    g-golf-rt-get-g-type))
+  #:export (g-registered-type-info-get-type-name
+	    g-registered-type-info-get-type-init
+	    g-registered-type-info-get-g-type))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-rt-get-type-name info)
-  (g-golf-gtype->scm (g-registered-type-info-get-type-name info)
+(define (g-registered-type-info-get-type-name info)
+  (g-golf-gtype->scm (g_registered_type_info_get_type_name info)
 		    'gchar*))
 
 ;; this should not be called by language bindings
-(define (g-golf-rt-get-type-init info)
-  (g-golf-gtype->scm (g-registered-type-info-get-type-init info)
+(define (g-registered-type-info-get-type-init info)
+  (g-golf-gtype->scm (g_registered_type_info_get_type_init info)
 		    'gchar*))
 
-(define (g-golf-rt-get-g-type info)
-  (g-registered-type-info-get-g-type info))
+(define (g-registered-type-info-get-g-type info)
+  (g_registered_type_info_get_g_type info))
 
 
 ;;;
 ;;; GI Bindings
 ;;;
 
-(define g-registered-type-info-get-type-name
+(define g_registered_type_info_get_type_name
   (pointer->procedure '*
                       (dynamic-func "g_registered_type_info_get_type_name"
 				    %libgirepository)
                       (list '*)))
 
-(define g-registered-type-info-get-type-init
+(define g_registered_type_info_get_type_init
   (pointer->procedure '*
                       (dynamic-func "g_registered_type_info_get_type_init"
 				    %libgirepository)
                       (list '*)))
 
-(define g-registered-type-info-get-g-type
+(define g_registered_type_info_get_g_type
   (pointer->procedure int64
                       (dynamic-func "g_registered_type_info_get_g_type"
 				    %libgirepository)

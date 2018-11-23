@@ -21,12 +21,12 @@ GIEnumInfo — Structs representing an enumeration and its values.
 @item @ref{g-golf-enum-import}
 @item @ref{g-golf-enum-get-values}
 
-@item @ref{g-golf-ei-get-n-values}
-@item @ref{g-golf-ei-get-value}
-@item @ref{g-golf-ei-get-n-methods}
-@item @ref{g-golf-ei-get-method}
+@item @ref{g-enum-info-get-n-values}
+@item @ref{g-enum-info-get-value}
+@item @ref{g-enum-info-get-n-methods}
+@item @ref{g-enum-info-get-method}
 
-@item @ref{g-golf-vi-get-value}
+@item @ref{g-value-info-get-value}
 @end table
 @end indentedblock
 
@@ -81,8 +81,8 @@ contains.
 @end deffn
 
 
-@anchor{g-golf-ei-get-n-values}
-@deffn Procedure g-golf-ei-get-n-values info
+@anchor{g-enum-info-get-n-values}
+@deffn Procedure g-enum-info-get-n-values info
 
 Returns the number of values.
 
@@ -90,8 +90,8 @@ Obtain the number of values this enumeration contains.
 @end deffn
 
 
-@anchor{g-golf-ei-get-value}
-@deffn Procedure g-golf-ei-get-value info index
+@anchor{g-enum-info-get-value}
+@deffn Procedure g-enum-info-get-value info index
 
 Returns a pointer to a @code{GIValueInfo} or #f if type tag is wrong.
 
@@ -102,8 +102,8 @@ free'd using @code{g-golf-bi-unref} when done.
 @end deffn
 
 
-@anchor{g-golf-ei-get-n-methods}
-@deffn Procedure g-golf-ei-get-n-methods info
+@anchor{g-enum-info-get-n-methods}
+@deffn Procedure g-enum-info-get-n-methods info
 
 Returns the number of methods.
 
@@ -111,8 +111,8 @@ Obtain the number of methods this enumeration has.
 @end deffn
 
 
-@anchor{g-golf-ei-get-method}
-@deffn Procedure g-golf-ei-get-method info index
+@anchor{g-enum-info-get-method}
+@deffn Procedure g-enum-info-get-method info index
 
 Returns a pointer to a @code{GIFunctionInfo} or #f if type tag is wrong.
 
@@ -123,8 +123,8 @@ free'd using @code{g-golf-bi-unref} when done.
 @end deffn
 
 
-@anchor{g-golf-vi-get-value}
-@deffn Procedure g-golf-vi-get-value info
+@anchor{g-value-info-get-value}
+@deffn Procedure g-value-info-get-value info
 
 Returns the enumeration value.
 

@@ -36,7 +36,7 @@
 
 
 (define %align-info (g-irepository-find-by-name "Clutter" "ActorAlign"))
-(define %gtype (g-golf-rt-get-g-type %align-info))
+(define %gtype (g-registered-type-info-get-g-type %align-info))
 
 
 (define-class <g-golf-test-gobject> (<test-case>))
