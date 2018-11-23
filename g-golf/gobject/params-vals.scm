@@ -43,7 +43,8 @@
 		last)
 
   #:export (g-value->g-type
-
+            g-value-ref
+            g-value-set!
             g-value-get-float
             g-value-set-float))
 
@@ -57,6 +58,20 @@
                          (list unsigned-long double double))
     ((g-type _ _)
      (g-type->symbol g-type))))
+
+(define (g-value-ref g-value)
+  (case (g-value->g-type g-value)
+    ((float)
+     (g-value-get-float g-value))
+    (else
+     (error "Not implemented:" (g-value->g-type g-value)))))
+
+(define (g-value-set! g-value value)
+  (case (g-value->g-type g-value)
+    ((float)
+     (g-value-set-float g-value value))
+    (else
+     (error "Not implemented:" (g-value->g-type g-value)))))
 
 
 ;;;

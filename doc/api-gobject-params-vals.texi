@@ -16,6 +16,8 @@ Parameters and Values — Standard Parameter and Value Types
 @indentedblock
 @table @code
 @item @ref{g-value->g-type}
+@item @ref{g-value-ref}
+@item @ref{g-value-set!}
 @item @ref{g-value-get-float}
 @item @ref{g-value-set-float}
 @end table
@@ -58,6 +60,27 @@ Returns a symbol.
 
 Gets and returns the scheme representation (a symbol) of the
 @code{GType} for @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-ref}
+@deffn Procedure g-value-ref g-value
+
+Returns the content of @var{g-value}.
+
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set!}
+@deffn Procedure g-value-set! g-value value
+
+Returns nothing.
+
+Sets the contents of @var{g-value} to @var{value}.  Note that this
+procedure cannot cope with invalid values (the type of @var{value} must
+correspond to the @code{GType} for @var{g-value}, otherwise it will most
+likely lead to a crash.
 @end deffn
 
 

@@ -45,6 +45,14 @@
 (define-method (test-g-value-init (self <g-golf-test-gobject>))
   (assert (g-value-init (symbol->g-type 'float))))
 
+(define-method (test-g-value-ref (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'float))))
+    (assert (g-value-ref g-value))))
+
+(define-method (test-g-value-set! (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'float))))
+    (assert (g-value-set! g-value 5.0))))
+
 (define-method (test-g-type-name (self <g-golf-test-gobject>))
   (assert-equal "ClutterActorAlign" (g-type-name %gtype))
   (assert-equal "gfloat" (g-type-name 56)))
