@@ -48,27 +48,27 @@
 
   #:export (g-golf-object-import
 
-	    g-golf-oi-get-abstract
-	    g-golf-oi-get-parent
-	    g-golf-oi-get-type-name
-	    g-golf-oi-get-n-constants
-	    g-golf-oi-get-constant
-	    g-golf-oi-get-n-fields
-	    g-golf-oi-get-field
-	    g-golf-oi-get-n-interfaces
-	    g-golf-oi-get-interface
-	    g-golf-oi-get-n-methods
-	    g-golf-oi-get-method
-	    g-golf-oi-find-method
-	    g-golf-oi-get-n-properties
-	    g-golf-oi-get-property
-	    g-golf-oi-get-n-signals
-	    g-golf-oi-get-signal
-	    g-golf-oi-find-signal
-	    g-golf-oi-get-n-vfuncs
-	    g-golf-oi-get-vfunc
-	    g-golf-oi-find-vfunc
-	    g-golf-oi-get-class-struct))
+	    g-object-info-get-abstract
+	    g-object-info-get-parent
+	    g-object-info-get-type-name
+	    g-object-info-get-n-constants
+	    g-object-info-get-constant
+	    g-object-info-get-n-fields
+	    g-object-info-get-field
+	    g-object-info-get-n-interfaces
+	    g-object-info-get-interface
+	    g-object-info-get-n-methods
+	    g-object-info-get-method
+	    g-object-info-find-method
+	    g-object-info-get-n-properties
+	    g-object-info-get-property
+	    g-object-info-get-n-signals
+	    g-object-info-get-signal
+	    g-object-info-find-signal
+	    g-object-info-get-n-vfuncs
+	    g-object-info-get-vfunc
+	    g-object-info-find-vfunc
+	    g-object-info-get-class-struct))
 
 
 ;;;
@@ -85,105 +85,105 @@
 ;;; Low level API
 ;;;
 
-(define (g-golf-oi-get-abstract info)
-  (g-golf-gtype->scm (g-object-info-get-abstract info)
+(define (g-object-info-get-abstract info)
+  (g-golf-gtype->scm (g_object_info_get_abstract info)
 		     'gboolean))
 
-(define (g-golf-oi-get-parent info)
-  (g-object-info-get-parent info))
+(define (g-object-info-get-parent info)
+  (g_object_info_get_parent info))
 
-(define (g-golf-oi-get-type-name info)
-  (let ((pointer (g-object-info-get-type-name info)))
+(define (g-object-info-get-type-name info)
+  (let ((pointer (g_object_info_get_type_name info)))
     (if (null-pointer? pointer)
 	#f
 	(g-golf-gtype->scm pointer 'gchar*))))
 
-(define (g-golf-oi-get-n-constants info)
-  (g-object-info-get-n-constants info))
+(define (g-object-info-get-n-constants info)
+  (g_object_info_get_n_constants info))
 
-(define (g-golf-oi-get-constant info index)
-  (let ((pointer (g-object-info-get-constant info index)))
+(define (g-object-info-get-constant info index)
+  (let ((pointer (g_object_info_get_constant info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-n-fields info)
-  (g-object-info-get-n-fields info))
+(define (g-object-info-get-n-fields info)
+  (g_object_info_get_n_fields info))
 
-(define (g-golf-oi-get-field info index)
-  (let ((pointer (g-object-info-get-field info index)))
+(define (g-object-info-get-field info index)
+  (let ((pointer (g_object_info_get_field info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-n-interfaces info)
-  (g-object-info-get-n-interfaces info))
+(define (g-object-info-get-n-interfaces info)
+  (g_object_info_get_n_interfaces info))
 
-(define (g-golf-oi-get-interface info index)
-  (let ((pointer (g-object-info-get-interface info index)))
+(define (g-object-info-get-interface info index)
+  (let ((pointer (g_object_info_get_interface info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-n-methods info)
-  (g-object-info-get-n-methods info))
+(define (g-object-info-get-n-methods info)
+  (g_object_info_get_n_methods info))
 
-(define (g-golf-oi-get-method info index)
-  (let ((pointer (g-object-info-get-method info index)))
+(define (g-object-info-get-method info index)
+  (let ((pointer (g_object_info_get_method info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-find-method info name)
-  (let ((pointer (g-object-info-find-method info
+(define (g-object-info-find-method info name)
+  (let ((pointer (g_object_info_find_method info
 					    (string->pointer name))))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-n-properties info)
-  (g-object-info-get-n-properties info))
+(define (g-object-info-get-n-properties info)
+  (g_object_info_get_n_properties info))
 
-(define (g-golf-oi-get-property info index)
-  (let ((pointer (g-object-info-get-property info index)))
+(define (g-object-info-get-property info index)
+  (let ((pointer (g_object_info_get_property info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-n-signals info)
-  (g-object-info-get-n-signals info))
+(define (g-object-info-get-n-signals info)
+  (g_object_info_get_n_signals info))
 
-(define (g-golf-oi-get-signal info index)
-  (let ((pointer (g-object-info-get-signal info index)))
+(define (g-object-info-get-signal info index)
+  (let ((pointer (g_object_info_get_signal info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-find-signal info name)
-  (let ((pointer (g-object-info-find-signal info
+(define (g-object-info-find-signal info name)
+  (let ((pointer (g_object_info_find_signal info
 					    (string->pointer name))))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-n-vfuncs info)
-  (g-object-info-get-n-vfuncs info))
+(define (g-object-info-get-n-vfuncs info)
+  (g_object_info_get_n_vfuncs info))
 
-(define (g-golf-oi-get-vfunc info index)
-  (let ((pointer (g-object-info-get-vfunc info index)))
+(define (g-object-info-get-vfunc info index)
+  (let ((pointer (g_object_info_get_vfunc info index)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-find-vfunc info name)
-  (let ((pointer (g-object-info-find-vfunc info
+(define (g-object-info-find-vfunc info name)
+  (let ((pointer (g_object_info_find_vfunc info
 					    (string->pointer name))))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-oi-get-class-struct info)
-  (let ((pointer (g-object-info-get-class-struct info)))
+(define (g-object-info-get-class-struct info)
+  (let ((pointer (g_object_info_get_class_struct info)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
@@ -193,127 +193,127 @@
 ;;; GI Bindings
 ;;;
 
-(define (g-object-info-get-abstract info)
+(define (g_object_info_get_abstract info)
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_abstract"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-parent
+(define g_object_info_get_parent
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_parent"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-type-name
+(define g_object_info_get_type_name
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_type_name"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-n-constants
+(define g_object_info_get_n_constants
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_constants"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-constant
+(define g_object_info_get_constant
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_constant"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-get-n-fields
+(define g_object_info_get_n_fields
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_fields"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-field
+(define g_object_info_get_field
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_field"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-get-n-interfaces
+(define g_object_info_get_n_interfaces
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_interfaces"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-interface
+(define g_object_info_get_interface
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_interface"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-get-n-methods
+(define g_object_info_get_n_methods
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_methods"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-method
+(define g_object_info_get_method
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_method"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-find-method
+(define g_object_info_find_method
   (pointer->procedure '*
                       (dynamic-func "g_object_info_find_method"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-object-info-get-n-properties
+(define g_object_info_get_n_properties
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_properties"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-property
+(define g_object_info_get_property
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_property"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-get-n-signals
+(define g_object_info_get_n_signals
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_signals"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-signal
+(define g_object_info_get_signal
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_signal"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-find-signal
+(define g_object_info_find_signal
   (pointer->procedure '*
                       (dynamic-func "g_object_info_find_signal"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-object-info-get-n-vfuncs
+(define g_object_info_get_n_vfuncs
   (pointer->procedure int
                       (dynamic-func "g_object_info_get_n_vfuncs"
 				    %libgirepository)
                       (list '*)))
 
-(define g-object-info-get-vfunc
+(define g_object_info_get_vfunc
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_vfunc"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-object-info-find-vfunc
+(define g_object_info_find_vfunc
   (pointer->procedure '*
                       (dynamic-func "g_object_info_find_vfunc"
 				    %libgirepository)
                       (list '* '*)))
 
-(define g-object-info-get-class-struct
+(define g_object_info_get_class_struct
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_class_struct"
 				    %libgirepository)

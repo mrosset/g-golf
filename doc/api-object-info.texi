@@ -19,26 +19,26 @@ GIObjectInfo — Structs representing a GObject.
 @indentedblock
 @table @code
 @c @item @ref{g-golf-object-import}
-@item @ref{g-golf-oi-get-abstract}
-@item @ref{g-golf-oi-get-parent}
-@item @ref{g-golf-oi-get-type-name}
-@item @ref{g-golf-oi-get-n-constants}
-@item @ref{g-golf-oi-get-constant}
-@item @ref{g-golf-oi-get-n-fields}
-@item @ref{g-golf-oi-get-field}
-@item @ref{g-golf-oi-get-n-interfaces}
-@item @ref{g-golf-oi-get-interface}
-@item @ref{g-golf-oi-get-n-methods}
-@item @ref{g-golf-oi-get-method}
-@item @ref{g-golf-oi-find-method}
-@item @ref{g-golf-oi-get-n-properties}
-@item @ref{g-golf-oi-get-property}
-@item @ref{g-golf-oi-get-n-signals}
-@item @ref{g-golf-oi-get-signal}
-@item @ref{g-golf-oi-find-signal}
-@item @ref{g-golf-oi-get-n-vfuncs}
-@item @ref{g-golf-oi-get-vfunc}
-@item @ref{g-golf-oi-get-class-struct}
+@item @ref{g-object-info-get-abstract}
+@item @ref{g-object-info-get-parent}
+@item @ref{g-object-info-get-type-name}
+@item @ref{g-object-info-get-n-constants}
+@item @ref{g-object-info-get-constant}
+@item @ref{g-object-info-get-n-fields}
+@item @ref{g-object-info-get-field}
+@item @ref{g-object-info-get-n-interfaces}
+@item @ref{g-object-info-get-interface}
+@item @ref{g-object-info-get-n-methods}
+@item @ref{g-object-info-get-method}
+@item @ref{g-object-info-find-method}
+@item @ref{g-object-info-get-n-properties}
+@item @ref{g-object-info-get-property}
+@item @ref{g-object-info-get-n-signals}
+@item @ref{g-object-info-get-signal}
+@item @ref{g-object-info-find-signal}
+@item @ref{g-object-info-get-n-vfuncs}
+@item @ref{g-object-info-get-vfunc}
+@item @ref{g-object-info-get-class-struct}
 @end table
 @end indentedblock
 
@@ -86,8 +86,8 @@ argument is [must be] a pointer to a @code{GIObjectInfo}.
 @c @end deffn
 
 
-@anchor{g-golf-oi-get-abstract}
-@deffn Procedure g-golf-oi-get-abstract info
+@anchor{g-object-info-get-abstract}
+@deffn Procedure g-object-info-get-abstract info
 
 Returns #t if the @var{info} object type is abstract.
 
@@ -96,8 +96,8 @@ instantiated.
 @end deffn
 
 
-@anchor{g-golf-oi-get-parent}
-@deffn Procedure g-golf-oi-get-parent info
+@anchor{g-object-info-get-parent}
+@deffn Procedure g-object-info-get-parent info
 
 Returns a pointer to the @var{info}'s parent @code{GIObjectInfo}.
 
@@ -105,8 +105,8 @@ Obtain the parent of the object type.
 @end deffn
 
 
-@anchor{g-golf-oi-get-type-name}
-@deffn Procedure g-golf-oi-get-type-name info
+@anchor{g-object-info-get-type-name}
+@deffn Procedure g-object-info-get-type-name info
 
 Returns the name of the object type for @var{info}.
 
@@ -114,8 +114,8 @@ Obtain the name of the object class/type for @var{info}.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-constants}
-@deffn Procedure g-golf-oi-get-n-constants info
+@anchor{g-object-info-get-n-constants}
+@deffn Procedure g-object-info-get-n-constants info
 
 Returns the number of constants for @var{info}.
 
@@ -123,8 +123,8 @@ Obtain the number of constants that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-constant}
-@deffn Procedure g-golf-oi-get-constant info n
+@anchor{g-object-info-get-constant}
+@deffn Procedure g-object-info-get-constant info n
 
 Returns a pointer to the @var{n}th @code{GIConstantInfo} of @var{info}.
 
@@ -133,8 +133,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-fields}
-@deffn Procedure g-golf-oi-get-n-fields info
+@anchor{g-object-info-get-n-fields}
+@deffn Procedure g-object-info-get-n-fields info
 
 Returns the number of fields for @var{info}.
 
@@ -142,8 +142,8 @@ Obtain the number of fields that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-field}
-@deffn Procedure g-golf-oi-get-field info n
+@anchor{g-object-info-get-field}
+@deffn Procedure g-object-info-get-field info n
 
 Returns a pointer to the @var{n}th @code{GIFieldInfo} of @var{info}.
 
@@ -152,8 +152,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-interfaces}
-@deffn Procedure g-golf-oi-get-n-interfaces info
+@anchor{g-object-info-get-n-interfaces}
+@deffn Procedure g-object-info-get-n-interfaces info
 
 Returns the number of interfaces for @var{info}.
 
@@ -161,8 +161,8 @@ Obtain the number of interfaces that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-interface}
-@deffn Procedure g-golf-oi-get-interface info n
+@anchor{g-object-info-get-interface}
+@deffn Procedure g-object-info-get-interface info n
 
 Returns a pointer to the @var{n}th @code{GIInterfaceInfo} of @var{info}.
 
@@ -171,8 +171,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-methods}
-@deffn Procedure g-golf-oi-get-n-methods info
+@anchor{g-object-info-get-n-methods}
+@deffn Procedure g-object-info-get-n-methods info
 
 Returns the number of methods for @var{info}.
 
@@ -180,8 +180,8 @@ Obtain the number of methods that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-method}
-@deffn Procedure g-golf-oi-get-method info n
+@anchor{g-object-info-get-method}
+@deffn Procedure g-object-info-get-method info n
 
 Returns a pointer to the @var{n}th @code{GIFunctionInfo} of @var{info}.
 
@@ -190,8 +190,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-find-method}
-@deffn Procedure g-golf-oi-find-method info name
+@anchor{g-object-info-find-method}
+@deffn Procedure g-object-info-find-method info name
 
 Returns a pointer to a @code{GIFunctionInfo} or #f if there is no method
 available with that name.
@@ -201,8 +201,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-properties}
-@deffn Procedure g-golf-oi-get-n-properties info
+@anchor{g-object-info-get-n-properties}
+@deffn Procedure g-object-info-get-n-properties info
 
 Returns the number of properties for @var{info}.
 
@@ -210,8 +210,8 @@ Obtain the number of properties that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-property}
-@deffn Procedure g-golf-oi-get-property info n
+@anchor{g-object-info-get-property}
+@deffn Procedure g-object-info-get-property info n
 
 Returns a pointer to the @var{n}th @code{GIPropertyInfo} of @var{info}.
 
@@ -220,8 +220,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-signals}
-@deffn Procedure g-golf-oi-get-n-signals info
+@anchor{g-object-info-get-n-signals}
+@deffn Procedure g-object-info-get-n-signals info
 
 Returns the number of signals for @var{info}.
 
@@ -229,8 +229,8 @@ Obtain the number of signals that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-signal}
-@deffn Procedure g-golf-oi-get-signal info n
+@anchor{g-object-info-get-signal}
+@deffn Procedure g-object-info-get-signal info n
 
 Returns a pointer to the @var{n}th @code{GISignalInfo} of @var{info}.
 
@@ -239,8 +239,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-find-signal}
-@deffn Procedure g-golf-oi-find-signal info name
+@anchor{g-object-info-find-signal}
+@deffn Procedure g-object-info-find-signal info name
 
 Returns a pointer to a @code{GISignalInfo} or #f if there is no signal
 available with that name.
@@ -250,8 +250,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-n-vfuncs}
-@deffn Procedure g-golf-oi-get-n-vfuncs info
+@anchor{g-object-info-get-n-vfuncs}
+@deffn Procedure g-object-info-get-n-vfuncs info
 
 Returns the number of vfuncs for @var{info}.
 
@@ -259,8 +259,8 @@ Obtain the number of vfuncs that this object type has.
 @end deffn
 
 
-@anchor{g-golf-oi-get-vfunc}
-@deffn Procedure g-golf-oi-get-vfunc info n
+@anchor{g-object-info-get-vfunc}
+@deffn Procedure g-object-info-get-vfunc info n
 
 Returns a pointer to the @var{n}th @code{GIVfuncInfo} of @var{info}.
 
@@ -269,8 +269,8 @@ the data.
 @end deffn
 
 
-@anchor{g-golf-oi-get-class-struct}
-@deffn Procedure g-golf-oi-get-class-struct info
+@anchor{g-object-info-get-class-struct}
+@deffn Procedure g-object-info-get-class-struct info
 
 Returns a pointer to the @var{n}th @code{GIStructInfo} of @var{info}, or
 #f.

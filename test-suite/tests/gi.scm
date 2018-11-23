@@ -81,7 +81,7 @@
 
 (define-method (test-function-info (self <g-golf-test-gi>))
   (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
-         (actor-m1 (g-golf-oi-get-method actor 0)))
+         (actor-m1 (g-object-info-get-method actor 0)))
     (assert-true (g-function-info-get-flags actor-m1))
     (assert-true (g-function-info-get-symbol actor-m1))))
 
@@ -112,9 +112,9 @@
 
 (define-method (test-object-info (self <g-golf-test-gi>))
   (let ((actor (g-irepository-find-by-name "Clutter" "Actor")))
-    (assert-true (g-golf-oi-get-n-methods actor))
-    (assert-true (g-golf-oi-get-method actor 0))
-    (assert-true (g-golf-oi-get-property actor 5))))
+    (assert-true (g-object-info-get-n-methods actor))
+    (assert-true (g-object-info-get-method actor 0))
+    (assert-true (g-object-info-get-property actor 5))))
 
 
 ;;;
@@ -128,7 +128,7 @@
 
 (define-method (test-property-info (self <g-golf-test-gi>))
   (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
-         (property (g-golf-oi-get-property actor 5)))
+         (property (g-object-info-get-property actor 5)))
     (assert-true (g-golf-pi-get-type property))
     (assert-true (g-golf-pi-get-flags property))))
 
