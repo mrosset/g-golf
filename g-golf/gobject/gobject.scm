@@ -58,7 +58,7 @@
 (define (g-object-get-property object property)
   ;; both args, object and property, are pointers
   (let* ((name (g-base-info-get-name property))
-	 (type-info (g-golf-pi-get-type property))
+	 (type-info (g-property-info-get-type property))
 	 (type-tag (g-golf-ti-get-tag type-info))
 	 (type-value (enum->value %g-common-types-type-tag type-tag))
 	 (type-name (g-golf-ti-type-tag-to-string type-value))

@@ -18,9 +18,9 @@ GIPropertyInfo — Struct representing a property.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-pi-get-flags}
-@item @ref{g-golf-pi-get-ownership-transfer}
-@item @ref{g-golf-pi-get-type}
+@item @ref{g-property-info-get-flags}
+@item @ref{g-property-info-get-ownership-transfer}
+@item @ref{g-property-info-get-type}
 @end table
 @end indentedblock
 
@@ -45,8 +45,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIPropertyInfo}.
 
 
-@anchor{g-golf-pi-get-flags}
-@deffn Procedure g-golf-pi-get-flags info
+@anchor{g-property-info-get-flags}
+@deffn Procedure g-property-info-get-flags info
 
 Returns a list of @ref{%g-golf-go-param-flags}.
 
@@ -55,8 +55,8 @@ list of possible flag values.
 @end deffn
 
 
-@anchor{g-golf-pi-get-ownership-transfer}
-@deffn Procedure g-golf-pi-get-ownership-transfer info
+@anchor{g-property-info-get-ownership-transfer}
+@deffn Procedure g-property-info-get-ownership-transfer info
 
 Returns the ownership transfer for this property.
 
@@ -65,8 +65,8 @@ Obtain the ownership transfer for this property. See
 @end deffn
 
 
-@anchor{g-golf-pi-get-type}
-@deffn Procedure g-golf-pi-get-type info
+@anchor{g-property-info-get-type}
+@deffn Procedure g-property-infoxs-get-type info
 
 Returns a pointer to a @code{GITypeInfo}.
 

@@ -45,9 +45,9 @@
 
   #:export (g-golf-property-import
 
-	    g-golf-pi-get-flags
-	    g-golf-pi-get-ownership-transfer
-	    g-golf-pi-get-type))
+	    g-property-info-get-flags
+	    g-property-info-get-ownership-transfer
+	    g-property-info-get-type))
 
 
 ;;;
@@ -63,35 +63,35 @@
 ;;; Low level API
 ;;;
 
-(define (g-golf-pi-get-flags info)
+(define (g-property-info-get-flags info)
   (g-golf-integer->gflags %g-golf-go-param-flags
-                          (g-property-info-get-flags info)))
+                          (g_property_info_get_flags info)))
 
-(define (g-golf-pi-get-ownership-transfer info)
+(define (g-property-info-get-ownership-transfer info)
   (enum->symbol %g-arg-info-transfer
-                (g-property-info-get-ownership-transfer info)))
+                (g_property_info_get_ownership_transfer info)))
 
-(define (g-golf-pi-get-type info)
-  (g-property-info-get-type info))
+(define (g-property-info-get-type info)
+  (g_property_info_get_type info))
 
 
 ;;;
 ;;; GI Bindings
 ;;;
 
-(define g-property-info-get-flags
+(define g_property_info_get_flags
   (pointer->procedure uint32
                       (dynamic-func "g_property_info_get_flags"
 				    %libgirepository)
                       (list '*)))
 
-(define g-property-info-get-ownership-transfer
+(define g_property_info_get_ownership_transfer
   (pointer->procedure int
                       (dynamic-func "g_property_info_get_ownership_transfer"
 				    %libgirepository)
                       (list '*)))
 
-(define g-property-info-get-type
+(define g_property_info_get_type
   (pointer->procedure '*
                       (dynamic-func "g_property_info_get_type"
 				    %libgirepository)

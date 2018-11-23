@@ -129,8 +129,8 @@
 (define-method (test-property-info (self <g-golf-test-gi>))
   (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
          (property (g-object-info-get-property actor 5)))
-    (assert-true (g-golf-pi-get-type property))
-    (assert-true (g-golf-pi-get-flags property))))
+    (assert-true (g-property-info-get-type property))
+    (assert-true (g-property-info-get-flags property))))
 
 
 ;;;
