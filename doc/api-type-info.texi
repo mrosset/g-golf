@@ -18,7 +18,7 @@ GITypeInfo — Struct representing a type.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-ti-type-tag-to-string}
+@item @ref{g-type-tag-to-string}
 @end table
 @end indentedblock
 
@@ -51,8 +51,8 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GITypeInfo}.
 
 
-@anchor{g-golf-ti-type-tag-to-string}
-@deffn Procedure g-golf-ti-type-tag-to-string info
+@anchor{g-type-tag-to-string}
+@deffn Procedure g-type-tag-to-string info
 
 Returns a string.
 

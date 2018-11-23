@@ -40,60 +40,60 @@
 		warn
 		last)
 
-  #:export (g-golf-ti-type-tag-to-string
-	    g-golf-ti-info-type-to-string
-	    g-golf-ti-is-pointer
-	    g-golf-ti-get-tag
-	    g-golf-ti-get-param-type
-	    g-golf-ti-get-interface
-	    g-golf-ti-get-array-length
-	    g-golf-ti-get-array-fixed-size
-	    g-golf-ti-is-zero-terminated
-	    g-golf-ti-get-array-type))
+  #:export (g-type-tag-to-string
+	    g-info-type-to-string
+	    g-type-info-is-pointer
+	    g-type-info-get-tag
+	    g-type-info-get-param-type
+	    g-type-info-get-interface
+	    g-type-info-get-array-length
+	    g-type-info-get-array-fixed-size
+	    g-type-info-is-zero-terminated
+	    g-type-info-get-array-type))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-ti-type-tag-to-string type-tag)
-  (g-golf-gtype->scm (g-type-tag-to-string type-tag)
+(define (g-type-tag-to-string type-tag)
+  (g-golf-gtype->scm (g_type_tag_to_string type-tag)
 		    'gchar*))
 
-(define (g-golf-ti-info-type-to-string info-type)
-  (g-golf-gtype->scm (g-info-type-to-string info-type)
+(define (g-info-type-to-string info-type)
+  (g-golf-gtype->scm (g_info_type_to_string info-type)
 		    'gchar*))
 
-(define (g-golf-ti-is-pointer info-type)
-  (g-golf-gtype->scm (g-type-info-is-pointer info-type)
+(define (g-type-info-is-pointer info-type)
+  (g-golf-gtype->scm (g_type_info_is_pointer info-type)
 		    'gboolean))
 
-(define (g-golf-ti-get-tag info-type)
+(define (g-type-info-get-tag info-type)
   (enum->symbol %g-common-types-type-tag
-                (g-type-info-get-tag info-type)))
+                (g_type_info_get_tag info-type)))
 
-(define (g-golf-ti-get-param-type info-type n)
-  (g-type-info-get-param-type info-type n))
+(define (g-type-info-get-param-type info-type n)
+  (g_type_info_get_param_type info-type n))
 
-(define (g-golf-ti-get-interface info-type)
-  (let ((pointer (g-type-info-get-interface info-type)))
+(define (g-type-info-get-interface info-type)
+  (let ((pointer (g_type_info_get_interface info-type)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-golf-ti-get-array-length info-type)
-  (g-type-info-get-array-length info-type))
+(define (g-type-info-get-array-length info-type)
+  (g_type_info_get_array_length info-type))
 
-(define (g-golf-ti-get-array-fixed-size info-type)
-  (g-type-info-get-array-fixed-size info-type))
+(define (g-type-info-get-array-fixed-size info-type)
+  (g_type_info_get_array_fixed_size info-type))
 
-(define (g-golf-ti-is-zero-terminated info-type)
-  (g-golf-gtype->scm (g-type-info-is-zero-terminated info-type)
+(define (g-type-info-is-zero-terminated info-type)
+  (g-golf-gtype->scm (g_type_info_is_zero_terminated info-type)
 		    'gboolean))
 
-(define (g-golf-ti-get-array-type info-type)
+(define (g-type-info-get-array-type info-type)
   (enum->symbol %g-common-types-array-type
-                (g-type-info-get-array-type info-type)))
+                (g_type_info_get_array_type info-type)))
 
 
 ;;;
@@ -101,61 +101,61 @@
 ;;;
 
 
-(define g-type-tag-to-string
+(define g_type_tag_to_string
   (pointer->procedure '*
                       (dynamic-func "g_type_tag_to_string"
 				    %libgirepository)
                       (list int)))
 
-(define g-info-type-to-string
+(define g_info_type_to_string
   (pointer->procedure int
                       (dynamic-func "g_info_type_to_string"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-is-pointer
+(define g_type_info_is_pointer
   (pointer->procedure int
                       (dynamic-func "g_type_info_is_pointer"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-get-tag
+(define g_type_info_get_tag
   (pointer->procedure int
                       (dynamic-func "g_type_info_get_tag"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-get-param-type
+(define g_type_info_get_param_type
   (pointer->procedure '*
                       (dynamic-func "g_type_info_get_param_type"
 				    %libgirepository)
                       (list '* int)))
 
-(define g-type-info-get-interface
+(define g_type_info_get_interface
   (pointer->procedure '*
                       (dynamic-func "g_type_info_get_interface"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-get-array-length
+(define g_type_info_get_array_length
   (pointer->procedure int
                       (dynamic-func "g_type_info_get_array_length"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-get-array-fixed-size
+(define g_type_info_get_array_fixed_size
   (pointer->procedure int
                       (dynamic-func "g_type_info_get_array_fixed_size"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-is-zero-terminated
+(define g_type_info_is_zero_terminated
   (pointer->procedure int
                       (dynamic-func "g_type_info_is_zero_terminated"
 				    %libgirepository)
                       (list '*)))
 
-(define g-type-info-get-array-type
+(define g_type_info_get_array_type
   (pointer->procedure int
                       (dynamic-func "g_type_info_get_array_type"
 				    %libgirepository)

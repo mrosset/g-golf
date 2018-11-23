@@ -59,9 +59,9 @@
   ;; both args, object and property, are pointers
   (let* ((name (g-base-info-get-name property))
 	 (type-info (g-property-info-get-type property))
-	 (type-tag (g-golf-ti-get-tag type-info))
+	 (type-tag (g-type-info-get-tag type-info))
 	 (type-value (enum->value %g-common-types-type-tag type-tag))
-	 (type-name (g-golf-ti-type-tag-to-string type-value))
+	 (type-name (g-type-tag-to-string type-value))
 	 (g-type (bitwise-arithmetic-shift type-value 2))
 	 (g-value (g-value-init g-type)))
     (g_object_get_property object
