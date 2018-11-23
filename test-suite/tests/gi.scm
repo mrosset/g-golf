@@ -82,8 +82,8 @@
 (define-method (test-function-info (self <g-golf-test-gi>))
   (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
          (actor-m1 (g-golf-oi-get-method actor 0)))
-    (assert-true (g-golf-fi-get-flags actor-m1))
-    (assert-true (g-golf-fi-get-symbol actor-m1))))
+    (assert-true (g-function-info-get-flags actor-m1))
+    (assert-true (g-function-info-get-symbol actor-m1))))
 
 
 ;;;

@@ -39,34 +39,34 @@
 		warn
 		last)
 
-  #:export (g-golf-fi-get-flags
-            g-golf-fi-get-symbol
-             %g-golf-fi-flags))
+  #:export (g-function-info-get-flags
+            g-function-info-get-symbol
+            %g-function-info-flags))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
-(define (g-golf-fi-get-flags info)
-  (g-golf-integer->gflags %g-golf-fi-flags
-                          (g-function-info-get-flags info)))
+(define (g-function-info-get-flags info)
+  (g-golf-integer->gflags %g-function-info-flags
+                          (g_function_info_get_flags info)))
 
-(define (g-golf-fi-get-symbol info)
-  (pointer->string (g-function-info-get-symbol info)))
+(define (g-function-info-get-symbol info)
+  (pointer->string (g_function_info_get_symbol info)))
 
 
 ;;;
 ;;; GI Bindings
 ;;;
 
-(define g-function-info-get-flags
+(define g_function_info_get_flags
   (pointer->procedure uint32
                       (dynamic-func "g_function_info_get_flags"
 				    %libgirepository)
                       (list '*)))
 
-(define g-function-info-get-symbol
+(define g_function_info_get_symbol
   (pointer->procedure '*
                       (dynamic-func "g_function_info_get_symbol"
 				    %libgirepository)
@@ -77,7 +77,7 @@
 ;;; Type and Values
 ;;;
 
-(define %g-golf-fi-flags
+(define %g-function-info-flags
   (make <gi-enum>
     #:gi-name "GIFunctionInfoFlags"
     #:scm-name "gi-function-info-flags"

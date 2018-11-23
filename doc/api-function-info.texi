@@ -18,8 +18,8 @@ GIFunctionInfo — Struct representing a function.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-fi-get-flags}
-@item @ref{g-golf-fi-get-symbol}
+@item @ref{g-function-info-get-flags}
+@item @ref{g-function-info-get-symbol}
 @end table
 @end indentedblock
 
@@ -29,7 +29,7 @@ GIFunctionInfo — Struct representing a function.
 
 @indentedblock
 @table @code
-@item @ref{%g-golf-fi-flags}
+@item @ref{%g-function-info-flags}
 @end table
 @end indentedblock
 
@@ -49,7 +49,7 @@ GIBaseInfoInfo         	                     @*
 
 @code{GIFunctionInfo} represents a function, method or constructor. To
 find out what kind of entity a GIFunctionInfo represents, call
-@ref{g-golf-fi-get-flags}.
+@ref{g-function-info-get-flags}.
 
 See also @ref{Callable Info} for information on how to retreive
 arguments and other metadata.
@@ -61,22 +61,22 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIFunctionInfo}.
 
 
-@anchor{g-golf-fi-get-flags}
-@deffn Procedure g-golf-fi-get-flags info
+@anchor{g-function-info-get-flags}
+@deffn Procedure g-function-info-get-flags info
 
-Returns a list of @ref{%g-golf-fi-flags}.
+Returns a list of @ref{%g-function-info-flags}.
 
 Obtain the @code{GIFunctionInfoFlags} for @var{info}.
 @end deffn
 
 
-@anchor{g-golf-fi-get-symbol}
-@deffn Procedure g-golf-fi-get-symbol info
+@anchor{g-function-info-get-symbol}
+@deffn Procedure g-function-info-get-symbol info
 
 Returns a string.
 
 Obtain the @samp{symbol} of the function@footnote{As you have noticed
-already, since @code{g-golf-fi-get-symbol} returns a string, in the
+already, since @code{g-function-info-get-symbol} returns a string, in the
 Glib, GObject and GObject Instrospection worlds, symbol has a different
 meaning then in the Lisp/Scheme worlds.  However, since the procedure is
 part of the G-Golf low-level API, we decided to keep its name as close
@@ -90,8 +90,8 @@ g_module_symbol()}.
 @subheading Types and Values
 
 
-@anchor{%g-golf-fi-flags}
-@defivar <gi-enum> %g-golf-fi-flags
+@anchor{%g-function-info-flags}
+@defivar <gi-enum> %g-function-info-flags
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the @code{GIFunctionInfoFlags}:
