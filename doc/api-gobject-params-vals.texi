@@ -70,7 +70,8 @@ Gets and returns the scheme representation (a symbol) of the
 
 Returns the content of @var{g-value}.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the contents of @var{g-value}.  Supported @code{GType}
+(their scheme representaion) for @var{g-value} are: @code{int}, @code{float}.
 @end deffn
 
 
@@ -79,10 +80,13 @@ Gets and returns the contents of @var{g-value}.
 
 Returns nothing.
 
-Sets the contents of @var{g-value} to @var{value}.  Note that this
-procedure cannot cope with invalid values (the type of @var{value} must
-correspond to the @code{GType} for @var{g-value}, otherwise it will most
-likely lead to a crash.
+Sets the contents of @var{g-value} to @var{value}.  Supported
+@code{GType} (their scheme representaion) for @var{g-value} are:
+@code{int}, @code{float}.
+
+Note that this procedure cannot cope with invalid values (the type of
+@var{value} must correspond to the @code{GType} for @var{g-value},
+otherwise it will most likely lead to a crash.
 @end deffn
 
 
