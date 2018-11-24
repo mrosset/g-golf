@@ -32,7 +32,11 @@
 
 /* #include <glib-object.h> */
 
-#include "libg-golf.h"
+/*
+ * make distcheck fails, I'll solve this later
+ * #include "libg-golf.h"
+ *
+ */
 
 
 /*
