@@ -45,6 +45,8 @@
   #:export (g-value->g-type
             g-value-ref
             g-value-set!
+            g-value-get-int
+            g-value-set-int
             g-value-get-float
             g-value-set-float))
 
@@ -61,6 +63,8 @@
 
 (define (g-value-ref g-value)
   (case (g-value->g-type g-value)
+    ((int)
+     (g-value-get-int g-value))
     ((float)
      (g-value-get-float g-value))
     (else
@@ -68,6 +72,8 @@
 
 (define (g-value-set! g-value value)
   (case (g-value->g-type g-value)
+    ((int)
+     (g-value-set-float g-value value))
     ((float)
      (g-value-set-float g-value value))
     (else
@@ -78,6 +84,12 @@
 ;;; GObject Low level API
 ;;;
 
+(define (g-value-get-int g-value)
+  (g_value_get_int g-value))
+
+(define (g-value-set-int g-value int)
+  (g_value_set_int g-value int))
+
 (define (g-value-get-float g-value)
   (g_value_get_float g-value))
 
@@ -85,9 +97,23 @@
   (g_value_set_float g-value float))
 
 
+
 ;;;
 ;;; GObject Bindings
 ;;;
+
+(define g_value_get_int
+  (pointer->procedure int
+                      (dynamic-func "g_value_get_int"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_int
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_int"
+				    %libgobject)
+                      (list '*
+                            int)))
 
 (define g_value_get_float
   (pointer->procedure float

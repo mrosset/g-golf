@@ -18,6 +18,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value->g-type}
 @item @ref{g-value-ref}
 @item @ref{g-value-set!}
+@item @ref{g-value-get-int}
+@item @ref{g-value-set-int}
 @item @ref{g-value-get-float}
 @item @ref{g-value-set-float}
 @end table
@@ -81,6 +83,24 @@ Sets the contents of @var{g-value} to @var{value}.  Note that this
 procedure cannot cope with invalid values (the type of @var{value} must
 correspond to the @code{GType} for @var{g-value}, otherwise it will most
 likely lead to a crash.
+@end deffn
+
+
+@anchor{g-value-get-int}
+@deffn Procedure g-value-get-int g-value
+
+Returns a integer.
+
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-int}
+@deffn Procedure g-value-set-int g-value int
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{int}.
 @end deffn
 
 
