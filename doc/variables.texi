@@ -22,6 +22,7 @@
 @set UG-GOLF-LISTINFO https://lists.gnu.org/mailman/listinfo/g-golf-user
 @set UG-GOLF-BUGS-TRACKER https://savannah.gnu.org/bugs/?group=g-golf
 @set UG-GOLF-BUGS-LISTINFO https://lists.gnu.org/mailman/listinfo/bug-g-golf
+@set UG-GOLF-BUGS-SERVER-CONTROL https://debbugs.gnu.org/server-control.html
 @set UG-GOLF-GIT http://git.savannah.gnu.org/cgit/g-golf.git
 
 @set UGRIP http://www.nongnu.org/grip/index.html

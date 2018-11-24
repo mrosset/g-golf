@@ -8,7 +8,7 @@
 @subsection Naming Conventions
 
 
-@subheading Glib and GObject
+@subheading Glib and GObject functions
 
 G-Golf low level API procedure names that bind a Glib or GObject
 function always use the @samp{original} name, except that @code{_} are
@@ -21,13 +21,11 @@ g_main_loop_new
 @end example
 
 
-@subheading GI Funtions
+@subheading GObject Introspection Funtions
 
-G-Golf low level API procedure names that bind a GI function always start
-with @code{g-golf-}, followed by two letters and an hyphen, representing
-the GObject Introspection section (@xref{Abreviations}), followed by the
-section function name it implements. For example, from the GIRepository
-section:
+G-Golf low level API procedure names that bind a GI function also always
+use the @samp{original} name, except that @code{_} are replaced by
+@code{-}. For example:
 
 @example
 g_irepository_get_loaded_namespaces
@@ -36,11 +34,12 @@ g_irepository_get_loaded_namespaces
 @end example
 
 
-@subheading GI Types and Values
+@subheading Types and Values
 
-G-Golf low level API variables that bind GI types and values use the
-exact same convention as for procedures, except that they always start
-with @code{%g-golf-}.  For example, from the GIBaseInfo section:
+G-Golf low level API variables that bind Glib, GObject and GI types and
+values use the exact same convention as for procedures, except that they
+always start with @code{%}.  For example, from the @code{GIBaseInfo}
+section:
 
 @example
 GIInfoType
@@ -48,34 +47,14 @@ GIInfoType
 @ref{%g-base-info-info-type}
 @end example
 
-Note: The G-Golf Reference Manual follows the GObject Introspection
-manual and list 'Types and Values' in their corresponding section. for
-example @ref{Base Info}. However, in the G-Golf source code, all 'Types
-and Values' are defined in the @code{(g-golf gi types)} module, which we
-think is more convenient both for developers and G-Golf users.
-
 
 @subheading G-Golf
 
-G-Golf does not just bind the @code{GObject Introspection} library, that
-would not buy us much.  It comes with its own set of procedures, syntax
-and variables, aimed at not just reading a typelib, but making its
-functionality available from @uref{@value{UGUILE}, Guile}.
+G-Golf also comes with its own set of procedures, syntax and variables,
+aimed at not just reading a typelib, but making its functionality
+available from @uref{@value{UGUILE}, Guile}.
 
-G-Golf procedure and syntax names also always start with @code{g-golf-}
-followed by their name: the name, however, will never start neither
-contain anywhere else the two reserved letters followed by a hyphen used
-for @code{GI}, @code{Glib} and @code{GObject} functions, types and
-variable (@xref{Abreviations}).
-
-G-Golf variables follow the same above described rule except that their
-name starts with @code{%g-golf-}.
-
-
-@subheading Exceptions
-
-There are two exceptions with respect to the naming conventions
-described above:
+Here are two examples:
 
 @enumerate a
 @item
@@ -96,6 +75,12 @@ with-gerror @c @ref{with-gerror}
 @end example
 @end enumerate
 
+When an @samp{obvious} name can't be find @samp{on its own}, or to avoid
+possible conflict outside G-Golf@footnote{As an example, it would not be
+a good idea to use (the name) @code{import} for the G-Golf procedure
+that reads and build the interface for a @code{GIR} library, since it is
+an R6RS reserved word.}, then the name starts using the @code{g-golf-}
+prefix, and equally for variables, using @code{%g-golf-}.
 
 @subheading Gnome Libraries
 
@@ -113,19 +98,27 @@ clutter_actor_hide -> clutter-actor-hide
 @dots{}
 @end lisp
 
+The following class names would be transformed like this:
+
+@lisp
+ClutterActor -> <clutter-actor>
+GtkWindow -> <gtk-window>
+@dots{}
+@end lisp
+
 Once G-Golf high level API is also implemented, Gnome libraries GObject
 classes and methods will become GOOPS citizen (@pxref{GOOPS,,, guile,
 The GNU Guile Reference Manual}), and in the land of generic function
 multi methods polimorphic object oriented systems, users just have fun:
 
 @lisp
-,use (g-golf gi)
-(g-irepository-require "Clutter")
+,use (g-golf)
+(g-golf-import "Clutter")
 @print{}
-$2 = #<<gi-typelib> 18237a0>
+$2 = #<<g-golf-clutter-typelib> 18237a0>
+
 (make <clutter-actor>)
 @print{}
 $3 = #<<clutter-actor> 32124b0>
-(hide $3)
 @dots{}
 @end lisp

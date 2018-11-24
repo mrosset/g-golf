@@ -4,14 +4,18 @@
 @c See the file g-golf.texi for copying conditions.
 
 
-@node Abreviations
-@subsection Abreviations
+@node Project and Documentation Structure
+@subsection Project and Documentation Structure
 
+The project and documentation structure and naming is, whenever it is
+possible, based on the @samp{original} documentation structure and
+naming of the corresponding library (among others, you will find
+exceptions, such as for @code{support} and @code{utils} modules, but
+these are exceptions and their common denominator is that the
+functionality they provide is @samp{additional} and (never) part of
+@code{Glib}, @code{GObject} or @code{GObject Introspection}.
 
 @subheading Glib
-
-Glib and GObject do not use any abreviation scheme. Instead, the binding
-uses the original name, replacing @code{_} with @code{-}.
 
 In the table below we list respectively the Glib section, and, when
 applicable, its G-Golf section and the corresponding G-Golf source code
@@ -36,9 +40,6 @@ module.
 
 
 @subheading GObject
-
-Glib and GObject do not use any abreviation scheme. Instead, the binding
-uses the original name, replacing @code{_} with @code{-}.
 
 In the table below we list respectively the GObject section, and, when
 applicable, its G-Golf section and the corresponding G-Golf source code
@@ -84,95 +85,75 @@ module.
 
 @subheading GObject Introspection
 
-In the table below we list respectively the abreviation, its GObject
-Introspection section, and, when applicable, its G-Golf section and the
-corresponding G-Golf source code module.
+In the table below we list respectively the GObject Introspection
+section, and, when applicable, its G-Golf section and the corresponding
+G-Golf source code module.
 
 @indentedblock
-@multitable @columnfractions .1 .2 .2 .3
-@headitem Abr. @tab GI Section @tab G-Golf Section @tab G-Golf module
+@multitable @columnfractions .3 .3 .3
+@headitem GI Section @tab G-Golf Section @tab G-Golf module
 
-@item @code{-ir-}
-@tab @uref{@value{UGIRepository}, GIRepository}
+@item @uref{@value{UGIRepository}, GIRepository}
 @tab @ref{Repository}
 @tab @code{(g-golf gi repository)}
 
-@item @code{-ct-}
-@tab @uref{@value{UGIcommontypes}, common types}
+@item @uref{@value{UGIcommontypes}, common types}
 @tab @ref{Common Types}
 @tab @code{(g-golf gi common-types)}
 
-@item @code{-bi-}
-@tab @uref{@value{UGIBaseInfo}, GIBaseInfo}
+@item @uref{@value{UGIBaseInfo}, GIBaseInfo}
 @tab @ref{Base Info}
 @tab @code{(g-golf gi base-info)}
 
-@item @code{-ci-}
-@tab @uref{@value{UGICallableInfo}, GICallableInfo}
+@item @uref{@value{UGICallableInfo}, GICallableInfo}
 @tab @ref{Callable Info}
 @tab @code{(g-golf gi callable-info)}
 
-@item @code{-fi-}
-@tab @uref{@value{UGIFunctionInfo}, GIFunctionInfo}
+@item @uref{@value{UGIFunctionInfo}, GIFunctionInfo}
 @tab @ref{Function Info}
 @tab @code{(g-golf gi function-info)}
 
-@item @code{-cb-}
-@tab @uref{@value{UGICallbackInfo}, GICallbackInfo}
+@item @uref{@value{UGICallbackInfo}, GICallbackInfo}
 
-@item @code{-si-}
-@tab @uref{@value{UGISignalInfo}, GISignalInfo}
+@item @uref{@value{UGISignalInfo}, GISignalInfo}
 
-@item @code{-vf-}
-@tab @uref{@value{UGIVFuncInfo}, GIVFuncInfo}
+@item @uref{@value{UGIVFuncInfo}, GIVFuncInfo}
 
-@item @code{-rt-}
-@tab @uref{@value{UGIRegisteredTypeInfo}, GIRegisteredTypeInfo}
+@item @uref{@value{UGIRegisteredTypeInfo}, GIRegisteredTypeInfo}
 @tab @ref{Registered Type Info}
 @tab @code{(g-golf gi registered-type-info)}
 
-@item @code{-ei-}
-@tab @uref{@value{UGIEnumInfo}, GIEnumInfo}
+@item @uref{@value{UGIEnumInfo}, GIEnumInfo}
 @tab @ref{Enum Info}
 @tab @code{(g-golf gi enum-info)}
 
-@item @code{-st-}
-@tab @uref{@value{UGIStructInfo}, GIStructInfo}
+@item @uref{@value{UGIStructInfo}, GIStructInfo}
 
-@item @code{-ui-}
-@tab @uref{@value{UGIUnionInfo}, GIUnionInfo}
+@item @uref{@value{UGIUnionInfo}, GIUnionInfo}
 
-@item @code{-oi-}
-@tab @uref{@value{UGIObjectInfo}, GIObjectInfo}
+@item @uref{@value{UGIObjectInfo}, GIObjectInfo}
 @tab @ref{Object Info}
 @tab @code{(g-golf gi object-info)}
 
-@item @code{-ii-}
-@tab @uref{@value{UGIInterfaceInfo}, GIInterfaceInfo}
+@item @uref{@value{UGIInterfaceInfo}, GIInterfaceInfo}
 
-@item @code{-ai-}
-@tab @uref{@value{UGIArgInfo}, GIArgInfo}
+@item @uref{@value{UGIArgInfo}, GIArgInfo}
 @tab @ref{Arg Info}
 @tab @code{(g-golf gi arg-info)}
 
-@item @code{-ct-}
-@tab @uref{@value{UGIConstantInfo}, GIConstantInfo}
+@item @uref{@value{UGIConstantInfo}, GIConstantInfo}
 
-@item @code{-fi-}
-@tab @uref{@value{UGIFieldInfo}, GIFieldInfo}
+@item @uref{@value{UGIFieldInfo}, GIFieldInfo}
 
-@item @code{-pi-}
-@tab @uref{@value{UGIPropertyInfo}, GIPropertyInfo}
+@item @uref{@value{UGIPropertyInfo}, GIPropertyInfo}
 @tab @ref{Property Info}
 @tab @code{(g-golf gi property-info)}
 
-@item @code{-ti-}
-@tab @uref{@value{UGITypeInfo}, GITypeInfo}
+@item @uref{@value{UGITypeInfo}, GITypeInfo}
 @tab @ref{Type Info}
 @tab @code{(g-golf gi type-info)}
 
-@item @code{-vi-}
-@tab @uref{@value{UGIValueInfo}, GIValueInfo}
+@item @uref{@value{UGIValueInfo}, GIValueInfo}
 @tab n/a
 @tab n/a
 

@@ -10,21 +10,29 @@
 
 @subheading G-Golf Low Level API
 
-The G-Golf low level API provides a one to one binding to (most of) the
-@code{GObject Introspection} functions, renamed as appropriate (see
-@ref{Naming Conventions}).  At this low level API, both arguments and
-returned values are pointers, except for enums, strings, numbers and
-booleans. This is also true for the minimal ’bootstrap’ bindings G-golf
-must implement for @code{Glib} and @code{GObject}.
+The G-Golf low level API provides a one to one binding to (some of) the
+@code{Glib}, @code{GObject} and (most of) the @code{GObject
+Introspection} functions, using the @samp{original} name, except that
+@code{_} are replaced by @code{-}.
+
+At this low level API, both arguments and returned values are pointers,
+except for enums, strings, numbers and booleans. This is also true for
+the minimal ’bootstrap’ bindings G-golf must implement for @code{Glib}
+and @code{GObject}.
 
 Here is an example:
 
 @lisp
-,use (g-golf gi)
-(g-golf-ir-require "Clutter")
+,use (g-golf)
+(g-irepository-require "Clutter")
 @print{}
 $2 = #<pointer 0x1681600>
 @end lisp
+
+In addition, other procedures, syntax, vriables, classes and methods are
+also provided and part of the so called low level API, that use the
+above mentioned bindings in order to import, build and make @code{GIR}
+libraries functionality available from @uref{@value{UGUILE}, Guile}.
 
 
 @subheading G-Golf High Level API
@@ -65,13 +73,13 @@ objective, and otherwise to complete it @samp{as far as possible}.
 @c level API will exist:
 
 Once G-Golf has its high level API ready, the idea is that you should be
-able to just use any @samp{gir library}, such as @code{Clutter}. Here is
-a simple @samp{simulation} example@footnote{Yu won't b able to try this
-example now, since there is no high level API i G-Golf yet, but so you
+able to use just any @code{GIR} library, such as @code{Clutter}. Here is
+a simple @samp{simulation} example@footnote{You won't be able to try this
+example now, since there is no high level API in G-Golf yet, but so you
 get the idea @dots{}}:
 
 @lisp
-,use (g-golf gi)
+,use (g-golf)
 (g-golf-import "Clutter")
 
 (make <clutter-stage>)
@@ -89,4 +97,4 @@ $3 = #<<clutter-stage> 22782a0>
 @c @end lisp
 
 @include api-naming-conventions.texi
-@include api-abreviations.texi
+@include api-pro-doc-struct.texi
