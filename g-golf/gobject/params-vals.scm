@@ -47,6 +47,8 @@
             g-value-set!
             g-value-get-int
             g-value-set-int
+            g-value-get-boolean
+            g-value-set-boolean
             g-value-get-float
             g-value-set-float
             g-value-get-string
@@ -65,6 +67,8 @@
 
 (define (g-value-ref g-value)
   (case (g-value->g-type g-value)
+    ((boolean)
+     (g-value-get-boolean g-value))
     ((int)
      (g-value-get-int g-value))
     ((float)
@@ -76,6 +80,8 @@
 
 (define (g-value-set! g-value value)
   (case (g-value->g-type g-value)
+    ((boolean)
+     (g-value-set-boolean g-value value))
     ((int)
      (g-value-set-int g-value value))
     ((float)
@@ -89,6 +95,13 @@
 ;;;
 ;;; GObject Low level API
 ;;;
+
+(define (g-value-get-boolean g-value)
+  (if (= (g_value_get_boolean g-value) 0) #f #t))
+
+(define (g-value-set-boolean g-value bool)
+  (g_value_set_boolean g-value
+                       (if bool 1 0)))
 
 (define (g-value-get-int g-value)
   (g_value_get_int g-value))
@@ -117,18 +130,18 @@
 ;;; GObject Bindings
 ;;;
 
-(define g_value_get_string
-  (pointer->procedure '*
-                      (dynamic-func "g_value_get_string"
+(define g_value_get_boolean
+  (pointer->procedure int
+                      (dynamic-func "g_value_get_boolean"
 				    %libgobject)
                       (list '*)))
 
-(define g_value_set_string
+(define g_value_set_boolean
   (pointer->procedure void
-                      (dynamic-func "g_value_set_string"
+                      (dynamic-func "g_value_set_boolean"
 				    %libgobject)
                       (list '*
-                            '*)))
+                            int)))
 
 (define g_value_get_int
   (pointer->procedure int
@@ -155,3 +168,16 @@
 				    %libgobject)
                       (list '*
                             float)))
+
+(define g_value_get_string
+  (pointer->procedure '*
+                      (dynamic-func "g_value_get_string"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_string
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_string"
+				    %libgobject)
+                      (list '*
+                            '*)))

@@ -45,6 +45,17 @@
 (define-method (test-g-value-init (self <g-golf-test-gobject>))
   (assert (g-value-init (symbol->g-type 'float))))
 
+(define-method (test-g-value-get-boolean (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'boolean))))
+    (assert (g-value-ref g-value))))
+
+(define-method (test-g-value-set-boolean (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'boolean))))
+    (assert (g-value-set! g-value #f))
+    (assert-false (g-value-ref g-value))
+    (assert (g-value-set! g-value 'true))
+    (assert-true (g-value-ref g-value))))
+
 (define-method (test-g-value-get-int (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'int))))
     (assert (g-value-ref g-value))))

@@ -18,6 +18,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value->g-type}
 @item @ref{g-value-ref}
 @item @ref{g-value-set!}
+@item @ref{g-value-get-boolean}
+@item @ref{g-value-set-boolean}
 @item @ref{g-value-get-int}
 @item @ref{g-value-set-int}
 @item @ref{g-value-get-float}
@@ -73,8 +75,8 @@ Gets and returns the scheme representation (a symbol) of the
 Returns the content of @var{g-value}.
 
 Gets and returns the contents of @var{g-value}.  Supported @code{GType}
-(their scheme representaion) for @var{g-value} are: @code{int},
-@code{float}, @code{string}.
+(their scheme representaion) for @var{g-value} are: @code{boolean},
+@code{int}, @code{float}, @code{string}.
 @end deffn
 
 
@@ -85,11 +87,31 @@ Returns nothing.
 
 Sets the contents of @var{g-value} to @var{value}.  Supported
 @code{GType} (their scheme representaion) for @var{g-value} are:
-@code{int}, @code{float}, @code{string}.
+@code{boolean}, @code{int}, @code{float}, @code{string}.
 
 Note that this procedure cannot cope with invalid values (the type of
 @var{value} must correspond to the @code{GType} for @var{g-value},
 otherwise it will most likely lead to a crash.
+@end deffn
+
+
+@anchor{g-value-get-boolean}
+@deffn Procedure g-value-get-boolean g-value
+
+Returns @code{#t} or @code{#f}.
+
+Gets the content of @var{g-value} and returns @code{#f} if it is
+@code{0}, otherwise it returns @code{#t}.
+@end deffn
+
+
+@anchor{g-value-set-boolean}
+@deffn Procedure g-value-set-boolean g-value val
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @code{0} if @var{val} is
+@code{#f}, otherwise sets the content to @code{1}.
 @end deffn
 
 
