@@ -62,6 +62,15 @@
 
 (define-method (test-g-value-set-int (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'int))))
+    (assert (g-value-set! g-value 5))
+    (assert (g-value-set! g-value -5))))
+
+(define-method (test-g-value-get-uint (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'uint))))
+    (assert (g-value-ref g-value))))
+
+(define-method (test-g-value-set-uint (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'uint))))
     (assert (g-value-set! g-value 5))))
 
 (define-method (test-g-value-get-float (self <g-golf-test-gobject>))

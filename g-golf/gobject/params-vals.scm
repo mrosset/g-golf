@@ -47,6 +47,8 @@
             g-value-set!
             g-value-get-int
             g-value-set-int
+            g-value-get-uint
+            g-value-set-uint
             g-value-get-boolean
             g-value-set-boolean
             g-value-get-float
@@ -69,6 +71,8 @@
   (case (g-value->g-type g-value)
     ((boolean)
      (g-value-get-boolean g-value))
+    ((uint)
+     (g-value-get-uint g-value))
     ((int)
      (g-value-get-int g-value))
     ((float)
@@ -82,6 +86,8 @@
   (case (g-value->g-type g-value)
     ((boolean)
      (g-value-set-boolean g-value value))
+    ((uint)
+     (g-value-set-uint g-value value))
     ((int)
      (g-value-set-int g-value value))
     ((float)
@@ -108,6 +114,12 @@
 
 (define (g-value-set-int g-value int)
   (g_value_set_int g-value int))
+
+(define (g-value-get-uint g-value)
+  (g_value_get_uint g-value))
+
+(define (g-value-set-uint g-value uint)
+  (g_value_set_uint g-value uint))
 
 (define (g-value-get-float g-value)
   (g_value_get_float g-value))
@@ -142,6 +154,19 @@
 				    %libgobject)
                       (list '*
                             int)))
+
+(define g_value_get_uint
+  (pointer->procedure unsigned-int
+                      (dynamic-func "g_value_get_uint"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_uint
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_uint"
+				    %libgobject)
+                      (list '*
+                            unsigned-int)))
 
 (define g_value_get_int
   (pointer->procedure int
