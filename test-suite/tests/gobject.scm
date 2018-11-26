@@ -99,6 +99,14 @@
   (let ((g-value (g-value-init (symbol->g-type 'pointer))))
     (assert (g-value-set! g-value g-value))))
 
+;; I can't test g-value-get-object and g-value-set-object using G-Golf,
+;; till it is able to build an interface. I did manually test these two
+;; procedures though, by making a manual binding to clutter-init and
+;; clutter-actor-new, which requires "libclutter-1.0", something G-Golf
+;; does not need to depend upon.  As soon as G-Golf can make instances,
+;; we will add a proper test here.
+
+
 (define-method (test-g-type-name (self <g-golf-test-gobject>))
   (assert-equal "ClutterActorAlign" (g-type-name %gtype))
   (assert-equal "gfloat" (g-type-name 56)))

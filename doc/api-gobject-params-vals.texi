@@ -30,6 +30,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-string}
 @item @ref{g-value-get-pointer}
 @item @ref{g-value-set-pointer}
+@item @ref{g-value-get-object}
+@item @ref{g-value-set-object}
 @end table
 @end indentedblock
 
@@ -80,7 +82,8 @@ Returns the content of @var{g-value}.
 
 Gets and returns the contents of @var{g-value}.  Supported @code{GType}
 (their scheme representaion) for @var{g-value} are: @code{boolean},
-@code{int}, @code{uint}, @code{float}, @code{string}, @code{pointer}.
+@code{int}, @code{uint}, @code{float}, @code{string}, @code{pointer},
+@code{object}.
 @end deffn
 
 
@@ -92,7 +95,7 @@ Returns nothing.
 Sets the contents of @var{g-value} to @var{value}.  Supported
 @code{GType} (their scheme representaion) for @var{g-value} are:
 @code{boolean}, @code{int}, @code{uint}, @code{float}, @code{string},
-@code{pointer}.
+@code{pointer}, @code{object}.
 
 Note that this procedure cannot cope with invalid values (the type of
 @var{value} must correspond to the @code{GType} for @var{g-value},
@@ -207,6 +210,25 @@ Gets and returns the contents of @var{g-value}.
 Returns nothing.
 
 Sets the content of @var{g-value} to @var{pointer}.
+@end deffn
+
+
+@anchor{g-value-get-object}
+@deffn Procedure g-value-get-object g-value
+
+Returns a pointer.
+
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-object}
+@deffn Procedure g-value-set-object g-value object
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{object} (a pointer to a
+@code{GObject} instance) and increases the @var{object} reference count.
 @end deffn
 
 
