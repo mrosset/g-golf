@@ -28,6 +28,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-float}
 @item @ref{g-value-get-string}
 @item @ref{g-value-set-string}
+@item @ref{g-value-get-pointer}
+@item @ref{g-value-set-pointer}
 @end table
 @end indentedblock
 
@@ -78,7 +80,7 @@ Returns the content of @var{g-value}.
 
 Gets and returns the contents of @var{g-value}.  Supported @code{GType}
 (their scheme representaion) for @var{g-value} are: @code{boolean},
-@code{int}, @code{uint}, @code{float}, @code{string}.
+@code{int}, @code{uint}, @code{float}, @code{string}, @code{pointer}.
 @end deffn
 
 
@@ -89,7 +91,8 @@ Returns nothing.
 
 Sets the contents of @var{g-value} to @var{value}.  Supported
 @code{GType} (their scheme representaion) for @var{g-value} are:
-@code{boolean}, @code{int}, @code{uint}, @code{float}, @code{string}.
+@code{boolean}, @code{int}, @code{uint}, @code{float}, @code{string},
+@code{pointer}.
 
 Note that this procedure cannot cope with invalid values (the type of
 @var{value} must correspond to the @code{GType} for @var{g-value},
@@ -186,6 +189,24 @@ Gets and returns the contents of @var{g-value}.
 Returns nothing.
 
 Sets the content of @var{g-value} to @var{str}.
+@end deffn
+
+
+@anchor{g-value-get-pointer}
+@deffn Procedure g-value-get-pointer g-value
+
+Returns a pointer.
+
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-pointer}
+@deffn Procedure g-value-set-pointer g-value pointer
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{pointer}.
 @end deffn
 
 

@@ -54,7 +54,9 @@
             g-value-get-float
             g-value-set-float
             g-value-get-string
-            g-value-set-string))
+            g-value-set-string
+            g-value-get-pointer
+            g-value-set-pointer))
 
 
 ;;;
@@ -77,8 +79,10 @@
      (g-value-get-int g-value))
     ((float)
      (g-value-get-float g-value))
-        ((string)
+    ((string)
      (g-value-get-string g-value))
+    ((pointer)
+     (g-value-get-pointer g-value))
     (else
      (error "Not implemented:" (g-value->g-type g-value)))))
 
@@ -94,6 +98,8 @@
      (g-value-set-float g-value value))
     ((string)
      (g-value-set-string g-value value))
+    ((pointer)
+     (g-value-set-pointer g-value value))
     (else
      (error "Not implemented:" (g-value->g-type g-value)))))
 
@@ -136,6 +142,16 @@
 (define (g-value-set-string g-value str)
   (g_value_set_string g-value
                       (string->pointer str)))
+
+(define (g-value-get-pointer g-value)
+  (let ((pointer (g_value_get_pointer g-value)))
+    (if (null-pointer? pointer)
+        #f
+        pointer)))
+
+(define (g-value-set-pointer g-value pointer)
+  (g_value_set_pointer g-value
+                       (if pointer pointer %null-pointer)))
 
 
 ;;;
@@ -203,6 +219,19 @@
 (define g_value_set_string
   (pointer->procedure void
                       (dynamic-func "g_value_set_string"
+				    %libgobject)
+                      (list '*
+                            '*)))
+
+(define g_value_get_pointer
+  (pointer->procedure '*
+                      (dynamic-func "g_value_get_pointer"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_pointer
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_pointer"
 				    %libgobject)
                       (list '*
                             '*)))
