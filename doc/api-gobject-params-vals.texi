@@ -22,6 +22,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-int}
 @item @ref{g-value-get-float}
 @item @ref{g-value-set-float}
+@item @ref{g-value-get-string}
+@item @ref{g-value-set-string}
 @end table
 @end indentedblock
 
@@ -71,7 +73,8 @@ Gets and returns the scheme representation (a symbol) of the
 Returns the content of @var{g-value}.
 
 Gets and returns the contents of @var{g-value}.  Supported @code{GType}
-(their scheme representaion) for @var{g-value} are: @code{int}, @code{float}.
+(their scheme representaion) for @var{g-value} are: @code{int},
+@code{float}, @code{string}.
 @end deffn
 
 
@@ -82,7 +85,7 @@ Returns nothing.
 
 Sets the contents of @var{g-value} to @var{value}.  Supported
 @code{GType} (their scheme representaion) for @var{g-value} are:
-@code{int}, @code{float}.
+@code{int}, @code{float}, @code{string}.
 
 Note that this procedure cannot cope with invalid values (the type of
 @var{value} must correspond to the @code{GType} for @var{g-value},
@@ -123,6 +126,24 @@ Gets and returns the contents of @var{g-value}.
 Returns nothing.
 
 Sets the content of @var{g-value} to @var{float}.
+@end deffn
+
+
+@anchor{g-value-get-string}
+@deffn Procedure g-value-get-string g-value
+
+Returns a string.
+
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-string}
+@deffn Procedure g-value-set-string g-value str
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{str}.
 @end deffn
 
 
