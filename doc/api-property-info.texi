@@ -48,7 +48,7 @@ a @code{GIPropertyInfo}.
 @anchor{g-property-info-get-flags}
 @deffn Procedure g-property-info-get-flags info
 
-Returns a list of @ref{%g-golf-go-param-flags}.
+Returns a list of @ref{%g-param-flags}.
 
 Obtain the flags for this property info.  See @ref{GParamSpec} for the
 list of possible flag values.
@@ -71,5 +71,5 @@ Obtain the ownership transfer for this property. See
 Returns a pointer to a @code{GITypeInfo}.
 
 Obtain the type information for this property.  The @code{GITypeInfo}
-must be free'd using @code{g-golf-bi-unref} when done.
+must be free'd using @code{g-base-info-unref} when done.
 @end deffn

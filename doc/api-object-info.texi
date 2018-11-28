@@ -47,7 +47,7 @@ GIObjectInfo — Structs representing a GObject.
 
 @c @indentedblock
 @c @table @code
-@c @item @ref{%g-golf-ai-transfer}
+@c @item @ref{%g-arg-info-transfer}
 @c @end table
 @c @end indentedblock
 

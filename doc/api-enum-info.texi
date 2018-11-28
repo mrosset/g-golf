@@ -35,7 +35,7 @@ GIEnumInfo — Structs representing an enumeration and its values.
 
 @c @indentedblock
 @c @table @code
-@c @item @ref{%g-golf-ai-transfer}
+@c @item @ref{%g-arg-info-transfer}
 @c @end table
 @c @end indentedblock
 
@@ -96,7 +96,7 @@ Obtain the number of values this enumeration contains.
 Returns a pointer to a @code{GIValueInfo} or #f if type tag is wrong.
 
 Obtain a value for this enumeration.  The @code{GIValueInfo} must be
-free'd using @code{g-golf-bi-unref} when done.
+free'd using @code{g-base-info-unref} when done.
 
 @var{index} is a 0-based offset into @var{info} for a value.
 @end deffn
@@ -117,7 +117,7 @@ Obtain the number of methods this enumeration has.
 Returns a pointer to a @code{GIFunctionInfo} or #f if type tag is wrong.
 
 Obtain a method for this enumeration.  The @code{GIFunctionInfo} must be
-free'd using @code{g-golf-bi-unref} when done.
+free'd using @code{g-base-info-unref} when done.
 
 @var{index} is a 0-based offset into @var{info} for a method.
 @end deffn

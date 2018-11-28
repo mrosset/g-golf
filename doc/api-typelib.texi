@@ -31,7 +31,7 @@ GITypelib — Layout and accessors for typelib.
 
 @c @indentedblock
 @c @table @code
-@c @item @ref{%g-golf-ai-transfer}
+@c @item @ref{%g-arg-info-transfer}
 @c @end table
 @c @end indentedblock
 
