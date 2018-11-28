@@ -37,7 +37,7 @@ representation of the @code{GParamFlags}:
 @indentedblock
 @emph{type-name}: GParamFlags  @*
 @emph{scm-name}: g-param-flags @*
-@emph{value-set}:
+@emph{enum-set}:
 @indentedblock
 @table @code
 @item readable
