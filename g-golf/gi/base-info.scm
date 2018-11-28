@@ -49,7 +49,8 @@
 	    g-base-info-get-attribute
 	    g-base-info-iterate-attributes
 	    g-base-info-get-container
-	    g-base-info-is-deprecated))
+	    g-base-info-is-deprecated
+            %g-base-info-info-type))
 
 
 ;;;
