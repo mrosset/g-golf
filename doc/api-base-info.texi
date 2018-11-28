@@ -194,7 +194,7 @@ not.
 @subheading Types and Values
 
 @anchor{%g-base-info-info-type}
-@defivar <genum> %g-base-info-info-type
+@defivar <gi-enum> %g-base-info-info-type
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the type of a @code{GIBaseInfo} struct:

@@ -64,10 +64,10 @@ argument is [must be] a pointer to a @code{GIEumInfo}.
 @anchor{g-golf-enum-import}
 @deffn Procedure g-golf-enum-import info
 
-Returns a @code{<genum>} instance.
+Returns a @code{<gi-enum>} instance.
 
 Obtain the values this enumeration contains and construct a
-@code{<genum>} instance.
+@code{<gi-enum>} instance.
 @end deffn
 
 

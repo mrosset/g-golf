@@ -29,7 +29,7 @@ required to specify parameters, such as e.g. GObject properties.
 @subheading Types and Values
 
 @anchor{%g-param-flags}
-@defivar <genum> %g-param-flags
+@defivar <gi-enum> %g-param-flags
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the @code{GParamFlags}:
