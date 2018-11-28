@@ -36,14 +36,14 @@
 		warn
 		last)
 
-  #:export (%g-golf-go-param-flags))
+  #:export (%g-param-flags))
 
 
 ;;;
 ;;; GParamSpec
 ;;;
 
-(define %g-golf-go-param-flags
+(define %g-param-flags
   (make <gi-enum>
     #:gi-name "GParamFlags"
     #:scm-name "g-param-flags"

@@ -15,7 +15,7 @@ GParamSpec — Metadata for parameter specifications.
 
 @indentedblock
 @table @code
-@item @ref{%g-golf-go-param-flags}
+@item @ref{%g-param-flags}
 @end table
 @end indentedblock
 
@@ -28,10 +28,10 @@ required to specify parameters, such as e.g. GObject properties.
 
 @subheading Types and Values
 
-@anchor{%g-golf-go-param-flags}
-@defivar <genum> %g-golf-go-param-flags
+@anchor{%g-param-flags}
+@defivar <genum> %g-param-flags
 
-An instance of @code{<genum>}, who's members are the scheme
+An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the @code{GParamFlags}:
 
 @indentedblock
