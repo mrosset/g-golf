@@ -134,6 +134,19 @@
 
 
 ;;;
+;;; Type Info
+;;;
+
+(define-method (test-type-info (self <g-golf-test-gi>))
+  (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
+         (property (g-object-info-get-property actor 5))
+         (type-info (g-property-info-get-type property))
+         (type-tag (g-type-info-get-tag type-info))
+         (type-value (enum->value %g-common-types-type-tag type-tag)))
+    (assert  (g-type-tag-to-string type-value))))
+
+
+;;;
 ;;; Typelib
 ;;;
 
