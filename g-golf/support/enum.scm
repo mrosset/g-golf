@@ -53,6 +53,8 @@
 	  enum->values
 	  enum->symbol
 	  enum->symbols
+	  enum->name
+	  enum->names
           gi-name
           scm-name)
 
@@ -97,6 +99,16 @@
 (define-method (enum->symbols (self <enum>))
   (map (lambda (x)
 	 (match x ((symbol . id) symbol)))
+    (enum-set self)))
+
+(define-method (enum->name (self <enum>) (item <integer>))
+  (let ((sym (enum->symbol self item)))
+    (and sym
+         (symbol->string sym))))
+
+(define-method (enum->names (self <enum>))
+  (map (lambda (x)
+	 (match x ((symbol . id) (symbol->string symbol))))
     (enum-set self)))
 
 

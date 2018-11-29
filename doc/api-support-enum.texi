@@ -25,6 +25,8 @@
 @item @ref{enum->values}
 @item @ref{enum->symbol}
 @item @ref{enum->symbols}
+@item @ref{enum->name}
+@item @ref{enum->names}
 @item @ref{gi-name}
 @item @ref{scm-name}
 @end table
@@ -34,7 +36,7 @@
 @anchor{<enum>}
 @deftp Class <enum>
 
-The @code{<enum>} class is for enumerated values. It (unique) slot is:
+The @code{<enum>} class is for enumerated values. Its (unique) slot is:
 
 @indentedblock
 @table @code
@@ -74,11 +76,11 @@ unique.
 @end itemize
 @end deftp
 
-Instances of @code{<enum>} are immutable (to be more precise, I should
-say @samp{they are not meant to be mutated}@footnote{Because as it is,
-except for virtual slots, there is currently no way to effectively
-prohibit (block) a user to mutate a goops class instance (one can
-always use @code{slot-set! instance slot-name value}).}).
+Instances of @code{<enum>} are immutable (to be more precise, they are
+not meant to be mutated@footnote{Because as it is, except for virtual
+slots, there is currently no way to effectively prohibit (block) a user
+to mutate a goops class instance (one can always use @code{slot-set!
+instance slot-name value}).}).
 
 
 @anchor{enum-set}
@@ -105,6 +107,17 @@ not exists), or the list of all values for  @var{enum}, respectively.
 
 Returns the @var{enum} symbol for @var{value} (or @code{#f} if it does
 not exists), or the list of all symbols for  @var{enum}, respectively.
+@end deffn
+
+
+@anchor{enum->name}
+@anchor{enum->names}
+@deffn Method enum->name enum value
+@deffnx Method enum->names enum
+
+Returns the @var{enum} name (the string representation of the symbol)
+for @var{value} (or @code{#f} if it does not exists), or the list of all
+names for @var{enum}, respectively.
 @end deffn
 
 
