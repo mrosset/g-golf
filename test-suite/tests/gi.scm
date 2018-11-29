@@ -142,8 +142,16 @@
          (property (g-object-info-get-property actor 5))
          (type-info (g-property-info-get-type property))
          (type-tag (g-type-info-get-tag type-info))
-         (type-value (enum->value %g-common-types-type-tag type-tag)))
-    (assert  (g-type-tag-to-string type-value))))
+         (interface (g-type-info-get-interface type-info))
+         (i-type (g-base-info-get-type interface)))
+    (assert (g-type-tag-to-string type-tag))
+    (assert (g-type-tag-to-string 'interface))
+    (assert-false (g-type-tag-to-string 1000))
+    (assert-false (g-type-tag-to-string 'blue))
+    (assert (g-info-type-to-string i-type))
+    (assert (g-info-type-to-string 'struct))
+    (assert-false (g-info-type-to-string 1000))
+    (assert-false (g-type-tag-to-string 'fox))))
 
 
 ;;;

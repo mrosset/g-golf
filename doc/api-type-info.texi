@@ -19,6 +19,7 @@ GITypeInfo — Struct representing a type.
 @indentedblock
 @table @code
 @item @ref{g-type-tag-to-string}
+@item @ref{g-info-type-to-string}
 @end table
 @end indentedblock
 
@@ -52,9 +53,28 @@ a @code{GITypeInfo}.
 
 
 @anchor{g-type-tag-to-string}
-@deffn Procedure g-type-tag-to-string info
+@deffn Procedure g-type-tag-to-string type-tag
 
-Returns a string.
+Returns a string or @code{#f}.
 
-Obtain the string representation for this type info.
+Obtains the string representation for @var{type-tag} or @code{#f} if it
+does not exists.
+
+@var{type-tag} can either be a @code{symbol} or an @code{id}, a member
+of the @code{enum-set} of @ref{%gi-type-tag} (otherwise, @code{#f} is
+returned).
+@end deffn
+
+
+@anchor{g-info-type-to-string}
+@deffn Procedure g-info-type-to-string info-type
+
+Returns a string or @code{#f}.
+
+Obtains the string representation for @var{info-type} or @code{#f} if it
+does not exists.
+
+@var{info-type} can either be a @code{symbol} or an @code{id}, a member
+of the @code{enum-set} of @ref{%gi-info-type} (otherwise, @code{#f} is
+returned).
 @end deffn

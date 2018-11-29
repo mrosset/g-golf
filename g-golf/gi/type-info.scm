@@ -33,6 +33,7 @@
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi common-types)
+  #:use-module (g-golf gi base-info)
 
   #:duplicates (merge-generics
 		replace
@@ -56,20 +57,30 @@
 ;;; Low level API
 ;;;
 
+#;(define (g-type-tag-to-string type-tag)
+  (let ((pointer (g_type_tag_to_string type-tag)))
+    (if (null-pointer? pointer)
+        #f
+        (pointer->string pointer))))
+
 (define (g-type-tag-to-string type-tag)
-  (g-golf-gtype->scm (g_type_tag_to_string type-tag)
-		    'gchar*))
+  (enum->name %gi-type-tag type-tag))
+
+#;(define (g-info-type-to-string info-type)
+  (let ((pointer (g_info_type_to_string info-type)))
+    (if (null-pointer? pointer)
+        #f
+        (pointer->string pointer))))
 
 (define (g-info-type-to-string info-type)
-  (g-golf-gtype->scm (g_info_type_to_string info-type)
-		    'gchar*))
+  (enum->name %gi-info-type info-type))
 
 (define (g-type-info-is-pointer info-type)
   (g-golf-gtype->scm (g_type_info_is_pointer info-type)
 		    'gboolean))
 
 (define (g-type-info-get-tag info-type)
-  (enum->symbol %g-common-types-type-tag
+  (enum->symbol %gi-type-tag
                 (g_type_info_get_tag info-type)))
 
 (define (g-type-info-get-param-type info-type n)
@@ -92,7 +103,7 @@
 		    'gboolean))
 
 (define (g-type-info-get-array-type info-type)
-  (enum->symbol %g-common-types-array-type
+  (enum->symbol %gi-array-type
                 (g_type_info_get_array_type info-type)))
 
 
@@ -101,17 +112,17 @@
 ;;;
 
 
-(define g_type_tag_to_string
+#;(define g_type_tag_to_string
   (pointer->procedure '*
                       (dynamic-func "g_type_tag_to_string"
 				    %libgirepository)
                       (list int)))
 
-(define g_info_type_to_string
-  (pointer->procedure int
+#;(define g_info_type_to_string
+  (pointer->procedure '*
                       (dynamic-func "g_info_type_to_string"
 				    %libgirepository)
-                      (list '*)))
+                      (list int)))
 
 (define g_type_info_is_pointer
   (pointer->procedure int
