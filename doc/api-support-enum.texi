@@ -118,6 +118,8 @@ not exists), or the list of all symbols for  @var{enum}, respectively.
 Returns the @var{enum} name (the string representation of the symbol)
 for @var{value} (or @code{#f} if it does not exists), or the list of all
 names for @var{enum}, respectively.
+
+@var{value} can either be a @code{symbol} or an @code{id}.
 @end deffn
 
 

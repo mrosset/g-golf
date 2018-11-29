@@ -106,6 +106,11 @@
     (and sym
          (symbol->string sym))))
 
+(define-method (enum->name (self <enum>) (item <symbol>))
+  (let ((val (enum->value self item)))
+    (and val
+         (symbol->string item))))
+
 (define-method (enum->names (self <enum>))
   (map (lambda (x)
 	 (match x ((symbol . id) (symbol->string symbol))))
