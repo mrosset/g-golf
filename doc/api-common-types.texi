@@ -18,17 +18,17 @@ common types - TODO
 
 @indentedblock
 @table @code
-@item @ref{%g-common-types-type-tag}
-@item @ref{%g-common-types-array-type}
+@item @ref{%gi-type-tag}
+@item @ref{%gi-array-type}
 @end table
 @end indentedblock
 
 
-@anchor{%g-common-types-type-tag}
-@defivar <gi-enum> %g-common-types-type-tag
+@anchor{%gi-type-tag}
+@defivar <gi-enum> %gi-type-tag
 
 An instance of @code{<gi-enum>}, who's members are the type tag of
-@code{GITypeInfo}:
+a @code{GITypeInfo}:
 
 
 @indentedblock
@@ -63,8 +63,8 @@ unichar
 @end defivar
 
 
-@anchor{%g-common-types-array-type}
-@defivar <gi-enum> %g-common-types-array-type
+@anchor{%gi-array-type}
+@defivar <gi-enum> %gi-array-type
 
 An instance of @code{<gi-enum>}, who's members are the type of array in
 a @code{GITypeInfo}:

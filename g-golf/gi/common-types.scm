@@ -36,15 +36,15 @@
 		warn
 		last)
 
-  #:export (%g-common-types-type-tag
-	    %g-common-types-array-type))
+  #:export (%gi-type-tag
+	    %gi-array-type))
 
 
 ;;;
 ;;; Common Types
 ;;;
 
-(define %g-common-types-type-tag
+(define %gi-type-tag
   (make <gi-enum>
     #:gi-name "GITypeTag"
     #:scm-name "gi-type-tag"
@@ -71,7 +71,7 @@
                  error
                  unichar)))
 
-(define %g-common-types-array-type
+(define %gi-array-type
   (make <gi-enum>
     #:gi-name "GIArrayType"
     #:scm-name "gi-array-type"
