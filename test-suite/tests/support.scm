@@ -54,9 +54,9 @@
     (assert-true (enum->name enum 'foo))
     (assert-true (enum->name enum 'bar))
     (assert-false (enum->name enum 'baz))
-    (assert-true (enum->symbol enum 0))
-    (assert-true (enum->symbol enum 1))
-    (assert-false (enum->symbol enum 2))
+    (assert-true (enum->name enum 0))
+    (assert-true (enum->name enum 1))
+    (assert-false (enum->name enum 2))
     (assert (enum->names enum))))
 
 
