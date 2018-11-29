@@ -41,5 +41,23 @@
   (assert-equal '<clutter-actor>
 		(g-golf-gtype-name->class-name "ClutterActor")))
 
+(define-method (test-enum (self <g-golf-test-support>))
+  (let* ((a-set '((foo . 0) (bar  . 1)))
+         (enum (make <enum> #:enum-set a-set)))
+    (assert-exception (make <enum>))
+    (assert-true (enum->value enum 'foo))
+    (assert-true (enum->value enum 'bar))
+    (assert-false (enum->value enum 'baz))
+    (assert-true (enum->symbol enum 0))
+    (assert-true (enum->symbol enum 1))
+    (assert-false (enum->symbol enum 2))
+    (assert-true (enum->name enum 'foo))
+    (assert-true (enum->name enum 'bar))
+    (assert-false (enum->name enum 'baz))
+    (assert-true (enum->symbol enum 0))
+    (assert-true (enum->symbol enum 1))
+    (assert-false (enum->symbol enum 2))
+    (assert (enum->names enum))))
+
 
 (exit-with-summary (run-all-defined-test-cases))
