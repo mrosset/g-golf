@@ -44,7 +44,7 @@ section:
 @example
 GIInfoType
 ->
-@ref{%g-base-info-info-type}
+@ref{%gi-info-type}
 @end example
 
 

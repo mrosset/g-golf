@@ -50,7 +50,7 @@
 	    g-base-info-iterate-attributes
 	    g-base-info-get-container
 	    g-base-info-is-deprecated
-            %g-base-info-info-type))
+            %gi-info-type))
 
 
 ;;;
@@ -68,7 +68,7 @@
 		    'gboolean))
   
 (define (g-base-info-get-type info)
-  (enum->symbol %g-base-info-info-type
+  (enum->symbol %gi-info-type
                 (g_base_info_get_type info)))
 
 (define (g-base-info-get-typelib info)
@@ -186,7 +186,7 @@
 ;;; Types and Values
 ;;;
 
-(define %g-base-info-info-type
+(define %gi-info-type
   (make <gi-enum>
     #:gi-name "GIInfoType"
     #:scm-name "gi-info-type"

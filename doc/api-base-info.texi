@@ -37,7 +37,7 @@ GIBaseInfo — Base struct for all GITypelib structs.
 
 @indentedblock
 @table @code
-@item @ref{%g-base-info-info-type}
+@item @ref{%gi-info-type}
 @end table
 @end indentedblock
 
@@ -193,8 +193,8 @@ not.
 
 @subheading Types and Values
 
-@anchor{%g-base-info-info-type}
-@defivar <gi-enum> %g-base-info-info-type
+@anchor{%gi-info-type}
+@defivar <gi-enum> %gi-info-type
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the type of a @code{GIBaseInfo} struct:
