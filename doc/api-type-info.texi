@@ -20,6 +20,8 @@ GITypeInfo — Struct representing a type.
 @table @code
 @item @ref{g-type-tag-to-string}
 @item @ref{g-info-type-to-string}
+@item @ref{g-type-info-is-pointer}
+@item @ref{g-type-info-get-tag}
 @end table
 @end indentedblock
 
@@ -77,4 +79,28 @@ does not exists.
 @var{info-type} can either be a @code{symbol} or an @code{id}, a member
 of the @code{enum-set} of @ref{%gi-info-type} (otherwise, @code{#f} is
 returned).
+@end deffn
+
+
+@anchor{g-type-info-is-pointer}
+@deffn Procedure g-type-info-is-pointer info
+
+Returns @code{#f} or @code{#f}.
+
+Obtains if the @var{info} type is passed as a reference.
+
+Note that the types of @code{out} and @code{inout} parameters (see
+@ref{%gi-direction}) will only be pointers if the underlying type being
+transferred is a pointer (i.e. only if the type of the C function’s
+formal parameter is a pointer to a pointer).
+@end deffn
+
+
+@anchor{g-type-info-get-tag}
+@deffn Procedure g-type-info-get-tag info
+
+Returns a symbol.
+
+Obtains the type tag for @var{info} (see @ref{%gi-type-tag} for the list
+of type tags).
 @end deffn

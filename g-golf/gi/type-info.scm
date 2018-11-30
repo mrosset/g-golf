@@ -75,36 +75,36 @@
 (define (g-info-type-to-string info-type)
   (enum->name %gi-info-type info-type))
 
-(define (g-type-info-is-pointer info-type)
-  (g-golf-gtype->scm (g_type_info_is_pointer info-type)
+(define (g-type-info-is-pointer info)
+  (g-golf-gtype->scm (g_type_info_is_pointer info)
 		    'gboolean))
 
-(define (g-type-info-get-tag info-type)
+(define (g-type-info-get-tag info)
   (enum->symbol %gi-type-tag
-                (g_type_info_get_tag info-type)))
+                (g_type_info_get_tag info)))
 
-(define (g-type-info-get-param-type info-type n)
-  (g_type_info_get_param_type info-type n))
+(define (g-type-info-get-param-type info n)
+  (g_type_info_get_param_type info n))
 
-(define (g-type-info-get-interface info-type)
-  (let ((pointer (g_type_info_get_interface info-type)))
+(define (g-type-info-get-interface info)
+  (let ((pointer (g_type_info_get_interface info)))
     (if (null-pointer? pointer)
 	#f
 	pointer)))
 
-(define (g-type-info-get-array-length info-type)
-  (g_type_info_get_array_length info-type))
+(define (g-type-info-get-array-length info)
+  (g_type_info_get_array_length info))
 
-(define (g-type-info-get-array-fixed-size info-type)
-  (g_type_info_get_array_fixed_size info-type))
+(define (g-type-info-get-array-fixed-size info)
+  (g_type_info_get_array_fixed_size info))
 
-(define (g-type-info-is-zero-terminated info-type)
-  (g-golf-gtype->scm (g_type_info_is_zero_terminated info-type)
+(define (g-type-info-is-zero-terminated info)
+  (g-golf-gtype->scm (g_type_info_is_zero_terminated info)
 		    'gboolean))
 
-(define (g-type-info-get-array-type info-type)
+(define (g-type-info-get-array-type info)
   (enum->symbol %gi-array-type
-                (g_type_info_get_array_type info-type)))
+                (g_type_info_get_array_type info)))
 
 
 ;;;

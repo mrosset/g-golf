@@ -151,7 +151,8 @@
     (assert (g-info-type-to-string i-type))
     (assert (g-info-type-to-string 'struct))
     (assert-false (g-info-type-to-string 1000))
-    (assert-false (g-type-tag-to-string 'fox))))
+    (assert-false (g-type-tag-to-string 'fox))
+    (assert-false (g-type-info-is-pointer type-info))))
 
 
 ;;;
