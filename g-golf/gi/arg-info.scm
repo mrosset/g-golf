@@ -50,9 +50,9 @@
 	    g-arg-info-is-optional
 	    g-arg-info-is-return-value
             ;; Types and Values
-	    %g-arg-info-direction
-	    %g-arg-info-scope
-	    %g-arg-info-transfer))
+            %gi-direction
+	    %gi-scope-type
+	    %gi-transfer))
 
 
 ;;;
@@ -66,15 +66,15 @@
   (g_arg_info_get_destroy info))
 
 (define (g-arg-info-get-direction info)
-  (enum->symbol %g-arg-info-direction
+  (enum->symbol %gi-direction
                 (g_arg_info_get_direction info)))
 
 (define (g-arg-info-get-ownership-transfer info)
-  (enum->symbol %g-arg-info-transfer
+  (enum->symbol %gi-transfer
                 (g_arg_info_get_ownership_transfer info)))
 
 (define (g-arg-info-get-scope info)
-  (enum->symbol %g-arg-info-scope
+  (enum->symbol %gi-scope-type
                 (g_arg_info_get_scope info)))
 
 (define (g-arg-info-get-type info)
@@ -154,7 +154,7 @@
 ;;; Tyeps and Values
 ;;;
 
-(define %g-arg-info-direction
+(define %gi-direction
   (make <gi-enum>
     #:gi-name "GIDirection"
     #:scm-name "gi-direction"
@@ -162,7 +162,7 @@
                  out
                  inout)))
 
-(define %g-arg-info-scope
+(define %gi-scope-type
   (make <gi-enum>
     #:gi-name "GIScopeType"
     #:scm-name "gi-scope-type"
@@ -171,7 +171,7 @@
                  async
                  notified)))
 
-(define %g-arg-info-transfer
+(define %gi-transfer
   (make <gi-enum>
     #:gi-name "GITransfer"
     #:scm-name "gi-transfer"

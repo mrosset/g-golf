@@ -27,9 +27,9 @@ GIArgInfo — Struct representing an argument.
 
 @indentedblock
 @table @code
-@item @ref{%g-arg-info-direction}
-@item @ref{%g-arg-info-scope}
-@item @ref{%g-arg-info-transfer}
+@item @ref{%gi-direction}
+@item @ref{%gi-scope-type}
+@item @ref{%gi-transfer}
 @end table
 @end indentedblock
 
@@ -67,8 +67,8 @@ arguments which are callbacks.
 @subheading Types and Values
 
 
-@anchor{%g-arg-info-direction}
-@defivar <gi-enum> %g-arg-info-direction
+@anchor{%gi-direction}
+@defivar <gi-enum> %gi-direction
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the direction of a @code{GIArgInfo}:
@@ -93,8 +93,8 @@ in and out argument.
 @end defivar
 
 
-@anchor{%g-arg-info-scope}
-@defivar <gi-enum> %g-arg-info-scope
+@anchor{%gi-scope-type}
+@defivar <gi-enum> %gi-scope-type
 
 An instance of @code{<gi-enum>}, who's members are the scheme
 representation of the scope of a @code{GIArgInfo}. Scope type of a
@@ -127,8 +127,8 @@ notfied via the destroy_notify.
 @end defivar
 
 
-@anchor{%g-arg-info-transfer}
-@defivar <gi-enum> %g-arg-info-transfer
+@anchor{%gi-transfer}
+@defivar <gi-enum> %gi-transfer
 
 The transfer is the exchange of data between two parts, from the callee
 to the caller. The callee is either a function/method/signal or an

@@ -89,7 +89,7 @@ the data.
 Returns a @code{GITransfer} enumerated value.
 
 See whether the caller owns the return value of this callable. See
-@ref{%g-arg-info-transfer} for the list of possible values.
+@ref{%gi-transfer} for the list of possible values.
 @end deffn
 
 

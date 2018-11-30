@@ -68,7 +68,7 @@
                           (g_property_info_get_flags info)))
 
 (define (g-property-info-get-ownership-transfer info)
-  (enum->symbol %g-arg-info-transfer
+  (enum->symbol %gi-transfer
                 (g_property_info_get_ownership_transfer info)))
 
 (define (g-property-info-get-type info)

@@ -61,7 +61,7 @@ list of possible flag values.
 Returns the ownership transfer for this property.
 
 Obtain the ownership transfer for this property. See
-@ref{%g-arg-info-transfer} for more information about transfer values.
+@ref{%gi-transfer} for more information about transfer values.
 @end deffn
 
 
