@@ -1,0 +1,145 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node Utilities
+@subsection Utilities
+
+G-Golf Utilities low level API.@*
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{gi->scm}
+@item @ref{gi-boolean->scm}
+@item @ref{gi-string->scm}
+@item @ref{gi-strings->scm}
+@item @ref{gi-csv-string->scm}
+@item @ref{gi-pointer->scm}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-arg-info-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+
+G-Golf utilities low level API to process GObject Introspection
+Repositories.
+
+
+@subheading Procedures
+
+
+@anchor{gi->scm}
+@deffn Procedure gi->scm value type
+
+Returns the scheme representation of @var{value}.
+
+The accepted @var{type} symbols (also called @code{tags} in the
+@code{GI} terminology@footnote{All (G-Golf) procedures that accept a GI
+tag as an argument will accept the tag as an integer (the GI
+representation) or a symbol (the scheme representation).  All (G-Golf)
+procedures that return a tag will always return the scheme
+representation.}) are:
+
+@indentedblock
+@table @code
+@item boolean
+The GType of @var{value} is @code{gboolean}.  The returned value is
+@code{#t} or @code{#f}.
+
+@item string
+The GType of @var{value} is @code{*gchar}.  The returned value is
+a string or @code{#f}.
+
+@item strings
+The GType of @var{value} is @code{**gchar} (an array of pointers to
+@code{*gchar}), returned as a list of strings (which can be empty).
+
+@item csv-string
+The GType of @var{value} is @code{g*char}. The returned value is a
+list of strings, obtained by splitting @var{value} using @code{#\,} as
+the @code{char-pred}, or @code{#f}.
+
+@item pointer
+The GType of @var{value} is @code{gpointer}. The returned value is
+a pointer or @code{#f}.
+
+@end table
+@end indentedblock
+@end deffn
+
+
+@anchor{gi-boolean->scm}
+@deffn Procedure gi-boolean->scm value
+
+Returns @code{#t} or @code{#f}.
+
+The GType of @var{value} is @code{gboolean}.
+@end deffn
+
+
+@anchor{gi-string->scm}
+@deffn Procedure gi-string->scm value
+
+Returns a string or @code{#f}.
+
+The GType of @var{value} is @code{gchar*}.
+@end deffn
+
+
+@anchor{gi-strings->scm}
+@deffn Procedure gi-strings->scm value
+
+Returns a list of strings (which can be empty).
+
+The GType of @var{value} is @code{gchar**} (an array of pointers to
+@code{*gchar}).
+@end deffn
+
+
+@anchor{gi-csv-string->scm}
+@deffn Procedure gi-csv-string->scm value
+
+Returns a list of strings or @code{#f}.
+
+The GType of @var{value} is @code{gchar*}.  When the returned value is a
+list of strings, it is obtained by splitting @var{value} using
+@code{#\,} as the @code{char-pred}.
+@end deffn
+
+
+@anchor{gi-pointer->scm}
+@deffn Procedure gi-pointer->scm value
+
+Returns a pointer or @code{#f}.
+
+The GType of @var{value} is @code{gpointer}.
+@end deffn
+
+
+@c @subheading Types and Values

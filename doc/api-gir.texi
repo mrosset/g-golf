@@ -42,6 +42,7 @@ section, but there are some exceptions, such as @code{init} and
 @subheading GITypelib
 
 * Typelib::		  Layout and accessors for typelib.
+* Utilities::		  (G-Golf) Utilities.
 
 @end menu
 
@@ -59,4 +60,4 @@ section, but there are some exceptions, such as @code{init} and
 @include api-type-info.texi
 
 @include api-typelib.texi
-
+@include api-utilities.texi

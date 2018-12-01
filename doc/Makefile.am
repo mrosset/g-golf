@@ -58,6 +58,7 @@ g_golf_TEXINFOS = \
   api-property-info.texi	\
   api-type-info.texi		\
   api-typelib.texi		\
+  api-utilities.texi		\
   api-support.texi		\
   api-support-enum.texi		\
   api-support-modules.texi	\
