@@ -64,8 +64,8 @@
   (g_base_info_unref info))
 
 (define (g-base-info-equal info1 info2)
-  (g-golf-gtype->scm (g_base_info_equal info1 info2)
-		    'gboolean))
+  (gi->scm (g_base_info_equal info1 info2)
+           'gboolean))
   
 (define (g-base-info-get-type info)
   (enum->symbol %gi-info-type
@@ -75,21 +75,21 @@
   (g_base_info_get_typelib info))
 
 (define (g-base-info-get-namespace info)
-  (g-golf-gtype->scm (g_base_info_get_namespace info)
-		    'gchar*))
+  (gi->scm (g_base_info_get_namespace info)
+           'gchar*))
 
 (define (g-base-info-get-name info)
   (let ((pointer (g_base_info_get_name info)))
     (if (null-pointer? pointer)
 	#f
-	(g-golf-gtype->scm pointer 'gchar*))))
+	(gi->scm pointer 'gchar*))))
 
 (define (g-base-info-get-attribute info name)
   (let ((pointer (g_base_info_get_attribute info
 					    (string->pointer name))))
     (if (null-pointer? pointer)
 	#f
-	(g-golf-gtype->scm pointer 'gchar*))))
+	(gi->scm pointer 'gchar*))))
 
 (define (g-base-info-iterate-attributes info proc)
   (let ((iter (g-golf-attribute-iter-new))
@@ -107,8 +107,8 @@
 	pointer)))
 
 (define (g-base-info-is-deprecated info)
-  (g-golf-gtype->scm (g_base_info_is_deprecated info)
-		    'gboolean))
+  (gi->scm (g_base_info_is_deprecated info)
+           'gboolean))
 
 
 ;;;

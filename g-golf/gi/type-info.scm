@@ -76,8 +76,8 @@
   (enum->name %gi-info-type info-type))
 
 (define (g-type-info-is-pointer info)
-  (g-golf-gtype->scm (g_type_info_is_pointer info)
-		    'gboolean))
+  (gi->scm (g_type_info_is_pointer info)
+           'gboolean))
 
 (define (g-type-info-get-tag info)
   (enum->symbol %gi-type-tag
@@ -99,8 +99,8 @@
   (g_type_info_get_array_fixed_size info))
 
 (define (g-type-info-is-zero-terminated info)
-  (g-golf-gtype->scm (g_type_info_is_zero_terminated info)
-		    'gboolean))
+  (gi->scm (g_type_info_is_zero_terminated info)
+           'gboolean))
 
 (define (g-type-info-get-array-type info)
   (enum->symbol %gi-array-type

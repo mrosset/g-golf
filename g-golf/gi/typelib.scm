@@ -76,8 +76,8 @@
   (g_typelib_free typelib))
 
 (define (g-typelib-get-name-space typelib)
-  (g-golf-gtype->scm (g_typelib_get_namespace typelib)
-		    'gchar*))
+  (gi->scm (g_typelib_get_namespace typelib)
+           'gchar*))
 
 
 ;;;

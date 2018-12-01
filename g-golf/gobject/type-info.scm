@@ -79,7 +79,7 @@
   (let ((ptr (g_type_name g-type)))
     (if (null-pointer? ptr)
         #f
-        (g-golf-gtype->scm ptr 'gchar*))))
+        (gi->scm ptr 'gchar*))))
 
 (define (g-type-fundamental g-type)
   (g_type_fundamental g-type))

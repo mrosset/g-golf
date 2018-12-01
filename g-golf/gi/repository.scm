@@ -54,13 +54,13 @@
   
 (define* (g-irepository-get-dependencies namespace
 				    #:key (repository %null-pointer))
-  (g-golf-gtype->scm (g_irepository_get_dependencies repository
-						    (string->pointer namespace))
-		    'gchar**))
+  (gi->scm (g_irepository_get_dependencies repository
+                                           (string->pointer namespace))
+           'gchar**))
 
 (define* (g-irepository-get-loaded-namespaces #:key (repository %null-pointer))
-  (g-golf-gtype->scm (g_irepository_get_loaded_namespaces repository)
-		    'gchar**))
+  (gi->scm (g_irepository_get_loaded_namespaces repository)
+           'gchar**))
 
 (define* (g-irepository-get-n-infos namespace
 			       #:key (repository %null-pointer))
@@ -79,7 +79,7 @@
 						 (string->pointer namespace))))
     (if (null-pointer? pointer)
 	#f
-	(g-golf-gtype->scm pointer 'gchar*))))
+	(gi->scm pointer 'gchar*))))
 
 (define* (g-irepository-require namespace
 			   #:key (version #f) (repository %null-pointer))
@@ -94,9 +94,9 @@
 
 (define* (g-irepository-get-c-prefix namespace
 				#:key (repository %null-pointer))
-  (g-golf-gtype->scm (g_irepository_get_c_prefix repository
-						(string->pointer namespace))
-		    'gchar*))
+  (gi->scm (g_irepository_get_c_prefix repository
+                                       (string->pointer namespace))
+           'gchar*))
 
 (define* (g-irepository-get-shared-library namespace
 				      #:key (repository %null-pointer))
@@ -104,13 +104,13 @@
 						   (string->pointer namespace))))
     (if (null-pointer? pointer)
 	'()
-	(g-golf-gtype->scm pointer 'gchar*,))))
+	(gi->scm pointer 'gchar*,))))
 
 (define* (g-irepository-get-version namespace
 			       #:key (repository %null-pointer))
-  (g-golf-gtype->scm (g_irepository_get_version repository
-					       (string->pointer namespace))
-		    'gchar*))
+  (gi->scm (g_irepository_get_version repository
+                                      (string->pointer namespace))
+           'gchar*))
 
 #;(define* (g-irepository-find-by-gtype gtype
 				 #:key (repository %null-pointer))

@@ -41,7 +41,7 @@
 	    g-golf-pointer-new
 	    g-golf-pointer-inc
 	    with-gerror
-	    g-golf-gtype->scm
+	    gi->scm
 	    g-golf-attribute-iter-new
 	    g-golf-gstudly-caps-expand
 	    %g-golf-gtype-name->scm-name-exceptions
@@ -85,14 +85,14 @@
 	      (g-free ?var)
 	      (error (pointer->string message)))))))))
 
-(define (g-golf-gtype->scm gvalue gtype)
+(define (gi->scm gvalue gtype)
   (case gtype
     ((gchar**) (gchar**->scm gvalue))
     ((gchar*,) (gchar*,->scm gvalue))
     ((gchar*) (pointer->string gvalue))
     ((gboolean) (gboolean->scm gvalue))
     (else
-     (error "no such gtype: " gtype))))
+     (error "no such type: " gtype))))
 
 (define (g-golf-attribute-iter-new)
   (make-c-struct (list '* '* '* '*)
@@ -103,7 +103,7 @@
 
 
 ;;;
-;;; g-golf-gtype->scm procedures
+;;; gi->scm procedures
 ;;;
 
 (define (gchar**->scm pointer)
