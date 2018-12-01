@@ -81,12 +81,10 @@
   (g_arg_info_get_type info))
 
 (define (g-arg-info-may-be-null info)
-  (gi->scm (g_arg_info_may_be_null info)
-           'gboolean))
+  (gi->scm (g_arg_info_may_be_null info) 'boolean))
 
 (define (g-arg-info-is-return-value info)
-  (gi->scm (g_arg_info_is_return_value info)
-           'gboolean))
+  (gi->scm (g_arg_info_is_return_value info) 'boolean))
 
 
 ;;;

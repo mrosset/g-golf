@@ -76,8 +76,7 @@
   (g_typelib_free typelib))
 
 (define (g-typelib-get-name-space typelib)
-  (gi->scm (g_typelib_get_namespace typelib)
-           'gchar*))
+  (gi->scm (g_typelib_get_namespace typelib) 'string))
 
 
 ;;;

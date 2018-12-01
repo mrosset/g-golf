@@ -58,8 +58,7 @@
   (g_callable_info_get_return_type info))
 
 (define (g-callable-info-may-return-null info)
-  (gi->scm (g_callable_info_may_return_null info)
-           'gboolean))
+  (gi->scm (g_callable_info_may_return_null info) 'boolean))
 
 
 ;;;

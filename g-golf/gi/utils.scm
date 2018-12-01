@@ -42,6 +42,11 @@
 	    g-golf-pointer-inc
 	    with-gerror
 	    gi->scm
+            gi-boolean->scm
+            gi-string->scm
+            gi-strings->scm
+            gi-cvs-string->scm
+	    gi-pointer>scm
 	    g-golf-attribute-iter-new
 	    g-golf-gstudly-caps-expand
 	    %g-golf-gtype-name->scm-name-exceptions
@@ -85,14 +90,15 @@
 	      (g-free ?var)
 	      (error (pointer->string message)))))))))
 
-(define (gi->scm gvalue gtype)
-  (case gtype
-    ((gchar**) (gchar**->scm gvalue))
-    ((gchar*,) (gchar*,->scm gvalue))
-    ((gchar*) (pointer->string gvalue))
-    ((gboolean) (gboolean->scm gvalue))
+(define (gi->scm value type)
+  (case type
+    ((boolean) (gi-boolean->scm value))
+    ((string) (gi-string->scm value))
+    ((strings) (gi-strings->scm value))
+    ((csv-string) (gi-cvs-string->scm value))
+    ((pointer) (gi-pointer->scm value))
     (else
-     (error "no such type: " gtype))))
+     (error "No such type: " type))))
 
 (define (g-golf-attribute-iter-new)
   (make-c-struct (list '* '* '* '*)
@@ -106,23 +112,35 @@
 ;;; gi->scm procedures
 ;;;
 
-(define (gchar**->scm pointer)
-  (define (gchar**->scm-1 pointer result)
+(define (gi-boolean->scm value)
+  (if (= value 0) #f #t))
+
+(define (gi-string->scm pointer)
+  (if (null-pointer? pointer)
+      #f
+      (pointer->string pointer)))
+
+(define (gi-strings->scm pointer)
+  (define (gi-strings->scm-1 pointer result)
     (receive (d-pointer)
 	(dereference-pointer pointer)
     (if (null-pointer? d-pointer)
 	(reverse! result)
-	(gchar**->scm-1 (g-golf-pointer-inc pointer)
-			(cons (pointer->string d-pointer)
-			      result)))))
-  (gchar**->scm-1 pointer '()))
+	(gi-strings->scm-1 (g-golf-pointer-inc pointer)
+                           (cons (pointer->string d-pointer)
+                                 result)))))
+  (gi-strings->scm-1 pointer '()))
 
-(define (gchar*,->scm pointer)
-  (string-split (pointer->string pointer)
-		#\,))
+(define (gi-csv-string->scm pointer)
+  (if (null-pointer? pointer)
+       #f
+       (string-split (pointer->string pointer)
+                     #\,)))
 
-(define (gboolean->scm value)
-  (if (= value 0) #f #t))
+(define (gi-pointer->scm pointer)
+  (if (null-pointer? pointer)
+      #f
+      pointer))
 
 
 ;;;

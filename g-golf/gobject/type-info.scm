@@ -76,10 +76,7 @@
 ;;;
 
 (define (g-type-name g-type)
-  (let ((ptr (g_type_name g-type)))
-    (if (null-pointer? ptr)
-        #f
-        (gi->scm ptr 'gchar*))))
+  (gi->scm (g_type_name g-type) 'string))
 
 (define (g-type-fundamental g-type)
   (g_type_fundamental g-type))

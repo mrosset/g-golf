@@ -41,13 +41,11 @@
 ;;;
 
 (define (g-registered-type-info-get-type-name info)
-  (gi->scm (g_registered_type_info_get_type_name info)
-           'gchar*))
+  (gi->scm (g_registered_type_info_get_type_name info) 'string))
 
 ;; this should not be called by language bindings
 (define (g-registered-type-info-get-type-init info)
-  (gi->scm (g_registered_type_info_get_type_init info)
-           'gchar*))
+  (gi->scm (g_registered_type_info_get_type_init info) 'string))
 
 (define (g-registered-type-info-get-g-type info)
   (g_registered_type_info_get_g_type info))

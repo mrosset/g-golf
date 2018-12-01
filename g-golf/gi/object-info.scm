@@ -86,17 +86,13 @@
 ;;;
 
 (define (g-object-info-get-abstract info)
-  (gi->scm (g_object_info_get_abstract info)
-           'gboolean))
+  (gi->scm (g_object_info_get_abstract info) 'boolean))
 
 (define (g-object-info-get-parent info)
   (g_object_info_get_parent info))
 
 (define (g-object-info-get-type-name info)
-  (let ((pointer (g_object_info_get_type_name info)))
-    (if (null-pointer? pointer)
-	#f
-	(gi->scm pointer 'gchar*))))
+  (gi->scm (g_object_info_get_type_name info) 'string))
 
 (define (g-object-info-get-n-constants info)
   (g_object_info_get_n_constants info))

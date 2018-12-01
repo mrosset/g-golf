@@ -53,36 +53,34 @@
   (g_irepository_get_default))
   
 (define* (g-irepository-get-dependencies namespace
-				    #:key (repository %null-pointer))
+                                         #:key (repository %null-pointer))
   (gi->scm (g_irepository_get_dependencies repository
                                            (string->pointer namespace))
-           'gchar**))
+           'strings))
 
 (define* (g-irepository-get-loaded-namespaces #:key (repository %null-pointer))
   (gi->scm (g_irepository_get_loaded_namespaces repository)
-           'gchar**))
+           'strings))
 
 (define* (g-irepository-get-n-infos namespace
-			       #:key (repository %null-pointer))
+                                    #:key (repository %null-pointer))
   (g_irepository_get_n_infos repository
 			     (string->pointer namespace)))
 
 (define* (g-irepository-get-info namespace index
-			    #:key (repository %null-pointer))
+                                 #:key (repository %null-pointer))
   (g_irepository_get_info repository
 			  (string->pointer namespace)
 			  index))
 
 (define* (g-irepository-get-typelib-path namespace
-				    #:key (repository %null-pointer))
-  (let ((pointer (g_irepository_get_typelib_path repository
-						 (string->pointer namespace))))
-    (if (null-pointer? pointer)
-	#f
-	(gi->scm pointer 'gchar*))))
+                                         #:key (repository %null-pointer))
+  (gi->scm (g_irepository_get_typelib_path repository
+                                           (string->pointer namespace))
+           'string))
 
 (define* (g-irepository-require namespace
-			   #:key (version #f) (repository %null-pointer))
+                                #:key (version #f) (repository %null-pointer))
   (with-gerror g-error
 	       (g_irepository_require repository
 				      (string->pointer namespace)
@@ -93,49 +91,40 @@
 				      g-error)))
 
 (define* (g-irepository-get-c-prefix namespace
-				#:key (repository %null-pointer))
+                                     #:key (repository %null-pointer))
   (gi->scm (g_irepository_get_c_prefix repository
                                        (string->pointer namespace))
-           'gchar*))
+           'string))
 
 (define* (g-irepository-get-shared-library namespace
-				      #:key (repository %null-pointer))
-  (let ((pointer (g_irepository_get_shared_library repository
-						   (string->pointer namespace))))
-    (if (null-pointer? pointer)
-	'()
-	(gi->scm pointer 'gchar*,))))
+                                           #:key (repository %null-pointer))
+  (gi->scm (g_irepository_get_shared_library repository
+                                             (string->pointer namespace))
+           'csv-string))
 
 (define* (g-irepository-get-version namespace
-			       #:key (repository %null-pointer))
+                                    #:key (repository %null-pointer))
   (gi->scm (g_irepository_get_version repository
                                       (string->pointer namespace))
-           'gchar*))
+           'string))
 
 #;(define* (g-irepository-find-by-gtype gtype
-				 #:key (repository %null-pointer))
-  (let ((pointer (g_irepository_find_by_gtype repository
-					      gtype)))
-    (if (null-pointer? pointer)
-	#f
-	pointer)))
+                                      #:key (repository %null-pointer))
+  (gi->scm (g_irepository_find_by_gtype repository gtype)
+           'pointer))
 
 (define* (g-irepository-find-by-gtype gtype
-				 #:key (repository %null-pointer))
-  (let ((pointer (g_irepository_find_by_gtype repository
-					      (string->pointer gtype))))
-    (if (null-pointer? pointer)
-	#f
-	pointer)))
+                                      #:key (repository %null-pointer))
+  (gi->scm (g_irepository_find_by_gtype repository
+                                        (string->pointer gtype))
+           'pointer))
 
 (define* (g-irepository-find-by-name namespace name
-				#:key (repository %null-pointer))
-  (let ((pointer (g_irepository_find_by_name repository
-					     (string->pointer namespace)
-					     (string->pointer name))))
-    (if (null-pointer? pointer)
-	#f
-	pointer)))
+                                     #:key (repository %null-pointer))
+  (gi->scm (g_irepository_find_by_name repository
+                                       (string->pointer namespace)
+                                       (string->pointer name))
+           'pointer))
 
 
 ;;;
