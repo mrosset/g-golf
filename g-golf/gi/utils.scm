@@ -37,9 +37,9 @@
   #:use-module (g-golf glib)
   #:use-module (g-golf gobject)
 
-  #:export (%gpointer-size
-	    g-golf-pointer-new
-	    g-golf-pointer-inc
+  #:export (%gi-pointer-size
+	    gi-pointer-new
+	    gi-pointer-inc
 	    with-gerror
 	    gi->scm
             gi-boolean->scm
@@ -57,27 +57,27 @@
 	    g-golf-integer->gflags))
 
 
-(define %gpointer-size 8)
+(define %gi-pointer-size 8)
   
-(define (g-golf-pointer-new)
-  ;; (bytevector->pointer (make-bytevector %gpointer-size 0))
+(define (gi-pointer-new)
+  ;; (bytevector->pointer (make-bytevector %gi-pointer-size 0))
   ;; The above would work iif none of Glib, Gobject and GI would ever call
   ;; any of there respective *_free functions upon pointers returned by
   ;; this procedure [it segfaults - C can't free Guile's mem]. This
   ;; statement is _not_ guaranteed, hence we have to allocate using the
   ;; glib API.
-  (g-malloc0 %gpointer-size))
+  (g-malloc0 %gi-pointer-size))
 
-(define* (g-golf-pointer-inc pointer
-			    #:optional
-			    (offset %gpointer-size))
+(define* (gi-pointer-inc pointer
+                         #:optional
+                         (offset %gi-pointer-size))
   (make-pointer (+ (pointer-address pointer)
 		   offset)))
 
 (define-syntax with-gerror
   (syntax-rules ()
     ((with-gerror ?var ?body)
-     (let* ((?var (g-golf-pointer-new))
+     (let* ((?var (gi-pointer-new))
 	    (result ?body)
 	    (d-pointer (dereference-pointer ?var)))
        (if (null-pointer? d-pointer)
@@ -126,7 +126,7 @@
 	(dereference-pointer pointer)
       (if (null-pointer? d-pointer)
           (reverse! result)
-          (gi-strings->scm-1 (g-golf-pointer-inc pointer)
+          (gi-strings->scm-1 (gi-pointer-inc pointer)
                              (cons (pointer->string d-pointer)
                                    result)))))
   (gi-strings->scm-1 pointer '()))
