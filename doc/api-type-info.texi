@@ -22,6 +22,12 @@ GITypeInfo — Struct representing a type.
 @item @ref{g-info-type-to-string}
 @item @ref{g-type-info-is-pointer}
 @item @ref{g-type-info-get-tag}
+@item @ref{g-type-info-get-param-type}
+@item @ref{g-type-info-get-interface}
+@item @ref{g-type-info-get-array-length}
+@item @ref{g-type-info-get-array-fixed-size}
+@item @ref{g-type-info-is-zero-terminated}
+@item @ref{g-type-info-get-array-type}
 @end table
 @end indentedblock
 
@@ -85,7 +91,7 @@ returned).
 @anchor{g-type-info-is-pointer}
 @deffn Procedure g-type-info-is-pointer info
 
-Returns @code{#f} or @code{#f}.
+Returns @code{#t} or @code{#f}.
 
 Obtains if the @var{info} type is passed as a reference.
 
@@ -103,4 +109,69 @@ Returns a symbol.
 
 Obtains the type tag for @var{info} (see @ref{%gi-type-tag} for the list
 of type tags).
+@end deffn
+
+
+@anchor{g-type-info-get-param-type}
+@deffn Procedure g-type-info-get-param-type info n
+
+Returns a pointer or @code{#f}.
+
+Obtains the parameter type @var{n} (the index of the parameter).  When
+there is no such @var{n} parameter, the procedure returns @code{#f}.
+@end deffn
+
+
+@anchor{g-type-info-get-interface}
+@deffn Procedure g-type-info-get-interface info
+
+Returns a pointer or @code{#f}.
+
+For @code{interface} types (see @ref{%gi-type-tag}) such as GObjects and
+boxed values, this procedure returns a (pointer to a) @code{GIBaseInfo},
+holding full information about the referenced type.  You can then
+inspect the type of the returned @code{GIBaseInfo} to further query
+whether it is a concrete GObject, a GInterface, a structure, etc. using
+@ref{g-base-info-get-type}.
+@end deffn
+
+
+@anchor{g-type-info-get-array-length}
+@deffn Procedure g-type-info-get-array-length info
+
+Returns an interger.
+
+Obtain the array length of the type. The type tag must be a @code{array}
+(see @ref{%gi-type-tag}), or -1 will returned.
+@end deffn
+
+
+@anchor{g-type-info-get-array-fixed-size}
+@deffn Procedure g-type-info-get-array-fixed-size info
+
+Returns an interger.
+
+Obtain the fixed array syze of the type. The type tag must be a
+@code{array} (see @ref{%gi-type-tag}), or -1 will returned.
+@end deffn
+
+
+@anchor{g-type-info-is-zero-terminated}
+@deffn Procedure g-type-info-is-zero-terminated info
+
+Returns @code{#t} or @code{#f}.
+
+Obtains if the last element of the array is @code{NULL}.  The type tag
+must be a @code{array} (see @ref{%gi-type-tag}), or @code{#f} will
+returned.
+@end deffn
+
+
+@anchor{g-type-info-get-array-type}
+@deffn Procedure g-type-info-get-array-type info
+
+Returns a symbol or @code{#f}.
+
+Obtain the array type for this type (see @ref{%gi-array-type}).  If the
+type tag of this type is not array, @code{#f} will be returned.
 @end deffn

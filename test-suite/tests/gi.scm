@@ -152,7 +152,12 @@
     (assert (g-info-type-to-string 'struct))
     (assert-false (g-info-type-to-string 1000))
     (assert-false (g-type-tag-to-string 'fox))
-    (assert-false (g-type-info-is-pointer type-info))))
+    (assert-false (g-type-info-is-pointer type-info))
+    (assert-false (g-type-info-get-param-type type-info 0))
+    (assert-true (= (g-type-info-get-array-length type-info) -1))
+    (assert-true (= (g-type-info-get-array-fixed-size type-info) -1))
+    (assert-false (g-type-info-is-zero-terminated type-info))
+    (assert-false (g-type-info-get-array-type type-info))))
 
 
 ;;;

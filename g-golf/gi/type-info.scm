@@ -83,13 +83,10 @@
                 (g_type_info_get_tag info)))
 
 (define (g-type-info-get-param-type info n)
-  (g_type_info_get_param_type info n))
+  (gi->scm (g_type_info_get_param_type info n) 'pointer))
 
 (define (g-type-info-get-interface info)
-  (let ((pointer (g_type_info_get_interface info)))
-    (if (null-pointer? pointer)
-	#f
-	pointer)))
+  (gi->scm (g_type_info_get_interface info) 'pointer))
 
 (define (g-type-info-get-array-length info)
   (g_type_info_get_array_length info))
@@ -101,8 +98,9 @@
   (gi->scm (g_type_info_is_zero_terminated info) 'boolean))
 
 (define (g-type-info-get-array-type info)
-  (enum->symbol %gi-array-type
-                (g_type_info_get_array_type info)))
+  (and (eq? (g-type-info-get-tag info) 'array)
+       (enum->symbol %gi-array-type
+                     (g_type_info_get_array_type info))))
 
 
 ;;;
