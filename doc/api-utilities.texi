@@ -13,10 +13,11 @@
 G-Golf Utilities low level API.@*
 
 
-@subheading Procedures
+@subheading Procedures and Syntax
 
 @indentedblock
 @table @code
+@item @ref{with-gerror}
 @item @ref{gi->scm}
 @item @ref{gi-boolean->scm}
 @item @ref{gi-string->scm}
@@ -50,7 +51,39 @@ G-Golf Utilities low level API.@*
 G-Golf GObject Introspection utilities low level API.@*
 
 
-@subheading Procedures
+@subheading Procedures and Syntax
+
+
+@anchor{with-gerror}
+@deffn Procedure with-gerror var body
+
+Returns the result of the execution of @var{body}, or raises an
+exception.
+
+@var{var} must be an identifier.  Evaluate @var{body} in a lexical
+environment where @var{var} is bound to a pointer to a newly allocated
+(and @samp{empty}) @code{GError}. @var{var} will always be freed.  If no
+exception is raised, the result of the execution of @var{body} is
+returned.
+
+Here is an example, taken from the definition of
+@ref{g-irepository-require}, in the @code{(g-golf gi repository)}
+module:
+
+@lisp
+(define* (g-irepository-require namespace
+                                #:key (version #f)
+                                (repository %null-pointer))
+  (with-gerror g-error
+	       (g_irepository_require repository
+				      (string->pointer namespace)
+				      (if version
+					  (string->pointer version)
+					  %null-pointer)
+				      0
+				      g-error)))
+@end lisp
+@end deffn
 
 
 @anchor{gi->scm}
