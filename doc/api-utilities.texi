@@ -47,8 +47,7 @@ G-Golf Utilities low level API.@*
 
 @subheading Description
 
-G-Golf utilities low level API to process GObject Introspection
-Repositories.
+G-Golf GObject Introspection utilities low level API.@*
 
 
 @subheading Procedures
@@ -73,21 +72,23 @@ The GType of @var{value} is @code{gboolean}.  The returned value is
 @code{#t} or @code{#f}.
 
 @item string
-The GType of @var{value} is @code{*gchar}.  The returned value is
-a string or @code{#f}.
+The GType of @var{value} is @code{*gchar}.  The returned value is a
+string or @code{#f} (when @var{value} is the @code{%null-pointer}).
 
 @item strings
 The GType of @var{value} is @code{**gchar} (an array of pointers to
-@code{*gchar}), returned as a list of strings (which can be empty).
+@code{*gchar}), returned as a list of strings, which can be empty (when
+@var{value} is the @code{%null-pointer}).
 
 @item csv-string
-The GType of @var{value} is @code{g*char}. The returned value is a
-list of strings, obtained by splitting @var{value} using @code{#\,} as
-the @code{char-pred}, or @code{#f}.
+The GType of @var{value} is @code{g*char}. The returned value is a list
+of strings, obtained by splitting @var{value} using @code{#\,} as the
+@code{char-pred}, or @code{#f} (when @var{value} is the
+@code{%null-pointer}).
 
 @item pointer
-The GType of @var{value} is @code{gpointer}. The returned value is
-a pointer or @code{#f}.
+The GType of @var{value} is @code{gpointer}. The returned value is a
+pointer or @code{#f} (when @var{value} is the @code{%null-pointer}).
 
 @end table
 @end indentedblock
@@ -108,7 +109,8 @@ The GType of @var{value} is @code{gboolean}.
 
 Returns a string or @code{#f}.
 
-The GType of @var{value} is @code{gchar*}.
+The GType of @var{value} is @code{gchar*}. When @var{value} is the
+@code{%null-pointer}, the procedure returns @code{#f}.
 @end deffn
 
 
@@ -129,7 +131,8 @@ Returns a list of strings or @code{#f}.
 
 The GType of @var{value} is @code{gchar*}.  When the returned value is a
 list of strings, it is obtained by splitting @var{value} using
-@code{#\,} as the @code{char-pred}.
+@code{#\,} as the @code{char-pred}.  When @var{value} is the
+@code{%null-pointer}, the procedure returns @code{#f}.
 @end deffn
 
 
@@ -138,7 +141,8 @@ list of strings, it is obtained by splitting @var{value} using
 
 Returns a pointer or @code{#f}.
 
-The GType of @var{value} is @code{gpointer}.
+The GType of @var{value} is @code{gpointer}.  When @var{value} is the
+@code{%null-pointer}, the procedure returns @code{#f}.
 @end deffn
 
 
