@@ -17,6 +17,8 @@ G-Golf Utilities low level API.@*
 
 @indentedblock
 @table @code
+@item @ref{gi-pointer-new}
+@item @ref{gi-pointer-inc}
 @item @ref{with-gerror}
 @item @ref{gi->scm}
 @item @ref{gi-boolean->scm}
@@ -28,13 +30,13 @@ G-Golf Utilities low level API.@*
 @end indentedblock
 
 
-@c @subheading Types and Values
+@subheading Types and Values
 
-@c @indentedblock
-@c @table @code
-@c @item @ref{%g-arg-info-transfer}
-@c @end table
-@c @end indentedblock
+@indentedblock
+@table @code
+@item @ref{%gi-pointer-size}
+@end table
+@end indentedblock
 
 
 @c @subheading Struct Hierarchy
@@ -54,6 +56,21 @@ G-Golf GObject Introspection utilities low level API.@*
 @subheading Procedures and Syntax
 
 
+@anchor{gi-pointer-new}
+@deffn Procedure gi-pointer-new
+
+Returns a newly allocated (Glib) pointer.
+@end deffn
+
+
+@anchor{gi-pointer-inc}
+@deffn Procedure gi-pointer-inc pointer [#:offset %gi-pointer-size]
+
+Returns a foreign pointer object pointing to the address of
+@var{pointer} increased by @var{offset}.
+@end deffn
+
+
 @anchor{with-gerror}
 @deffn Procedure with-gerror var body
 
@@ -66,23 +83,23 @@ environment where @var{var} is bound to a pointer to a newly allocated
 exception is raised, the result of the execution of @var{body} is
 returned.
 
-Here is an example, taken from the definition of
-@ref{g-irepository-require}, in the @code{(g-golf gi repository)}
-module:
+@c Here is an example, taken from the definition of
+@c @ref{g-irepository-require}, in the @code{(g-golf gi repository)}
+@c module:
 
-@lisp
-(define* (g-irepository-require namespace
-                                #:key (version #f)
-                                (repository %null-pointer))
-  (with-gerror g-error
-	       (g_irepository_require repository
-				      (string->pointer namespace)
-				      (if version
-					  (string->pointer version)
-					  %null-pointer)
-				      0
-				      g-error)))
-@end lisp
+@c @lisp
+@c (define* (g-irepository-require namespace
+@c                                 #:key (version #f)
+@c                                 (repository %null-pointer))
+@c   (with-gerror g-error
+@c 	       (g_irepository_require repository
+@c 				      (string->pointer namespace)
+@c 				      (if version
+@c 					  (string->pointer version)
+@c 					  %null-pointer)
+@c 				      0
+@c 				      g-error)))
+@c @end lisp
 @end deffn
 
 
@@ -179,4 +196,11 @@ The GType of @var{value} is @code{gpointer}.  When @var{value} is the
 @end deffn
 
 
-@c @subheading Types and Values
+@subheading Types and Values
+
+
+@anchor{%gi-pointer-size}
+@defvar %gi-pointer-size
+
+The size that a (Glib) pointer occupies in memory (currently 8 bytes).
+@end defvar
