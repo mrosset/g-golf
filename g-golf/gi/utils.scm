@@ -40,6 +40,7 @@
   #:export (%gi-pointer-size
 	    gi-pointer-new
 	    gi-pointer-inc
+	    gi-attribute-iter-new
 	    with-gerror
 	    gi->scm
             gi-boolean->scm
@@ -47,7 +48,7 @@
             gi-strings->scm
             gi-cvs-string->scm
 	    gi-pointer>scm
-	    g-golf-attribute-iter-new
+
 	    g-golf-gstudly-caps-expand
 	    %g-golf-gtype-name->scm-name-exceptions
 	    g-golf-gtype-name->scm-name
@@ -74,6 +75,13 @@
   (make-pointer (+ (pointer-address pointer)
 		   offset)))
 
+(define (gi-attribute-iter-new)
+  (make-c-struct (list '* '* '* '*)
+		 (list %null-pointer
+		       %null-pointer
+		       %null-pointer
+		       %null-pointer)))
+
 (define-syntax with-gerror
   (syntax-rules ()
     ((with-gerror ?var ?body)
@@ -90,6 +98,11 @@
 	      (g-free ?var)
 	      (error (pointer->string message)))))))))
 
+
+;;;
+;;; gi->scm procedures
+;;;
+
 (define (gi->scm value type)
   (case type
     ((boolean) (gi-boolean->scm value))
@@ -99,18 +112,6 @@
     ((pointer) (gi-pointer->scm value))
     (else
      (error "No such type: " type))))
-
-(define (g-golf-attribute-iter-new)
-  (make-c-struct (list '* '* '* '*)
-		 (list %null-pointer
-		       %null-pointer
-		       %null-pointer
-		       %null-pointer)))
-
-
-;;;
-;;; gi->scm procedures
-;;;
 
 (define (gi-boolean->scm value)
   (if (= value 0) #f #t))

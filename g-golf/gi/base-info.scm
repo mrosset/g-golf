@@ -85,7 +85,7 @@
            'string))
 
 (define (g-base-info-iterate-attributes info proc)
-  (let ((iter (g-golf-attribute-iter-new))
+  (let ((iter (gi-attribute-iter-new))
 	(name (gi-pointer-new))
 	(value (gi-pointer-new)))
     (while (> (g_base_info_iterate_attributes info iter name value)

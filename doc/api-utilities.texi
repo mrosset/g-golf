@@ -10,7 +10,7 @@
 @node Utilities
 @subsection Utilities
 
-G-Golf Utilities low level API.@*
+G-Golf GObject Introspetion Utilities low level API.@*
 
 
 @subheading Procedures and Syntax
@@ -19,6 +19,7 @@ G-Golf Utilities low level API.@*
 @table @code
 @item @ref{gi-pointer-new}
 @item @ref{gi-pointer-inc}
+@item @ref{gi-attribute-iter-new}
 @item @ref{with-gerror}
 @item @ref{gi->scm}
 @item @ref{gi-boolean->scm}
@@ -68,6 +69,17 @@ Returns a newly allocated (Glib) pointer.
 
 Returns a foreign pointer object pointing to the address of
 @var{pointer} increased by @var{offset}.
+@end deffn
+
+
+@anchor{gi-attribute-iter-new}
+@deffn Procedure gi-attribute-iter-new
+
+Returns a pointer.
+
+Creates and returns a foreign pointer to a C struct for a
+@code{GIAttributeIter} (a C struct containg four pointers, initialized
+to @code{%null-pointer}).
 @end deffn
 
 

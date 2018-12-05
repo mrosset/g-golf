@@ -40,6 +40,9 @@
 ;;;
 
 (define-method (test-utils (self <g-golf-test-gi>))
+  (assert (gi-pointer-new))
+  (assert (gi-pointer-inc (gi-pointer-new) 0))
+  (assert (gi-attribute-iter-new))
   (assert-equal "clutter-actor"
 		(g-golf-gtype-name->scm-name "ClutterActor"))
   (assert-equal '<clutter-actor>
