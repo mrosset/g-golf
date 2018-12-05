@@ -59,7 +59,7 @@
 
 (define (g-golf-enum-import info)
   (let* ((type-name (g-registered-type-info-get-type-name info))
-	 (scm-name (g-golf-gtype-name->scm-name type-name))
+	 (scm-name (gtype-name->scm-name type-name))
 	 (e-vals (g-golf-enum-get-values info)))
     (make <gi-enum>
       #:gi-name type-name

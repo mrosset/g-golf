@@ -46,9 +46,9 @@
   (assert-true (string=? (gstudly-caps-expand "GStudlyCapsExpand")
                           "g-studly-caps-expand"))
   (assert-equal "clutter-actor"
-		(g-golf-gtype-name->scm-name "ClutterActor"))
+		(gtype-name->scm-name "ClutterActor"))
   (assert-equal '<clutter-actor>
-		(g-golf-gtype-name->class-name "ClutterActor")))
+		(gtype-name->class-name "ClutterActor")))
 
 
 ;;;
