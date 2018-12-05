@@ -215,10 +215,12 @@ The GType of @var{value} is @code{gpointer}.  When @var{value} is the
 Returns a string.
 
 Given a @samp{@uref{@value{UWIKI-CAMELCASE}, Camel Case}} string, this
-procedure returns a new string, with all uppercase letters being
-transformed into their corresponding lowercase letter, and where a
-@code{space} is inserted in between occurrences of consecutive uppercase
-letters.  Here is an example:
+procedure@footnote{This procedure comes from @uref{@value{UGG},
+Guile-Gnome}, where it is actually named @code{GStudlyCapsExpand}, in
+the (Gule-Gnome) module (gnome gobject utils).}  returns a new string,
+with all uppercase letters being transformed into their corresponding
+lowercase letter, and where a @code{space} is inserted in between
+occurrences of consecutive uppercase letters.  Here is an example:
 
 @lisp
 (gstudly-caps-expand "GStudlyCapsExpand")
