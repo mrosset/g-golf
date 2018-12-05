@@ -27,6 +27,7 @@ G-Golf GObject Introspetion Utilities low level API.@*
 @item @ref{gi-strings->scm}
 @item @ref{gi-csv-string->scm}
 @item @ref{gi-pointer->scm}
+@item @ref{gstudly-caps-expand}
 @end table
 @end indentedblock
 
@@ -205,6 +206,25 @@ Returns a pointer or @code{#f}.
 
 The GType of @var{value} is @code{gpointer}.  When @var{value} is the
 @code{%null-pointer}, the procedure returns @code{#f}.
+@end deffn
+
+
+@anchor{gstudly-caps-expand}
+@deffn Procedure gstudly-caps-expand str
+
+Returns a string.
+
+Given a @samp{@uref{@value{UWIKI-CAMELCASE}, Camel Case}} string, this
+procedure returns a new string, with all uppercase letters being
+transformed into their corresponding lowercase letter, and where a
+@code{space} is inserted in between occurrences of consecutive uppercase
+letters.  Here is an example:
+
+@lisp
+(gstudly-caps-expand "GStudlyCapsExpand")
+@print{}
+$2 = "g-studly-caps-expand"
+@end lisp
 @end deffn
 
 

@@ -80,3 +80,5 @@
 
 @c GGMGOG Guile-Gnome Manual GObject Generics
 @set UGGMGOG https://www.gnu.org/software/guile-gnome/docs/gobject/html/gnome-gobject-generics.html#gnome-gobject-generics
+
+@set UWIKI-CAMELCASE https://en.wikipedia.org/wiki/Camel_case

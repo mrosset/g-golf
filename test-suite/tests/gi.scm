@@ -43,6 +43,8 @@
   (assert (gi-pointer-new))
   (assert (gi-pointer-inc (gi-pointer-new) 0))
   (assert (gi-attribute-iter-new))
+  (assert-true (string=? (gstudly-caps-expand "GStudlyCapsExpand")
+                          "g-studly-caps-expand"))
   (assert-equal "clutter-actor"
 		(g-golf-gtype-name->scm-name "ClutterActor"))
   (assert-equal '<clutter-actor>
