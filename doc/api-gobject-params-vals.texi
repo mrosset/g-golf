@@ -61,8 +61,8 @@ replaced by a '-' during construction.
 
 @subheading Procedures
 
-Note: in this section, the @var{value} arguments are [must be] pointers
-to a @code{GValue}.
+Note: in this section, the @var{g-value} arguments are [must be]
+pointers to a @code{GValue}.
 
 
 @anchor{g-value->g-type}
