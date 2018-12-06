@@ -49,8 +49,8 @@
 ;;;
 
 (define (g-function-info-get-flags info)
-  (g-golf-integer->gflags %g-function-info-flags
-                          (g_function_info_get_flags info)))
+  (gi-integer->gflags %g-function-info-flags
+                      (g_function_info_get_flags info)))
 
 (define (g-function-info-get-symbol info)
   (pointer->string (g_function_info_get_symbol info)))

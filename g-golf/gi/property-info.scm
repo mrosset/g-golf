@@ -64,8 +64,8 @@
 ;;;
 
 (define (g-property-info-get-flags info)
-  (g-golf-integer->gflags %g-param-flags
-                          (g_property_info_get_flags info)))
+  (gi-integer->gflags %g-param-flags
+                      (g_property_info_get_flags info)))
 
 (define (g-property-info-get-ownership-transfer info)
   (enum->symbol %gi-transfer

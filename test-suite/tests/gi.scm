@@ -50,7 +50,11 @@
   (assert-equal "clutter-actor"
 		(gi-name->scm-name "ClutterActor"))
   (assert-equal '<clutter-actor>
-		(gi-name->class-name "ClutterActor")))
+		(gi-name->class-name "ClutterActor"))
+  (assert (gi-integer->gflags %g-function-info-flags 2))
+  (assert-true (= (gi-gflags->integer %g-function-info-flags
+                                      '(is-constructor))
+                  2)))
 
 
 ;;;

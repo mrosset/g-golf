@@ -53,8 +53,8 @@
 	    gi-name->scm-name
 	    gi-name->class-name
 	    ;; gi-class-name->method-name
-	    g-golf-gflags->integer
-	    g-golf-integer->gflags))
+	    gi-integer->gflags
+	    gi-gflags->integer))
 
 
 (define %gi-pointer-size 8)
@@ -212,13 +212,13 @@
      (string-append (substring class-string 1 (1- (string-length class-string)))
                     ":" (symbol->string name)))))
 
-(define (g-golf-gflags->integer gflags flags)
+(define (gi-gflags->integer gflags flags)
   (list->integer
    (reverse (map (lambda (name)
 		   (if (member name flags) #t #f))
 	      (enum->symbols gflags)))))
 
-(define (g-golf-integer->gflags gflags n)
+(define (gi-integer->gflags gflags n)
   (let ((symbols (enum->symbols gflags)))
     (fold-right (lambda (symbol bool result)
 		  (if bool

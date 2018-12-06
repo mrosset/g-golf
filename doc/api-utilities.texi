@@ -30,6 +30,8 @@ G-Golf GObject Introspetion Utilities low level API.@*
 @item @ref{gstudly-caps-expand}
 @item @ref{gi-name->scm-name}
 @item @ref{gi-name->class-name}
+@item @ref{gi-integer->gflags}
+@item @ref{gi-gflags->integer}
 @end table
 @end indentedblock
 
@@ -250,6 +252,21 @@ into @code{#\-} and calling @ref{gstudly-caps-expand}.  In addition,
 for @code{gi-name->class-name} only, the returned string is
 surrounded using the (traditional scheme class name beginning and
 ending) @code{#\<} and @code{#\>} characters.
+@end deffn
+
+
+@anchor{gi-integer->gflags}
+@anchor{gi-gflags->integer}
+@deffn Procedure gi-integer->gflags gflags n
+@deffnx Procedure gi-gflags->integer gflags flags
+
+Returns a list of flags (symbols) - an integer - respectively.
+
+The former obtains the list of flags, from @var{gflags}, corresponding
+to the given integer @var{n}.  The latter returns an integer,
+corresponding to the given list of @var{flags}, comparing those against
+@var{gflags}.  In both cases, @var{gflags} is (must be) a
+@code{<gi-enum>} instance, for example @ref{%g-param-flags}.
 @end deffn
 
 
