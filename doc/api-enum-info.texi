@@ -4,7 +4,7 @@
 @c See the file g-golf.texi for copying conditions.
 
 
-@defindex ei
+@c @defindex ei
 
 
 @node Enum Info
@@ -18,8 +18,8 @@ GIEnumInfo — Structs representing an enumeration and its values.
 
 @indentedblock
 @table @code
-@item @ref{g-golf-enum-import}
-@item @ref{g-golf-enum-get-values}
+@item @ref{gi-enum-import}
+@item @ref{gi-enum-get-values}
 
 @item @ref{g-enum-info-get-n-values}
 @item @ref{g-enum-info-get-value}
@@ -61,8 +61,8 @@ Note: in this section, unless otherwise specified, the @var{info}
 argument is [must be] a pointer to a @code{GIEumInfo}.
 
 
-@anchor{g-golf-enum-import}
-@deffn Procedure g-golf-enum-import info
+@anchor{gi-enum-import}
+@deffn Procedure gi-enum-import info
 
 Returns a @code{<gi-enum>} instance.
 
@@ -71,8 +71,8 @@ Obtain the values this enumeration contains and construct a
 @end deffn
 
 
-@anchor{g-golf-enum-get-values}
-@deffn Procedure g-golf-enum-get-values info
+@anchor{gi-enum-get-values}
+@deffn Procedure gi-enum-get-values info
 
 Returns a list of @code{(name . value)} @var{info} contains.
 
