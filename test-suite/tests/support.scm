@@ -35,12 +35,6 @@
 (define-class <g-golf-test-support> (<test-case>))
 
 
-(define-method (test-utils (self <g-golf-test-support>))
-  (assert-equal "clutter-actor"
-		(gtype-name->scm-name "ClutterActor"))
-  (assert-equal '<clutter-actor>
-		(gtype-name->class-name "ClutterActor")))
-
 (define-method (test-enum (self <g-golf-test-support>))
   (let* ((a-set '((foo . 0) (bar  . 1)))
          (enum (make <enum> #:enum-set a-set)))

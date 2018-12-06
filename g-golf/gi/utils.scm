@@ -49,10 +49,10 @@
             gi-cvs-string->scm
 	    gi-pointer>scm
 	    gstudly-caps-expand
-	    %gtype-name-exceptions
-	    gtype-name->scm-name
-	    gtype-name->class-name
-	    ;; gtype-class-name->method-name
+	    %gi-name-transform-exceptions
+	    gi-name->scm-name
+	    gi-name->class-name
+	    ;; gi-class-name->method-name
 	    g-golf-gflags->integer
 	    g-golf-integer->gflags))
 
@@ -184,12 +184,13 @@
 
 ;; Default name transformations can be overridden, but g-golf won't
 ;; define exceptions for now, let's see.
-(define %gtype-name-exceptions
-  '(;; (GEnum . genum)
+(define %gi-name-transform-exceptions
+  '(("BLuefox" . "bluefox") ;; to test
+    ;; ("GEnum" . "genum")  ;; no sure yet
     ))
 
-(define (gtype-name->scm-name type-name)
-  (or (assoc-ref %gtype-name-exceptions type-name)
+(define (gi-name->scm-name type-name)
+  (or (assoc-ref %gi-name-transform-exceptions type-name)
       (string-trim-right (gstudly-caps-expand
 			  ;; only change _ to -
 			  ;; other chars are not valid in a type name
@@ -199,13 +200,13 @@
 
 ;; "GtkAccelGroup" => <gtk-accel-group>
 ;; "GSource*" => <g-source*>
-(define (gtype-name->class-name type-name)
+(define (gi-name->class-name type-name)
   (string->symbol (string-append "<"
 				 (gstudly-caps-expand type-name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well
-#;(define (gtype-class-name->method-name class-name name)
+#;(define (gi-class-name->method-name class-name name)
   (let ((class-string (symbol->string class-name)))
     (string->symbol
      (string-append (substring class-string 1 (1- (string-length class-string)))

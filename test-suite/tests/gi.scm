@@ -44,11 +44,13 @@
   (assert (gi-pointer-inc (gi-pointer-new) 0))
   (assert (gi-attribute-iter-new))
   (assert-true (string=? (gstudly-caps-expand "GStudlyCapsExpand")
-                          "g-studly-caps-expand"))
+                         "g-studly-caps-expand"))
+  (assert-equal "bluefox"
+                (gi-name->scm-name "BLuefox"))
   (assert-equal "clutter-actor"
-		(gtype-name->scm-name "ClutterActor"))
+		(gi-name->scm-name "ClutterActor"))
   (assert-equal '<clutter-actor>
-		(gtype-name->class-name "ClutterActor")))
+		(gi-name->class-name "ClutterActor")))
 
 
 ;;;
