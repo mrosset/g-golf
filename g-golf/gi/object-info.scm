@@ -46,7 +46,7 @@
 		warn
 		last)
 
-  #:export (g-golf-object-import
+  #:export (gi-object-import
 
 	    g-object-info-get-abstract
 	    g-object-info-get-parent
@@ -76,7 +76,7 @@
 ;;;
 
 
-(define (g-golf-object-import info)
+(define (gi-object-import info)
   ;; fixme
   #f)
 

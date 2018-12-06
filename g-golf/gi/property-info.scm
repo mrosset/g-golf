@@ -43,7 +43,7 @@
 		warn
 		last)
 
-  #:export (g-golf-property-import
+  #:export (gi-property-import
 
 	    g-property-info-get-flags
 	    g-property-info-get-ownership-transfer
@@ -54,7 +54,7 @@
 ;;; Build Interface
 ;;;
 
-(define (g-golf-property-import info)
+(define (gi-property-import info)
   ;; Fixme...
   (g-base-info-get-name info))
 
