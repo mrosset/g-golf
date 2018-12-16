@@ -22,29 +22,39 @@
 @section About G-Golf
 
 GNU G-Golf @*
-Gnome: (Guile Object Library for).
+GNOME: (Guile Object Library for).
 
 
 @subheading Description
 
 G-Golf is a Guile@footnote{GNU @uref{@value{UGUILE}, Guile}@*an
 interpreter and compiler for the @uref{@value{USCHEME}, Scheme}
-programming language.} Object Library for Gnome.
+programming language.} Object Library for @uref{@value{UGNOME}, GNOME}.
 
-G-Golf is a library, composed of a direct binding to
-@uref{@value{UGI-wiki}, GObject Introspection} plus a higher
-functionality layer, which, importing Gnome libraries, makes GOBject
-classes and methods GOOPS citizen (@pxref{GOOPS,,, guile, The GNU Guile
-Reference Manual}).
+G-Golf low level API comprises a binding to - (most of) the
+@uref{@value{UGI}, GObject Introspection} and (some of) the
+@uref{@value{UGOBJECT}, GObject} and @uref{@value{UGLIB}, Glib}
+libraries, as well as additional (G-Golf) utilities - used to import
+GObject libraries and build their corresponding G-Golf high level API.
 
-G-Golf is a tool to develop modern graphical applications in Guile
-Scheme.
+@indentedblock
+@strong{Note:} to be precise, G-Golf imports (and depends on the
+exitence of) a @uref{@value{UGI-OVERVIEW}, Typelib} - a binary,
+readonly, memory-mappable database containing reflective information
+about a GObject library.
+@end indentedblock
+
+G-Golf high level API makes (imported) GOBject classes and methods
+available using GOOPS, the Guile Object Oriented System (@pxref{GOOPS,,,
+guile, The GNU Guile Reference Manual}).
+
+G-Golf is a tool to develop modern graphical applications.
 
 
 @subheading Savannah
 
-GNU G-Golf also has a @uref{@value{UG-GOLF-SAVANNAH}, Savannah} project
-page.
+GNU G-Golf also has a project page on @uref{@value{UG-GOLF-SAVANNAH},
+Savannah}.
 
 
 @node Obtaining and Installing G-Golf
