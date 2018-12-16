@@ -19,6 +19,14 @@ GIArgInfo — Struct representing an argument.
 @indentedblock
 @table @code
 @item @ref{g-arg-info-get-closure}
+@item @ref{g-arg-info-get-destroy}
+@item @ref{g-arg-info-get-direction}
+@item @ref{g-arg-info-get-ownership-transfer}
+@item @ref{g-arg-info-get-scope}
+@item @ref{g-arg-info-get-type}
+@item @ref{g-arg-info-may-be-null}
+@item @ref{g-arg-info-is-optional}
+@item @ref{g-arg-info-is-return-value}
 @end table
 @end indentedblock
 
@@ -59,8 +67,89 @@ a @code{GIArgInfo}.
 
 Returns the index of the user data argument or -1 if there is none.
 
-Obtain the index of the user data argument. This is only valid for
+Obtains the index of the user data argument. This is only valid for
 arguments which are callbacks.
+@end deffn
+
+
+@anchor{g-arg-info-get-destroy}
+@deffn Procedure g-arg-info-get-destroy info
+
+Returns the index of the @code{GDestroyNotify} argument or -1 if there
+is none.
+
+Obtains the index of the @code{GDestroyNotify} argument. This is only
+valid for arguments which are callbacks.
+@end deffn
+
+
+@anchor{g-arg-info-get-direction}
+@deffn Procedure g-arg-info-get-direction info
+
+Returns a symbol.
+
+Obtains and returns the @ref{%gi-direction} of the argument.
+@end deffn
+
+
+@anchor{g-arg-info-get-ownership-transfer}
+@deffn Procedure g-arg-info-get-ownership-transfer info
+
+Returns a symbol.
+
+Obtains and returns the @ref{%gi-transfer} for this argument.
+@end deffn
+
+
+@anchor{g-arg-info-get-scope}
+@deffn Procedure g-arg-info-get-scope info
+
+Returns a symbol.
+
+Obtains and returns the @ref{%gi-scope-type} for this argument. The
+scope type explains how a callback is going to be invoked, most
+importantly when the resources required to invoke it can be freed.
+@end deffn
+
+
+@anchor{g-arg-info-get-type}
+@deffn Procedure g-arg-info-get-type info
+
+Returns a pointer.
+
+Obtains the @code{GITypeInfo} holding the type information for
+@var{info}.  Free it using @ref{g-base-info-unref} when done.
+@end deffn
+
+
+@anchor{g-arg-info-may-be-null}
+@deffn Procedure g-arg-info-may-be-null info
+
+Returns @code{#t} or @code{#f}.
+
+Obtains if the type of the argument includes the possibility of
+@code{NULL}. For 'in' values this means that @code{NULL} is a valid
+value. For 'out' values, this means that @code{NULL} may be returned.
+@end deffn
+
+
+@anchor{g-arg-info-is-optional}
+@deffn Procedure g-arg-info-is-optional info
+
+Returns @code{#t} or @code{#f}.
+
+Obtains if the argument is optional. For 'out' arguments this means that
+you can pass @code{NULL} in order to ignore the result.
+@end deffn
+
+
+@anchor{g-arg-info-is-return-value}
+@deffn Procedure g-arg-info-is-return-value info
+
+Returns @code{#t} or @code{#f}.
+
+Obtains if the argument is a retur value. It can either be a parameter
+or a return value.
 @end deffn
 
 
