@@ -45,6 +45,11 @@
 (define-method (test-g-value-init (self <g-golf-test-gobject>))
   (assert (g-value-init (symbol->g-type 'float))))
 
+(define-method (test-g-value->g-type* (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init %gtype)))
+    (assert-true (= (g-value->g-type-id g-value) %gtype))
+    (assert-true (eq? (g-value->g-type g-value) 'enum))))
+
 (define-method (test-g-value-get-boolean (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'boolean))))
     (assert (g-value-ref g-value))))
@@ -80,6 +85,17 @@
 (define-method (test-g-value-set-float (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'float))))
     (assert (g-value-set! g-value 5.0))))
+
+(define-method (test-g-value-get-enum (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init %gtype
+                               #;(symbol->g-type 'enum))))
+    (assert (g-value-ref g-value))))
+
+(define-method (test-g-value-set-enum (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init %gtype
+                               #;(symbol->g-type 'enum))))
+    (assert (g-value-set! g-value 1))
+    (assert-true (= (g-value-ref g-value) 1))))
 
 (define-method (test-g-value-get-string (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'string))))

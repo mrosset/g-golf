@@ -15,6 +15,7 @@ Parameters and Values — Standard Parameter and Value Types
 
 @indentedblock
 @table @code
+@item @ref{g-value->g-type-id}
 @item @ref{g-value->g-type}
 @item @ref{g-value-ref}
 @item @ref{g-value-set!}
@@ -26,6 +27,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-uint}
 @item @ref{g-value-get-float}
 @item @ref{g-value-set-float}
+@item @ref{g-value-get-enum}
+@item @ref{g-value-set-enum}
 @item @ref{g-value-get-string}
 @item @ref{g-value-set-string}
 @item @ref{g-value-get-pointer}
@@ -63,6 +66,15 @@ replaced by a '-' during construction.
 
 Note: in this section, the @var{g-value} arguments are [must be]
 pointers to a @code{GValue}.
+
+
+@anchor{g-value->g-type-id}
+@deffn Procedure g-value->g-type-id g-value
+
+Returns a integer.
+
+Gets and returns the @code{GType} for @var{g-value}.
+@end deffn
 
 
 @anchor{g-value->g-type}
@@ -174,6 +186,25 @@ Gets and returns the contents of @var{g-value}.
 Returns nothing.
 
 Sets the content of @var{g-value} to @var{float}.
+@end deffn
+
+
+@anchor{g-value-get-enum}
+@deffn Procedure g-value-get-enum g-value
+
+Returns a integer.
+
+Gets and returns the contents of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-enum}
+@deffn Procedure g-value-set-enum g-value id
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{id} (the enum value to be
+set).
 @end deffn
 
 

@@ -42,7 +42,8 @@
 		warn
 		last)
 
-  #:export (g-value->g-type
+  #:export (g-value->g-type-id
+            g-value->g-type
             g-value-ref
             g-value-set!
             g-value-get-int
@@ -53,6 +54,8 @@
             g-value-set-boolean
             g-value-get-float
             g-value-set-float
+            g-value-get-enum
+            g-value-set-enum
             g-value-get-string
             g-value-set-string
             g-value-get-pointer
@@ -65,9 +68,18 @@
 ;;; G-Golf Low Level API
 ;;;
 
+(define %gvalue-struct
+  (list unsigned-long double double))
+
+(define (gvalue-parse g-value)
+  (parse-c-struct g-value %gvalue-struct))
+
+(define (g-value->g-type-id g-value)
+  (match (gvalue-parse g-value)
+    ((g-type _ _) g-type)))
+
 (define (g-value->g-type g-value)
-  (match (parse-c-struct g-value
-                         (list unsigned-long double double))
+  (match (gvalue-parse g-value)
     ((g-type _ _)
      (g-type->symbol g-type))))
 
@@ -81,6 +93,8 @@
      (g-value-get-int g-value))
     ((float)
      (g-value-get-float g-value))
+    ((enum)
+     (g-value-get-enum g-value))
     ((string)
      (g-value-get-string g-value))
     ((pointer)
@@ -100,6 +114,8 @@
      (g-value-set-int g-value value))
     ((float)
      (g-value-set-float g-value value))
+    ((enum)
+     (g-value-set-enum g-value value))
     ((string)
      (g-value-set-string g-value value))
     ((pointer)
@@ -138,6 +154,12 @@
 
 (define (g-value-set-float g-value float)
   (g_value_set_float g-value float))
+
+(define (g-value-get-enum g-value)
+  (g_value_get_enum g-value))
+
+(define (g-value-set-enum g-value int)
+  (g_value_set_enum g-value int))
 
 (define (g-value-get-string g-value)
   (let ((pointer (g_value_get_string g-value)))
@@ -225,6 +247,19 @@
 				    %libgobject)
                       (list '*
                             float)))
+
+(define g_value_get_enum
+  (pointer->procedure int
+                      (dynamic-func "g_value_get_enum"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_enum
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_enum"
+				    %libgobject)
+                      (list '*
+                            int)))
 
 (define g_value_get_string
   (pointer->procedure '*
