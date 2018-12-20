@@ -108,15 +108,9 @@
                                       (string->pointer namespace))
            'string))
 
-#;(define* (g-irepository-find-by-gtype gtype
-                                      #:key (repository %null-pointer))
-  (gi->scm (g_irepository_find_by_gtype repository gtype)
-           'pointer))
-
 (define* (g-irepository-find-by-gtype gtype
                                       #:key (repository %null-pointer))
-  (gi->scm (g_irepository_find_by_gtype repository
-                                        (string->pointer gtype))
+  (gi->scm (g_irepository_find_by_gtype repository gtype)
            'pointer))
 
 (define* (g-irepository-find-by-name namespace name
@@ -191,17 +185,11 @@
 				    %libgirepository)
                       (list '* '*)))
 
-#;(define g_irepository_find_by_gtype
-  (pointer->procedure '*
-                      (dynamic-func "g_irepository_find_by_gtype"
-				    %libgirepository)
-                      (list '* int)))
-
 (define g_irepository_find_by_gtype
   (pointer->procedure '*
                       (dynamic-func "g_irepository_find_by_gtype"
 				    %libgirepository)
-                      (list '* '*)))
+                      (list '* unsigned-long)))
 
 (define g_irepository_find_by_name
   (pointer->procedure '*
