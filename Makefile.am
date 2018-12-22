@@ -52,6 +52,7 @@ SOURCES = \
 	g-golf/gobject/gobject.scm		\
 	g-golf/gobject.scm			\
 	g-golf/gi/utils.scm			\
+	g-golf/gi/cache.scm			\
 	g-golf/gi/repository.scm		\
 	g-golf/gi/common-types.scm		\
 	g-golf/gi/base-info.scm			\
