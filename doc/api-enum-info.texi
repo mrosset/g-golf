@@ -66,7 +66,7 @@ argument is [must be] a pointer to a @code{GIEumInfo}.
 
 Returns a @code{<gi-enum>} instance.
 
-Obtain the values this enumeration contains and construct a
+Obtains the values this enumeration contains and construct a
 @code{<gi-enum>} instance.
 @end deffn
 
@@ -74,10 +74,9 @@ Obtain the values this enumeration contains and construct a
 @anchor{gi-enum-get-values}
 @deffn Procedure gi-enum-get-values info
 
-Returns a list of @code{(name . value)} @var{info} contains.
+Returns an alist.
 
-Obtain and build a list of pairs @code{(name . value)} this enumeration
-contains.
+Obtains and build a list of pairs @code{(symbol . id)} for @var{info}.
 @end deffn
 
 
@@ -86,7 +85,7 @@ contains.
 
 Returns the number of values.
 
-Obtain the number of values this enumeration contains.
+Obtains the number of values this enumeration contains.
 @end deffn
 
 
@@ -95,7 +94,7 @@ Obtain the number of values this enumeration contains.
 
 Returns a pointer to a @code{GIValueInfo} or #f if type tag is wrong.
 
-Obtain a value for this enumeration.  The @code{GIValueInfo} must be
+Obtains a value for this enumeration.  The @code{GIValueInfo} must be
 free'd using @code{g-base-info-unref} when done.
 
 @var{index} is a 0-based offset into @var{info} for a value.
@@ -107,7 +106,7 @@ free'd using @code{g-base-info-unref} when done.
 
 Returns the number of methods.
 
-Obtain the number of methods this enumeration has.
+Obtains the number of methods this enumeration has.
 @end deffn
 
 
@@ -116,7 +115,7 @@ Obtain the number of methods this enumeration has.
 
 Returns a pointer to a @code{GIFunctionInfo} or #f if type tag is wrong.
 
-Obtain a method for this enumeration.  The @code{GIFunctionInfo} must be
+Obtains a method for this enumeration.  The @code{GIFunctionInfo} must be
 free'd using @code{g-base-info-unref} when done.
 
 @var{index} is a 0-based offset into @var{info} for a method.
@@ -128,7 +127,7 @@ free'd using @code{g-base-info-unref} when done.
 
 Returns the enumeration value.
 
-Obtain a value of the @code{GIValueInfo}.
+Obtains a value of the @code{GIValueInfo}.
 
 @var{info} is [must be] a pointer to a @code{GIValueInfo}.
 @end deffn

@@ -78,7 +78,8 @@
 		    (get-enum-values info
 				     n
 				     (+ i 1)
-				     (cons (cons name value)
+				     (cons (cons (string->symbol name)
+                                                 value)
 					   v-set)))))))
     (get-enum-values info
 		     (g-enum-info-get-n-values info)
