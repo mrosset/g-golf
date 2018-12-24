@@ -62,7 +62,7 @@ characters can be letters, numbers or a '-'. All other characters are
 replaced by a '-' during construction.
 
 
-@subheading Procedures
+@subheading Procedures and Methods
 
 Note: in this section, the @var{g-value} arguments are [must be]
 pointers to a @code{GValue}.
@@ -92,7 +92,7 @@ Gets and returns the scheme representation (a symbol) of the
 
 Returns the content of @var{g-value}.
 
-Gets and returns the contents of @var{g-value}.  Supported @code{GType}
+Gets and returns the content of @var{g-value}.  Supported @code{GType}
 (their scheme representaion) for @var{g-value} are: @code{boolean},
 @code{int}, @code{uint}, @code{float}, @code{string}, @code{pointer},
 @code{object}.
@@ -104,7 +104,7 @@ Gets and returns the contents of @var{g-value}.  Supported @code{GType}
 
 Returns nothing.
 
-Sets the contents of @var{g-value} to @var{value}.  Supported
+Sets the content of @var{g-value} to @var{value}.  Supported
 @code{GType} (their scheme representaion) for @var{g-value} are:
 @code{boolean}, @code{int}, @code{uint}, @code{float}, @code{string},
 @code{pointer}, @code{object}.
@@ -140,7 +140,7 @@ Sets the content of @var{g-value} to @code{0} if @var{val} is
 
 Returns a integer.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the content of @var{g-value}.
 @end deffn
 
 
@@ -158,7 +158,7 @@ Sets the content of @var{g-value} to @var{int}.
 
 Returns an unsigned integer.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the content of @var{g-value}.
 @end deffn
 
 
@@ -176,7 +176,7 @@ Sets the content of @var{g-value} to @var{uint}.
 
 Returns a float.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the content of @var{g-value}.
 @end deffn
 
 
@@ -192,19 +192,23 @@ Sets the content of @var{g-value} to @var{float}.
 @anchor{g-value-get-enum}
 @deffn Procedure g-value-get-enum g-value
 
-Returns a integer.
+Returns a symbol.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the (registered) enum type info symbol for
+@var{g-value}.
 @end deffn
 
 
 @anchor{g-value-set-enum}
-@deffn Procedure g-value-set-enum g-value id
+@deffn Method g-value-set-enum g-value (id <integer>)
+@deffnx Method g-value-set-enum g-value (sym <symbol>)
 
 Returns nothing.
 
-Sets the content of @var{g-value} to @var{id} (the enum value to be
-set).
+Sets the content of @var{g-value} to @var{id}, or to the id
+corresponding to @var{sym} respectively.  The @var{id} or the @var{sym}
+must be valid (as in being a valid member of the (registered) enum type
+info for @var{g-value}), otherwise an exception is raised.
 @end deffn
 
 
@@ -213,7 +217,7 @@ set).
 
 Returns a string.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the content of @var{g-value}.
 @end deffn
 
 
@@ -231,7 +235,7 @@ Sets the content of @var{g-value} to @var{str}.
 
 Returns a pointer.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the content of @var{g-value}.
 @end deffn
 
 
@@ -249,7 +253,7 @@ Sets the content of @var{g-value} to @var{pointer}.
 
 Returns a pointer.
 
-Gets and returns the contents of @var{g-value}.
+Gets and returns the content of @var{g-value}.
 @end deffn
 
 

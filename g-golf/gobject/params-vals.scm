@@ -31,7 +31,13 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf init)
+  #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf gi cache)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi repository)
+  #:use-module (g-golf gi base-info)
+  #:use-module (g-golf gi enum-info)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject type-info)
@@ -55,13 +61,14 @@
             g-value-get-float
             g-value-set-float
             g-value-get-enum
-            g-value-set-enum
             g-value-get-string
             g-value-set-string
             g-value-get-pointer
             g-value-set-pointer
             g-value-get-object
             g-value-set-object))
+
+(g-export g-value-set-enum)
 
 
 ;;;
@@ -156,10 +163,47 @@
   (g_value_set_float g-value float))
 
 (define (g-value-get-enum g-value)
-  (g_value_get_enum g-value))
+  (let* ((id (g-value->g-type-id g-value))
+         (name (gstudly-caps-expand (g-type-name id)))
+         (key (string->symbol name))
+         (gi-enum (or (gi-cache-ref 'enum key)
+                      (let* ((b-info (g-irepository-find-by-gtype id))
+                             (gi-enum (gi-enum-import b-info)))
+                        (g-base-info-unref b-info)
+                        (gi-cache-set! 'enum key gi-enum)
+                        gi-enum)))
+         (val (g_value_get_enum g-value)))
+    (or (enum->symbol gi-enum val)
+        (error "No such enum value: " key " " val))))
 
-(define (g-value-set-enum g-value int)
-  (g_value_set_enum g-value int))
+(define-method (g-value-set-enum g-value (val <integer>))
+  (let* ((id (g-value->g-type-id g-value))
+         (name (gstudly-caps-expand (g-type-name id)))
+         (key (string->symbol name))
+         (gi-enum (or (gi-cache-ref 'enum key)
+                      (let* ((b-info (g-irepository-find-by-gtype id))
+                             (gi-enum (gi-enum-import b-info)))
+                        (g-base-info-unref b-info)
+                        (gi-cache-set! 'enum key gi-enum)
+                        gi-enum))))
+    (if (enum->symbol gi-enum val)
+        (g_value_set_enum g-value val)
+        (error "No such enum value: " key " " val))))
+
+(define-method (g-value-set-enum g-value (sym <symbol>))
+  (let* ((id (g-value->g-type-id g-value))
+         (name (gstudly-caps-expand (g-type-name id)))
+         (key (string->symbol name))
+         (gi-enum (or (gi-cache-ref 'enum key)
+                      (let* ((b-info (g-irepository-find-by-gtype id))
+                             (gi-enum (gi-enum-import b-info)))
+                        (g-base-info-unref b-info)
+                        (gi-cache-set! 'enum key gi-enum)
+                        gi-enum)))
+         (val (enum->value gi-enum sym)))
+    (if val
+        (g_value_set_enum g-value val)
+        (error "No such enum value: " key " " sym))))
 
 (define (g-value-get-string g-value)
   (let ((pointer (g_value_get_string g-value)))
