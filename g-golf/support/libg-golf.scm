@@ -34,7 +34,11 @@
             pointer-address-size-c
 
             ;; floats
-            float-to-int-c))
+            float-to-int-c
+
+            ;; GObject
+            g-object-type-c
+            #;g-object-type-name-c))
 
 
 ;;;
@@ -57,3 +61,36 @@
                       (dynamic-func "float_to_int_c"
                                     %libg-golf)
                       (list float)))
+
+
+;;;
+;;; GObject
+;;;
+
+(define g-object-type-c
+  (pointer->procedure unsigned-long
+                      (dynamic-func "g_object_type_c"
+                                    %libg-golf)
+                      (list '*)))
+
+#!
+
+The following is not working yet, it segfault, complaining that:
+
+  /opt2/bin/guile: symbol lookup error: /opt2/lib/libg-golf.so:
+  undefined symbol: g_type_name
+
+  [ which is weird since g_type_name is defined in GObject Tye nfo, and
+  [ so it should be part of glib-object.h, afaict at least.
+
+It is not a real problem though, because we already bind g_type_name
+using the ffi, in (g-golf gobject type-info).  I'll try to fix this
+later.
+
+(define g-object-type-name-c
+  (pointer->procedure '*
+                      (dynamic-func "g_object_type_name_c"
+                                    %libg-golf)
+                      (list '*)))
+
+!#

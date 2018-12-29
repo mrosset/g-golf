@@ -37,6 +37,7 @@
   #:use-module (g-golf gi registered-type-info)
   #:use-module (g-golf gi property-info)
   #:use-module (g-golf gi type-info)
+  #:use-module (g-golf support libg-golf)
   #:use-module (g-golf support enum)
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject params-vals)
@@ -48,7 +49,10 @@
 		last)
 
   #:export (g-object-get-property
-	    g-object-set-property))
+	    g-object-set-property
+
+            g-object-type
+            #;g-object-type-name))
 
 
 ;;;
@@ -56,26 +60,39 @@
 ;;;
 
 (define (g-object-get-property object property)
-  ;; both args, object and property, are pointers
+  ;; FIXME.
+  ;; wip - mockup - still incorrect and incomplete
   (let* ((name (g-base-info-get-name property))
 	 (type-info (g-property-info-get-type property))
 	 (type-tag (g-type-info-get-tag type-info))
-	 (type-value (enum->value %gi-type-tag type-tag))
-	 (type-name (g-type-tag-to-string type-value))
-	 (g-type (bitwise-arithmetic-shift type-value 2))
+	 #;(type-name (g-type-tag-to-string type-tag))
+	 (g-type (symbol->g-type type-tag))
 	 (g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
 			   g-value)
-    ;; FIXME!
-    ;; Incorrect: it must call g-value-ref, to be defined still, but in
-    ;; the ean tme, just so it compiles (it obviusly will rase an
-    ;; exception if the property type is not a gfloat ...
-    (g-value-get-float g-value)))
+    (g-value-ref g-value)))
 
 (define (g-object-set-property object name value)
   ;; ...
   #f)
+
+
+;;;
+;;; From libg-golf
+;;;
+
+(define (g-object-type object)
+  (g-object-type-c object))
+
+#!
+
+Not working yet, see libg-golf.scm for a problem description
+
+(define (g-object-type-name object)
+  (gi->scm (g-object-type-name-c object) 'string))
+
+!#
 
 
 ;;;

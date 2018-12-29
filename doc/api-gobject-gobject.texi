@@ -15,6 +15,7 @@ GObject — The base object type
 
 @indentedblock
 @table @code
+@item @ref{g-object-type}
 @item @ref{g-object-get-property}
 @end table
 @end indentedblock
@@ -52,6 +53,16 @@ the GObject reference manual for a complete description.
 
 
 @subheading Procedures
+
+Note: in this section, unless otherwise specified, the @var{object}
+argument is [must be] a pointer to a @code{GObject} (instance).
+
+
+@anchor{g-object-type}
+@deffn Procedure g-object-type object
+
+Returns the @var{GType} (the type id) for @var{object}.
+@end deffn
 
 
 @anchor{g-object-get-property}

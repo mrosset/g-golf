@@ -30,7 +30,9 @@
 #include <float.h>
 #include <math.h>
 
-/* #include <glib-object.h> */
+#include <glib.h>
+#include <glib-object.h>
+/* #include <girepository.h> */
 
 /*
  * make distcheck fails, I'll solve this later
@@ -63,4 +65,31 @@ int float_to_int_c (float f)
 
   i = (int)f;
   return (i);
+}
+
+
+/*
+ * GOjbetct
+ *
+*/
+
+
+GType
+g_object_type_c (GObject *obj)
+{
+    GType type;
+
+    type = G_OBJECT_TYPE (obj);
+
+    return (type);
+}
+
+const gchar *
+g_object_type_name_c (GObject *obj)
+{
+    const gchar *name;
+
+    name = G_OBJECT_TYPE_NAME (obj);
+
+    return (name);
 }

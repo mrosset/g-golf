@@ -38,3 +38,12 @@ size_t pointer_address_size_c ();
 */
 
 int float_to_int_c (float f);
+
+
+/*
+ * GObject
+ *
+*/
+
+GType g_object_type_c (GObject *obj);
+const gchar * g_object_type_name_c (GObject *obj);
