@@ -74,6 +74,7 @@
   #:use-module (g-golf gi arg-info)
   #:use-module (g-golf gi property-info)
   #:use-module (g-golf gi type-info)
+  #:use-module (g-golf goops gtype)
 
   #:duplicates (merge-generics
 		replace
@@ -121,4 +122,5 @@
 			      (g-golf gi arg-info)
 			      (g-golf gi property-info)
 			      (g-golf gi type-info)
-			      (g-golf gi typelib)))
+			      (g-golf gi typelib)
+                              (g-golf goops gtype)))
