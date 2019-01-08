@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2018
+;;;; Copyright (C) 2018 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -26,12 +26,12 @@
 ;;; Code:
 
 
-(define-module (g-golf goops)
+(define-module (g-golf hl-api)
   #:use-module (oop goops)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support modules)
   #:use-module (g-golf support goops)
-  #:use-module (g-golf goops gtype)
+  #:use-module (g-golf hl-api gtype)
 
   #:duplicates (merge-generics
 		replace
@@ -43,4 +43,4 @@
 (re-export-public-interface (oop goops)
                             (g-golf support utils)
                             (g-golf support goops)
-                            (g-golf goops gtype))
+                            (g-golf hl-api gtype))

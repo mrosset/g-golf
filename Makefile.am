@@ -1,6 +1,6 @@
 
 ####
-#### Copyright (C) 2016 - 2018
+#### Copyright (C) 2016 - 2019
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf
@@ -65,8 +65,8 @@ SOURCES = \
 	g-golf/gi/property-info.scm		\
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\
-	g-golf/goops.scm			\
-	g-golf/goops/gtype.scm			\
+	g-golf/hl-api.scm			\
+	g-golf/hl-api/gtype.scm			\
 	g-golf.scm
 
 # NOCOMP_SOURCES= \

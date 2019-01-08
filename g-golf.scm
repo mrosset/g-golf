@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -74,7 +74,7 @@
   #:use-module (g-golf gi arg-info)
   #:use-module (g-golf gi property-info)
   #:use-module (g-golf gi type-info)
-  #:use-module (g-golf goops gtype)
+  #:use-module (g-golf hl-api gtype)
 
   #:duplicates (merge-generics
 		replace
@@ -123,4 +123,4 @@
 			      (g-golf gi property-info)
 			      (g-golf gi type-info)
 			      (g-golf gi typelib)
-                              (g-golf goops gtype)))
+                              (g-golf hl-api gtype)))
