@@ -37,15 +37,15 @@ libraries functionality available from @uref{@value{UGUILE}, Guile}.
 
 @subheading G-Golf High Level API
 
-G-Golf will also provide a higher level API, using @code{GOOPS}
-(@pxref{GOOPS,,, guile, The GNU Guile Reference Manual}), as it has been
-done for @uref{@value{UGG}, Guile-Gnome}.
+G-Golf will also provide a high level API, mostly based on @code{GOOPS}
+(@pxref{GOOPS,,, guile, The GNU Guile Reference Manual}), largely
+inspired by @uref{@value{UGG}, Guile-Gnome}.
 
-Actually, the intention is precisely that G-Golf high level API follows
-(entirely) @uref{@value{UGG}, Guile-Gnome} naming conventions for
-classes, slot names, generic functions and methods ... It might not be
-possible to be 100% compatible with Guile-Gnome though, but that is the
-objective, and otherwise to complete it @samp{as far as possible}.
+@c Actually, the intention is precisely that G-Golf high level API follows
+@c (entirely) @uref{@value{UGG}, Guile-Gnome} naming conventions for
+@c classes, slot names, generic functions and methods ... It might not be
+@c possible to be 100% compatible with Guile-Gnome though, but that is the
+@c objective, and otherwise to complete it @samp{as far as possible}.
 
 @c @indentedblock
 @c @strong{Special Note:}
@@ -80,7 +80,7 @@ get the idea @dots{}}:
 
 @lisp
 ,use (g-golf)
-(g-golf-import "Clutter")
+(gi-import "Clutter")
 
 (make <clutter-stage>)
 @print{}
