@@ -8,19 +8,18 @@ G-Golf GObject Introspection modules are defined in the @code{gi}
 subdirectory, such as @code{(g-golf gi repository)}.
 
 Where you may load these modules individually, the easiest way to use
-G-Golf is to import the @code{g-golf} module: it imports and re-exports
-the public interface of (oop goops), (ice-9 match), (ice-9
-binary-ports), (rnrs bytevectors), (rnrs arithmetic bitwise), (system
-foreign), all G-Golf support, Glib, GObject and GObject
-Introspection modules:
+G-Golf GObject Introspection is to import the @code{g-golf} module,
+which imports and re-exports the public interface of all modules used
+and defined by G-Golf (for a complete list, visit its source
+definition):
 
 @lisp
 (use-modules (g-golf))
 @end lisp
 
-Most G-Golf low level API modules correspond to a GObject Intropection
-section, but there are some exceptions, such as @code{init} and
-@code{utils} @dots{}
+Most G-Golf GObject Introspection modules correspond to a GObject
+Intropection (manual) section, but there are some exceptions, such as
+@code{init} and @code{utils} @dots{}
 
 
 @menu
