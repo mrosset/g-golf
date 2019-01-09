@@ -16,6 +16,7 @@ GObject — The base object type
 @indentedblock
 @table @code
 @item @ref{g-object-type}
+@item @ref{g-object-new}
 @item @ref{g-object-get-property}
 @end table
 @end indentedblock
@@ -62,6 +63,16 @@ argument is [must be] a pointer to a @code{GObject} (instance).
 @deffn Procedure g-object-type object
 
 Returns the @var{GType} (the type id) for @var{object}.
+@end deffn
+
+
+@anchor{g-object-new}
+@deffn Procedure g-object-new gtype
+
+Returns a pointer.
+
+Creates and returns a (pointer to) a new instance of a GObject subtype
+@var{gtype}.  All properties are set to there default values.
 @end deffn
 
 

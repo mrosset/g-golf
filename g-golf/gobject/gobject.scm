@@ -52,6 +52,7 @@
 	    g-object-set-property
 
             g-object-type
+            g-object-new
             #;g-object-type-name))
 
 
@@ -94,10 +95,19 @@ Not working yet, see libg-golf.scm for a problem description
 
 !#
 
+(define (g-object-new gtype)
+  (gi->scm (g_object_new gtype %null-pointer) 'pointer))
+
 
 ;;;
 ;;; GObject Bindings
 ;;;
+
+(define g_object_new
+  (pointer->procedure '*
+                      (dynamic-func "g_object_new"
+				    %libgobject)
+                      (list unsigned-long '*)))
 
 (define g_object_get_property
   (pointer->procedure void
