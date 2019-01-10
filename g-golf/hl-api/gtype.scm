@@ -41,6 +41,8 @@
   #:use-module (g-golf support goops)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
+  #:use-module (g-golf gi registered-type-info)
+  #:use-module (g-golf gobject gobject)
 
   #:duplicates (merge-generics
 		replace
@@ -54,7 +56,7 @@
 
 (g-export !info
           !namespace
-          #;!gtype-id
+          !gtype-id
           #;!gtype-name
           #;!scm-name
           #;!class-name
@@ -75,9 +77,15 @@
 	     #:slot-ref (lambda (self)
 		          (g-base-info-get-namespace (!info self)))
 	     #:slot-set! (lambda (self value)
+		           (values)))
+  (gtype-id #:accessor !gtype-id
+	     #:allocation #:virtual
+	     #:slot-ref (lambda (self)
+		          (g-registered-type-info-get-g-type (!info self)))
+	     #:slot-set! (lambda (self value)
 		           (values))))
 
-  
+
 (define-method (initialize (self <gtype-class>) initargs)
   (let ((info (or (get-keyword #:info initargs #f)
                   (error "Missing #:info initarg: " initargs))))
@@ -87,10 +95,16 @@
 ;; The root class of all instantiatable GType classes.
 
 (define-class <gtype-instance> ()
-  (ginst-ptr #:accessor ginst-ptr #:init-keyword #:ginst-ptr #:init-value #f)
+  (ginst-ptr #:accessor !ginst-ptr #:init-value #f)
   #:info #t
   #:metaclass <gtype-class>)
 
 (define-method (initialize (self <gtype-instance>) initargs)
   (next-method)
-  #;(dimfi "<gtype-class> initialize: " self " - Initargs: "initargs))
+  (gtype-instance-construct self initargs))
+
+(define (gtype-instance-construct self initargs)
+  (let* ((class (class-of self))
+         (gtype-id (!gtype-id class)))
+    (set! (!ginst-ptr self)
+          (g-object-new gtype-id))))
