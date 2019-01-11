@@ -71,7 +71,8 @@
 ;; The metaclass of all GType classes.
 
 (define-class <gtype-class> (<class>)
-  (info #:accessor !info #:init-keyword #:info #:init-value #f)
+  (info #:accessor !info
+        #:init-keyword #:info)
   (namespace #:accessor !namespace
 	     #:allocation #:virtual
 	     #:slot-ref (lambda (self)

@@ -1,0 +1,64 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.  Copyright (C) 2019
+@c Free Software Foundation, Inc.  See the file g-golf.texi for copying
+@c conditions.
+
+
+@c @defindex ei
+
+
+@node GType
+@subsection GType
+
+G-Golf Gtype high level API.@*
+The base of the GObject type system.
+
+
+@subheading Classes
+
+@indentedblock
+@table @code
+@item @ref{<gtype-class>}
+@end table
+@end indentedblock
+
+
+@c @subheading Procedures and Methods
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{enum-set}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Classes
+
+@anchor{<gtype-class>}
+@deftp Class <gtype-class>
+
+The @code{metaclass} of all GType classes. Ensures that GType classes
+have an @code{info} slot, holding a pointer to a
+@code{GIObjectInfo}. Its slots are:
+
+@indentedblock
+@table @code
+@item @emph{info}
+#:accessor !info @*
+#:init-keyword #:info @*
+
+@item @emph{namespace}
+#:accessor !namespace @*
+#:allocation #:virtual
+
+@item @emph{gtype-id}
+#:accessor !gtype-id @*
+#:allocation #:virtual
+@end table
+@end indentedblock
+
+It is an error not to pass the @code{#:info} initialization keyword when
+defining a class using @code{<gtype-class>} (or a subclass) as its
+metaclass.
+
+@end deftp

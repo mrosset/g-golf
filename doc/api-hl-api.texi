@@ -26,11 +26,12 @@ Reference Manual}), in a way that is largely inspired by
 @c at least not in its first version, in an attempt to allow and @samp{play
 @c with} multiple inheritance.
 
-@c @menu
 
-@c * GType::
+@menu
 
-@c @end menu
+* GType:: The base of the GObject type system.
+
+@end menu
 
 
-@c @include api-hi-api-gtype.texi
+@include api-hl-api-gtype.texi
