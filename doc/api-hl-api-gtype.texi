@@ -57,8 +57,7 @@ have an @code{info} slot, holding a pointer to a
 @end table
 @end indentedblock
 
-It is an error not to pass the @code{#:info} initialization keyword when
-defining a class using @code{<gtype-class>} (or a subclass) as its
-metaclass.
+It is an error not to pass the @code{#:info} init-keyword when defining
+a class using @code{<gtype-clabclass>} (or a subclass) as its metaclass.
 
 @end deftp
