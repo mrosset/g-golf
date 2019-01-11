@@ -1,0 +1,36 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+G-Golf High Level API modules are defined in the @code{hl-api}
+subdirectory, such as @code{(g-golf hl-api gobject)}.
+
+Where you may load these modules individually, the easiest way to use
+the G-Golf High Level API is to import the @code{hl-api} module: it
+imports and re-exports the public interface of (oop goops), some G-Golf
+support modules and all G-Golf High Level API modules:
+
+@lisp
+(use-modules (g-golf hl-api))
+@end lisp
+
+As stated in the introduction, G-Golf high level API (main) objective is
+to make (imported) GOBject classes and methods available using GOOPS,
+the Guile Object Oriented System (@pxref{GOOPS,,, guile, The GNU Guile
+Reference Manual}), in a way that is largely inspired by
+@uref{@value{UGG}, Guile-Gnome}.
+
+@c Unlike Guile-Gnome though, G-Golf won't register new GObject subclasses,
+@c at least not in its first version, in an attempt to allow and @samp{play
+@c with} multiple inheritance.
+
+@c @menu
+
+@c * GType::
+
+@c @end menu
+
+
+@c @include api-hi-api-gtype.texi

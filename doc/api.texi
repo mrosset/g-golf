@@ -17,6 +17,7 @@
 * GObject::
 * GObject Introspection::
 * Support::
+* G-Golf High Level API::
 @end menu
 
 
@@ -48,3 +49,9 @@
 @section Support
 
 @include api-support.texi
+
+
+@node G-Golf High Level API
+@section G-Golf High Level API
+
+@include api-hl-api.texi
