@@ -51,6 +51,7 @@
 	    g-object-info-get-abstract
 	    g-object-info-get-parent
 	    g-object-info-get-type-name
+            g-object-info-get-type-init
 	    g-object-info-get-n-constants
 	    g-object-info-get-constant
 	    g-object-info-get-n-fields
@@ -93,6 +94,9 @@
 
 (define (g-object-info-get-type-name info)
   (gi->scm (g_object_info_get_type_name info) 'string))
+
+(define (g-object-info-get-type-init info)
+  (gi->scm (g_object_info_get_type_init info) 'string))
 
 (define (g-object-info-get-n-constants info)
   (g_object_info_get_n_constants info))
@@ -204,6 +208,12 @@
 (define g_object_info_get_type_name
   (pointer->procedure '*
                       (dynamic-func "g_object_info_get_type_name"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_object_info_get_type_init
+  (pointer->procedure '*
+                      (dynamic-func "g_object_info_get_type_init"
 				    %libgirepository)
                       (list '*)))
 

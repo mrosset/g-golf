@@ -22,6 +22,7 @@ GIObjectInfo — Structs representing a GObject.
 @item @ref{g-object-info-get-abstract}
 @item @ref{g-object-info-get-parent}
 @item @ref{g-object-info-get-type-name}
+@item @ref{g-object-info-get-type-init}
 @item @ref{g-object-info-get-n-constants}
 @item @ref{g-object-info-get-constant}
 @item @ref{g-object-info-get-n-fields}
@@ -111,6 +112,16 @@ Obtain the parent of the object type.
 Returns the name of the object type for @var{info}.
 
 Obtain the name of the object class/type for @var{info}.
+@end deffn
+
+
+@anchor{g-object-info-get-type-init}
+@deffn Procedure g-object-info-get-type-init info
+
+Returns a function name (a string).
+
+Obtain the function name which when called will return the GType
+function for which this object type is registered.
 @end deffn
 
 
