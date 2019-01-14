@@ -1,6 +1,6 @@
 @c -*-texinfo-*-
 @c This is part of the GNU G-Golf Reference Manual.
-@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c Copyright (C) 2016 - 2019 Free Software Foundation, Inc.
 @c See the file g-golf.texi for copying conditions.
 
 
@@ -52,11 +52,11 @@ GIInfoType
 
 G-Golf also comes with its own set of procedures, syntax and variables,
 aimed at not just reading a typelib, but making its functionality
-available from @uref{@value{UGUILE}, Guile}.
+available from @uref{@value{UGUILE}, Guile}.  Naming those, whenever
+possible, is done following the @samp{traditional way} scheme name its
+procedures, syntax and variables. For example:
 
-Here are two examples:
-
-@enumerate a
+@itemize
 @item
 procedure names that start with @code{call-with-input-},
 @code{call-with-output-} followed by a GI, Glib or GObject type, such
@@ -73,14 +73,14 @@ type, such as:
 @example
 with-gerror @c @ref{with-gerror}
 @end example
-@end enumerate
+@end itemize
 
 When an @samp{obvious} name can't be find @samp{on its own}, or to avoid
 possible conflict outside G-Golf@footnote{As an example, it would not be
 a good idea to use (the name) @code{import} for the G-Golf procedure
 that reads and build the interface for a @code{GIR} library, since it is
-an R6RS reserved word.}, then the name starts using the @code{g-golf-}
-prefix, and equally for variables, using @code{%g-golf-}.
+an R6RS reserved word.}, then the name starts using the @code{gi-}
+prefix, and equally for variables, using @code{%gi-}.
 
 @subheading Gnome Libraries
 
