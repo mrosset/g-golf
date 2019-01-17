@@ -48,19 +48,20 @@
             <gi-enum>))
 
 
-(g-export enum-set
+(g-export !enum-set
 	  enum->value
 	  enum->values
 	  enum->symbol
 	  enum->symbols
 	  enum->name
 	  enum->names
-          gi-name
-          scm-name)
+          !gi-name
+          !scm-name)
 
 
 (define-class <enum> ()
-  (enum-set #:getter enum-set #:init-keyword #:enum-set))
+  (enum-set #:accessor !enum-set
+            #:init-keyword #:enum-set))
 
 (define-method (initialize (self <enum>) initargs)
   (receive (kw enum-kw)
@@ -81,25 +82,25 @@
 		 (current-output-port))))))
 
 (define-method (enum->value (self <enum>) (item <symbol>))
-  (assq-ref (enum-set self) item))
+  (assq-ref (!enum-set self) item))
 
 (define-method (enum->values (self <enum>))
   (map (lambda (x)
 	 (match x ((symbol . id) id)))
-    (enum-set self)))
+    (!enum-set self)))
 
 (define-method (enum->symbol (self <enum>) (item <integer>))
   (let ((entry (find (lambda (x)
 		       (= (match x ((symbol . id) id))
 			  item))
-		     (enum-set self))))
+		     (!enum-set self))))
     (and entry
 	 (match entry ((symbol . id) symbol)))))
 
 (define-method (enum->symbols (self <enum>))
   (map (lambda (x)
 	 (match x ((symbol . id) symbol)))
-    (enum-set self)))
+    (!enum-set self)))
 
 (define-method (enum->name (self <enum>) (item <integer>))
   (let ((sym (enum->symbol self item)))
@@ -114,7 +115,7 @@
 (define-method (enum->names (self <enum>))
   (map (lambda (x)
 	 (match x ((symbol . id) (symbol->string symbol))))
-    (enum-set self)))
+    (!enum-set self)))
 
 
 ;;;
@@ -122,5 +123,7 @@
 ;;;
 
 (define-class <gi-enum> (<enum>)
-  (gi-name #:getter gi-name #:init-keyword #:gi-name)
-  (scm-name #:getter scm-name #:init-keyword #:scm-name))
+  (gi-name #:accessor !gi-name
+           #:init-keyword #:gi-name)
+  (scm-name #:accessor !scm-name
+            #:init-keyword #:scm-name))

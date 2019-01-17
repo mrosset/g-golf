@@ -20,15 +20,15 @@
 
 @indentedblock
 @table @code
-@item @ref{enum-set}
+@item @ref{!enum-set}
 @item @ref{enum->value}
 @item @ref{enum->values}
 @item @ref{enum->symbol}
 @item @ref{enum->symbols}
 @item @ref{enum->name}
 @item @ref{enum->names}
-@item @ref{gi-name}
-@item @ref{scm-name}
+@item @ref{!gi-name}
+@item @ref{!scm-name}
 @end table
 @end indentedblock
 
@@ -41,7 +41,7 @@ The @code{<enum>} class is for enumerated values. Its (unique) slot is:
 @indentedblock
 @table @code
 @item @emph{enum-set}
-#:getter enum-set @*
+#:accessor !enum-set @*
 #:init-keyword #:enum-set
 @end table
 @end indentedblock
@@ -83,8 +83,8 @@ to mutate a goops class instance (one can always use @code{slot-set!
 instance slot-name value}).}).
 
 
-@anchor{enum-set}
-@deffn Method enum-set enum
+@anchor{!enum-set}
+@deffn Method !enum-set enum
 
 Returns the content of the enum-set slot for @var{enum}.
 @end deffn
@@ -132,21 +132,21 @@ The @code{<gi-enum>} class is a subclass of @code{<enum>}.  Its
 @indentedblock
 @table @code
 @item @emph{gi-name}
-#:getter gi-name @*
+#:accessor !gi-name @*
 #:init-keyword #:gi-name
 
 @item @emph{scm-name}
-#:getter scm-name @*
+#:accessor !scm-name @*
 #:init-keyword #:scm-name
 @end table
 @end indentedblock
 @end deftp
 
 
-@anchor{gi-name}
-@anchor{scm-name}
-@deffn Method gi-name gi-enum
-@deffnx Method scm-name gi-enum
+@anchor{!gi-name}
+@anchor{!scm-name}
+@deffn Method !gi-name gi-enum
+@deffnx Method !scm-name gi-enum
 
 Returns the content of the gi-name or scm-name slot for @var{gi-enum},
 respectively.
