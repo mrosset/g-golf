@@ -1,6 +1,6 @@
 
 ####
-#### Copyright (C) 2016 - 2018
+#### Copyright (C) 2016 - 2019
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf
@@ -35,6 +35,7 @@ g_golf_TEXINFOS = \
   api-overview.texi		\
   api-naming-conventions.texi	\
   api-pro-doc-struct.texi	\
+  api-goops-notes-and-conventions.texi	\
   api-glib.texi			\
   api-glib-mem-alloc.texi	\
   api-glib-main-event-loop.texi \

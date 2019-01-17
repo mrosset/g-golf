@@ -1,0 +1,112 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node GOOPS Notes and Conventions
+@subsection GOOPS Notes and Conventions
+
+G-Golf high level API (main) objective is to make (imported) GOBject
+classes and methods available using GOOPS, the Guile Object Oriented
+System (@pxref{GOOPS,,, guile, The GNU Guile Reference Manual}), in a
+way that is largely inspired by @uref{@value{UGG}, Guile-Gnome}.
+
+Here are some notes and the GOOPS conventions used by G-Golf.
+
+
+@subheading Slots are not Immutable
+
+Except for virtual slots, there is currently no way to effectively
+prohibit (block) a user to mutate a goops class instance (one can always
+use @code{slot-set! instance slot-name value})@footnote{Actually, to be
+complete, there is a way, which is to define the slot using
+@code{#:class <read-only-slot>}, but (a) it is undocumented and (b), it
+requires the use use of libguile to initialize the slot value, something
+that I don't wan't to do in G-Golf. If you are interested by this
+(undocumented) feature for your own project though, I suggest you look
+for some exmples in the @uref{@value{UGG}, Guile-Gnome}, source tree,
+where it is extensively used.}.
+
+However, you will find a few places in this manual using phrase excerpts
+like @samp{instances this <class> are immutable}, or @samp{this <slot>
+is immutable}.  In these contexts, what is actually meant is that these
+(insances or slots) are not meant to be mutated.  Doing so is not only
+at your own risks, but likely to cause a crash.
+
+
+@subheading Merging Generics
+
+In G-Golf, generic functions are always merged.
+
+
+@subheading Accessors Naming Convention
+
+In G-Golf, all slots define an accessor, the name of which is the
+@code{slot-name } prefixed using @code{!}.  For example:
+
+@example
+(define-class <gtype-class> (<class>)
+  (info #:accessor !info
+        #:init-keyword #:info)
+  ...)
+@end example
+
+The principal reasons are (not in any particular order):
+
+@itemize
+
+@item
+It is a good idea, we think, to be able to visually (and somehow
+immediately) spot and distinct accessors from the rest of the scheme
+code your are looking at or working on.
+@ifhtml
+@* @*
+@end ifhtml
+
+@item
+Accessors are exported, and with this convention, we almost certainly
+avoid all @samp{name clashes} with user namespaces, that otherwise would
+be extremelly frequent@footnote{Slot names tends to be extremelly
+common, like @code{name}, @code{color}, @dots{} and naming their
+respective accessor using the slot name would very likely provoque
+numerous name clashes with user variables, procedures and methods
+names.}.
+@ifhtml
+@* @*
+@end ifhtml
+
+@item
+Users quite often want or even need to cash slot values in a closure.
+By using this @code{!} prefixing convention, we leave users with the
+(quite usefull) possibility to name their local variables using the
+respective slot names.
+@ifhtml
+@* @*
+@end ifhtml
+
+@item Accessors may always be used to mutate a slot value (except for
+virtual slots, for which you can @samp{block} that feature), like in
+@code{(set! (!name an-actor) "Mike")}.  In scheme, it is a tradition
+to signal mutability by postfixing the procedure name using the @code{!}
+character.
+@ifhtml
+@* @*
+@end ifhtml
+
+@item
+Accessors are not procedures though, there are methods, and to
+effectively mutate a slot value, one must use @code{set!}.  Therefore,
+prefixing makes sence (and preserves the first reason announced here,
+where posfixing would break it).
+@ifhtml
+@* @*
+@end ifhtml
+
+@item
+We should also add that we are well aware that Java also prefixes its
+accessors, using a @code{.} as its prefix character, but GOOPS is
+radically different from Java in its design, and therefore, we really
+wanted another character.
+
+@end itemize
