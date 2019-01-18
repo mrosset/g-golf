@@ -23,13 +23,17 @@ The base of the GObject type system.
 @end indentedblock
 
 
-@c @subheading Procedures and Methods
+@subheading Procedures and Methods
 
-@c @indentedblock
-@c @table @code
-@c @item @ref{enum-set}
-@c @end table
-@c @end indentedblock
+@indentedblock
+@table @code
+@item @ref{!info}
+@item @ref{!namespace}
+@item @ref{!gtype-id}
+@item @ref{!gtype-name}
+@item @ref{!scm-name_}
+@end table
+@end indentedblock
 
 
 @c @subheading Classes
@@ -54,10 +58,55 @@ have an @code{info} slot, holding a pointer to a
 @item @emph{gtype-id}
 #:accessor !gtype-id @*
 #:allocation #:virtual
+
+@item @emph{gtype-name}
+#:accessor !gtype-name @*
+#:allocation #:virtual
+
+@item @emph{scm-name}
+#:accessor !scm-name @*
+#:allocation #:virtual
 @end table
 @end indentedblock
 
 It is an error not to pass the @code{#:info} init-keyword when defining
-a class using @code{<gtype-clabclass>} (or a subclass) as its metaclass.
+a class using @code{<gtype-class>} (or a subclass) as its metaclass.
+The value of the @var{info} slot must be a pointer to a
+@code{GIObjectInfo}.
 
 @end deftp
+
+
+@anchor{!info}
+@deffn Method !info class
+
+Returns the content of the info slot for @var{class}.
+@end deffn
+
+
+@anchor{!namespace}
+@deffn Method !namespace class
+
+Returns the namespace of @var{class}.
+@end deffn
+
+
+@anchor{!gtype-id}
+@deffn Method !gtype-id class
+
+Returns the @code{GType} for @var{class}.
+@end deffn
+
+
+@anchor{!gtype-name}
+@deffn Method !gtype-name class
+
+Returns the name of the object type for @var{class}.
+@end deffn
+
+
+@anchor{!scm-name_}
+@deffn Method !scm-name class
+
+Returns the scheme name of the object type for @var{class}.
+@end deffn

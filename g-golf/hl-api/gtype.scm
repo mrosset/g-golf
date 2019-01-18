@@ -42,6 +42,7 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
+  #:use-module (g-golf gi object-info)
   #:use-module (g-golf gobject gobject)
 
   #:duplicates (merge-generics
@@ -57,9 +58,8 @@
 (g-export !info
           !namespace
           !gtype-id
-          #;!gtype-name
-          #;!scm-name
-          #;!class-name
+          !gtype-name
+          !scm-name
           
           !ginst-ptr)
 
@@ -80,11 +80,23 @@
 	     #:slot-set! (lambda (self value)
 		           (values)))
   (gtype-id #:accessor !gtype-id
-	     #:allocation #:virtual
-	     #:slot-ref (lambda (self)
-		          (g-registered-type-info-get-g-type (!info self)))
-	     #:slot-set! (lambda (self value)
-		           (values))))
+	    #:allocation #:virtual
+	    #:slot-ref (lambda (self)
+		         (g-registered-type-info-get-g-type (!info self)))
+	    #:slot-set! (lambda (self value)
+		          (values)))
+  (gtype-name #:accessor !gtype-name
+	      #:allocation #:virtual
+	      #:slot-ref (lambda (self)
+		           (g-object-info-get-type-name (!info self)))
+	      #:slot-set! (lambda (self value)
+		            (values)))
+  (scm-name #:accessor !scm-name
+	    #:allocation #:virtual
+	    #:slot-ref (lambda (self)
+		         (gi-name->scm-name (!gtype-name self)))
+	    #:slot-set! (lambda (self value)
+		          (values))))
 
 
 (define-method (initialize (self <gtype-class>) initargs)
