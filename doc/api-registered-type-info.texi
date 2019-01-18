@@ -87,10 +87,10 @@ bindings or applications.
 @anchor{g-registered-type-info-get-g-type}
 @deffn Procedure g-registered-type-info-get-g-type info
 
-Returns the @code{GType}. FIXME when this effectively works.
+Returns the @code{GType} for @var{info}.
 
 Obtain the @code{GType} for this registered type or @code{G_TYPE_NONE}
-which a special meaning. It means that either there is no type
+which has a special meaning.  It means that either there is no type
 information associated with this info or that the shared library which
 provides the type_init function for this info cannot be called.
 @end deffn
