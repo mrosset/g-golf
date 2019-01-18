@@ -245,13 +245,18 @@ $2 = "g-studly-caps-expand"
 @deffn Procedure gi-name->scm-name type-name
 @deffnx Procedure gi-name->class-name type-name
 
-Returns a string.
+Returns a string - a symbol - respectively.
 
-Obtains the scheme name for @var{type-name}, by transforming @code{#\_}
-into @code{#\-} and calling @ref{gstudly-caps-expand}.  In addition,
-for @code{gi-name->class-name} only, the returned string is
-surrounded using the (traditional scheme class name beginning and
-ending) @code{#\<} and @code{#\>} characters.
+The former obtains the scheme name for @var{type-name}, by transforming
+@code{#\_} into @code{#\-} and calling @ref{gstudly-caps-expand}. The
+later uses the former, surrounds the result using @code{#\<} and
+@code{#\>} characters then calls @code{string->symbol}. For example:
+
+@lisp
+(gi-name->class-name "ClutterActor")
+@print{}
+$2 = <clutter-actor>
+@end lisp
 @end deffn
 
 
