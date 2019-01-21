@@ -42,8 +42,9 @@ In G-Golf, generic functions are always merged.
 
 @subheading Accessors Naming Convention
 
-In G-Golf, all slots define an accessor, the name of which is the
-@code{slot-name } prefixed using @code{!}.  For example:
+In G-Golf, all slots define an accessor (and no getter, no setter), the
+name of which is the @code{slot-name } prefixed using @code{!}. For
+example:
 
 @example
 (define-class <gtype-class> (<class>)
