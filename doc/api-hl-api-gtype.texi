@@ -19,6 +19,7 @@ The base of the GObject type system.
 @indentedblock
 @table @code
 @item @ref{<gtype-class>}
+@item @ref{<gtype-instance>}
 @end table
 @end indentedblock
 
@@ -32,6 +33,7 @@ The base of the GObject type system.
 @item @ref{!gtype-id}
 @item @ref{!gtype-name}
 @item @ref{!scm-name_}
+@item @ref{!ginst}
 @end table
 @end indentedblock
 
@@ -69,18 +71,13 @@ have an @code{info} slot, holding a pointer to a
 @end table
 @end indentedblock
 
-It is an error not to pass the @code{#:info} init-keyword when defining
-a class using @code{<gtype-class>} (or a subclass) as its metaclass.
-The value of the @var{info} slot must be a pointer to a
-@code{GIObjectInfo}.
-
 @end deftp
 
 
 @anchor{!info}
 @deffn Method !info class
 
-Returns the content of the info slot for @var{class}.
+Returns the content of the @var{info} slot for @var{class}.
 @end deffn
 
 
@@ -109,4 +106,31 @@ Returns the name of the object type for @var{class}.
 @deffn Method !scm-name class
 
 Returns the scheme name of the object type for @var{class}.
+@end deffn
+
+
+@anchor{<gtype-instance>}
+@deftp Class <gtype-instance>
+
+The root class of all instantiatable GType classes. Adds a slot,
+@code{ginst}, to instances, which holds a pointer to the C value
+
+@indentedblock
+@table @code
+@item @emph{ginst}
+#:accessor !ginst @*
+@c #:init-value #f @*
+@end table
+@end indentedblock
+
+The @var{ginst} slot is initialized automatically and immutable (to be
+precise, it is not meant to be mutated, see @ref{GOOPS Notes and
+Conventions}, 'Slot are not Immutable').
+@end deftp
+
+
+@anchor{!ginst}
+@deffn Method !ginst instance
+
+Returns the content of the @var{ginst} slot for @var{instance}.
 @end deffn
