@@ -39,6 +39,7 @@
   #:use-module (g-golf gi type-info)
   #:use-module (g-golf support libg-golf)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject params-vals)
 
