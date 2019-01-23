@@ -68,6 +68,7 @@ SOURCES = \
 	g-golf/hl-api.scm			\
 	g-golf/hl-api/gtype.scm			\
 	g-golf/hl-api/gobject.scm		\
+	g-golf/hl-api/import.scm		\
 	g-golf.scm
 
 # NOCOMP_SOURCES= \
