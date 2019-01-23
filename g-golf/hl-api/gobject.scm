@@ -75,12 +75,31 @@
 
 (define (compute-extra-slots props slots)
   (filter-map (lambda (prop)
-                (and (not (has-slot? prop slots))
-                     (make <slot>
-                       #:name (string->symbol (g-base-info-get-name prop))
-                       #:property prop
-                       #:allocation #:gproperty)))
+                (let* ((gi-name (g-base-info-get-name prop))
+                       (scm-name (gi-name->scm-name gi-name))
+                       (acc-name (string-append "!" scm-name))
+                       (name (string->symbol scm-name))
+                       (acc (string->symbol acc-name)))
+                  (and (not (has-slot? name slots))
+                       (make <slot>
+                         #:name name
+                         ;; there is a bug in goops, and till it's
+                         ;; solved, it is not possible to specify a
+                         ;; getter, a setter nor an accessor. [*]
+                         ;; #:accessor acc
+                         #:property prop
+                         #:allocation #:gproperty))))
       props))
+
+;; [*] actually to be precise, (make <slot> ...) itself won't
+;; complain, but later on, the class definition calls compute-slots,
+;; which raises an error saying that the setter, the getter or the
+;; accessor name isnot a valid generic fnction.
+
+;; I even tried to (make <generic> ...) and to bind it in the current
+;; module, using (module-define! (current-module) acc gen), but that
+;; did not slve the problem either.  I will report this error, let's
+;; hope it gets fixed asasp.
 
 (define (gobject-class-get-properties class)
   (if (boolean? (!info class))
@@ -129,6 +148,5 @@
 
 
 (define-class <gobject> (<gtype-instance>)
-  #:info #t ;; Need to find the pointer to GI
+  #:info #t
   #:metaclass <gobject-class>)
-
