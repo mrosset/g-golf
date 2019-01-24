@@ -76,25 +76,29 @@
   (namespace #:accessor !namespace
 	     #:allocation #:virtual
 	     #:slot-ref (lambda (self)
-		          (g-base-info-get-namespace (!info self)))
+                          (and (not (boolean? (!info self)))
+		               (g-base-info-get-namespace (!info self))))
 	     #:slot-set! (lambda (self value)
 		           (values)))
   (gtype-id #:accessor !gtype-id
 	    #:allocation #:virtual
 	    #:slot-ref (lambda (self)
-		         (g-registered-type-info-get-g-type (!info self)))
+                          (and (not (boolean? (!info self)))
+		               (g-registered-type-info-get-g-type (!info self))))
 	    #:slot-set! (lambda (self value)
 		          (values)))
   (gtype-name #:accessor !gtype-name
 	      #:allocation #:virtual
 	      #:slot-ref (lambda (self)
-		           (g-object-info-get-type-name (!info self)))
+                           (and (not (boolean? (!info self)))
+		                (g-object-info-get-type-name (!info self))))
 	      #:slot-set! (lambda (self value)
 		            (values)))
   (scm-name #:accessor !scm-name
 	    #:allocation #:virtual
 	    #:slot-ref (lambda (self)
-		         (gi-name->scm-name (!gtype-name self)))
+                         (and (not (boolean? (!info self)))
+		              (gi-name->scm-name (!gtype-name self))))
 	    #:slot-set! (lambda (self value)
 		          (values))))
 
