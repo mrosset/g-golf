@@ -92,4 +92,4 @@
                             #:info info
                             #:metaclass <gobject-class>)))
     (module-define! (current-module) class-name class)
-    (g-export class-name)))
+    (export class-name)))
