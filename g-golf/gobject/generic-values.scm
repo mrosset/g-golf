@@ -38,7 +38,8 @@
 		warn
 		last)
 
-  #:export (g-value-init))
+  #:export (g-value-init
+            g-value-unset))
 
 
 ;;;
@@ -51,6 +52,10 @@
     (g_value_init g-value g-type)
     g-value))
 
+(define (g-value-unset g-value)
+  (g_value_unset g-value)
+  (values))
+
 
 ;;;
 ;;; GObject Bindings
@@ -62,3 +67,9 @@
 				    %libgobject)
                       (list '*
                             unsigned-long)))
+
+(define g_value_unset
+  (pointer->procedure void
+                      (dynamic-func "g_value_unset"
+				    %libgobject)
+                      (list '*)))

@@ -9,7 +9,7 @@
 
 G-Golf GObject Generic Values low level API.@*
 Generic values — A polymorphic type that can hold values of any other
-type
+type.
 
 
 @subheading Procedures
@@ -17,6 +17,7 @@ type
 @indentedblock
 @table @code
 @item @ref{g-value-init}
+@item @ref{g-value-unset}
 @end table
 @end indentedblock
 
@@ -67,6 +68,18 @@ Returns a pointer to a @code{GValue}.
 
 Creates and initializes a @code{GValue} with the default value for
 @var{g-type}.
+@end deffn
+
+
+@anchor{g-value-unset}
+@deffn Procedure g-value-unset g-value
+
+Returns nothing.
+
+Clears the current value in @var{g-value} (if any) and @samp{unsets} the
+type.  This releases all resources associated with @var{g-value}. An
+unset @code{GValue} is the same as an uninitialized (zero-filled)
+@code{GValue} structure.
 @end deffn
 
 

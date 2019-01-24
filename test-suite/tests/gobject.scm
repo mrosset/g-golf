@@ -45,6 +45,10 @@
 (define-method (test-g-value-init (self <g-golf-test-gobject>))
   (assert (g-value-init (symbol->g-type 'float))))
 
+(define-method (test-g-value-unset (self <g-golf-test-gobject>))
+  (assert (g-value-unset
+           (g-value-init (symbol->g-type 'float)))))
+
 (define-method (test-g-value->g-type* (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init %gtype)))
     (assert-true (= (g-value->g-type-id g-value) %gtype))
