@@ -1,0 +1,42 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.  Copyright (C) 2019
+@c Free Software Foundation, Inc.  See the file g-golf.texi for copying
+@c conditions.
+
+
+@c @defindex ei
+
+
+@node GObject__
+@subsection GObject__
+
+G-Golf GObject high level API.@*
+The G-Golf integration with the GObject object system.
+
+
+@subheading Classes
+
+@indentedblock
+@table @code
+@item @ref{<gobject>}
+@end table
+@end indentedblock
+
+
+@c @subheading Procedures and Methods
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{!info}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Classes
+
+@anchor{<gobject>}
+@deftp Class <gobject>
+
+The base class for GLib’s default object system.
+
+@end deftp

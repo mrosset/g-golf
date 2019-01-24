@@ -30,8 +30,10 @@ Reference Manual}), in a way that is largely inspired by
 @menu
 
 * GType:: The base of the GObject type system.
+* GObject__:: The G-Golf integration with the GObject object system.
 
 @end menu
 
 
 @include api-hl-api-gtype.texi
+@include api-hl-api-gobject.texi
