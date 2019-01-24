@@ -51,11 +51,8 @@
 		warn-override-core
 		warn
 		last)
-  
-  #:export (<gobject-class>
-            <gobject>
-            gobject-class?
-            ))
+
+  #:export (<gobject>))
 
 
 #;(g-export )
@@ -94,12 +91,12 @@
 ;; [*] actually to be precise, (make <slot> ...) itself won't
 ;; complain, but later on, the class definition calls compute-slots,
 ;; which raises an error saying that the setter, the getter or the
-;; accessor name isnot a valid generic fnction.
+;; accessor name is not a valid generic function.
 
 ;; I even tried to (make <generic> ...) and to bind it in the current
 ;; module, using (module-define! (current-module) acc gen), but that
-;; did not slve the problem either.  I will report this error, let's
-;; hope it gets fixed asasp.
+;; did not solve the problem either.  I will report this error, let's
+;; hope it gets fixed asap.
 
 (define (gobject-class-get-properties class)
   (if (boolean? (!info class))

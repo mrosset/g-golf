@@ -89,7 +89,6 @@
          (class (make-class (list <gobject>)
                             '()
                             #:name class-name
-                            #:info info
-                            #:metaclass <gobject-class>)))
+                            #:info info)))
     (module-define! (current-module) class-name class)
     (export class-name)))
