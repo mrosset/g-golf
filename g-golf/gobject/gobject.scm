@@ -62,18 +62,17 @@
 ;;;
 
 (define (g-object-get-property object property)
-  ;; FIXME.
-  ;; wip - mockup - still incorrect and incomplete
   (let* ((name (g-base-info-get-name property))
 	 (type-info (g-property-info-get-type property))
 	 (type-tag (g-type-info-get-tag type-info))
-	 #;(type-name (g-type-tag-to-string type-tag))
 	 (g-type (symbol->g-type type-tag))
 	 (g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
 			   g-value)
-    (g-value-ref g-value)))
+    (let ((result (g-value-ref g-value)))
+      (g-value-unset g-value)
+      result)))
 
 (define (g-object-set-property object name value)
   ;; ...

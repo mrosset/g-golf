@@ -80,6 +80,10 @@ Creates and returns a (pointer to) a new instance of a GObject subtype
 @deffn Procedure g-object-get-property object property
 
 Returns the @var{property} value for @var{object}.
+
+The @var{property} argument is (must be) a pointer to a valid
+@code{GIPropertyInfo} (@var{property} must point to one of the
+properties infos of the class of @var{object}).
 @end deffn
 
 
