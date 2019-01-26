@@ -65,7 +65,11 @@
   (let* ((name (g-base-info-get-name property))
 	 (type-info (g-property-info-get-type property))
 	 (type-tag (g-type-info-get-tag type-info))
-	 (g-type (symbol->g-type type-tag))
+	 (g-type (case type-tag
+                   ((interface)
+                    (interface-get-g-type type-info))
+                   (else
+                    (symbol->g-type type-tag))))
 	 (g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
@@ -77,6 +81,12 @@
 (define (g-object-set-property object name value)
   ;; ...
   #f)
+
+(define (interface-get-g-type info)
+  (let* ((interface (g-type-info-get-interface info))
+         (g-type (g-registered-type-info-get-g-type interface)))
+    (g-base-info-unref interface)
+    g-type))
 
 
 ;;;
