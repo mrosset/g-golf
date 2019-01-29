@@ -65,6 +65,7 @@ SOURCES = \
 	g-golf/gi/property-info.scm		\
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\
+	g-golf/gi.scm				\
 	g-golf/hl-api.scm			\
 	g-golf/hl-api/gtype.scm			\
 	g-golf/hl-api/gobject.scm		\

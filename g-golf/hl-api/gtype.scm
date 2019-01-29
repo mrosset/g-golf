@@ -36,14 +36,10 @@
 
 (define-module (g-golf hl-api gtype)
   #:use-module (oop goops)
-  #:use-module (g-golf support utils)
-  #:use-module (g-golf support g-export)
-  #:use-module (g-golf support goops)
-  #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi base-info)
-  #:use-module (g-golf gi registered-type-info)
-  #:use-module (g-golf gi object-info)
-  #:use-module (g-golf gobject gobject)
+  #:use-module (g-golf support)
+  #:use-module (g-golf gi)
+  #:use-module (g-golf glib)
+  #:use-module (g-golf gobject)
 
   #:duplicates (merge-generics
 		replace
