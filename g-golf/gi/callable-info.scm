@@ -48,14 +48,14 @@
   (g_callable_info_get_n_args info))
 
 (define (g-callable-info-get-arg info n)
-  (g_callable_info_get_arg info n))
+  (gi->scm (g_callable_info_get_arg info n) 'pointer))
 
 (define (g-callable-info-get-caller-owns info)
   (enum->symbol %gi-transfer
                 (g_callable_info_get_caller_owns info)))
 
 (define (g-callable-info-get-return-type info)
-  (g_callable_info_get_return_type info))
+  (gi->scm (g_callable_info_get_return_type info) 'pointer))
 
 (define (g-callable-info-may-return-null info)
   (gi->scm (g_callable_info_may_return_null info) 'boolean))
