@@ -118,6 +118,16 @@
 
 
 ;;;
+;;; Struct Info
+;;;
+
+(define-method (test-struct-info (self <g-golf-test-gi>))
+  (let ((info (g-irepository-find-by-name "Clutter" "Color")))
+    (assert-true (= (g-struct-info-get-n-fields info)
+                    4)))) ;; RGBA fields
+
+
+;;;
 ;;; Object Info
 ;;;
 

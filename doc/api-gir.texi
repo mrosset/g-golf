@@ -33,6 +33,7 @@ Intropection (manual) section, but there are some exceptions, such as
 * Function Info::	  Struct representing a function.
 * Registered Type Info::  Struct representing a struct with a GType.
 * Enum Info::		  Struct representing an enumeration and its values.
+* Struct Info::	  	  Struct representing a C structure.
 * Object Info::	  	  Struct representing a GObject.
 * Arg Info::		  Struct representing an argument.
 * Property Info::	  Struct representing a property.
@@ -53,6 +54,7 @@ Intropection (manual) section, but there are some exceptions, such as
 @include api-function-info.texi
 @include api-registered-type-info.texi
 @include api-enum-info.texi
+@include api-struct-info.texi
 @include api-object-info.texi
 @include api-arg-info.texi
 @include api-property-info.texi

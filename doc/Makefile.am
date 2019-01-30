@@ -54,6 +54,7 @@ g_golf_TEXINFOS = \
   api-function-info.texi	\
   api-registered-type-info.texi	\
   api-enum-info.texi		\
+  api-struct-info.texi		\
   api-object-info.texi		\
   api-arg-info.texi		\
   api-property-info.texi	\
