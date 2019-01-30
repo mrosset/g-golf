@@ -42,7 +42,8 @@
 		warn
 		last)
 
-  #:export (g-struct-info-get-n-fields))
+  #:export (g-struct-info-get-n-fields
+            g-struct-info-get-field))
 
 
 ;;;
@@ -51,6 +52,9 @@
 
 (define (g-struct-info-get-n-fields info)
   (g_struct_info_get_n_fields info))
+
+(define (g-struct-info-get-field info n)
+  (gi->scm (g_struct_info_get_field info n) 'pointer))
 
 
 ;;;
@@ -62,3 +66,9 @@
                       (dynamic-func "g_struct_info_get_n_fields"
 				    %libgirepository)
                       (list '*)))
+
+(define g_struct_info_get_field
+  (pointer->procedure '*
+                      (dynamic-func "g_struct_info_get_field"
+				    %libgirepository)
+                      (list '* int)))

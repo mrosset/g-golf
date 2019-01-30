@@ -19,6 +19,7 @@ GIStructInfo — Structs representing a C structure.
 @indentedblock
 @table @code
 @item @ref{g-struct-info-get-n-fields}
+@item @ref{g-struct-info-get-field}
 @end table
 @end indentedblock
 
@@ -60,4 +61,17 @@ argument is [must be] a pointer to a @code{GIStructInfo}.
 Returns an integer.
 
 Obtains the number of fields for @var{info}.
+@end deffn
+
+
+@anchor{g-struct-info-get-field}
+@deffn Procedure g-struct-info-get-field info n
+
+Returns a pointer.
+
+Obtains and returns the @var{info} type information (a pointer to a
+@code{GIFieldInfo}) for the field at the specified @var{n} index.
+
+The @code{GIFieldInfo} must be freed by calling @ref{g-base-info-unref}
+when done.
 @end deffn
