@@ -150,6 +150,17 @@
 
 
 ;;;
+;;; Field Info
+;;;
+
+(define-method (test-field-info (self <g-golf-test-gi>))
+  (let* ((info (g-irepository-find-by-name "Clutter" "Color"))
+         (field (g-struct-info-get-field info 0)))
+    (assert (g-field-info-get-type field))
+    (assert (g-type-info-get-tag (g-field-info-get-type field)))))
+
+
+;;;
 ;;; Property Info
 ;;;
 

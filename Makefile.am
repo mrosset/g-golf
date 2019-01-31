@@ -63,6 +63,7 @@ SOURCES = \
 	g-golf/gi/struct-info.scm		\
 	g-golf/gi/object-info.scm		\
 	g-golf/gi/arg-info.scm			\
+	g-golf/gi/field-info.scm		\
 	g-golf/gi/property-info.scm		\
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\

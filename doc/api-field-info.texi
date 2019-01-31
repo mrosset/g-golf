@@ -1,0 +1,69 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex ei
+
+
+@node Field Info
+@subsection Field Info
+
+G-Golf Field Info low level API.@*
+GIFieldInfo — Struct representing a struct or union field.
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-field-info-get-type}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-arg-info-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       		@*
+@ @ +--- GIFieldInfo
+@end indentedblock
+
+
+@subheading Description
+
+A @code{GIFieldInfo} struct represents a field of a struct (see
+@ref{Struct Info}), union (see @code{GIUnionInfo}) or an object (see
+@ref{Object Info}). The GIFieldInfo is fetched by calling
+@ref{g-struct-info-get-field}, @code{g-union-info-get-field} or
+@ref{g-object-info-get-field}. A field has a size, type and a struct
+offset asssociated and a set of flags, which is currently
+@code{readable} or @code{writable}.
+
+
+@subheading Procedures
+
+Note: in this section, unless otherwise specified, the @var{info}
+argument is [must be] a pointer to a @code{GIFieldInfo}.
+
+
+@anchor{g-field-info-get-type}
+@deffn Procedure g-field-info-get-type info
+
+Returns a pointer.
+
+Obtains and returns the @code{GITypeInfo} for @var{info}.
+
+The @code{GITypeInfo} must be freed by calling @ref{g-base-info-unref}
+when done.
+@end deffn
