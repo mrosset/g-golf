@@ -31,6 +31,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-enum}
 @item @ref{g-value-get-string}
 @item @ref{g-value-set-string}
+@item @ref{g-value-get-boxed}
+@item @ref{g-value-set-boxed}
 @item @ref{g-value-get-pointer}
 @item @ref{g-value-set-pointer}
 @item @ref{g-value-get-object}
@@ -227,6 +229,24 @@ Gets and returns the content of @var{g-value}.
 Returns nothing.
 
 Sets the content of @var{g-value} to @var{str}.
+@end deffn
+
+
+@anchor{g-value-get-boxed}
+@deffn Procedure g-value-get-boxed g-value
+
+Returns a pointer.
+
+Gets and returns the content of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-boxed}
+@deffn Procedure g-value-set-boxed g-value boxed
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{boxed}.
 @end deffn
 
 

@@ -63,6 +63,8 @@
             g-value-get-enum
             g-value-get-string
             g-value-set-string
+            g-value-get-boxed
+            g-value-set-boxed
             g-value-get-pointer
             g-value-set-pointer
             g-value-get-object
@@ -104,6 +106,8 @@
      (g-value-get-enum g-value))
     ((string)
      (g-value-get-string g-value))
+    ((boxed)
+     (g-value-get-boxed g-value))
     ((pointer)
      (g-value-get-pointer g-value))
     ((object)
@@ -125,6 +129,8 @@
      (g-value-set-enum g-value value))
     ((string)
      (g-value-set-string g-value value))
+    ((boxed)
+     (g-value-set-boxed g-value value))
     ((pointer)
      (g-value-set-pointer g-value value))
     ((object)
@@ -201,6 +207,13 @@
 (define (g-value-set-string g-value str)
   (g_value_set_string g-value
                       (string->pointer str)))
+
+(define (g-value-get-boxed g-value)
+  (gi->scm (g_value_get_boxed g-value) 'pointer))
+
+(define (g-value-set-boxed g-value boxed)
+  (g_value_set_boxed g-value
+                     (if boxed boxed %null-pointer)))
 
 (define (g-value-get-pointer g-value)
   (let ((pointer (g_value_get_pointer g-value)))
@@ -301,6 +314,19 @@
 (define g_value_set_string
   (pointer->procedure void
                       (dynamic-func "g_value_set_string"
+				    %libgobject)
+                      (list '*
+                            '*)))
+
+(define g_value_get_boxed
+  (pointer->procedure '*
+                      (dynamic-func "g_value_get_boxed"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_boxed
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_boxed"
 				    %libgobject)
                       (list '*
                             '*)))
