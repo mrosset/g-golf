@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -42,9 +42,10 @@
   #:use-module (g-golf support goops)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
-  #:use-module (g-golf support enum)
   #:use-module (g-golf support push)
   #:use-module (g-golf support keyword)
+  #:use-module (g-golf support enum)
+  #:use-module (g-golf support struct)
 
   #:duplicates (merge-generics
 		replace
@@ -61,6 +62,7 @@
 			      (g-golf support goops)
 			      (g-golf support g-export)
 			      (g-golf support utils)
-			      (g-golf support enum)
 			      (g-golf support push)
-			      (g-golf support keyword)))
+			      (g-golf support keyword)
+                              (g-golf support enum)
+                              (g-golf support struct)))

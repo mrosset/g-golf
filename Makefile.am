@@ -36,9 +36,10 @@ SOURCES = \
 	g-golf/support/goops.scm		\
 	g-golf/support/g-export.scm		\
 	g-golf/support/utils.scm		\
-	g-golf/support/enum.scm			\
 	g-golf/support/push.scm			\
 	g-golf/support/keyword.scm		\
+	g-golf/support/enum.scm			\
+	g-golf/support/struct.scm		\
 	g-golf/support.scm			\
 	g-golf/init.scm				\
 	g-golf/glib/mem-alloc.scm		\
