@@ -112,9 +112,10 @@
 
 (define-method (test-enum-info (self <g-golf-test-gi>))
   (let ((align-info (g-irepository-find-by-name "Clutter" "ActorAlign")))
-    (assert-true (g-enum-info-get-n-values align-info))
-    (assert-true (g-enum-info-get-value align-info 0))
-    (assert-true (gi-enum-import align-info))))
+    (assert (g-enum-info-get-n-values align-info))
+    (assert (g-enum-info-get-value align-info 0))
+    (assert (gi-enum-value-values align-info))
+    (assert (gi-enum-import align-info))))
 
 
 ;;;

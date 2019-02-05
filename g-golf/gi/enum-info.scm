@@ -43,7 +43,7 @@
 		last)
 
   #:export (gi-enum-import
-	    gi-enum-get-values
+	    gi-enum-value-values
 
 	    g-enum-info-get-n-values
 	    g-enum-info-get-value
@@ -60,13 +60,13 @@
 (define (gi-enum-import info)
   (let* ((type-name (g-registered-type-info-get-type-name info))
 	 (scm-name (gi-name->scm-name type-name))
-	 (e-vals (gi-enum-get-values info)))
+	 (e-vals (gi-enum-value-values info)))
     (make <gi-enum>
       #:gi-name type-name
       #:scm-name scm-name
       #:enum-set e-vals)))
 
-(define (gi-enum-get-values info)
+(define (gi-enum-value-values info)
   (letrec ((get-enum-values
 	    (lambda (info n i v-set)
 	      (if (= i n)

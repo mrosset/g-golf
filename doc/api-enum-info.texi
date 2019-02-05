@@ -1,6 +1,6 @@
 @c -*-texinfo-*-
 @c This is part of the GNU G-Golf Reference Manual.
-@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c Copyright (C) 2016 - 2019 Free Software Foundation, Inc.
 @c See the file g-golf.texi for copying conditions.
 
 
@@ -19,7 +19,7 @@ GIEnumInfo — Structs representing an enumeration and its values.
 @indentedblock
 @table @code
 @item @ref{gi-enum-import}
-@item @ref{gi-enum-get-values}
+@item @ref{gi-enum-value-values}
 
 @item @ref{g-enum-info-get-n-values}
 @item @ref{g-enum-info-get-value}
@@ -66,17 +66,24 @@ argument is [must be] a pointer to a @code{GIEumInfo}.
 
 Returns a @code{<gi-enum>} instance.
 
-Obtains the values this enumeration contains and construct a
+Obtains the values this enumeration contains, then makes and returns a
 @code{<gi-enum>} instance.
 @end deffn
 
 
-@anchor{gi-enum-get-values}
-@deffn Procedure gi-enum-get-values info
+@anchor{gi-enum-value-values}
+@deffn Procedure gi-enum-value-values info
 
 Returns an alist.
 
-Obtains and build a list of pairs @code{(symbol . id)} for @var{info}.
+Obtains and returns the list pairs @code{(symbol . id)} the enum GI
+definition pointed by @var{info} contains. If you think the name is
+strange, compare it with, for example @ref{gi-struct-field-types}: just
+like a @code{GIStructInfo} holds a list of pointers to
+@code{GIFieldInfo} from which we get the (field) type,
+a@code{GIEnumInfo} holds a list of pointers to @code{GIValueInfo} from
+which we get the (enum) value - which in the GI world is a name (a
+string) that we transform, in the scheme world, to a symbol.
 @end deffn
 
 
