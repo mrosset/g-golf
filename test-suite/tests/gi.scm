@@ -125,7 +125,9 @@
   (let ((info (g-irepository-find-by-name "Clutter" "Color")))
     (assert-true (= (g-struct-info-get-n-fields info)
                     4)) ;; RGBA fields
-    (assert-true (g-struct-info-get-field info 0))
+    (assert (g-struct-info-get-field info 0))
+    (assert (gi-struct-field-types info ))
+    (assert (gi-struct-import info ))
     ;; the following should also work, but a real pointer is returned
     ;; instad. I have asked on #introspection, but lost the connection
     ;; just after I asked, lets see what they tell me once I get a

@@ -30,11 +30,13 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
-  #:use-module (g-golf support enum)
+  #:use-module (g-golf support struct)
   #:use-module (g-golf init)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
+  #:use-module (g-golf gi field-info)
+  #:use-module (g-golf gi type-info)
 
   #:duplicates (merge-generics
 		replace
@@ -42,8 +44,44 @@
 		warn
 		last)
 
-  #:export (g-struct-info-get-n-fields
+  #:export (gi-struct-import
+            gi-struct-field-types
+
+            g-struct-info-get-n-fields
             g-struct-info-get-field))
+
+
+;;;
+;;; Build Interface
+;;;
+
+(define (gi-struct-import info)
+  (let* ((type-name (g-registered-type-info-get-type-name info))
+	 (scm-name (gi-name->scm-name type-name))
+         (types (gi-struct-field-types info)))
+    (make <gi-struct>
+      #:gi-name type-name
+      #:scm-name scm-name
+      #:types types)))
+
+(define (gi-struct-field-types info)
+  (letrec ((struct-field-types
+	    (lambda (info n i t-set)
+	      (if (= i n)
+		  (reverse! t-set)
+		  (let* ((field-info (g-struct-info-get-field info i))
+			 (type-info (g-field-info-get-type field-info))
+                         (type-tag (g-type-info-get-tag type-info)))
+		    (g-base-info-unref field-info)
+		    (struct-field-types info
+				        n
+				        (+ i 1)
+				        (cons type-tag
+					      t-set)))))))
+    (struct-field-types info
+		        (g-struct-info-get-n-fields info)
+		        0
+		        '())))
 
 
 ;;;

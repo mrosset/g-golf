@@ -18,6 +18,8 @@ GIStructInfo — Structs representing a C structure.
 
 @indentedblock
 @table @code
+@item @ref{gi-struct-import}
+@item @ref{gi-struct-field-types}
 @item @ref{g-struct-info-get-n-fields}
 @item @ref{g-struct-info-get-field}
 @end table
@@ -53,6 +55,27 @@ A structure has methods and fields.
 
 Note: in this section, unless otherwise specified, the @var{info}
 argument is [must be] a pointer to a @code{GIStructInfo}.
+
+
+@anchor{gi-struct-import}
+@deffn Procedure gi-struct-import info
+
+Returns a @code{<gi-struct>} instance.
+
+Obtains the list of (field) types the C struct GI definition pointed by
+@var{info} contains, then makes and returns a @code{<gi-struct>}
+instance.
+@end deffn
+
+
+@anchor{gi-struct-field-types}
+@deffn Procedure gi-struct-field-types info
+
+Returns a list.
+
+Obtains and returns the list of (field) types the C struct GI definition
+pointed by @var{info} contains.
+@end deffn
 
 
 @anchor{g-struct-info-get-n-fields}
