@@ -54,7 +54,8 @@
 	    gi-name->class-name
 	    ;; gi-class-name->method-name
 	    gi-integer->gflags
-	    gi-gflags->integer))
+	    gi-gflags->integer
+            gi-field-type-tag->scm))
 
 
 (define %gi-pointer-size 8)
@@ -227,3 +228,20 @@
 		'()
 		symbols
 		(reverse (integer->list n (length symbols))))))
+
+(define (gi-field-type-tag->scm type-tag)
+  (case type-tag
+    ((boolean) int)
+    ((int8
+      uint8
+      int16
+      uint16
+      int32
+      uint32
+      int64
+      uint64
+      float
+      double)
+     (eval type-tag (current-module)))
+    (else
+     type-tag)))
