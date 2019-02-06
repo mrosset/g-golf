@@ -31,13 +31,13 @@
   #:use-module (g-golf support goops)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
-  
+
   #:export (<gi-struct>))
 
 
 (g-export !gi-name
           !scm-name
-          !types)
+          !field-types)
 
 
 (define-class <gi-struct> ()
@@ -45,5 +45,5 @@
            #:init-keyword #:gi-name)
   (scm-name #:accessor !scm-name
             #:init-keyword #:scm-name)
-  (types #:accessor !types
-         #:init-keyword #:types))
+  (field-types #:accessor !field-types
+               #:init-keyword #:field-types))
