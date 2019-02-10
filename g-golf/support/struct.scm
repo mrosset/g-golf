@@ -36,15 +36,15 @@
   #:export (<gi-struct>))
 
 
-(g-export !rt-name
+(g-export !gi-name
           !scm-name
           !field-types
           !scm-types)
 
 
 (define-class <gi-struct> ()
-  (rt-name #:accessor !rt-name
-           #:init-keyword #:rt-name)
+  (gi-name #:accessor !gi-name
+           #:init-keyword #:gi-name)
   (scm-name #:accessor !scm-name)
   (field-types #:accessor !field-types
                #:init-keyword #:field-types)
@@ -54,6 +54,6 @@
 (define-method (initialize (self <gi-struct>) initargs)
   (next-method)
   (set! (!scm-name self)
-        (gi-name->scm-name (!rt-name self)))
+        (gi-name->scm-name (!gi-name self)))
   (set! (!scm-types self)
         (map gi-field-type-tag->scm (!field-types self))))

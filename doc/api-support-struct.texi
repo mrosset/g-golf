@@ -19,7 +19,7 @@
 
 @indentedblock
 @table @code
-@item @ref{!rt-name_}
+@item @ref{!gi-name_}
 @item @ref{!scm-name__}
 @item @ref{!field-types}
 @item @ref{!scm-types}
@@ -35,10 +35,9 @@ The @code{<gi-struct>} class is a subclass of @code{<struct>}.  Its
 
 @indentedblock
 @table @code
-@item @emph{rt-name}@footnote{With @code{rt} being the abreviation of
-@code{registered type}.}
-#:accessor !rt-name @*
-#:init-keyword #:rt-name
+@item @emph{gi-name}
+#:accessor !gi-name @*
+#:init-keyword #:gi-name
 
 @item @emph{scm-name}
 #:accessor !scm-name
@@ -61,15 +60,15 @@ are not meant to be mutated, see @ref{GOOPS Notes and Conventions},
 @end deftp
 
 
-@anchor{!rt-name_}
+@anchor{!gi-name_}
 @anchor{!scm-name__}
 @anchor{!field-types}
 @anchor{!scm-types}
-@deffn Method !rt-name gi-struct
+@deffn Method !gi-name gi-struct
 @deffnx Method !scm-name gi-struct
 @deffnx Method !field-types gi-struct
 @deffnx Method !scm-types gi-struct
 
-Returns the content of the rt-name, scm-name, field-types or scm-types
+Returns the content of the gi-name, scm-name, field-types or scm-types
 slot for @var{gi-struct}, respectively.
 @end deffn

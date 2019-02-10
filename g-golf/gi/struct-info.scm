@@ -59,7 +59,7 @@
   (let* ((type-name (g-registered-type-info-get-type-name info))
          (field-types (gi-struct-field-types info)))
     (make <gi-struct>
-      #:rt-name type-name
+      #:gi-name type-name
       #:field-types field-types)))
 
 (define (gi-struct-field-types info)
