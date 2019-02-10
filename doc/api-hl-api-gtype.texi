@@ -125,7 +125,7 @@ The root class of all instantiatable GType classes. Adds a slot,
 
 The @var{ginst} slot is initialized automatically and immutable (to be
 precise, it is not meant to be mutated, see @ref{GOOPS Notes and
-Conventions}, 'Slot are not Immutable').
+Conventions}, 'Slots are not Immutable').
 @end deftp
 
 

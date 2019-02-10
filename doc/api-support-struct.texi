@@ -57,7 +57,7 @@ initialized.
 
 Instances of the @code{<gi-struct>} are immutable (to be precise, there
 are not meant to be mutated, see @ref{GOOPS Notes and Conventions},
-'Slot are not Immutable').
+'Slots are not Immutable').
 @end deftp
 
 
