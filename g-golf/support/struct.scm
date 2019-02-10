@@ -28,6 +28,7 @@
 
 (define-module (g-golf support struct)
   #:use-module (oop goops)
+  #:use-module (g-golf gi utils)
   #:use-module (g-golf support goops)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
@@ -35,15 +36,24 @@
   #:export (<gi-struct>))
 
 
-(g-export !gi-name
+(g-export !rt-name
           !scm-name
-          !field-types)
+          !field-types
+          !scm-types)
 
 
 (define-class <gi-struct> ()
-  (gi-name #:accessor !gi-name
-           #:init-keyword #:gi-name)
-  (scm-name #:accessor !scm-name
-            #:init-keyword #:scm-name)
+  (rt-name #:accessor !rt-name
+           #:init-keyword #:rt-name)
+  (scm-name #:accessor !scm-name)
   (field-types #:accessor !field-types
-               #:init-keyword #:field-types))
+               #:init-keyword #:field-types)
+  (scm-types #:accessor !scm-types))
+
+
+(define-method (initialize (self <gi-struct>) initargs)
+  (next-method)
+  (set! (!scm-name self)
+        (gi-name->scm-name (!rt-name self)))
+  (set! (!scm-types self)
+        (map gi-field-type-tag->scm (!field-types self))))

@@ -19,9 +19,10 @@
 
 @indentedblock
 @table @code
-@item @ref{!gi-name_}
+@item @ref{!rt-name_}
 @item @ref{!scm-name__}
 @item @ref{!field-types}
+@item @ref{!scm-types}
 @end table
 @end indentedblock
 
@@ -34,29 +35,41 @@ The @code{<gi-struct>} class is a subclass of @code{<struct>}.  Its
 
 @indentedblock
 @table @code
-@item @emph{gi-name}
-#:accessor !gi-name @*
-#:init-keyword #:gi-name
+@item @emph{rt-name}@footnote{With @code{rt} being the abreviation of
+@code{registered type}.}
+#:accessor !rt-name @*
+#:init-keyword #:rt-name
 
 @item @emph{scm-name}
-#:accessor !scm-name @*
-#:init-keyword #:scm-name
+#:accessor !scm-name
 
 @item @emph{field-types}
 #:accessor !field-types @*
 #:init-keyword #:field-types
+
+@item @emph{scm-types}
+#:accessor !scm-types
 @end table
 @end indentedblock
+
+The @code{scm-name} and @code{scm-types} slots are automatically
+initialized.
+
+Instances of the @code{<gi-struct>} are immutable (to be precise, there
+are not meant to be mutated, see @ref{GOOPS Notes and Conventions},
+'Slot are not Immutable').
 @end deftp
 
 
-@anchor{!gi-name_}
+@anchor{!rt-name_}
 @anchor{!scm-name__}
 @anchor{!field-types}
-@deffn Method !gi-name gi-struct
+@anchor{!scm-types}
+@deffn Method !rt-name gi-struct
 @deffnx Method !scm-name gi-struct
 @deffnx Method !field-types gi-struct
+@deffnx Method !scm-types gi-struct
 
-Returns the content of the gi-name, scm-name or field-types slot for
-@var{gi-struct}, respectively.
+Returns the content of the rt-name, scm-name, field-types or scm-types
+slot for @var{gi-struct}, respectively.
 @end deffn

@@ -57,11 +57,9 @@
 
 (define (gi-struct-import info)
   (let* ((type-name (g-registered-type-info-get-type-name info))
-	 (scm-name (gi-name->scm-name type-name))
          (field-types (gi-struct-field-types info)))
     (make <gi-struct>
-      #:gi-name type-name
-      #:scm-name scm-name
+      #:rt-name type-name
       #:field-types field-types)))
 
 (define (gi-struct-field-types info)
