@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -33,11 +33,13 @@
   #:use-module (g-golf init)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support struct)
   #:use-module (g-golf gi cache)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi repository)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi enum-info)
+  #:use-module (g-golf gi struct-info)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject type-info)
@@ -208,8 +210,26 @@
   (g_value_set_string g-value
                       (string->pointer str)))
 
+(define (g-value-get-gi-boxed g-value)
+  (let* ((id (g-value->g-type-id g-value))
+         (name (gstudly-caps-expand (g-type-name id)))
+         (key (string->symbol name)))
+    (or (gi-cache-ref 'boxed key)
+        (let* ((b-info (g-irepository-find-by-gtype id))
+               (type (g-base-info-get-type b-info)))
+          (case type
+            ((struct)
+             (let ((gi-struct (gi-struct-import b-info)))
+               (g-base-info-unref b-info)
+               (gi-cache-set! 'boxed key gi-struct)
+               gi-struct))
+            (else
+             (error "Not implemented: " type)))))))
+
 (define (g-value-get-boxed g-value)
-  (gi->scm (g_value_get_boxed g-value) 'pointer))
+  (let ((gi-boxed (g-value-get-gi-boxed g-value))
+        (value (g_value_get_boxed g-value)))
+    (parse-c-struct value (!scm-types gi-boxed))))
 
 (define (g-value-set-boxed g-value boxed)
   (g_value_set_boxed g-value

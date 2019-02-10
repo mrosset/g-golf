@@ -235,7 +235,7 @@ Sets the content of @var{g-value} to @var{str}.
 @anchor{g-value-get-boxed}
 @deffn Procedure g-value-get-boxed g-value
 
-Returns a pointer.
+Returns a list.
 
 Gets and returns the content of @var{g-value}.
 @end deffn
