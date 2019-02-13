@@ -71,7 +71,7 @@
 (define (compute-extra-slots props slots)
   (filter-map (lambda (prop)
                 (let* ((gi-name (g-base-info-get-name prop))
-                       (scm-name (gi-name->scm-name gi-name))
+                       (scm-name (g-name->scm-name gi-name))
                        (acc-name (string-append "!" scm-name))
                        (name (string->symbol scm-name))
                        (acc (string->symbol acc-name)))

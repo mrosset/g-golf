@@ -40,10 +40,10 @@
 	    abort
 	    and-l
 	    identities
-            gstudly-caps-expand
-	    %gi-name-transform-exceptions
-	    gi-name->scm-name
-	    gi-name->class-name
+            g-studly-caps-expand
+	    %g-name-transform-exceptions
+	    g-name->scm-name
+	    g-name->class-name
 	    #;gi-class-name->method-name
             gi-field-type-tag->scm))
 
@@ -122,7 +122,7 @@
 
 ;; Based on Guile-Gnome (gobject gw utils)
 
-(define (gstudly-caps-expand nstr)
+(define (g-studly-caps-expand nstr)
   ;; GStudlyCapsExpand
   (do ((idx (- (string-length nstr) 1)
 	    (- idx 1)))
@@ -157,14 +157,14 @@
 
 ;; Default name transformations can be overridden, but g-golf won't
 ;; define exceptions for now, let's see.
-(define %gi-name-transform-exceptions
+(define %g-name-transform-exceptions
   '(("BLuefox" . "bluefox") ;; to test
     ;; ("GEnum" . "genum")  ;; no sure yet
     ))
 
-(define (gi-name->scm-name type-name)
-  (or (assoc-ref %gi-name-transform-exceptions type-name)
-      (string-trim-right (gstudly-caps-expand
+(define (g-name->scm-name type-name)
+  (or (assoc-ref %g-name-transform-exceptions type-name)
+      (string-trim-right (g-studly-caps-expand
 			  ;; only change _ to -
 			  ;; other chars are not valid in a type name
 			  (string-map (lambda (c) (if (eq? c #\_) #\- c))
@@ -173,9 +173,9 @@
 
 ;; "GtkAccelGroup" => <gtk-accel-group>
 ;; "GSource*" => <g-source*>
-(define (gi-name->class-name type-name)
+(define (g-name->class-name type-name)
   (string->symbol (string-append "<"
-				 (gstudly-caps-expand type-name)
+				 (g-studly-caps-expand type-name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well

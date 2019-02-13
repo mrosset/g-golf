@@ -72,7 +72,7 @@
 (define (gi-import-object info)
   (let* ((r-type (g-registered-type-info-get-g-type info))
          (gi-name (g-type-name r-type))
-         (class-name (gi-name->class-name gi-name))
+         (class-name (g-name->class-name gi-name))
          (class (make-class (list <gobject>)
                             '()
                             #:name class-name

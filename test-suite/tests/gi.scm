@@ -43,14 +43,14 @@
   (assert (gi-pointer-new))
   (assert (gi-pointer-inc (gi-pointer-new) 0))
   (assert (gi-attribute-iter-new))
-  (assert-true (string=? (gstudly-caps-expand "GStudlyCapsExpand")
+  (assert-true (string=? (g-studly-caps-expand "GStudlyCapsExpand")
                          "g-studly-caps-expand"))
   (assert-equal "bluefox"
-                (gi-name->scm-name "BLuefox"))
+                (g-name->scm-name "BLuefox"))
   (assert-equal "clutter-actor"
-		(gi-name->scm-name "ClutterActor"))
+		(g-name->scm-name "ClutterActor"))
   (assert-equal '<clutter-actor>
-		(gi-name->class-name "ClutterActor"))
+		(g-name->class-name "ClutterActor"))
   (assert (gi-integer->gflags %g-function-info-flags 2))
   (assert-true (= (gi-gflags->integer %g-function-info-flags
                                       '(is-constructor))

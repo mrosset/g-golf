@@ -173,7 +173,7 @@
 
 (define (g-value-get-gi-enum g-value)
   (let* ((id (g-value->g-type-id g-value))
-         (name (gstudly-caps-expand (g-type-name id)))
+         (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'enum key)
         (let* ((b-info (g-irepository-find-by-gtype id))
@@ -213,7 +213,7 @@
 
 (define (g-value-get-gi-boxed g-value)
   (let* ((id (g-value->g-type-id g-value))
-         (name (gstudly-caps-expand (g-type-name id)))
+         (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'boxed key)
         (let* ((b-info (g-irepository-find-by-gtype id))

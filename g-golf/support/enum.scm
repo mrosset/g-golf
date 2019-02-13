@@ -131,4 +131,4 @@
 (define-method (initialize (self <gi-enum>) initargs)
   (next-method)
   (set! (!scm-name self)
-        (gi-name->scm-name (!gi-name self))))
+        (g-name->scm-name (!gi-name self))))

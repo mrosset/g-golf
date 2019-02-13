@@ -38,7 +38,6 @@ G-Golf GObject Introspetion Utilities low level API.@*
 @indentedblock
 @table @code
 @item @ref{%gi-pointer-size}
-@item @ref{%gi-name-transform-exceptions}
 @end table
 @end indentedblock
 
@@ -233,26 +232,4 @@ corresponding to the given list of @var{flags}, comparing those against
 @defvar %gi-pointer-size
 
 The size that a (Glib) pointer occupies in memory (currently 8 bytes).
-@end defvar
-
-
-@anchor{%gi-name-transform-exceptions}
-@defvar %gi-name-transform-exceptions
-
-Contains an alist where each @code{key} is a GType name exception for
-the @ref{gi-name->scm-name} procedure, and the corresponding
-@code{value} the string that @ref{gi-name->scm-name} will return
-instead. As an example, it could be defined as:
-
-@lisp
-(define %gi-name-transform-exceptions
-        '((GEnum . genum)))
-@end lisp
-
-However currently it is an exmpty list@footnote{@uref{@value{UGG},
-Guile-Gnome} defines a relatively long list of those GType name
-exceptions, including GEnum, but I'm still not sure about what G-Golf
-will do and currently decided not to apply any exception.  Will this
-change in the future? Maybe, but it will become stable before G-Golf
-1.0.}.
 @end defvar

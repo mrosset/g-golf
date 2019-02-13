@@ -12,9 +12,18 @@
 
 @indentedblock
 @table @code
-@item @ref{gstudly-caps-expand}
-@item @ref{gi-name->scm-name}
-@item @ref{gi-name->class-name}
+@item @ref{g-studly-caps-expand}
+@item @ref{g-name->scm-name}
+@item @ref{g-name->class-name}
+@end table
+@end indentedblock
+
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%g-name-transform-exceptions}
 @end table
 @end indentedblock
 
@@ -28,47 +37,72 @@ G-Golf utilities low level API.@*
 
 
 
-@anchor{gstudly-caps-expand}
-@deffn Procedure gstudly-caps-expand str
+@anchor{g-studly-caps-expand}
+@deffn Procedure g-studly-caps-expand str
 
 Returns a string.
 
 Given a @samp{@uref{@value{UWIKI-CAMELCASE}, Camel Case}} string, this
-procedure@footnote{This procedure, as well as @ref{gi-name->scm-name}
-and @ref{gi-name->class-name} come from @uref{@value{UGG}, Guile-Gnome},
+procedure@footnote{This procedure, as well as @ref{g-name->scm-name}
+and @ref{g-name->class-name} come from @uref{@value{UGG}, Guile-Gnome},
 where there are named @code{GStudlyCapsExpand},
 @code{gtype-name->scm-name} and @code{gtype-name->class-name}, in the
 (Guile-Gnome) module (gnome gobject utils).  In G-Golf, these will also
 be used to transform other (Gobject Inptrospection given) names, such as
-function names, hence their @code{gi-name->} prefix instead} returns a
+function names, hence their @code{g-name->} prefix instead} returns a
 new string, with all uppercase letters being transformed into their
 corresponding lowercase letter, and where a @code{#\-} is inserted in
 between occurrences of two consecutive uppercase letters.  Here is an
 example:
 
 @lisp
-(gstudly-caps-expand "GStudlyCapsExpand")
+(g-studly-caps-expand "GStudlyCapsExpand")
 @print{}
 $2 = "g-studly-caps-expand"
 @end lisp
 @end deffn
 
 
-@anchor{gi-name->scm-name}
-@anchor{gi-name->class-name}
-@deffn Procedure gi-name->scm-name type-name
-@deffnx Procedure gi-name->class-name type-name
+@anchor{g-name->scm-name}
+@anchor{g-name->class-name}
+@deffn Procedure g-name->scm-name type-name
+@deffnx Procedure g-name->class-name type-name
 
 Returns a string - a symbol - respectively.
 
 The former obtains the scheme name for @var{type-name}, by transforming
-@code{#\_} into @code{#\-} and calling @ref{gstudly-caps-expand}. The
+@code{#\_} into @code{#\-} and calling @ref{g-studly-caps-expand}. The
 later uses the former, surrounds the result using @code{#\<} and
 @code{#\>} characters then calls @code{string->symbol}. For example:
 
 @lisp
-(gi-name->class-name "ClutterActor")
+(g-name->class-name "ClutterActor")
 @print{}
 $2 = <clutter-actor>
 @end lisp
 @end deffn
+
+
+@subheading Types and Values
+
+
+@anchor{%g-name-transform-exceptions}
+@defvar %g-name-transform-exceptions
+
+Contains an alist where each @code{key} is a GType name exception for
+the @ref{g-name->scm-name} procedure, and the corresponding
+@code{value} the string that @ref{g-name->scm-name} will return
+instead. As an example, it could be defined as:
+
+@lisp
+(define %g-name-transform-exceptions
+        '((GEnum . genum)))
+@end lisp
+
+However currently it is an exmpty list@footnote{@uref{@value{UGG},
+Guile-Gnome} defines a relatively long list of those GType name
+exceptions, including GEnum, but I'm still not sure about what G-Golf
+will do and currently decided not to apply any exception.  Will this
+change in the future? Maybe, but it will become stable before G-Golf
+1.0.}.
+@end defvar

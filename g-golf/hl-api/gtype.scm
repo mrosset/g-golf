@@ -94,7 +94,7 @@
 	    #:allocation #:virtual
 	    #:slot-ref (lambda (self)
                          (and (not (boolean? (!info self)))
-		              (gi-name->scm-name (!gtype-name self))))
+		              (g-name->scm-name (!gtype-name self))))
 	    #:slot-set! (lambda (self value)
 		          (values))))
 
