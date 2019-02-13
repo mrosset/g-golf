@@ -55,4 +55,4 @@
   (set! (!scm-name self)
         (g-name->scm-name (!gi-name self)))
   (set! (!scm-types self)
-        (map gi-field-type-tag->scm (!field-types self))))
+        (map g-type-tag->scm (!field-types self))))
