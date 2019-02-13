@@ -28,7 +28,6 @@
 
 (define-module (g-golf support struct)
   #:use-module (oop goops)
-  #:use-module (g-golf gi utils)
   #:use-module (g-golf support goops)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)

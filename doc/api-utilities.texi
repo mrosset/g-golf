@@ -27,9 +27,6 @@ G-Golf GObject Introspetion Utilities low level API.@*
 @item @ref{gi-strings->scm}
 @item @ref{gi-csv-string->scm}
 @item @ref{gi-pointer->scm}
-@item @ref{gstudly-caps-expand}
-@item @ref{gi-name->scm-name}
-@item @ref{gi-name->class-name}
 @item @ref{gi-integer->gflags}
 @item @ref{gi-gflags->integer}
 @end table
@@ -211,52 +208,6 @@ Returns a pointer or @code{#f}.
 
 The GType of @var{value} is @code{gpointer}.  When @var{value} is the
 @code{%null-pointer}, the procedure returns @code{#f}.
-@end deffn
-
-
-@anchor{gstudly-caps-expand}
-@deffn Procedure gstudly-caps-expand str
-
-Returns a string.
-
-Given a @samp{@uref{@value{UWIKI-CAMELCASE}, Camel Case}} string, this
-procedure@footnote{This procedure, as well as @ref{gi-name->scm-name}
-and @ref{gi-name->class-name} come from @uref{@value{UGG}, Guile-Gnome},
-where there are named @code{GStudlyCapsExpand},
-@code{gtype-name->scm-name} and @code{gtype-name->class-name}, in the
-(Guile-Gnome) module (gnome gobject utils).  In G-Golf, these will also
-be used to transform other (Gobject Inptrospection given) names, such as
-function names, hence their @code{gi-name->} prefix instead} returns a
-new string, with all uppercase letters being transformed into their
-corresponding lowercase letter, and where a @code{#\-} is inserted in
-between occurrences of two consecutive uppercase letters.  Here is an
-example:
-
-@lisp
-(gstudly-caps-expand "GStudlyCapsExpand")
-@print{}
-$2 = "g-studly-caps-expand"
-@end lisp
-@end deffn
-
-
-@anchor{gi-name->scm-name}
-@anchor{gi-name->class-name}
-@deffn Procedure gi-name->scm-name type-name
-@deffnx Procedure gi-name->class-name type-name
-
-Returns a string - a symbol - respectively.
-
-The former obtains the scheme name for @var{type-name}, by transforming
-@code{#\_} into @code{#\-} and calling @ref{gstudly-caps-expand}. The
-later uses the former, surrounds the result using @code{#\<} and
-@code{#\>} characters then calls @code{string->symbol}. For example:
-
-@lisp
-(gi-name->class-name "ClutterActor")
-@print{}
-$2 = <clutter-actor>
-@end lisp
 @end deffn
 
 

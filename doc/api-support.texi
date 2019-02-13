@@ -15,9 +15,9 @@ support goops))}, ...
 * Modules::
 * Goops::
 * G-export::
-* Utils::
 * Enum::
 * Struct::
+* Utils::
 @end menu
 
 
@@ -29,8 +29,7 @@ support goops))}, ...
 @node G-export
 @subsection G-export
 
-@node Utils
-@subsection Utils
 
 @include api-support-enum.texi
 @include api-support-struct.texi
+@include api-support-utils.texi

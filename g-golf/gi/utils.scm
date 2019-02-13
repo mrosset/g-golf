@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -33,9 +33,8 @@
   #:use-module (system foreign)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-60)
-  #:use-module (g-golf support)
-  #:use-module (g-golf glib)
-  #:use-module (g-golf gobject)
+  #:use-module (g-golf support enum)
+  #:use-module (g-golf glib mem-alloc)
 
   #:export (%gi-pointer-size
 	    gi-pointer-new
@@ -48,14 +47,8 @@
             gi-strings->scm
             gi-cvs-string->scm
 	    gi-pointer>scm
-	    gstudly-caps-expand
-	    %gi-name-transform-exceptions
-	    gi-name->scm-name
-	    gi-name->class-name
-	    ;; gi-class-name->method-name
 	    gi-integer->gflags
-	    gi-gflags->integer
-            gi-field-type-tag->scm))
+	    gi-gflags->integer))
 
 
 (define %gi-pointer-size 8)
@@ -143,76 +136,6 @@
       #f
       pointer))
 
-
-;;;
-;;; Name Transformation
-;;;
-
-;; Based on Guile-Gnome (gobject gw utils)
-
-(define (gstudly-caps-expand nstr)
-  ;; GStudlyCapsExpand
-  (do ((idx (- (string-length nstr) 1)
-	    (- idx 1)))
-      ((> 1 idx)
-       (string-downcase nstr))
-    (cond ((and (> idx 2)
-                (char-lower-case? (string-ref nstr (- idx 3)))
-                (char-upper-case? (string-ref nstr (- idx 2)))
-                (char-upper-case? (string-ref nstr (- idx 1)))
-                (char-lower-case? (string-ref nstr idx)))
-           (set! idx (- idx 1))
-           (set! nstr
-                 (string-append (substring nstr 0 (- idx 1))
-                                "-"
-                                (substring nstr (- idx 1)
-                                           (string-length nstr)))))
-          ((and (> idx 1)
-                (char-upper-case? (string-ref nstr (- idx 1)))
-                (char-lower-case? (string-ref nstr idx)))
-           (set! nstr
-                 (string-append (substring nstr 0 (- idx 1))
-                                "-"
-                                (substring nstr (- idx 1)
-                                           (string-length nstr)))))
-          ((and (char-lower-case? (string-ref nstr (- idx 1)))
-                (char-upper-case? (string-ref nstr idx)))
-           (set! nstr
-                 (string-append (substring nstr 0 idx)
-                                "-"
-                                (substring nstr idx
-                                           (string-length nstr))))))))
-
-;; Default name transformations can be overridden, but g-golf won't
-;; define exceptions for now, let's see.
-(define %gi-name-transform-exceptions
-  '(("BLuefox" . "bluefox") ;; to test
-    ;; ("GEnum" . "genum")  ;; no sure yet
-    ))
-
-(define (gi-name->scm-name type-name)
-  (or (assoc-ref %gi-name-transform-exceptions type-name)
-      (string-trim-right (gstudly-caps-expand
-			  ;; only change _ to -
-			  ;; other chars are not valid in a type name
-			  (string-map (lambda (c) (if (eq? c #\_) #\- c))
-				      type-name))
-			 #\-)))
-
-;; "GtkAccelGroup" => <gtk-accel-group>
-;; "GSource*" => <g-source*>
-(define (gi-name->class-name type-name)
-  (string->symbol (string-append "<"
-				 (gstudly-caps-expand type-name)
-				 ">")))
-
-;; Not sure this is used but let's keep it as well
-#;(define (gi-class-name->method-name class-name name)
-  (let ((class-string (symbol->string class-name)))
-    (string->symbol
-     (string-append (substring class-string 1 (1- (string-length class-string)))
-                    ":" (symbol->string name)))))
-
 (define (gi-gflags->integer gflags flags)
   (list->integer
    (reverse (map (lambda (name)
@@ -228,20 +151,3 @@
 		'()
 		symbols
 		(reverse (integer->list n (length symbols))))))
-
-(define (gi-field-type-tag->scm type-tag)
-  (case type-tag
-    ((boolean) int)
-    ((int8
-      uint8
-      int16
-      uint16
-      int32
-      uint32
-      int64
-      uint64
-      float
-      double)
-     (eval type-tag (current-module)))
-    (else
-     type-tag)))
