@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -155,7 +155,6 @@
 (define %gi-direction
   (make <gi-enum>
     #:gi-name "GIDirection"
-    #:scm-name "gi-direction"
     #:enum-set '(in
                  out
                  inout)))
@@ -163,7 +162,6 @@
 (define %gi-scope-type
   (make <gi-enum>
     #:gi-name "GIScopeType"
-    #:scm-name "gi-scope-type"
     #:enum-set '(invalid
                  call
                  async
@@ -172,7 +170,6 @@
 (define %gi-transfer
   (make <gi-enum>
     #:gi-name "GITransfer"
-    #:scm-name "gi-transfer"
     #:enum-set '(nothing
                  container
                  everything)))

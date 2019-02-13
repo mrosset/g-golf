@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -80,7 +80,6 @@
 (define %g-function-info-flags
   (make <gi-enum>
     #:gi-name "GIFunctionInfoFlags"
-    #:scm-name "gi-function-info-flags"
     #:enum-set '(is-method
                  is-constructor
                  is-getter

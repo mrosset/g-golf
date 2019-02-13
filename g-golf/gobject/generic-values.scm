@@ -30,7 +30,6 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf init)
-  #:use-module (g-golf gi utils)
 
   #:duplicates (merge-generics
 		replace

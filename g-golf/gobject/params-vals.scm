@@ -34,6 +34,7 @@
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support struct)
+  #:use-module (g-golf support utils)
   #:use-module (g-golf gi cache)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi repository)

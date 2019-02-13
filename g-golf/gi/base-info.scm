@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -181,7 +181,6 @@
 (define %gi-info-type
   (make <gi-enum>
     #:gi-name "GIInfoType"
-    #:scm-name "gi-info-type"
     #:enum-set '(invalid
                  function
                  callback

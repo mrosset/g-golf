@@ -46,7 +46,6 @@
 (define %g-param-flags
   (make <gi-enum>
     #:gi-name "GParamFlags"
-    #:scm-name "g-param-flags"
     #:enum-set '(readable
                  writable
                  readwrite

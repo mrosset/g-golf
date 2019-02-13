@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -29,6 +29,7 @@
 (define-module (g-golf gi common-types)
   #:use-module (oop goops)  
   #:use-module (g-golf support enum)
+  ;; #:use-module (g-golf gi utils)
 
   #:duplicates (merge-generics
 		replace
@@ -47,7 +48,6 @@
 (define %gi-type-tag
   (make <gi-enum>
     #:gi-name "GITypeTag"
-    #:scm-name "gi-type-tag"
     #:enum-set '(void
                  boolean
                  int8
@@ -74,7 +74,6 @@
 (define %gi-array-type
   (make <gi-enum>
     #:gi-name "GIArrayType"
-    #:scm-name "gi-array-type"
     #:enum-set '(c
                  array
                  ptr-array

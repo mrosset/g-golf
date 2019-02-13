@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -59,11 +59,9 @@
 
 (define (gi-enum-import info)
   (let* ((type-name (g-registered-type-info-get-type-name info))
-	 (scm-name (gi-name->scm-name type-name))
 	 (e-vals (gi-enum-value-values info)))
     (make <gi-enum>
       #:gi-name type-name
-      #:scm-name scm-name
       #:enum-set e-vals)))
 
 (define (gi-enum-value-values info)

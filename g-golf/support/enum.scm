@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -43,7 +43,8 @@
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support keyword)
-  
+  #:use-module (g-golf support utils)
+
   #:export (<enum>
             <gi-enum>))
 
@@ -125,5 +126,9 @@
 (define-class <gi-enum> (<enum>)
   (gi-name #:accessor !gi-name
            #:init-keyword #:gi-name)
-  (scm-name #:accessor !scm-name
-            #:init-keyword #:scm-name))
+  (scm-name #:accessor !scm-name))
+
+(define-method (initialize (self <gi-enum>) initargs)
+  (next-method)
+  (set! (!scm-name self)
+        (gi-name->scm-name (!gi-name self))))

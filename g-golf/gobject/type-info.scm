@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -106,17 +106,16 @@
 (define %g-type-fundamental-flags
   (make <gi-enum>
     #:gi-name "GTypeFundamentalFlags"
-    #:scm-name "g-type-fundamental-flags"
     #:enum-set '(classed
                  instantiable
                  derivable
                  deep-derivable)))
 
 (define %g-type-fundamental-types
+  ;; manually built, from the list of fundamental types starting with
+  ;; G_TYPE_INVALID -> G_TYPE_OBJECT
   (make <gi-enum>
-    #:gi-name #f ;; manually built, from the list of fundamental types
-		 ;; starting with G_TYPE_INVALID -> G_TYPE_OBJECT
-    #:scm-name "g-types"
+    #:gi-name "GTypeFundamentalFlags"
     #:enum-set '(invalid
                  none
                  interface

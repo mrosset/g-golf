@@ -134,10 +134,11 @@ The @code{<gi-enum>} class is a subclass of @code{<enum>}.  Its
 #:init-keyword #:gi-name
 
 @item @emph{scm-name}
-#:accessor !scm-name @*
-#:init-keyword #:scm-name
+#:accessor !scm-name
 @end table
 @end indentedblock
+
+The @code{scm-name} slot is automatically initialized.
 
 Instances of the @code{<gi-enum>} class are immutable (to be precise,
 there are not meant to be mutated, see @ref{GOOPS Notes and
