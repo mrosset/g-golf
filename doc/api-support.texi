@@ -17,7 +17,7 @@ support goops))}, ...
 * G-export::
 * Enum::
 * Struct::
-* Utils::
+* Utilities_::
 @end menu
 
 

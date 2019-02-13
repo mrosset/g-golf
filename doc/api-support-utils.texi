@@ -4,8 +4,8 @@
 @c See the file g-golf.texi for copying conditions.
 
 
-@node Utils
-@subsection Utils
+@node Utilities_
+@subsection Utilities_
 
 
 @subheading Procedures
