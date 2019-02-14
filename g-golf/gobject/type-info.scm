@@ -62,13 +62,15 @@
                                                 %g-type-fundamental-shift)))
 
 (define (symbol->g-type symbol)
-  (bitwise-arithmetic-shift (enum->value %g-type-fundamental-types
-                                         (case symbol
-                                           ((utf8) 'string)
-                                           ((int32) 'int)
-                                           ((uint32) 'uint)
-                                           (else symbol)))
-                             %g-type-fundamental-shift))
+  (let ((value (enum->value %g-type-fundamental-types
+                            (case symbol
+                              ((utf8) 'string)
+                              ((int32) 'int)
+                              ((uint32) 'uint)
+                              (else symbol)))))
+    (and value
+         (bitwise-arithmetic-shift value
+                                   %g-type-fundamental-shift))))
 
 
 ;;;
