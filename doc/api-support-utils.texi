@@ -70,9 +70,12 @@ $2 = "g-studly-caps-expand"
 
 Returns a string - a symbol - respectively.
 
-The former obtains the scheme name for @var{type-name}, by transforming
-@code{#\_} into @code{#\-} and calling @ref{g-studly-caps-expand}. The
-later uses the former, surrounds the result using @code{#\<} and
+The former obtains the scheme name for @var{type-name}, by (a) looking
+for a possible entry in @ref{%g-name-transform-exceptions}, then, if
+it failed, by (b) transforming @code{#\_} into @code{#\-} and calling
+@ref{g-studly-caps-expand}.
+
+The later uses the former, surrounds the result using @code{#\<} and
 @code{#\>} characters then calls @code{string->symbol}. For example:
 
 @lisp
