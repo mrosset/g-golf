@@ -35,6 +35,7 @@
 
 
 (define-module (g-golf hl-api gobject)
+  #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support)
@@ -68,23 +69,42 @@
        (or (eq? name (slot-definition-name (car slots)))
            (has-slot? name (cdr slots)))))
 
-(define (compute-extra-slots props slots)
-  (filter-map (lambda (prop)
-                (let* ((gi-name (g-base-info-get-name prop))
-                       (scm-name (g-name->scm-name gi-name))
+(define (has-valid-property-flag? g-flags)
+  (let ((valid-flags '(readable writable readwrite))
+        (invalid-flags '(deprecated)))
+    (let loop ((g-flags g-flags))
+      (if (null? g-flags)
+          #f)
+      (match g-flags
+        ((flag . rest)
+         (if (and (memq flag valid-flags)
+                  (not (memq flag invalid-flags)))
+             #t
+             (loop rest)))))))
+
+(define (compute-extra-slots properties slots)
+  (filter-map (lambda (property)
+                (let* ((g-name (g-base-info-get-name property))
+                       (scm-name (g-name->scm-name g-name))
                        (acc-name (string-append "!" scm-name))
                        (name (string->symbol scm-name))
-                       (acc (string->symbol acc-name)))
-                  (and (not (has-slot? name slots))
+                       (acc (string->symbol acc-name))
+                       (g-flags (g-property-info-get-flags property))
+	               (g-type (g-object-get-property-g-type property)))
+                  (and #;(has-valid-property-flag? g-flags)
+                       (not (has-slot? name slots))
+                       g-type
                        (make <slot>
                          #:name name
                          ;; there is a bug in goops, and till it's
                          ;; solved, it is not possible to specify a
                          ;; getter, a setter nor an accessor. [*]
                          ;; #:accessor acc
-                         #:property prop
+                         #:property property
+                         #:g-type g-type
+                         #:g-flags g-flags
                          #:allocation #:gproperty))))
-      props))
+      properties))
 
 ;; [*] actually to be precise, (make <slot> ...) itself won't
 ;; complain, but later on, the class definition calls compute-slots,
@@ -123,10 +143,10 @@
     (case (slot-definition-allocation slot-def)
       ((#:gproperty)
        (list (lambda (obj)
-               (let ((property (get-keyword #:property
-                                            (slot-definition-options slot-def)
-                                            #f)))
-                 (g-object-get-property (!ginst obj) property)))
+               (let* ((slot-opts (slot-definition-options slot-def))
+                      (property (get-keyword #:property slot-opts #f))
+                      (g-type (get-keyword #:g-type slot-opts #f)))
+                 (g-object-get-property (!ginst obj) property g-type)))
              (lambda (obj val)
                (dimfi obj name val)
                (g-object-set-property obj name val))))
