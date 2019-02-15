@@ -148,8 +148,10 @@
                       (g-type (get-keyword #:g-type slot-opts #f)))
                  (g-object-get-property (!ginst obj) property g-type)))
              (lambda (obj val)
-               (dimfi obj name val)
-               (g-object-set-property obj name val))))
+               (let* ((slot-opts (slot-definition-options slot-def))
+                      (property (get-keyword #:property slot-opts #f))
+                      (g-type (get-keyword #:g-type slot-opts #f)))
+               (g-object-set-property (!ginst obj) property val g-type)))))
       (else
        (next-method)))))
 
