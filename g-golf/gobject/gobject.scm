@@ -49,7 +49,8 @@
 		warn
 		last)
 
-  #:export (g-object-get-property
+  #:export (g-object-get-property-g-type
+            g-object-get-property
 	    g-object-set-property
 
             g-object-type
@@ -61,16 +62,25 @@
 ;;; GObject Low level API
 ;;;
 
-(define (g-object-get-property object property)
-  (let* ((name (g-base-info-get-name property))
-	 (type-info (g-property-info-get-type property))
-	 (type-tag (g-type-info-get-tag type-info))
-	 (g-type (case type-tag
-                   ((interface)
-                    (interface-get-g-type type-info))
-                   (else
-                    (symbol->g-type type-tag))))
-	 (g-value (g-value-init g-type)))
+(define (interface-get-g-type info)
+  (let* ((interface (g-type-info-get-interface info))
+         (g-type (g-registered-type-info-get-g-type interface)))
+    (g-base-info-unref interface)
+    g-type))
+
+(define (g-object-get-property-g-type property)
+  (let* ((type-info (g-property-info-get-type property))
+	 (type-tag (g-type-info-get-tag type-info)))
+    (case type-tag
+      ((interface)
+       (interface-get-g-type type-info))
+      (else
+       (symbol->g-type type-tag)))))
+
+(define* (g-object-get-property object property #:optional (g-type #f))
+  (let ((g-type (or g-type (g-object-get-property-g-type property)))
+        (name (g-base-info-get-name property))
+	(g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
 			   g-value)
@@ -81,12 +91,6 @@
 (define (g-object-set-property object name value)
   ;; ...
   #f)
-
-(define (interface-get-g-type info)
-  (let* ((interface (g-type-info-get-interface info))
-         (g-type (g-registered-type-info-get-g-type interface)))
-    (g-base-info-unref interface)
-    g-type))
 
 
 ;;;
