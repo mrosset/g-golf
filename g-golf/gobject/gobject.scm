@@ -78,9 +78,10 @@
        (symbol->g-type type-tag)))))
 
 (define* (g-object-get-property object property #:optional (g-type #f))
-  (let ((g-type (or g-type (g-object-get-property-g-type property)))
-        (name (g-base-info-get-name property))
-	(g-value (g-value-init g-type)))
+  (let* ((name (g-base-info-get-name property))
+         (g-type (or g-type
+                     (g-object-get-property-g-type property)))
+	 (g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
 			   g-value)
@@ -88,9 +89,17 @@
       (g-value-unset g-value)
       result)))
 
-(define (g-object-set-property object name value)
-  ;; ...
-  #f)
+(define* (g-object-set-property object property value #:optional (g-type #f))
+  (let* ((name (g-base-info-get-name property))
+         (g-type (or g-type
+                     (g-object-get-property-g-type property)))
+	 (g-value (g-value-init g-type)))
+    (g-value-set! g-value value)
+    (g_object_set_property object
+			   (string->pointer name)
+			   g-value)
+    (g-value-unset g-value)
+    value))
 
 
 ;;;
@@ -126,5 +135,11 @@ Not working yet, see libg-golf.scm for a problem description
 (define g_object_get_property
   (pointer->procedure void
                       (dynamic-func "g_object_get_property"
+				    %libgobject)
+                      (list '* '* '*)))
+
+(define g_object_set_property
+  (pointer->procedure void
+                      (dynamic-func "g_object_set_property"
 				    %libgobject)
                       (list '* '* '*)))

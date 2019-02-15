@@ -17,6 +17,7 @@ GObject — The base object type
 @table @code
 @item @ref{g-object-get-property-g-type}
 @item @ref{g-object-get-property}
+@item @ref{g-object-set-property}
 @item @ref{g-object-type}
 @item @ref{g-object-new}
 @end table
@@ -76,6 +77,20 @@ Obtains and returns the @code{GType} value for @var{property}, which is
 Returns the @var{property} value for @var{object}.
 
 The @var{property} argument is (must be) a pointer to a valid
+@code{GIPropertyInfo} (@var{property} must point to one of the
+properties infos of the class of @var{object}).  The @var{g-type}
+argument must be a valid @code{GType} value.  If @code{#f}, which is the
+default, @ref{g-object-get-property-g-type} is called.
+@end deffn
+
+
+@anchor{g-object-set-property}
+@deffn Procedure g-object-set-property object property value [g-type #f]
+
+Returns @var{value}.
+
+Sets the @var{object} @var{property} to @var{value}.  The
+@var{property} argument is (must be) a pointer to a valid
 @code{GIPropertyInfo} (@var{property} must point to one of the
 properties infos of the class of @var{object}).  The @var{g-type}
 argument must be a valid @code{GType} value.  If @code{#f}, which is the
