@@ -233,8 +233,9 @@
     (parse-c-struct value (!scm-types gi-boxed))))
 
 (define (g-value-set-boxed g-value boxed)
-  (g_value_set_boxed g-value
-                     (if boxed boxed %null-pointer)))
+  (let* ((gi-boxed (g-value-get-gi-boxed g-value))
+         (value (make-c-struct (!scm-types gi-boxed) boxed)))
+    (g_value_set_boxed g-value value)))
 
 (define (g-value-get-pointer g-value)
   (let ((pointer (g_value_get_pointer g-value)))
