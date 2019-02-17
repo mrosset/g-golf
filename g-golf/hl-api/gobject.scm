@@ -82,28 +82,34 @@
              #t
              (loop rest)))))))
 
-(define (compute-extra-slots properties slots)
+(define (compute-extra-slots class properties slots)
   (filter-map (lambda (property)
                 (let* ((g-name (g-base-info-get-name property))
-                       (scm-name (g-name->scm-name g-name))
-                       (acc-name (string-append "!" scm-name))
-                       (name (string->symbol scm-name))
-                       (acc (string->symbol acc-name))
                        (g-flags (g-property-info-get-flags property))
-	               (g-type (g-object-get-property-g-type property)))
+	               (g-type (g-object-get-property-g-type property))
+                       (scm-name (g-name->scm-name g-name))
+                       (a-name (string->symbol (string-append "!" scm-name)))
+                       (a-inst (make-accessor a-name))
+                       (a-setter setter))
                   (and #;(has-valid-property-flag? g-flags)
-                       (not (has-slot? name slots))
+                       (not (has-slot? scm-name slots))
                        g-type
-                       (make <slot>
-                         #:name name
-                         ;; there is a bug in goops, and till it's
-                         ;; solved, it is not possible to specify a
-                         ;; getter, a setter nor an accessor. [*]
-                         ;; #:accessor acc
-                         #:property property
-                         #:g-type g-type
-                         #:g-flags g-flags
-                         #:allocation #:gproperty))))
+                       (let ((slot (make <slot>
+                                     #:name scm-name
+                                     ;; there is a bug in goops, and till it's
+                                     ;; solved, it is not possible to specify a
+                                     ;; getter, a setter nor an accessor. [*]
+                                     ;; #:accessor acc
+                                     #:property property
+                                     #:g-type g-type
+                                     #:g-flags g-flags
+                                     #:allocation #:gproperty)))
+                         (module-define! (current-module) a-name a-inst)
+                         (add-method! a-inst
+                                      (compute-getter-method class slot))
+                         (add-method! (a-setter a-inst)
+                                      (compute-setter-method class slot))
+                         slot))))
       properties))
 
 ;; [*] actually to be precise, (make <slot> ...) itself won't
@@ -131,8 +137,8 @@
 
 (define-method (compute-slots (class <gobject-class>))
   (let* ((slots (next-method))
-         (extra (compute-extra-slots
-                 (gobject-class-get-properties class) slots)))
+         (extra (compute-extra-slots class
+                                     (gobject-class-get-properties class) slots)))
     (slot-set! class 'direct-slots
                (append (slot-ref class 'direct-slots)
                        extra))
