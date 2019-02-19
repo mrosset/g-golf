@@ -83,33 +83,39 @@
              (loop rest)))))))
 
 (define (compute-extra-slots class properties slots)
+  ;; there is a bug in goops, and till it's solved, it is not possible
+  ;; to specify a getter, a setter nor an accessor to 'make <slot>. [*]
+  ;; to circumvent this, we therefore 'manually' perform the actions
+  ;; needed to acheive the same result (make-accessor, add-method!,
   (filter-map (lambda (property)
-                (let* ((g-name (g-base-info-get-name property))
+                (let* ((cm (current-module))
+                       (g-name (g-base-info-get-name property))
                        (g-flags (g-property-info-get-flags property))
 	               (g-type (g-object-get-property-g-type property))
                        (scm-name (g-name->scm-name g-name))
+                       (s-name (string->symbol scm-name))
                        (a-name (string->symbol (string-append "!" scm-name)))
-                       (a-inst (make-accessor a-name))
+                       (a-inst (if (module-variable cm a-name)
+                                   (module-ref cm a-name)
+                                   (make-accessor a-name)))
                        (a-setter setter))
                   (and #;(has-valid-property-flag? g-flags)
-                       (not (has-slot? scm-name slots))
-                       g-type
-                       (let ((slot (make <slot>
-                                     #:name scm-name
-                                     ;; there is a bug in goops, and till it's
-                                     ;; solved, it is not possible to specify a
-                                     ;; getter, a setter nor an accessor. [*]
-                                     ;; #:accessor acc
-                                     #:property property
-                                     #:g-type g-type
-                                     #:g-flags g-flags
-                                     #:allocation #:gproperty)))
-                         (module-define! (current-module) a-name a-inst)
-                         (add-method! a-inst
-                                      (compute-getter-method class slot))
-                         (add-method! (a-setter a-inst)
-                                      (compute-setter-method class slot))
-                         slot))))
+                   (not (has-slot? scm-name slots))
+                   g-type
+                   (let ((slot (make <slot>
+                                 #:name s-name
+                                 #:property property
+                                 #:g-type g-type
+                                 #:g-flags g-flags
+                                 #:allocation #:gproperty)))
+                     (unless (module-variable cm a-name)
+                       (module-define! cm a-name a-inst)
+                       (export a-name))
+                     (add-method! a-inst
+                                  (compute-getter-method class slot))
+                     (add-method! (a-setter a-inst)
+                                  (compute-setter-method class slot))
+                     slot))))
       properties))
 
 ;; [*] actually to be precise, (make <slot> ...) itself won't
