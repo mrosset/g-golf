@@ -82,16 +82,16 @@
              #t
              (loop rest)))))))
 
-(define (compute-extra-slots class properties slots)
+(define (compute-extra-slots class g-properties slots)
   ;; there is a bug in goops, and till it's solved, it is not possible
   ;; to specify a getter, a setter nor an accessor to 'make <slot>. [*]
   ;; to circumvent this, we therefore 'manually' perform the actions
   ;; needed to acheive the same result (make-accessor, add-method!,
-  (filter-map (lambda (property)
+  (filter-map (lambda (g-property)
                 (let* ((cm (current-module))
-                       (g-name (g-base-info-get-name property))
-                       (g-flags (g-property-info-get-flags property))
-	               (g-type (g-object-get-property-g-type property))
+                       (g-name (g-base-info-get-name g-property))
+                       (g-flags (g-property-info-get-flags g-property))
+	               (g-type (g-object-get-property-g-type g-property))
                        (scm-name (g-name->scm-name g-name))
                        (s-name (string->symbol scm-name))
                        (a-name (string->symbol (string-append "!" scm-name)))
@@ -104,10 +104,10 @@
                    g-type
                    (let ((slot (make <slot>
                                  #:name s-name
-                                 #:property property
+                                 #:g-property g-property
                                  #:g-type g-type
                                  #:g-flags g-flags
-                                 #:allocation #:gproperty)))
+                                 #:allocation #:g-property)))
                      (unless (module-variable cm a-name)
                        (module-define! cm a-name a-inst)
                        (export a-name))
@@ -116,7 +116,7 @@
                      (add-method! (a-setter a-inst)
                                   (compute-setter-method class slot))
                      slot))))
-      properties))
+      g-properties))
 
 ;; [*] actually to be precise, (make <slot> ...) itself won't
 ;; complain, but later on, the class definition calls compute-slots,
@@ -144,7 +144,8 @@
 (define-method (compute-slots (class <gobject-class>))
   (let* ((slots (next-method))
          (extra (compute-extra-slots class
-                                     (gobject-class-get-properties class) slots)))
+                                     (gobject-class-get-properties class)
+                                     slots)))
     (slot-set! class 'direct-slots
                (append (slot-ref class 'direct-slots)
                        extra))
@@ -153,17 +154,17 @@
 (define-method (compute-get-n-set (class <gobject-class>) slot-def)
   (let ((name (slot-definition-name slot-def)))
     (case (slot-definition-allocation slot-def)
-      ((#:gproperty)
+      ((#:g-property)
        (list (lambda (obj)
                (let* ((slot-opts (slot-definition-options slot-def))
-                      (property (get-keyword #:property slot-opts #f))
+                      (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-                 (g-object-get-property (!ginst obj) property g-type)))
+                 (g-object-get-property (!ginst obj) g-property g-type)))
              (lambda (obj val)
                (let* ((slot-opts (slot-definition-options slot-def))
-                      (property (get-keyword #:property slot-opts #f))
+                      (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-               (g-object-set-property (!ginst obj) property val g-type)))))
+               (g-object-set-property (!ginst obj) g-property val g-type)))))
       (else
        (next-method)))))
 
