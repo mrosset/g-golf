@@ -87,35 +87,49 @@
   ;; to specify a getter, a setter nor an accessor to 'make <slot>. [*]
   ;; to circumvent this, we therefore 'manually' perform the actions
   ;; needed to acheive the same result (see make-accessor, add-method!.
-  (filter-map (lambda (g-property)
-                (let* ((cm (current-module))
-                       (g-name (g-base-info-get-name g-property))
-                       (g-flags (g-property-info-get-flags g-property))
-	               (g-type (g-object-get-property-g-type g-property))
-                       (scm-name (g-name->scm-name g-name))
-                       (s-name (string->symbol scm-name))
-                       (a-name (string->symbol (string-append "!" scm-name)))
-                       (a-inst (if (module-variable cm a-name)
-                                   (module-ref cm a-name)
-                                   (make-accessor a-name)))
-                       (a-setter setter))
-                  (and #;(has-valid-property-flag? g-flags)
-                   (not (has-slot? scm-name slots))
-                   g-type
-                   (let ((slot (make <slot>
-                                 #:name s-name
-                                 #:g-property g-property
-                                 #:g-type g-type
-                                 #:g-flags g-flags
-                                 #:allocation #:g-property)))
-                     (module-g-export! cm `(,a-name))
-                     (module-define! cm a-name a-inst)
-                     (add-method! a-inst
-                                  (compute-getter-method class slot))
-                     (add-method! (a-setter a-inst)
-                                  (compute-setter-method class slot))
-                     slot))))
-      g-properties))
+  (let* ((c-name (class-name class))
+         ;; we need to cache extra slots init-keywords, needed by the
+         ;; initialize <gtype-instance> method - this is explained in a
+         ;; comment, part that method defined in (g-golf hl-api gtypes).
+         (init-keywords '())
+         (extra-slots (filter-map
+                          (lambda (g-property)
+                            (let* ((cm (current-module))
+                                   (g-name (g-base-info-get-name g-property))
+                                   (g-flags (g-property-info-get-flags g-property))
+	                           (g-type (g-object-get-property-g-type g-property))
+                                   (scm-name (g-name->scm-name g-name))
+                                   (s-name (string->symbol scm-name))
+                                   (a-name (string->symbol (string-append "!" scm-name)))
+                                   (a-inst (if (module-variable cm a-name)
+                                               (module-ref cm a-name)
+                                               (make-accessor a-name)))
+                                   (a-setter setter)
+                                   (k-name (with-input-from-string
+                                               (string-append "#:" scm-name) read)))
+                              (and #;(has-valid-property-flag? g-flags)
+                               (not (has-slot? scm-name slots))
+                               g-type
+                               (let ((slot (make <slot>
+                                             #:name s-name
+                                             #:g-property g-property
+                                             #:g-type g-type
+                                             #:g-flags g-flags
+                                             #:allocation #:g-property
+                                             #:init-keyword k-name)))
+                                 (module-g-export! cm `(,a-name))
+                                 (module-define! cm a-name a-inst)
+                                 (add-method! a-inst
+                                              (compute-getter-method class slot))
+                                 (add-method! (a-setter a-inst)
+                                              (compute-setter-method class slot))
+                                 (push! k-name init-keywords)
+                                 slot))))
+                          g-properties)))
+    (gi-cache-set! c-name
+                   'g-properties-init-keywords
+                   (reverse! init-keywords))
+    extra-slots))
 
 ;; [*] actually to be precise, (make <slot> ...) itself won't
 ;; complain, but later on, the class definition calls compute-slots,
