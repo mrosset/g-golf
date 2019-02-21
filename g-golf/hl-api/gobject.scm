@@ -86,7 +86,7 @@
   ;; there is a bug in goops, and till it's solved, it is not possible
   ;; to specify a getter, a setter nor an accessor to 'make <slot>. [*]
   ;; to circumvent this, we therefore 'manually' perform the actions
-  ;; needed to acheive the same result (make-accessor, add-method!,
+  ;; needed to acheive the same result (see make-accessor, add-method!.
   (filter-map (lambda (g-property)
                 (let* ((cm (current-module))
                        (g-name (g-base-info-get-name g-property))
@@ -108,9 +108,8 @@
                                  #:g-type g-type
                                  #:g-flags g-flags
                                  #:allocation #:g-property)))
-                     (unless (module-variable cm a-name)
-                       (module-define! cm a-name a-inst)
-                       (export a-name))
+                     (module-g-export! cm `(,a-name))
+                     (module-define! cm a-name a-inst)
                      (add-method! a-inst
                                   (compute-getter-method class slot))
                      (add-method! (a-setter a-inst)
