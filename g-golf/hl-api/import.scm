@@ -70,12 +70,13 @@
     (values)))
 
 (define (gi-import-object info)
-  (let* ((r-type (g-registered-type-info-get-g-type info))
+  (let* ((cm (current-module))
+         (r-type (g-registered-type-info-get-g-type info))
          (gi-name (g-type-name r-type))
-         (class-name (g-name->class-name gi-name))
+         (c-name (g-name->class-name gi-name))
          (class (make-class (list <gobject>)
                             '()
-                            #:name class-name
+                            #:name c-name
                             #:info info)))
-    (module-define! (current-module) class-name class)
-    (export class-name)))
+    (module-define! (current-module) c-name class)
+    (module-g-export! cm `(,c-name))))
