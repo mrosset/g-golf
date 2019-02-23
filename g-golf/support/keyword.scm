@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; this file is a copy of (grip keyword)
+;; this file is a copy of (grip optargs)
 ;; http://www.nongnu.org/grip/
 
 ;;; Code:
@@ -32,28 +32,29 @@
 (define-module (g-golf support keyword)
   #:use-module (g-golf support push)
   
-  #:export (split-keyword-args))
+  #:export (split-keyword-args
+            strip-keyword-args))
 
 
-(define (split-keyword-args-1 args grab a b)
-  (if (null? args)
-      (values a b)
-      (if (memq (car args) grab)
-	  (split-keyword-args-1 (cddr args)
-				grab
-				a
-				(push*! (car args) (cadr args) b))
-	  (split-keyword-args-1 (cddr args)
-				grab
-				(push*! (car args) (cadr args) a)
-				b))))
+(define (split-keyword-args keywords args)
+  (let loop ((args args)
+             (split-kw '())
+             (split-rest '()))
+    (match args
+      (()
+       (values (reverse! split-kw) (reverse! split-rest)))
+      (((? keyword? kw) arg . rest)
+       (loop rest
+             (if (memq kw keywords)
+                 (cons* arg kw split-kw)
+                 split-kw)
+             (if (memq kw keywords)
+                 split-rest
+                 (cons* arg kw split-rest))))
+      ((head . tail)
+       (loop tail split-kw (cons head split-rest))))))
 
-(define (split-keyword-args args grab-these)
-  (split-keyword-args-1 args grab-these (list) (list)))
-
-
-#!
-
-;; missing good example/mini tests
-
-!#
+(define (strip-keyword-args keywords args)
+  (receive (split-kw split-rest)
+      (split-keyword-args keywords args)
+    split-rest))
