@@ -57,7 +57,7 @@
           !gtype-name
           !scm-name
           
-          !ginst)
+          !g-inst)
 
 
 ;;;
@@ -108,7 +108,7 @@
 ;; The root class of all instantiatable GType classes.
 
 (define-class <gtype-instance> ()
-  (ginst #:accessor !ginst)
+  (g-inst #:accessor !g-inst)
   #:info #t
   #:metaclass <gtype-class>)
 
@@ -121,5 +121,5 @@
   ;; instance properties (initargs ...)
   (let* ((class (class-of self))
          (gtype-id (!gtype-id class)))
-    (set! (!ginst self)
+    (set! (!g-inst self)
           (g-object-new gtype-id))))

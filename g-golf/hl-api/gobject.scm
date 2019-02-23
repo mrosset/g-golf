@@ -167,12 +167,12 @@
                (let* ((slot-opts (slot-definition-options slot-def))
                       (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-                 (g-object-get-property (!ginst obj) g-property g-type)))
+                 (g-object-get-property (!g-inst obj) g-property g-type)))
              (lambda (obj val)
                (let* ((slot-opts (slot-definition-options slot-def))
                       (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-               (g-object-set-property (!ginst obj) g-property val g-type)))))
+               (g-object-set-property (!g-inst obj) g-property val g-type)))))
       (else
        (next-method)))))
 
