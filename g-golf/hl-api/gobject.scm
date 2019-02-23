@@ -136,11 +136,6 @@
 ;; which raises an error saying that the setter, the getter or the
 ;; accessor name is not a valid generic function.
 
-;; I even tried to (make <generic> ...) and to bind it in the current
-;; module, using (module-define! (current-module) acc gen), but that
-;; did not solve the problem either.  I will report this error, let's
-;; hope it gets fixed asap.
-
 (define (gobject-class-get-properties class)
   (if (boolean? (!info class))
       '()
