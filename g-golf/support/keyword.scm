@@ -30,6 +30,8 @@
 
 
 (define-module (g-golf support keyword)
+  :use-module (ice-9 match)
+  :use-module (ice-9 receive)
   #:use-module (g-golf support push)
   
   #:export (split-keyword-args
