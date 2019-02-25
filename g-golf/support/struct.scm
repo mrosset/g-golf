@@ -52,7 +52,12 @@
 
 (define-method (initialize (self <gi-struct>) initargs)
   (next-method)
-  (set! (!scm-name self)
-        (g-name->scm-name (!gi-name self)))
-  (set! (!scm-types self)
-        (map g-type-tag->scm (!field-types self))))
+  (let ((gi-name (get-keyword #:gi-name initargs))
+        (field-types (get-keyword #:field-types initargs)))
+    (and gi-name
+         (set! (!gi-name self) gi-name)
+         (set! (!scm-name self)
+               (g-name->scm-name gi-name)))
+    (and field-types
+         (set! (!scm-types self)
+               (map g-type-tag->scm field-types)))))
