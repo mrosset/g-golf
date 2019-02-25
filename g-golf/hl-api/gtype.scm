@@ -35,6 +35,7 @@
 
 
 (define-module (g-golf hl-api gtype)
+  #:use-module (ice-9 receive)
   #:use-module (oop goops)
   #:use-module (g-golf support)
   #:use-module (g-golf gi)
@@ -47,8 +48,8 @@
 		warn
 		last)
   
-  #:export     (<gtype-class>
-                <gtype-instance>))
+  #:export (<gtype-class>
+            <gtype-instance>))
 
 
 (g-export !info
@@ -113,13 +114,34 @@
   #:metaclass <gtype-class>)
 
 (define-method (initialize (self <gtype-instance>) initargs)
-  (next-method)
-  (gtype-instance-construct self initargs))
+  ;; Init keywords for g-properties are cached at class creation time,
+  ;; see (g-golg hl-api gobject).  This method needs to call next-method,
+  ;; but without passing it any g-property init keyword, since these
+  ;; g-property slots redefine their slot-set! method, which calls
+  ;; g-object-set-property and that needs a g-inst which does not exist
+  ;; yet.
+  (let* ((c-name (class-name (class-of self)))
+         (g-props-init-kw (gi-cache-ref c-name
+                                        'g-properties-init-keywords)))
+    (receive (split-kw split-rest)
+        (split-keyword-args g-props-init-kw initargs)
+      (next-method self split-rest)
+      (gtype-instance-construct self initargs)
+      (gtype-instance-initialize-properties self split-kw))))
 
 (define (gtype-instance-construct self initargs)
-  ;; FIXME: this is largely incomplete, we obviously need to set the
-  ;; instance properties (initargs ...)
   (let* ((class (class-of self))
          (gtype-id (!gtype-id class)))
     (set! (!g-inst self)
           (g-object-new gtype-id))))
+
+(define (gtype-instance-initialize-properties self g-props-init-kw)
+  (for-each (lambda (slot)
+              (case (slot-definition-allocation slot)
+                ((#:g-property)
+                 (let* ((s-name (slot-definition-name slot))
+                        (i-kw (slot-definition-init-keyword slot))
+                        (i-value (get-keyword i-kw g-props-init-kw)))
+                   (and i-value
+                        (slot-set! self s-name i-value))))))
+      (class-direct-slots (class-of self))))
