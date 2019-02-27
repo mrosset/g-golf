@@ -77,6 +77,13 @@
         (gi->scm (g_function_info_get_vfunc info) 'pointer)
         #f)))
 
+(define (g-function-info-invoke info
+                                in-args n-int
+                                out-args n-out
+                                r-val
+                                g-error)
+  (g_function_info_invoke info in-args n-int out-args n-out r-val g-error))
+
 
 ;;;
 ;;; GI Bindings
@@ -94,17 +101,30 @@
 				    %libgirepository)
                       (list '*)))
 
+(define g_function_info_get_symbol
+  (pointer->procedure '*
+                      (dynamic-func "g_function_info_get_symbol"
+				    %libgirepository)
+                      (list '*)))
+
 (define g_function_info_get_vfunc
   (pointer->procedure '*
                       (dynamic-func "g_function_info_get_vfunc"
 				    %libgirepository)
                       (list '*)))
 
-(define g_function_info_get_symbol
-  (pointer->procedure '*
-                      (dynamic-func "g_function_info_get_symbol"
+(define g_function_info_invoke
+  (pointer->procedure int
+                      (dynamic-func "g_function_info_invoke"
 				    %libgirepository)
-                      (list '*)))
+                      (list '*	;; info
+                            '*	;; in-args
+                            int ;; n-in
+                            '*  ;; out-args
+                            int ;; n-out
+                            '*  ;; r-val
+                            '*  ;; g-error
+                            )))
 
 
 ;;;

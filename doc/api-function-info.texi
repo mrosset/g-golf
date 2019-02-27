@@ -22,6 +22,7 @@ GIFunctionInfo — Struct representing a function.
 @item @ref{g-function-info-get-property}
 @item @ref{g-function-info-get-symbol}
 @item @ref{g-function-info-get-vfunc}
+@item @ref{g-function-info-invoke}
 @end table
 @end indentedblock
 
@@ -114,6 +115,55 @@ function set. For other cases, @code{#f} will be returned.
 
 The @code{GIVFuncInfo} must be freed by calling @ref{g-base-info-unref}
 when done.
+@end deffn
+
+
+@anchor{g-function-info-invoke}
+@deffn Procedure g-function-info-invoke info in-args n-in @
+       out-args n-out r-val g-error
+
+Returns @code{#t} if the function has been invoked, @code{#f} if an
+error occured.
+
+Invokes the function described in @var{info} with the given
+arguments. Note that i@code{nout} parameters must appear in both
+argument lists. The arguments are:
+
+@indentedblock
+@table @code
+@item @emph{info}
+a pointer to a @code{GIFunctionInfo} describing the function to invoke.
+
+@item @emph{in-args}
+a pointer to an array of @code{GIArguments}, one for each @code{in} and
+@code{inout} parameter of @var{info}. If there are no @code{in}
+parameter, @var{in-args} must be the @code{%null-pointer}.
+
+@item @emph{n-in}
+the length of the @var{in-args} array.
+
+@item @emph{out-args}
+a pointer to an array of @code{GIArguments}, one for each @code{out} and
+@code{inout} parameter of @var{info}. If there are no @code{out}
+parameter, @var{out-args} must be the @code{%null-pointer}.
+
+@item @emph{n-out}
+the length of the @var{out-args} array.
+
+@item @emph{r-val}
+a pointer to a @code{GIArguments}, the return location for the return
+value of the function. If the function returns @code{void}, @var{r-val}
+must be the @code{%null-pointer}.
+
+@item @emph{g-error}
+a pointer to a newly allocated (and @samp{empty}) @code{GError} (the
+recommended way for procedure calls that need such a pointer is to
+@samp{surround} the call using @ref{with-gerror}).
+@end table
+@end indentedblock
+
+
+
 @end deffn
 
 
