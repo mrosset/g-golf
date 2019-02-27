@@ -78,7 +78,8 @@
 ;;;
 
 (define-method (test-base-info (self <g-golf-test-gi>))
-  (assert-true (g-base-info-get-name (g-irepository-find-by-name "Clutter" "Actor"))))
+  (assert-true (g-base-info-get-name
+                (g-irepository-find-by-name "Clutter" "Actor"))))
 
 
 ;;;
@@ -93,8 +94,9 @@
 (define-method (test-function-info (self <g-golf-test-gi>))
   (let* ((actor (g-irepository-find-by-name "Clutter" "Actor"))
          (actor-m1 (g-object-info-get-method actor 0)))
-    (assert-true (g-function-info-get-flags actor-m1))
-    (assert-true (g-function-info-get-symbol actor-m1))))
+    (assert (g-function-info-get-flags actor-m1))
+    (assert (g-function-info-get-property actor-m1))
+    (assert (g-function-info-get-symbol actor-m1))))
 
 
 ;;;

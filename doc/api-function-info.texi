@@ -19,6 +19,7 @@ GIFunctionInfo — Struct representing a function.
 @indentedblock
 @table @code
 @item @ref{g-function-info-get-flags}
+@item @ref{g-function-info-get-property}
 @item @ref{g-function-info-get-symbol}
 @end table
 @end indentedblock
@@ -67,6 +68,21 @@ a @code{GIFunctionInfo}.
 Returns a list of @ref{%g-function-info-flags}.
 
 Obtain the @code{GIFunctionInfoFlags} for @var{info}.
+@end deffn
+
+
+@anchor{g-function-info-get-property}
+@deffn Procedure g-function-info-get-property info
+
+Returns a pointer or @code{#f}.
+
+Obtains the @code{GIPropertyInfo} associated with @var{info}.  Only
+@code{GIFunctionInfo} with the flag @code{is-getter} or
+@code{is-setter} have a property set. For other cases, @code{#f} will be
+returned.
+
+The @code{GIPropertyInfo} must be freed by calling
+@ref{g-base-info-unref} when done.
 @end deffn
 
 

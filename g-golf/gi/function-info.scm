@@ -40,6 +40,7 @@
 		last)
 
   #:export (g-function-info-get-flags
+            g-function-info-get-property
             g-function-info-get-symbol
             %g-function-info-flags))
 
@@ -52,6 +53,20 @@
   (gi-integer->gflags %g-function-info-flags
                       (g_function_info_get_flags info)))
 
+(define (g-function-info-get-property info)
+  ;; The GI manual says only those functions with the flag 'is-getter or
+  ;; 'is-setter have an associated property, and other wise it returns
+  ;; NULL1.  But it doesn't say that if called upon any function that is
+  ;; not a getter or a setter, it displays a critical warning, like
+  ;; this: ** (process:17919): CRITICAL **: 00:43:57.404:
+  ;; g_interface_info_get_property: assertion 'GI_IS_INTERFACE_INFO
+  ;; (info)' failed. Let's avoid this ...
+  (let ((flags (g-function-info-get-flags info)))
+    (if (or (memq 'is-getter flags)
+            (memq 'is-setter flags))
+        (gi->scm (g_function_info_get_property info) 'pointer)
+        #f)))
+
 (define (g-function-info-get-symbol info)
   (pointer->string (g_function_info_get_symbol info)))
 
@@ -63,6 +78,12 @@
 (define g_function_info_get_flags
   (pointer->procedure uint32
                       (dynamic-func "g_function_info_get_flags"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_function_info_get_property
+  (pointer->procedure '*
+                      (dynamic-func "g_function_info_get_property"
 				    %libgirepository)
                       (list '*)))
 
