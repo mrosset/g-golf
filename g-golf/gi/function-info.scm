@@ -42,6 +42,7 @@
   #:export (g-function-info-get-flags
             g-function-info-get-property
             g-function-info-get-symbol
+            g-function-info-get-vfunc
             %g-function-info-flags))
 
 
@@ -70,6 +71,12 @@
 (define (g-function-info-get-symbol info)
   (pointer->string (g_function_info_get_symbol info)))
 
+(define (g-function-info-get-vfunc info)
+  (let ((flags (g-function-info-get-flags info)))
+    (if (memq 'wraps-vfunc flags)
+        (gi->scm (g_function_info_get_vfunc info) 'pointer)
+        #f)))
+
 
 ;;;
 ;;; GI Bindings
@@ -84,6 +91,12 @@
 (define g_function_info_get_property
   (pointer->procedure '*
                       (dynamic-func "g_function_info_get_property"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_function_info_get_vfunc
+  (pointer->procedure '*
+                      (dynamic-func "g_function_info_get_vfunc"
 				    %libgirepository)
                       (list '*)))
 

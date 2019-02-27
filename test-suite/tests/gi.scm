@@ -96,7 +96,8 @@
          (actor-m1 (g-object-info-get-method actor 0)))
     (assert (g-function-info-get-flags actor-m1))
     (assert (g-function-info-get-property actor-m1))
-    (assert (g-function-info-get-symbol actor-m1))))
+    (assert (g-function-info-get-symbol actor-m1))
+    (assert (g-function-info-get-vfunc actor-m1))))
 
 
 ;;;

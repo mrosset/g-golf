@@ -21,6 +21,7 @@ GIFunctionInfo — Struct representing a function.
 @item @ref{g-function-info-get-flags}
 @item @ref{g-function-info-get-property}
 @item @ref{g-function-info-get-symbol}
+@item @ref{g-function-info-get-vfunc}
 @end table
 @end indentedblock
 
@@ -99,6 +100,20 @@ procedure is part of the G-Golf low-level API, we decided to keep its
 name as close as the original name as possible, which in @code{Glib}
 terms is the name of the exported function, @samp{suitable to be used as
 an argument to g_module_symbol()}}.
+@end deffn
+
+
+@anchor{g-function-info-get-vfunc}
+@deffn Procedure g-function-info-get-vfunc info
+
+Returns a pointer or @code{#f}.
+
+Obtains the @code{GIVFuncInfo} associated with @var{info}.  Only
+@code{GIFunctionInfo} with the flag @code{wraps-vfunc} has its virtual
+function set. For other cases, @code{#f} will be returned.
+
+The @code{GIVFuncInfo} must be freed by calling @ref{g-base-info-unref}
+when done.
 @end deffn
 
 
