@@ -47,8 +47,10 @@
 	    g-arg-info-get-scope
 	    g-arg-info-get-type
 	    g-arg-info-may-be-null
+            g-arg-info-is-caller-allocates
 	    g-arg-info-is-optional
 	    g-arg-info-is-return-value
+            g-arg-info-is-skip
             ;; Types and Values
             %gi-direction
 	    %gi-scope-type
@@ -78,13 +80,22 @@
                 (g_arg_info_get_scope info)))
 
 (define (g-arg-info-get-type info)
-  (g_arg_info_get_type info))
+  (gi->scm (g_arg_info_get_type info) 'pointer))
 
 (define (g-arg-info-may-be-null info)
   (gi->scm (g_arg_info_may_be_null info) 'boolean))
 
+(define (g-arg-info-is-caller-allocates info)
+  (gi->scm (g_arg_info_is_caller_allocates info) 'boolean))
+
+(define (g-arg-info-is-optional info)
+  (gi->scm (g_arg_info_is_optional info) 'boolean))
+
 (define (g-arg-info-is-return-value info)
   (gi->scm (g_arg_info_is_return_value info) 'boolean))
+
+(define (g-arg-info-is-skip info)
+  (gi->scm (g_arg_info_is_skip info) 'boolean))
 
 
 ;;;
@@ -134,6 +145,12 @@
 				    %libgirepository)
                       (list '*)))
 
+(define g_arg_info_is_caller_allocates
+  (pointer->procedure int
+                      (dynamic-func "g_arg_info_is_caller_allocates"
+				    %libgirepository)
+                      (list '*)))
+
 (define g_arg_info_is_optional
   (pointer->procedure int
                       (dynamic-func "g_arg_info_is_optional"
@@ -146,6 +163,11 @@
 				    %libgirepository)
                       (list '*)))
 
+(define g_arg_info_is_skip
+  (pointer->procedure int
+                      (dynamic-func "g_arg_info_is_skip"
+				    %libgirepository)
+                      (list '*)))
 
 
 ;;;

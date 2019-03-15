@@ -25,8 +25,10 @@ GIArgInfo — Struct representing an argument.
 @item @ref{g-arg-info-get-scope}
 @item @ref{g-arg-info-get-type}
 @item @ref{g-arg-info-may-be-null}
+@item @ref{g-arg-info-is-caller-allocates}
 @item @ref{g-arg-info-is-optional}
 @item @ref{g-arg-info-is-return-value}
+@item @ref{g-arg-info-is-skip}
 @end table
 @end indentedblock
 
@@ -133,6 +135,18 @@ value. For 'out' values, this means that @code{NULL} may be returned.
 @end deffn
 
 
+@anchor{g-arg-info-is-caller-allocates}
+@deffn Procedure g-arg-info-is-caller-allocates info
+
+Returns @code{#t} or @code{#f}.
+
+Obtain if the argument is a pointer to a struct or object that will
+receive an output of a function. The default assumption for
+@code{out} arguments which have allocation is that the callee
+allocates; if this is TRUE, then the caller must allocate.
+@end deffn
+
+
 @anchor{g-arg-info-is-optional}
 @deffn Procedure g-arg-info-is-optional info
 
@@ -150,6 +164,15 @@ Returns @code{#t} or @code{#f}.
 
 Obtains if the argument is a retur value. It can either be a parameter
 or a return value.
+@end deffn
+
+
+@anchor{g-arg-info-is-skip}
+@deffn Procedure g-arg-info-is-skip info
+
+Returns @code{#t} or @code{#f}.
+
+Obtains if an argument is only useful in C.
 @end deffn
 
 
