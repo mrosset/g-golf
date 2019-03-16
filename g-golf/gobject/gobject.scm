@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -49,38 +49,38 @@
 		warn
 		last)
 
-  #:export (g-object-get-property-g-type
+  #:export (gi-object-property-g-type
+            gi-interface-g-type
             g-object-get-property
 	    g-object-set-property
-
-            g-object-type
             g-object-new
-            #;g-object-type-name))
+            #;g-object-type-name
+            g-object-type))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (interface-get-g-type info)
+(define (gi-object-property-g-type property)
+  (let* ((type-info (g-property-info-get-type property))
+	 (type-tag (g-type-info-get-tag type-info)))
+    (case type-tag
+      ((interface)
+       (gi-interface-g-type type-info))
+      (else
+       (symbol->g-type type-tag)))))
+
+(define (gi-interface-g-type info)
   (let* ((interface (g-type-info-get-interface info))
          (g-type (g-registered-type-info-get-g-type interface)))
     (g-base-info-unref interface)
     g-type))
 
-(define (g-object-get-property-g-type property)
-  (let* ((type-info (g-property-info-get-type property))
-	 (type-tag (g-type-info-get-tag type-info)))
-    (case type-tag
-      ((interface)
-       (interface-get-g-type type-info))
-      (else
-       (symbol->g-type type-tag)))))
-
 (define* (g-object-get-property object property #:optional (g-type #f))
   (let* ((name (g-base-info-get-name property))
          (g-type (or g-type
-                     (g-object-get-property-g-type property)))
+                     (gi-object-property-g-type property)))
 	 (g-value (g-value-init g-type)))
     (g_object_get_property object
 			   (string->pointer name)
@@ -92,7 +92,7 @@
 (define* (g-object-set-property object property value #:optional (g-type #f))
   (let* ((name (g-base-info-get-name property))
          (g-type (or g-type
-                     (g-object-get-property-g-type property)))
+                     (gi-object-property-g-type property)))
 	 (g-value (g-value-init g-type)))
     (g-value-set! g-value value)
     (g_object_set_property object
@@ -100,6 +100,9 @@
 			   g-value)
     (g-value-unset g-value)
     value))
+
+(define (g-object-new gtype)
+  (gi->scm (g_object_new gtype %null-pointer) 'pointer))
 
 
 ;;;
@@ -117,9 +120,6 @@ Not working yet, see libg-golf.scm for a problem description
   (gi->scm (g-object-type-name-c object) 'string))
 
 !#
-
-(define (g-object-new gtype)
-  (gi->scm (g_object_new gtype %null-pointer) 'pointer))
 
 
 ;;;

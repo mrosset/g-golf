@@ -97,7 +97,7 @@
                             (let* ((cm (current-module))
                                    (g-name (g-base-info-get-name g-property))
                                    (g-flags (g-property-info-get-flags g-property))
-	                           (g-type (g-object-get-property-g-type g-property))
+	                           (g-type (gi-object-property-g-type g-property))
                                    (scm-name (g-name->scm-name g-name))
                                    (s-name (string->symbol scm-name))
                                    (a-name (string->symbol (string-append "!" scm-name)))

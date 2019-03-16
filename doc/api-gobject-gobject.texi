@@ -1,6 +1,6 @@
 @c -*-texinfo-*-
 @c This is part of the GNU G-Golf Reference Manual.
-@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c Copyright (C) 2016 - 2019 Free Software Foundation, Inc.
 @c See the file g-golf.texi for copying conditions.
 
 
@@ -15,7 +15,7 @@ GObject — The base object type
 
 @indentedblock
 @table @code
-@item @ref{g-object-get-property-g-type}
+@item @ref{gi-object-property-g-type}
 @item @ref{g-object-get-property}
 @item @ref{g-object-set-property}
 @item @ref{g-object-type}
@@ -61,8 +61,8 @@ Note: in this section, unless otherwise specified, the @var{object}
 argument is [must be] a pointer to a @code{GObject} (instance).
 
 
-@anchor{g-object-get-property-g-type}
-@deffn Procedure g-object-get-property-g-type property
+@anchor{gi-object-property-g-type}
+@deffn Procedure gi-object-property-g-type property
 
 Returns an integer.
 
@@ -80,7 +80,7 @@ The @var{property} argument is (must be) a pointer to a valid
 @code{GIPropertyInfo} (@var{property} must point to one of the
 properties infos of the class of @var{object}).  The @var{g-type}
 argument must be a valid @code{GType} value.  If @code{#f}, which is the
-default, @ref{g-object-get-property-g-type} is called.
+default, @ref{gi-object-property-g-type} is called.
 @end deffn
 
 
@@ -94,7 +94,7 @@ Sets the @var{object} @var{property} to @var{value}.  The
 @code{GIPropertyInfo} (@var{property} must point to one of the
 properties infos of the class of @var{object}).  The @var{g-type}
 argument must be a valid @code{GType} value.  If @code{#f}, which is the
-default, @ref{g-object-get-property-g-type} is called.
+default, @ref{gi-object-property-g-type} is called.
 @end deffn
 
 
