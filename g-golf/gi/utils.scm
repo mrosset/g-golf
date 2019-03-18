@@ -51,7 +51,7 @@
 	    gi-gflags->integer))
 
 
-(define %gi-pointer-size 8)
+(define %gi-pointer-size (sizeof '*))
   
 (define (gi-pointer-new)
   ;; (bytevector->pointer (make-bytevector %gi-pointer-size 0))

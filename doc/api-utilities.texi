@@ -231,5 +231,6 @@ corresponding to the given list of @var{flags}, comparing those against
 @anchor{%gi-pointer-size}
 @defvar %gi-pointer-size
 
-The size that a (Glib) pointer occupies in memory (currently 8 bytes).
+The size (the number of bytes) that a (Glib) pointer occupies in memory
+(which is architecture dependent).
 @end defvar
