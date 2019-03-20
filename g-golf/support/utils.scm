@@ -45,7 +45,8 @@
 	    g-name->scm-name
 	    g-name->class-name
 	    #;gi-class-name->method-name
-            g-type-tag->scm))
+            g-type-tag->scm
+            gi-type-tag->scm))
 
 
 (define storage-get #f)
@@ -190,8 +191,7 @@
   ;; scheme representation), but make-c-struct and parse-c-struct needs
   ;; their correspondig guile (ffi) value.
   (case type-tag
-    ((boolean)
-     (eval 'int (current-module)))
+    ((boolean) int)
     ((int8
       uint8
       int16
@@ -205,3 +205,31 @@
      (eval type-tag (current-module)))
     (else
      type-tag)))
+
+(define (gi-type-tag->scm type-tag)
+  (case type-tag
+    ((void) void)
+    ((boolean) int)
+    ((int8
+      uint8
+      int16
+      uint16
+      int32
+      uint32
+      int64
+      uint64
+      float
+      double)
+     (eval type-tag (current-module)))
+    ((gtype) unsigned-long)
+    ((utf8
+      filename
+      array
+      interface
+      glist
+      gslist
+      ghash
+      error)
+     %gi-pointer-size)
+    ((unichar)
+     'not-know)))
