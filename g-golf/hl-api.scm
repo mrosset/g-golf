@@ -33,6 +33,7 @@
   #:use-module (g-golf support goops)
   #:use-module (g-golf hl-api gtype)
   #:use-module (g-golf hl-api gobject)
+  #:use-module (g-golf hl-api function)
 
   #:duplicates (merge-generics
 		replace
@@ -45,4 +46,5 @@
                             (g-golf support utils)
                             (g-golf support goops)
                             (g-golf hl-api gtype)
-                            (g-golf hl-api gobject))
+                            (g-golf hl-api gobject)
+                            (g-golf hl-api function))

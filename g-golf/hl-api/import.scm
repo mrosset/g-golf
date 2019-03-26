@@ -35,6 +35,7 @@
   #:use-module (g-golf gobject)
   #:use-module (g-golf hl-api gtype)
   #:use-module (g-golf hl-api gobject)
+  #:use-module (g-golf hl-api function)
 
   #:duplicates (merge-generics
 		replace
@@ -58,8 +59,12 @@
     (do ((i 0
             (+ i 1)))
         ((= i n-info))
-      (let* ((info (g-irepository-get-info namespace i)))
-        (case (g-base-info-get-type info)
+      (let* ((info (g-irepository-get-info namespace i))
+             (i-type (g-base-info-get-type info)))
+        #;(dimfi (g-base-info-get-name info) "; " i-type)
+        (case i-type
+          ((function)
+           (gi-import-function info))
           ((object)
            (gi-import-object info))
           (else
@@ -74,9 +79,9 @@
          (r-type (g-registered-type-info-get-g-type info))
          (gi-name (g-type-name r-type))
          (c-name (g-name->class-name gi-name))
-         (class (make-class (list <gobject>)
-                            '()
-                            #:name c-name
-                            #:info info)))
-    (module-define! (current-module) c-name class)
+         (c-inst (make-class (list <gobject>)
+                             '()
+                             #:name c-name
+                             #:info info)))
+    (module-define! (current-module) c-name c-inst)
     (module-g-export! cm `(,c-name))))
