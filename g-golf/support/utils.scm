@@ -230,6 +230,6 @@
       gslist
       ghash
       error)
-     %gi-pointer-size)
+     (sizeof '*))
     ((unichar)
      'not-know)))
