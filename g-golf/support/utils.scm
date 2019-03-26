@@ -230,6 +230,5 @@
       gslist
       ghash
       error)
-     (sizeof '*))
-    ((unichar)
-     'not-know)))
+     (sizeof '*)) ;; pointer
+    ((unichar) uint32)))
