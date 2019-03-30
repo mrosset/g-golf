@@ -23,6 +23,14 @@
 
 ;;; Commentary:
 
+;; A C union type low level interface: both c-union-ref and c-union-set!
+;; expect a size argument, no (scheme) booleans, no strings (just
+;; pointers, users must call string->pointer and pointer->string), and
+;; also, not field-names, just types.
+
+;; A higher level interface is defined in (g-golf support union), based
+;; on goops.
+
 ;;; Code:
 
 
@@ -34,10 +42,6 @@
             c-union-ref
             c-union-set!))
 
-
-;;;
-;;; Guile C union type
-;;;
 
 (define %readers
   (@@ (system foreign) *readers*))
