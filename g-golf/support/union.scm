@@ -29,39 +29,47 @@
 (define-module (g-golf support union)
   #:use-module (system foreign)
   #:use-module (rnrs bytevectors)
+  #:use-module (oop goops)
+  #:use-module (g-golf support goops)
+  #:use-module (g-golf support g-export)
+  #:use-module (g-golf support utils)
+  #:use-module (g-golf support c-union)
 
-  #:export (make-c-union
-            c-union-ref
-            c-union-set!))
+  #:export (<gi-union>))
 
 
-;;;
-;;; Guile C union type
-;;;
+(g-export !gi-name
+          !scm-name
+          !field-names
+          !field-types
+          !scm-types)
 
-(define %readers
-  (@@ (system foreign) *readers*))
 
-(define %writers
-  (@@ (system foreign) *writers*))
+(define-class <gi-union> ()
+  (foreign #:accessor !foreign
+           #:init-keyword #:foreign #:init-value #f)
+  (size #:accessor !size
+        #:init-keyword #:size #:init-value #f)
+  (gi-name #:accessor !gi-name
+           #:init-keyword #:gi-name)
+  (scm-name #:accessor !scm-name)
+  (field-names #:accessor !field-names
+               #:init-keyword #:field-names)
+  (field-types #:accessor !field-types
+               #:init-keyword #:field-types)
+  (scm-types #:accessor !scm-types))
 
-(define %align
-  (@@ (system foreign) align))
-
-(define* (make-c-union types #:optional (type #f) (val #f))
-  (let* ((size (apply max (map sizeof types)))
-         (bv (make-bytevector size 0))
-         (foreign (bytevector->pointer bv)))
-    (if type
-        (c-union-set! foreign size type val))
-    (values foreign size)))
-
-(define (c-union-ref foreign size type)
-  (let ((bv (pointer->bytevector foreign size))
-        (offset (%align 0 (alignof type))))
-    ((assv-ref %readers type) bv offset)))
-
-(define (c-union-set! foreign size type val)
-  (let ((bv (pointer->bytevector foreign size))
-        (offset (%align 0 (alignof type))))
-    ((assv-ref %writers type) bv offset val)))
+(define-method (initialize (self <gi-union>) initargs)
+  (next-method)
+  (let ((gi-name (get-keyword #:gi-name initargs))
+        (field-names (get-keyword #:field-names initargs))
+        (field-types (get-keyword #:field-types initargs)))
+    (and gi-name
+         (set! (!gi-name self) gi-name)
+         (set! (!scm-name self)
+               (g-name->scm-name gi-name)))
+    (and field-names
+         (set! (!field-names self) field-names))
+    (and field-types
+         (set! (!scm-types self)
+               (map gi-type-tag->scm field-types)))))
