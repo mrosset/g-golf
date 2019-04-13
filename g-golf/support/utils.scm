@@ -230,5 +230,5 @@
       gslist
       ghash
       error)
-     (sizeof '*)) ;; pointer
+     '*) ;; pointer
     ((unichar) uint32)))
