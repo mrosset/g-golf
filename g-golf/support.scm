@@ -46,7 +46,6 @@
   #:use-module (g-golf support keyword)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support struct)
-  #:use-module (g-golf support c-union)
   #:use-module (g-golf support union)
 
   #:duplicates (merge-generics
@@ -68,5 +67,4 @@
 			      (g-golf support keyword)
                               (g-golf support enum)
                               (g-golf support struct)
-                              (g-golf support c-union)
                               (g-golf support union)))
