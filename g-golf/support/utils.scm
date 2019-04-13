@@ -45,8 +45,8 @@
 	    g-name->scm-name
 	    g-name->class-name
 	    #;gi-class-name->method-name
-            g-type-tag->scm
-            gi-type-tag->scm))
+            g-type-tag->ffi
+            gi-type-tag->ffi))
 
 
 (define storage-get #f)
@@ -186,7 +186,7 @@
      (string-append (substring class-string 1 (1- (string-length class-string)))
                     ":" (symbol->string name)))))
 
-(define (g-type-tag->scm type-tag)
+(define (g-type-tag->ffi type-tag)
   ;; GI field type tags are symbols (names that we convert to their
   ;; scheme representation), but make-c-struct and parse-c-struct needs
   ;; their correspondig guile (ffi) value.
@@ -206,7 +206,7 @@
     (else
      type-tag)))
 
-(define (gi-type-tag->scm type-tag)
+(define (gi-type-tag->ffi type-tag)
   (case type-tag
     ((void) void)
     ((boolean) int)
