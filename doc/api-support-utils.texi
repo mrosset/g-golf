@@ -15,6 +15,7 @@
 @item @ref{g-studly-caps-expand}
 @item @ref{g-name->scm-name}
 @item @ref{g-name->class-name}
+@item @ref{gi-type-tag->ffi}
 @end table
 @end indentedblock
 
@@ -83,6 +84,17 @@ The later uses the former, surrounds the result using @code{#\<} and
 @print{}
 $2 = <clutter-actor>
 @end lisp
+@end deffn
+
+
+@anchor{gi-type-tag->ffi}
+@deffn Procedure gi-type-tag->ffi type-tag
+
+Returns an integer.
+
+Obtains the correponding Guile's ffi tag value for @var{type-tag}, which
+must be a member of @ref{%gi-type-tag}.  Otherwise, this procedure
+raises an exception.
 @end deffn
 
 
