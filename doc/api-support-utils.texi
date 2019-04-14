@@ -90,11 +90,13 @@ $2 = <clutter-actor>
 @anchor{gi-type-tag->ffi}
 @deffn Procedure gi-type-tag->ffi type-tag
 
-Returns an integer.
+Returns an intger or @code{'*} (the symbol @code{*}).
 
 Obtains the correponding Guile's ffi tag value for @var{type-tag}, which
-must be a member of @ref{%gi-type-tag}.  Otherwise, this procedure
-raises an exception.
+must be a member of @ref{%gi-type-tag}.  If @var{type-tag} is unknown,
+an exception is raised. Note that Guile's ffi tag values are integers or
+@code{'*} (the symbol @code{*}, used by convention to denote pointer
+types.
 @end deffn
 
 
