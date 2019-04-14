@@ -60,4 +60,4 @@
                (g-name->scm-name gi-name)))
     (and field-types
          (set! (!scm-types self)
-               (map g-type-tag->ffi field-types)))))
+               (map gi-type-tag->ffi field-types)))))

@@ -45,7 +45,6 @@
 	    g-name->scm-name
 	    g-name->class-name
 	    #;gi-class-name->method-name
-            g-type-tag->ffi
             gi-type-tag->ffi))
 
 
@@ -185,26 +184,6 @@
     (string->symbol
      (string-append (substring class-string 1 (1- (string-length class-string)))
                     ":" (symbol->string name)))))
-
-(define (g-type-tag->ffi type-tag)
-  ;; GI field type tags are symbols (names that we convert to their
-  ;; scheme representation), but make-c-struct and parse-c-struct needs
-  ;; their correspondig guile (ffi) value.
-  (case type-tag
-    ((boolean) int)
-    ((int8
-      uint8
-      int16
-      uint16
-      int32
-      uint32
-      int64
-      uint64
-      float
-      double)
-     (eval type-tag (current-module)))
-    (else
-     type-tag)))
 
 (define (gi-type-tag->ffi type-tag)
   (case type-tag
