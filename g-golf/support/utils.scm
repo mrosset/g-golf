@@ -210,4 +210,6 @@
       ghash
       error)
      '*) ;; pointer
-    ((unichar) uint32)))
+    ((unichar) uint32)
+    (else
+     (error "No such GI type tag: " type-tag))))
