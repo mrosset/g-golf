@@ -10,7 +10,7 @@
 @node GType
 @subsection GType
 
-G-Golf Gtype high level API.@*
+G-Golf GType high level API.@*
 The base of the GObject type system.
 
 
