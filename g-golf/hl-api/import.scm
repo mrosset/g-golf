@@ -83,5 +83,5 @@
                              '()
                              #:name c-name
                              #:info info)))
-    (module-define! (current-module) c-name c-inst)
+    (module-define! cm c-name c-inst)
     (module-g-export! cm `(,c-name))))
