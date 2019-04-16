@@ -109,8 +109,8 @@
     (v-uint . ,unsigned-int)
     (v-long . ,long)
     (v-ulong . ,unsigned-long)
-    (v-ssize . ,int)
-    (v-size . ,unsigned-int)
+    (v-ssize . ,long)
+    (v-size . ,unsigned-long)
     (v-string . ,'*)
     (v-pointer . ,'*)))
 
