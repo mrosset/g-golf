@@ -51,6 +51,7 @@
             make-gi-argument
             gi-argument-ref
             gi-argument-set!))
+            gi-type-tag->field))
 
 
 ;;;
@@ -153,3 +154,45 @@
                         val))))
           (c-union-set! gi-argument %gi-argument-size type u-val))
         (error "No such field: " field))))
+
+(define (gi-type-tag->field type-tag)
+  "Returns the GI argument field for type-tag. You'll note that a few
+tags are not members of GITypeTag, but I see the CL implementation lists
+those, so since it does not cost anything, I decided to add these
+to (their gtype exists, in GIArgument, except time-t, which I decided to
+add as a comment)."
+  (case type-tag
+    ((boolean) 'v-boolean)
+    ((int8) 'v-int8)
+    ((uint8) 'v-uint8)
+    ((int16) 'v-int16)
+    ((uint16) 'v-uint16)
+    ((int32) 'v-int32)
+    ((uint32) 'v-uint32)
+    ((int64) 'v-int64)
+    ((uint64) 'v-uint64)
+    ((float) 'v-float)
+    ((double) 'v-double)
+    ((gtype) 'v-ulong)
+    ((short) 'v-short)		;; <- from CL implementtion
+    ((ushort) 'v-ushort)
+    ((int) 'v-int)
+    ((uint) 'v-uint)
+    ((long) 'v-long)
+    ((ulong) 'v-ulong)
+    ((ssize) 'v-long)
+    ((size) 'v-ulong)
+    ;; ((time-t) 'v-long)	;; <- till here
+    ((utf8
+      filename)
+     'v-string)
+    ((array
+      interface
+      glist
+      gslist
+      ghash
+      error)
+     'v-pointer)
+    ((unichar) 'v-uint32)
+    (else
+     (error "No such GI type tag: " type-tag))))
