@@ -181,12 +181,27 @@ representation of the @code{GIFunctionInfoFlags}:
 @emph{scm-name}: gi-function-info-flags  @*
 @emph{enum-set}:
 @indentedblock
-is-method	@*
-is-constructor	@*
-is-getter	@*
-is-setter	@*
-wraps-vfunc	@*
-throws
+@table @code
+
+@item is-method
+Is a method.
+
+@item is-constructor
+Is a constructor.
+
+@item is-getter
+Is a getter of a @code{GIPropertyInfo}.
+
+@item is-setter
+Is a setter of a @code{GIPropertyInfo}.
+
+@item wraps-vfunc
+Represent a virtul function.
+
+@item throws
+The function may throw an error.
+
+@end table
 @end indentedblock
 @end indentedblock
 @end defivar
