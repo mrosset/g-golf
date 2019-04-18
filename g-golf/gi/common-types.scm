@@ -50,7 +50,7 @@
             %gi-argument-size
             make-gi-argument
             gi-argument-ref
-            gi-argument-set!))
+            gi-argument-set!
             gi-type-tag->field))
 
 
