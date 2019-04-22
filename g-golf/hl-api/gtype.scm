@@ -121,8 +121,7 @@
   ;; g-object-set-property and that needs a g-inst which does not exist
   ;; yet.
   (let* ((c-name (class-name (class-of self)))
-         (g-props-init-kw (gi-cache-ref c-name
-                                        'g-properties-init-keywords)))
+         (g-props-init-kw (gi-cache-ref 'g-props-init-kw c-name)))
     (receive (split-kw split-rest)
         (split-keyword-args g-props-init-kw initargs)
       (next-method self split-rest)

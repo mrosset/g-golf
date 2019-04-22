@@ -126,8 +126,8 @@
                                  (push! k-name init-keywords)
                                  slot))))
                           g-properties)))
-    (gi-cache-set! c-name
-                   'g-properties-init-keywords
+    (gi-cache-set! 'g-props-init-kw
+                   c-name
                    (reverse! init-keywords))
     extra-slots))
 
