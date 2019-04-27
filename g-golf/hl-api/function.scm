@@ -27,6 +27,7 @@
 
 
 (define-module (g-golf hl-api function)
+  #:use-module (ice-9 receive)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support)
@@ -40,10 +41,36 @@
 		warn
 		last)
   
-  #:export (gi-import-function))
+  #:export (gi-import-function
+            <function>
+            <argument>))
 
 
-#;(g-export )
+(g-export !name		;; function and argument
+          !type-desc
+
+          !flags	;; functoon
+          !n-arg
+          !caller-owns
+          !return-type
+          !may-return-null?
+          !arguments
+
+          !closure	;; argument
+          !destroy
+          !direction
+          !transfert
+          !scope
+          !type-tag
+          !is-pointer?
+          !may-be-null?
+          !is-caller-allocate?
+          !is-optional?
+          !is-return-value?
+          !is-skip?
+          !gi-argument
+          !gi-argument-field
+          !value)
 
 
 ;;;
@@ -51,47 +78,161 @@
 ;;;
 
 (define (gi-import-function info)
-  (let ((name (g-function-info-get-symbol info))
-        (flags (g-function-info-get-flags info))
-        (n-args (g-callable-info-get-n-args info))
-        (i-transfert (g-callable-info-get-caller-owns info))
-        (null-allowed? (g-callable-info-may-return-null info)))
-    (dimfi name n-args i-transfert null-allowed?)
-    (do ((i 0
-            (+ i 1)))
-        ((= i n-args))
-      (let* ((arg (g-callable-info-get-arg info i))
-             (name (g-base-info-get-name arg))
-             (a-closure (g-arg-info-get-closure arg))
-             (a-destroy (g-arg-info-get-destroy arg))
-             (a-direction (g-arg-info-get-direction arg))
-             (a-transfert (g-arg-info-get-ownership-transfer arg))
-             (a-scope (g-arg-info-get-scope arg))
-             (a-type (g-arg-info-get-type arg))
-             #;(a-type-string (g-info-type-to-string a-type))
-             (a-type-tag (g-type-info-get-tag a-type))
-             (a-type-is-pointer? (g-type-info-is-pointer a-type))
-             (a-null-allowed? (g-arg-info-may-be-null arg))
-             (a-is-caller-allocate? (g-arg-info-is-caller-allocates arg))
-             (a-is-optional? (g-arg-info-is-optional arg))
-             (a-is-return-value? (g-arg-info-is-return-value arg))
-             (a-is-skip (g-arg-info-is-skip arg)))
-        (dimfi "  " name
-               a-closure
-               a-destroy
-               a-direction
-               a-transfert
-               a-scope
-               #;a-type
-               #;a-type-string
-               a-type-tag
-               #;(case a-type-tag
-                 ((interface)
-                  (gi-interface-g-type a-type))
-                 (else
-                  (symbol->g-type a-type-tag)))
-               a-type-is-pointer?
-               a-null-allowed?
-               a-is-caller-allocate?
-               a-is-optional?
-               a-is-return-value?)))))
+  (let* ((cm (current-module))
+         (function (make <function> #:info info))
+         (name (!name function)))
+    (g-base-info-unref info)
+    (gi-cache-set! 'function name function)
+    (module-define! cm
+                    name
+                    (lambda ( . args)
+                      (let ((function function)
+                            (n-arg (!n-arg function))
+                            (arguments (!arguments function)))
+                        (check-n-arg n-arg args)
+                        #;(with-gerror g-error
+                                   (g-function-info-invoke info
+                                                           gi-args-in
+                                                           n-gi-args-in
+			                                   gi-args-out
+                                                           n-gi-args-out
+			                                   gi-arg-res
+                        g-error))
+                        function)))
+    (module-g-export! cm `(,name))))
+
+(define-class <function> ()
+  (name #:accessor !name)
+  (flags #:accessor !flags)
+  (n-arg #:accessor !n-arg)
+  (caller-owns #:accessor !caller-owns)
+  (return-type #:accessor !return-type)
+  (type-desc #:accessor !type-desc)
+  (may-return-null? #:accessor !may-return-null?)
+  (arguments #:accessor !arguments))
+
+(define-method (initialize (self <function>) initargs)
+  (let ((info (or (get-keyword #:info initargs #f)
+                  (error "Missing #:info initarg: " initargs))))
+    (next-method self '())
+    (let* ((gi-name (g-function-info-get-symbol info))
+           (scm-name (g-name->scm-name gi-name))
+           (name (string->symbol scm-name))
+           (n-arg (g-callable-info-get-n-args info))
+           (return-type-info (g-callable-info-get-return-type info))
+           (return-type (g-type-info-get-tag return-type-info))
+           (type-desc (gi-type-description return-type-info return-type)))
+      (g-base-info-unref return-type-info)
+      (slot-set! self 'name name)
+      (slot-set! self 'flags (g-function-info-get-flags info))
+      (slot-set! self 'n-arg n-arg)
+      (slot-set! self 'caller-owns (g-callable-info-get-caller-owns info))
+      (slot-set! self 'return-type return-type)
+      (slot-set! self 'type-desc type-desc)
+      (slot-set! self 'may-return-null? (g-callable-info-may-return-null info))
+      (slot-set! self 'arguments (make-arguments info n-arg)))))
+
+(define-method (describe (self <function>))
+  (next-method)
+  (for-each (lambda (argument)
+              (describe argument))
+      (!arguments self)))
+
+(define-class <argument> ()
+  (name #:accessor !name)
+  (closure #:accessor !closure)
+  (destroy #:accessor !destroy)
+  (direction #:accessor !direction)
+  (transfert #:accessor !transfert)
+  (scope #:accessor !scope)
+  (type-tag #:accessor !type-tag)
+  (type-desc #:accessor !type-desc)
+  (is-pointer? #:accessor !is-pointer?)
+  (may-be-null? #:accessor !may-be-null?)
+  (is-caller-allocate? #:accessor !is-caller-allocate?)
+  (is-optional? #:accessor !is-optional?)
+  (is-return-value? #:accessor !is-return-value?)
+  (is-skip? #:accessor !is-skip?)
+  (gi-argument #:accessor !gi-argument)
+  (gi-argument-field #:accessor !gi-argument-field)
+  (value #:accessor !value))
+
+(define-method (initialize (self <argument>) initargs)
+  (let ((info (or (get-keyword #:info initargs #f)
+                  (error "Missing #:info initarg: " initargs))))
+    (next-method self '())
+    (let* ((gi-name (g-base-info-get-name info))
+           (scm-name (g-name->scm-name gi-name))
+           (name (string->symbol scm-name))
+           (type-info (g-arg-info-get-type info))
+           (type-tag (g-type-info-get-tag type-info))
+           (type-desc (gi-type-description type-info type-tag))
+           (is-pointer? (g-type-info-is-pointer type-info)))
+      (g-base-info-unref type-info)
+      (slot-set! self 'name name)
+      (slot-set! self 'closure (g-arg-info-get-closure info))
+      (slot-set! self 'destroy (g-arg-info-get-destroy info))
+      (slot-set! self 'direction (g-arg-info-get-direction info))
+      (slot-set! self 'transfert (g-arg-info-get-ownership-transfer info))
+      (slot-set! self 'scope (g-arg-info-get-scope info))
+      (slot-set! self 'type-tag type-tag)
+      (slot-set! self 'type-desc type-desc)
+      (slot-set! self 'is-pointer? is-pointer?)
+      (slot-set! self 'may-be-null? (g-arg-info-may-be-null info))
+      (slot-set! self 'is-caller-allocate? (g-arg-info-is-caller-allocates info))
+      (slot-set! self 'is-optional? (g-arg-info-is-optional info))
+      (slot-set! self 'is-return-value? (g-arg-info-is-return-value info))
+      (slot-set! self 'is-skip? (g-arg-info-is-skip info))
+      (slot-set! self 'gi-argument (make-gi-argument))
+      (slot-set! self 'gi-argument-field
+                 (if is-pointer?
+                     'v-pointer
+                     (gi-type-tag->field type-tag))))))
+
+(define (make-arguments info n-arg)
+  (let loop ((i 0)
+             (arguments '()))
+    (if (= i n-arg)
+        (reverse! arguments)
+        (let* ((info (g-callable-info-get-arg info i))
+               (argument (make <argument> #:info info)))
+          (g-base-info-unref info)
+          (loop (+ i 1)
+                (cons argument arguments))))))
+
+(define (check-n-arg n-arg args)
+  (if (= n-arg (length args))
+      #t
+      (error "Wrong number of arguments: " args)))
+
+(define* (gi-type-description type-info #:optional (type-tag #f))
+  (let ((type-tag (or type-tag
+                      (g-type-info-get-tag type-info))))
+    (case type-tag
+      ((interface)
+       (interface->g-type type-info))
+      ((array)
+       (cons 'array
+             (g-type-info-get-array-type type-info)))
+      (else
+       type-tag))))
+
+(define (interface->g-type info)
+  (let* ((interface (g-type-info-get-interface info))
+         (info-type (g-base-info-get-type interface)))
+    (case info-type
+      ((enum
+        interface
+        object
+        struct
+        union)
+       (let ((type-name (g-registered-type-info-get-type-name interface))
+             (g-type (g-registered-type-info-get-g-type interface)))
+         (g-base-info-unref interface)
+         (cons info-type
+               (list type-name g-type))))
+      (else
+       (g-base-info-unref interface)
+       info-type))))
+
+
