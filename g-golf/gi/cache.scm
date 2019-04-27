@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2018
+;;;; Copyright (C) 2018 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -34,11 +34,14 @@
 
 
 (define-module (g-golf gi cache)
+  #:use-module (ice-9 match)
 
   #:export (%gi-cache
 
             gi-cache-ref
-            gi-cache-set!))
+            gi-cache-set!
+
+            gi-cache-show))
 
 
 (define %gi-cache
@@ -56,3 +59,21 @@
           (assq-set! %gi-cache m-key
                      (assq-set! (or subcache '()) s-key
                                 val)))))
+
+(define* (gi-cache-show #:key (level 1))
+  (format #t "%gi-cahe~%")
+  (for-each (lambda (m-entry)
+              (match m-entry
+                ((m-key . m-vals)
+                 (format #t "  ~A~%" m-key)
+                 (case level
+                   ((2 s-key 3 all)
+                    (for-each (lambda (s-entry)
+                                (match s-entry
+                                  ((s-key . s-vals)
+                                   (format #t "    ~A~%" s-key)
+                                   (case level
+                                     ((3 all)
+                                      (format #t "      ~A~%" s-vals))))))
+                        m-vals))))))
+      %gi-cache))
