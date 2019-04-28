@@ -35,13 +35,15 @@
 
 (define-module (g-golf gi cache)
   #:use-module (ice-9 match)
+  #:use-module (srfi srfi-1)
 
   #:export (%gi-cache
 
             gi-cache-ref
             gi-cache-set!
 
-            gi-cache-show))
+            gi-cache-show
+            gi-cache-find))
 
 
 (define %gi-cache
@@ -77,3 +79,14 @@
                                       (format #t "      ~A~%" s-vals))))))
                         m-vals))))))
       %gi-cache))
+
+(define (gi-cache-find m-key pred)
+  "Obtains the %gi-cache subcache for M-KEY, an (S-KEY . S-VAL) alist,
+and returns a list of the S-KEY for which (PRED S-VAL) was satisfied."
+  (filter-map
+      (lambda (s-entry)
+        (match s-entry
+          ((s-key . s-val)
+           (and (pred s-val)
+                s-key))))
+      (assq-ref %gi-cache m-key)))
