@@ -26,22 +26,48 @@
 ;; this file is a copy of (grip goops)
 ;; http://www.nongnu.org/grip/
 
+;; define-method* has been written by Mark H Weaver, I just changed
+;; let-values -> receive, which I find (a lot) more readable. I can't
+;; point to 'an original definition location' though, because Mark
+;; pasted his definition while chating on #guile, a few years ago.  I
+;; don't think Mark ever published this code anywhere, but I could be
+;; wrong, if that is the case, please let me know, I'd be happy to add
+;; the link here.
+
 ;;; Code:
 
 
 (define-module (g-golf support goops)
+  #:use-module (ice-9 receive)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
-  #:use-module (g-golf support modules)
+  #:use-module (g-golf support g-export)
 
-  #:export (class-direct-virtual-slots
-	    class-virtual-slots
-	    describe))
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
+  #:export (define-method*))
 
 
-(eval-when (expand load eval)
-  (re-export-public-interface (oop goops)))
+(g-export class-direct-virtual-slots
+	  class-virtual-slots
+	  describe)
 
+
+(define-syntax define-method*
+  (lambda (x)
+    (syntax-case x ()
+      ((_ (generic arg-spec ... . tail) body ...)
+       (receive (required-arg-specs other-arg-specs)
+           (break (compose keyword? syntax->datum)
+                  #'(arg-spec ...))
+         #`(define-method (generic #,@required-arg-specs . rest)
+             (apply (lambda* (#,@other-arg-specs . tail)
+                      body ...)
+                    rest)))))))
 
 (define-method (class-direct-virtual-slots (c <class>))
   (filter-map (lambda (slot-definition)
@@ -57,14 +83,14 @@
 		     slot-definition))
       (class-slots c)))
 
-(define-method (describe (self <object>))
-  (format #t "~S - instance of ~A~%"
+(define-method* (describe (self <object>) #:key (port #t))
+  (format port "~S - instance of ~A~%"
 	  self
 	  (class-name (class-of self)))
-  (format #t "  slots and values are:~%")
+  (format port "  slots and values are:~%")
   (for-each (lambda (slot)
 	      (let ((name (slot-definition-name slot)))
-		(format #t "    ~S = ~A~%"
+		(format port "    ~S = ~A~%"
 			name
 			(if (slot-bound? self name) 
 			    (format #f "~S" (slot-ref self name))
