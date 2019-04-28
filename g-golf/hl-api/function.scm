@@ -46,7 +46,8 @@
             <argument>))
 
 
-(g-export !name		;; function and argument
+(g-export describe	;; function and argument
+          !name
           !type-desc
 
           !flags	;; functoon
@@ -70,7 +71,9 @@
           !is-skip?
           !gi-argument
           !gi-argument-field
-          !value)
+          !value
+
+          is-interface?)
 
 
 ;;;
@@ -132,10 +135,10 @@
       (slot-set! self 'may-return-null? (g-callable-info-may-return-null info))
       (slot-set! self 'arguments (make-arguments info n-arg)))))
 
-(define-method (describe (self <function>))
-  (next-method)
+(define-method* (describe (self <function>) #:key (port #t))
+  (next-method self #:port port)
   (for-each (lambda (argument)
-              (describe argument))
+              (describe argument #:port port))
       (!arguments self)))
 
 (define-class <argument> ()
@@ -188,6 +191,10 @@
                  (if is-pointer?
                      'v-pointer
                      (gi-type-tag->field type-tag))))))
+
+(define-method (is-interface? (self <argument>))
+  (and (eq? (!type-tag self 'interface))
+       (!type-desc self)))
 
 (define (make-arguments info n-arg)
   (let loop ((i 0)
