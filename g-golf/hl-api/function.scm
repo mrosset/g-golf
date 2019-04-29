@@ -194,6 +194,10 @@
   (and (eq? (!type-tag self 'interface))
        (!type-desc self)))
 
+(define-method* (describe (self <argument>) #:key (port #t))
+  (newline port)
+  (next-method self #:port port))
+
 (define (make-arguments info n-arg)
   (let loop ((i 0)
              (arguments '()))
