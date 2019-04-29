@@ -225,21 +225,43 @@
        type-tag))))
 
 (define (interface->g-type info)
-  (let* ((interface (g-type-info-get-interface info))
-         (info-type (g-base-info-get-type interface)))
-    (case info-type
-      ((enum
-        interface
-        object
-        struct
-        union)
-       (let ((type-name (g-registered-type-info-get-type-name interface))
-             (g-type (g-registered-type-info-get-g-type interface)))
-         (g-base-info-unref interface)
-         (cons info-type
-               (list type-name g-type))))
+  (let* ((info (g-type-info-get-interface info))
+         (type (g-base-info-get-type info)))
+    (if (is-registered? type)
+        (receive (gi-type name id)
+            (registered-type->gi-type info type)
+          (g-base-info-unref info)
+          (list type name id gi-type))
+        (begin
+          (g-base-info-unref info)
+          type))))
+
+(define (registered-type->gi-type info type)
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-studly-caps-expand (g-type-name id)))
+         (key (string->symbol name)))
+    (case type
+      ((enum)
+       (values id
+               key
+               (or (gi-cache-ref 'enum key)
+                   (let ((gi-enum (gi-enum-import info)))
+                     (gi-cache-set! 'enum key gi-enum)
+                     gi-enum))))
+      ((struct)
+       (values id
+               key
+               (or (gi-cache-ref 'boxed key)
+                   (let ((gi-struct (gi-struct-import info)))
+                     (gi-cache-set! 'boxed key gi-struct)
+                     gi-struct))))
       (else
-       (g-base-info-unref interface)
-       info-type))))
+       (values #f key id)))))
 
-
+(define (is-registered? type-tag)
+  (member type-tag
+          '(enum
+            interface
+            object
+            struct
+            union)))
