@@ -71,7 +71,6 @@
           !is-skip?
           !gi-argument
           !gi-argument-field
-          !value
 
           is-interface?)
 
@@ -157,8 +156,7 @@
   (is-return-value? #:accessor !is-return-value?)
   (is-skip? #:accessor !is-skip?)
   (gi-argument #:accessor !gi-argument)
-  (gi-argument-field #:accessor !gi-argument-field)
-  (value #:accessor !value))
+  (gi-argument-field #:accessor !gi-argument-field))
 
 (define-method (initialize (self <argument>) initargs)
   (let ((info (or (get-keyword #:info initargs #f)
