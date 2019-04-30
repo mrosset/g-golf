@@ -136,8 +136,10 @@
 
 (define-method* (describe (self <function>) #:key (port #t))
   (next-method self #:port port)
+  (newline port)
   (for-each (lambda (argument)
-              (describe argument #:port port))
+              (describe argument #:port port)
+              (newline port))
       (!arguments self)))
 
 (define-class <argument> ()
@@ -195,7 +197,6 @@
        (!type-desc self)))
 
 (define-method* (describe (self <argument>) #:key (port #t))
-  (newline port)
   (next-method self #:port port))
 
 (define (make-arguments info n-arg)
