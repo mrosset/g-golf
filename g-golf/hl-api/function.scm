@@ -27,6 +27,7 @@
 
 
 (define-module (g-golf hl-api function)
+  #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
@@ -56,6 +57,12 @@
           !return-type
           !may-return-null?
           !arguments
+          !n-gi-arg-in
+          !args-in
+          !gi-args-in
+          !n-gi-arg-out
+          !args-out
+          !gi-args-out
 
           !closure	;; argument
           !destroy
@@ -89,17 +96,16 @@
                     name
                     (lambda ( . args)
                       (let ((function function)
-                            (n-arg (!n-arg function))
-                            (arguments (!arguments function)))
-                        (check-n-arg n-arg args)
+                            (nme name))
+                        (check-n-arg (!n-gi-arg-in function) args)
                         #;(with-gerror g-error
-                                   (g-function-info-invoke info
-                                                           gi-args-in
-                                                           n-gi-args-in
-			                                   gi-args-out
-                                                           n-gi-args-out
-			                                   gi-arg-res
-                        g-error))
+                                     (g-function-info-invoke info
+                                                             gi-arg-in
+                                                             n-gi-arg-in
+			                                     gi-arg-out
+                                                             n-gi-arg-out
+			                                     gi-arg-res
+                                                             g-error))
                         function)))
     (module-g-export! cm `(,name))))
 
@@ -111,7 +117,13 @@
   (return-type #:accessor !return-type)
   (type-desc #:accessor !type-desc)
   (may-return-null? #:accessor !may-return-null?)
-  (arguments #:accessor !arguments))
+  (arguments #:accessor !arguments)
+  (n-gi-arg-in #:accessor !n-gi-arg-in)
+  (args-in #:accessor !args-in)
+  (gi-args-in #:accessor !gi-args-in)
+  (n-gi-arg-out #:accessor !n-gi-arg-out)
+  (args-out #:accessor !args-out)
+  (gi-args-out #:accessor !gi-args-out))
 
 (define-method (initialize (self <function>) initargs)
   (let ((info (or (get-keyword #:info initargs #f)
@@ -120,26 +132,39 @@
     (let* ((gi-name (g-function-info-get-symbol info))
            (scm-name (g-name->scm-name gi-name))
            (name (string->symbol scm-name))
-           (n-arg (g-callable-info-get-n-args info))
            (return-type-info (g-callable-info-get-return-type info))
            (return-type (g-type-info-get-tag return-type-info))
            (type-desc (gi-type-description return-type-info return-type)))
       (g-base-info-unref return-type-info)
       (slot-set! self 'name name)
       (slot-set! self 'flags (g-function-info-get-flags info))
-      (slot-set! self 'n-arg n-arg)
       (slot-set! self 'caller-owns (g-callable-info-get-caller-owns info))
       (slot-set! self 'return-type return-type)
       (slot-set! self 'type-desc type-desc)
       (slot-set! self 'may-return-null? (g-callable-info-may-return-null info))
-      (slot-set! self 'arguments (make-arguments info n-arg)))))
+      (receive (n-arg args
+                n-gi-arg-in args-in gi-args-in
+                n-gi-arg-out args-out gi-args-out)
+          (function-prepare-arguments-and-gi-arguments info)
+        (slot-set! self 'n-arg n-arg)
+        (slot-set! self 'arguments args)
+        (slot-set! self 'n-gi-arg-in n-gi-arg-in)
+        (slot-set! self 'args-in args-in)
+        (slot-set! self 'gi-args-in gi-args-in)
+        (slot-set! self 'n-gi-arg-out n-gi-arg-out)
+        (slot-set! self 'args-out args-out)
+        (slot-set! self 'gi-args-out gi-args-out)))))
 
 (define-method* (describe (self <function>) #:key (port #t))
   (next-method self #:port port)
-  (newline port)
+  (if (boolean? port)
+      (newline)
+      (newline port))
   (for-each (lambda (argument)
               (describe argument #:port port)
-              (newline port))
+              (if (boolean? port)
+                  (newline)
+                  (newline port)))
       (!arguments self)))
 
 (define-class <argument> ()
@@ -210,8 +235,8 @@
           (loop (+ i 1)
                 (cons argument arguments))))))
 
-(define (check-n-arg n-arg args)
-  (if (= n-arg (length args))
+(define (check-n-arg n-arg-in args)
+  (if (= n-arg-in (length args))
       #t
       (error "Wrong number of arguments: " args)))
 
@@ -268,3 +293,62 @@
             object
             struct
             union)))
+
+(define (function-prepare-arguments-and-gi-arguments info)
+  (let ((n-arg (g-callable-info-get-n-args info)))
+    (let loop ((i 0)
+               (arguments '())
+               (n-gi-arg-in 0)
+               (args-in '())
+               (n-gi-arg-out 0)
+               (args-out '()))
+      (if (= i n-arg)
+          (let* ((gi-args-in-bv (if (> n-gi-arg-in 0)
+                                    (make-bytevector (* %gi-argument-size
+                                                        n-gi-arg-in)
+                                                     0)
+                                    #f))
+                 (gi-args-in (if gi-args-in-bv
+                                 (bytevector->pointer gi-args-in-bv)
+                                 %null-pointer))
+                 (gi-args-out-bv (if (> n-gi-arg-out 0)
+                                     (make-bytevector (* %gi-argument-size
+                                                         n-gi-arg-out)
+                                                      0)
+                                     #f))
+                 (gi-args-out (if gi-args-out-bv
+                                  (bytevector->pointer gi-args-out-bv)
+                                  %null-pointer)))
+            (values n-arg
+                    (reverse! arguments)
+                    n-gi-arg-in
+                    (reverse! args-in)
+                    gi-args-in
+                    n-gi-arg-out
+                    (reverse! args-out)
+                    gi-args-out))
+          (let* ((arg-info (g-callable-info-get-arg info i))
+                 (argument (make <argument> #:info arg-info)))
+            (g-base-info-unref arg-info)
+            (case (!direction argument)
+              ((in)
+               (loop (+ i 1)
+                     (cons argument arguments)
+                     (+ n-gi-arg-in 1)
+                     (cons argument args-in)
+                     n-gi-arg-out
+                     args-out))
+              ((inout)
+               (loop (+ i 1)
+                     (cons argument arguments)
+                     (+ n-gi-arg-in 1)
+                     (cons argument args-in)
+                     (+ n-gi-arg-out 1)
+                     (cons argument args-out)))
+              ((out)
+               (loop (+ i 1)
+                     (cons argument arguments)
+                     n-gi-arg-in
+                     args-in
+                     (+ n-gi-arg-out 1)
+                     (cons argument args-out)))))))))
