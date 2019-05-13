@@ -186,7 +186,8 @@ add as a comment)."
     ((utf8
       filename)
      'v-string)
-    ((array
+    ((pointer			;; <- forced type
+      array
       interface
       glist
       gslist

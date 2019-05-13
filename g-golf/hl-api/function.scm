@@ -70,6 +70,7 @@
           !transfert
           !scope
           !type-tag
+          !forced-type
           !is-pointer?
           !may-be-null?
           !is-caller-allocate?
@@ -99,12 +100,12 @@
                             (nme name))
                         (check-n-arg (!n-gi-arg-in function) args)
                         #;(with-gerror g-error
-                                     (g-function-info-invoke info
-                                                             gi-arg-in
-                                                             n-gi-arg-in
-			                                     gi-arg-out
-                                                             n-gi-arg-out
-			                                     gi-arg-res
+                                     (g-function-info-invoke info ;
+                                                             gi-arg-in ;
+                                                             n-gi-arg-in ;
+			                                     gi-arg-out ;
+                                                             n-gi-arg-out ;
+			                                     gi-arg-res ;
                                                              g-error))
                         function)))
     (module-g-export! cm `(,name))))
@@ -134,7 +135,7 @@
            (name (string->symbol scm-name))
            (return-type-info (g-callable-info-get-return-type info))
            (return-type (g-type-info-get-tag return-type-info))
-           (type-desc (gi-type-description return-type-info return-type)))
+           (type-desc (type-description return-type-info #:type-tag return-type)))
       (g-base-info-unref return-type-info)
       (slot-set! self 'name name)
       (slot-set! self 'flags (g-function-info-get-flags info))
@@ -176,6 +177,7 @@
   (scope #:accessor !scope)
   (type-tag #:accessor !type-tag)
   (type-desc #:accessor !type-desc)
+  (forced-type #:accessor !forced-type)
   (is-pointer? #:accessor !is-pointer?)
   (may-be-null? #:accessor !may-be-null?)
   (is-caller-allocate? #:accessor !is-caller-allocate?)
@@ -192,19 +194,22 @@
     (let* ((gi-name (g-base-info-get-name info))
            (scm-name (g-name->scm-name gi-name))
            (name (string->symbol scm-name))
+           (direction (g-arg-info-get-direction info))
            (type-info (g-arg-info-get-type info))
            (type-tag (g-type-info-get-tag type-info))
-           (type-desc (gi-type-description type-info type-tag))
-           (is-pointer? (g-type-info-is-pointer type-info)))
+           (type-desc (type-description type-info #:type-tag type-tag))
+           (is-pointer? (g-type-info-is-pointer type-info))
+           (forced-type (arg-info-forced-type direction type-tag is-pointer?)))
       (g-base-info-unref type-info)
       (slot-set! self 'name name)
       (slot-set! self 'closure (g-arg-info-get-closure info))
       (slot-set! self 'destroy (g-arg-info-get-destroy info))
-      (slot-set! self 'direction (g-arg-info-get-direction info))
+      (slot-set! self 'direction direction)
       (slot-set! self 'transfert (g-arg-info-get-ownership-transfer info))
       (slot-set! self 'scope (g-arg-info-get-scope info))
       (slot-set! self 'type-tag type-tag)
       (slot-set! self 'type-desc type-desc)
+      (slot-set! self 'forced-type forced-type)
       (slot-set! self 'is-pointer? is-pointer?)
       (slot-set! self 'may-be-null? (g-arg-info-may-be-null info))
       (slot-set! self 'is-caller-allocate? (g-arg-info-is-caller-allocates info))
@@ -213,9 +218,7 @@
       (slot-set! self 'is-skip? (g-arg-info-is-skip info))
       (slot-set! self 'gi-argument (make-gi-argument))
       (slot-set! self 'gi-argument-field
-                 (if is-pointer?
-                     'v-pointer
-                     (gi-type-tag->field type-tag))))))
+                 (gi-type-tag->field forced-type)))))
 
 (define-method (is-interface? (self <argument>))
   (and (eq? (!type-tag self 'interface))
@@ -224,31 +227,26 @@
 (define-method* (describe (self <argument>) #:key (port #t))
   (next-method self #:port port))
 
-(define (make-arguments info n-arg)
-  (let loop ((i 0)
-             (arguments '()))
-    (if (= i n-arg)
-        (reverse! arguments)
-        (let* ((info (g-callable-info-get-arg info i))
-               (argument (make <argument> #:info info)))
-          (g-base-info-unref info)
-          (loop (+ i 1)
-                (cons argument arguments))))))
-
 (define (check-n-arg n-arg-in args)
   (if (= n-arg-in (length args))
       #t
       (error "Wrong number of arguments: " args)))
 
-(define* (gi-type-description type-info #:optional (type-tag #f))
+(define (arg-info-forced-type direction type-tag is-pointer?)
+  (if (or is-pointer?
+          (eq? direction 'inout)
+          (eq? direction 'out))
+      'pointer
+      type-tag))
+
+(define* (type-description info #:key (type-tag #f))
   (let ((type-tag (or type-tag
-                      (g-type-info-get-tag type-info))))
+                      (g-type-info-get-tag info))))
     (case type-tag
       ((interface)
-       (interface->g-type type-info))
+       (interface->g-type info))
       ((array)
-       (cons 'array
-             (g-type-info-get-array-type type-info)))
+       (array-description info))
       (else
        type-tag))))
 
@@ -293,6 +291,23 @@
             object
             struct
             union)))
+
+(define (array-description info)
+  (let* ((type (g-type-info-get-array-type info))
+         (fixed-size (g-type-info-get-array-fixed-size info))
+         (is-zero-terminated (g-type-info-is-zero-terminated info))
+         (n (g-type-info-get-array-length info))
+         (param-type (and (>= n 0)
+                          (g-type-info-get-param-type info n)))
+         (param-tag (and param-type
+                         (g-type-info-get-tag param-type))))
+    (when param-type
+      (g-base-info-unref param-type))
+    (list (cons 'array type)
+          (cons 'fixed-size fixed-size)
+          (cons 'is-zero-terminated is-zero-terminated)
+          (cons 'param-n n)
+          (cons 'param-tag param-tag))))
 
 (define (function-prepare-arguments-and-gi-arguments info)
   (let ((n-arg (g-callable-info-get-n-args info)))
