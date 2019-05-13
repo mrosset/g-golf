@@ -146,7 +146,7 @@
       (receive (n-arg args
                 n-gi-arg-in args-in gi-args-in
                 n-gi-arg-out args-out gi-args-out)
-          (function-prepare-arguments-and-gi-arguments info)
+          (function-arguments-and-gi-arguments info)
         (slot-set! self 'n-arg n-arg)
         (slot-set! self 'arguments args)
         (slot-set! self 'n-gi-arg-in n-gi-arg-in)
@@ -309,7 +309,7 @@
           (cons 'param-n n)
           (cons 'param-tag param-tag))))
 
-(define (function-prepare-arguments-and-gi-arguments info)
+(define (function-arguments-and-gi-arguments info)
   (let ((n-arg (g-callable-info-get-n-args info)))
     (let loop ((i 0)
                (arguments '())
