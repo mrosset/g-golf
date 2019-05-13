@@ -42,6 +42,7 @@
 	    gi-attribute-iter-new
 	    with-gerror
 	    gi->scm
+            scm->gi
             gi-boolean->scm
             gi-string->scm
             gi-strings->scm
@@ -135,6 +136,27 @@
   (if (null-pointer? pointer)
       #f
       pointer))
+
+(define (scm->gi value type)
+  (case type
+    ((boolean) (scm->gi-boolean value))
+    ((string) (scm->gi-string value))
+    #;((strings) (scm->gi-strings value))
+    #;((csv-string) (scm->gi-cvs-string value))
+    ((pointer) (scm->gi-pointer value))
+    (else
+     value)))
+
+(define (scm->gi-boolean value)
+  (if value 1 0))
+
+(define (scm->gi-string value)
+  (string->pointer value))
+
+(define (scm->gi-pointer value)
+  (if value
+      value
+      %null-pointer))
 
 (define (gi-gflags->integer gflags flags)
   (list->integer

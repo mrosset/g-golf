@@ -97,15 +97,16 @@
                     name
                     (lambda ( . args)
                       (let ((function function)
-                            (nme name))
+                            (name name))
                         (check-n-arg (!n-gi-arg-in function) args)
+                        (prepare-gi-arguments function args)
                         #;(with-gerror g-error
-                                     (g-function-info-invoke info ;
-                                                             gi-arg-in ;
-                                                             n-gi-arg-in ;
-			                                     gi-arg-out ;
-                                                             n-gi-arg-out ;
-			                                     gi-arg-res ;
+                                     (g-function-info-invoke info
+                                                             gi-arg-in
+                                                             n-gi-arg-in
+			                                     gi-arg-out
+                                                             n-gi-arg-out
+			                                     gi-arg-res
                                                              g-error))
                         function)))
     (module-g-export! cm `(,name))))
@@ -367,3 +368,22 @@
                      args-in
                      (+ n-gi-arg-out 1)
                      (cons argument args-out)))))))))
+
+(define (prepare-gi-arguments function args)
+  (let ((arguments (!arguments function))
+        (n-gi-arg-in (!n-gi-arg-in function))
+        (args-in (!args-in function))
+        (n-gi-arg-out (!n-gi-arg-out function))
+        (args-out (!args-out function)))
+    (prepare-gi-args-in function n-gi-arg-in args-in args)
+    #;(prepare-gi-args-in function n-gi-arg-out args-out)))
+
+(define (prepare-gi-args-in function n-gi-arg-in args-in args)
+  (let loop ((i 0))
+    (if (= i n-gi-arg-in)
+        #t
+        (let* ((arg-in (list-ref args-in i))
+               (gi-argument (!gi-argument arg-in))
+               (field (!gi-argument-field arg-in))
+               (val (list-ref args i)))
+          (gi-argument-set! gi-argument field (scm->gi val))))))
