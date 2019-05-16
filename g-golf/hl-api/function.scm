@@ -79,6 +79,7 @@
           !is-skip?
           !gi-argument
           !gi-argument-field
+          !gi-arg-res
 
           is-interface?)
 
@@ -91,20 +92,28 @@
   (let* ((cm (current-module))
          (function (make <function> #:info info))
          (name (!name function)))
-    (g-base-info-unref info)
+    ;; unlike one may think 'at first glance', we don't unref the function
+    ;; info, it is needed by g-function-info-invoke ...
+    ;; (g-base-info-unref info)
     (gi-cache-set! 'function name function)
     (module-define! cm
                     name
                     (lambda ( . args)
-                      (let ((function function)
-                            (name name))
-                        (check-n-arg (!n-gi-arg-in function) args)
+                      (let ((info info)
+                            (function function)
+                            (name name)
+                            (n-gi-arg-in (!n-gi-arg-in function))
+                            (gi-args-in (!gi-args-in function))
+                            (n-gi-arg-out (!n-gi-arg-out function))
+                            (gi-args-out (!gi-args-out function))
+                            (gi-arg-res (!gi-arg-res function)))
+                        (check-n-arg n-gi-arg-in args)
                         (prepare-gi-arguments function args)
-                        #;(with-gerror g-error
+                        (with-gerror g-error
                                      (g-function-info-invoke info
-                                                             gi-arg-in
+                                                             gi-args-in
                                                              n-gi-arg-in
-			                                     gi-arg-out
+			                                     gi-args-out
                                                              n-gi-arg-out
 			                                     gi-arg-res
                                                              g-error))
@@ -125,7 +134,8 @@
   (gi-args-in #:accessor !gi-args-in)
   (n-gi-arg-out #:accessor !n-gi-arg-out)
   (args-out #:accessor !args-out)
-  (gi-args-out #:accessor !gi-args-out))
+  (gi-args-out #:accessor !gi-args-out)
+  (gi-arg-res #:accessor !gi-arg-res))
 
 (define-method (initialize (self <function>) initargs)
   (let ((info (or (get-keyword #:info initargs #f)
@@ -155,7 +165,8 @@
         (slot-set! self 'gi-args-in gi-args-in)
         (slot-set! self 'n-gi-arg-out n-gi-arg-out)
         (slot-set! self 'args-out args-out)
-        (slot-set! self 'gi-args-out gi-args-out)))))
+        (slot-set! self 'gi-args-out gi-args-out)
+        (slot-set! self 'gi-arg-res (make-gi-argument))))))
 
 (define-method* (describe (self <function>) #:key (port #t))
   (next-method self #:port port)
@@ -383,7 +394,10 @@
     (if (= i n-gi-arg-in)
         #t
         (let* ((arg-in (list-ref args-in i))
+               (forced-type (!forced-type arg-in))
                (gi-argument (!gi-argument arg-in))
                (field (!gi-argument-field arg-in))
                (val (list-ref args i)))
-          (gi-argument-set! gi-argument field (scm->gi val))))))
+          (gi-argument-set! gi-argument
+                            field
+                            (scm->gi val forced-type))))))
