@@ -47,7 +47,7 @@
             gi-string->scm
             gi-strings->scm
             gi-cvs-string->scm
-	    gi-pointer>scm
+	    gi-pointer->scm
 	    gi-integer->gflags
 	    gi-gflags->integer))
 
