@@ -117,7 +117,7 @@
                                                              n-gi-arg-out
 			                                     gi-arg-res
                                                              g-error))
-                        function)))
+                        (return-value->scm function))))
     (module-g-export! cm `(,name))))
 
 (define-class <function> ()
@@ -401,3 +401,39 @@
           (gi-argument-set! gi-argument
                             field
                             (scm->gi val forced-type))))))
+
+(define (return-value->scm function)
+  (let ((return-type (!return-type function))
+        (type-desc (!type-desc function))
+        (gi-arg-res (!gi-arg-res function)))
+    (case return-type
+      ((interface)
+       (match type-desc
+         ((type name gi-type g-type)
+          (case type
+            ((enum)
+             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
+               (or (enum->symbol gi-type val)
+                   (error "No such " name " value: " val))))
+            ((struct)
+             (warning "Unimplemented type: " "struct" #t))
+            ))))
+      ((array
+        glist
+        gslist
+        ghash
+        error)
+       (warning "Unimplemented type: " (symbol->string type-desc) #t))
+      ((utf8
+        filename)
+       (gi-string->scm (gi-argument-ref gi-arg-res 'v-string)))
+      ((boolean)
+       (gi-boolean->scm (gi-argument-ref gi-arg-res 'v-boolean)))
+      (else
+       (let* ((field (gi-type-tag->field return-type))
+              (val (gi-argument-ref gi-arg-res field)))
+         (case field
+           ((v-pointer)
+            (gi-pointer->scm val))
+           (else
+            val)))))))
