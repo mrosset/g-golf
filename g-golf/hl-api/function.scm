@@ -400,7 +400,8 @@
                (val (list-ref args i)))
           (gi-argument-set! gi-argument
                             field
-                            (scm->gi val forced-type))))))
+                            (scm->gi val forced-type))
+        (loop (+ i 1))))))
 
 (define (return-value->scm function)
   (let ((return-type (!return-type function))
@@ -426,9 +427,9 @@
        (warning "Unimplemented type: " (symbol->string type-desc) #t))
       ((utf8
         filename)
-       (gi-string->scm (gi-argument-ref gi-arg-res 'v-string)))
+       (gi-argument-ref gi-arg-res 'v-string))
       ((boolean)
-       (gi-boolean->scm (gi-argument-ref gi-arg-res 'v-boolean)))
+       (gi-argument-ref gi-arg-res 'v-boolean))
       (else
        (let* ((field (gi-type-tag->field return-type))
               (val (gi-argument-ref gi-arg-res field)))

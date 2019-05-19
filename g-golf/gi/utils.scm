@@ -137,6 +137,11 @@
       #f
       pointer))
 
+
+;;;
+;;; gi->scm procedures
+;;;
+
 (define (scm->gi value type)
   (case type
     ((boolean) (scm->gi-boolean value))
