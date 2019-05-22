@@ -147,9 +147,11 @@
     (if type
         (let ((u-val (case field
                        ((v-boolean)
-                        (if val 1 0))
+                        (scm->gi val 'boolean))
                        ((v-string)
-                        (string->pointer val))
+                        (scm->gi val 'string))
+                       ((v-pointer)
+                        (scm->gi val 'pointer))
                        (else
                         val))))
           (c-union-set! gi-argument %gi-argument-size type u-val))
