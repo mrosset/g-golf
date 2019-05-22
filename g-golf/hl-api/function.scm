@@ -71,6 +71,7 @@
           !scope
           !type-tag
           !forced-type
+          !string-pointer
           !is-pointer?
           !may-be-null?
           !is-caller-allocate?
@@ -190,6 +191,7 @@
   (type-tag #:accessor !type-tag)
   (type-desc #:accessor !type-desc)
   (forced-type #:accessor !forced-type)
+  (string-pointer #:accessor !string-pointer)
   (is-pointer? #:accessor !is-pointer?)
   (may-be-null? #:accessor !may-be-null?)
   (is-caller-allocate? #:accessor !is-caller-allocate?)
@@ -394,14 +396,53 @@
     (if (= i n-gi-arg-in)
         #t
         (let* ((arg-in (list-ref args-in i))
+               (type-tag (!type-tag arg-in))
+               (type-desc (!type-desc arg-in))
+               (is-pointer? (!is-pointer? arg-in))
                (forced-type (!forced-type arg-in))
                (gi-argument (!gi-argument arg-in))
                (field (!gi-argument-field arg-in))
                (val (list-ref args i)))
-          (gi-argument-set! gi-argument
-                            field
-                            (scm->gi val forced-type))
-        (loop (+ i 1))))))
+          ;; clearing the string pointer reference kept from a previous
+          ;; call.
+          (set! (!string-pointer arg-in) #f)
+          (case type-tag
+            ((interface)
+             (match type-desc
+               ((type name gi-type g-type)
+                (case type
+                  ((enum)
+                   (let ((e-val (enum->value gi-type val)))
+                     (if e-val
+                         (gi-argument-set! gi-argument 'v-int e-val)
+                         (error "No such symbol " val " in " gi-type))))
+                  ((struct)
+                   (warning "Unimplemented type" "struct"))
+                  ))))
+            ((array
+              glist
+              gslist
+              ghash
+              error)
+             (if (and (!may-be-null? arg-in)
+                      (not val))
+                 (gi-argument-set! gi-argument 'v-pointer #f)
+                 (warning "Unimplemented type" (symbol->string type-tag))))
+            ((utf8
+              filename)
+             ;; we need to keep a reference to string pointers,
+             ;; otherwise the C string will be freed, which might happen
+             ;; before the C call actually occurred.
+             (let ((string-pointer (string->pointer val)))
+               (set! (!string-pointer arg-in) string-pointer)
+               ;; don't use 'v-string, which expects a string, calls
+               ;; string->pointer (and does not keep a reference).
+               (gi-argument-set! gi-argument 'v-pointer string-pointer)))
+            (else
+             (gi-argument-set! gi-argument
+                               (gi-type-tag->field forced-type)
+                               val)))
+          (loop (+ i 1))))))
 
 (define (return-value->scm function)
   (let ((return-type (!return-type function))
@@ -417,24 +458,13 @@
                (or (enum->symbol gi-type val)
                    (error "No such " name " value: " val))))
             ((struct)
-             (warning "Unimplemented type: " "struct" #t))
-            ))))
+             (warning "Unimplemented type" "struct"))))))
       ((array
         glist
         gslist
         ghash
         error)
-       (warning "Unimplemented type: " (symbol->string type-desc) #t))
-      ((utf8
-        filename)
-       (gi-argument-ref gi-arg-res 'v-string))
-      ((boolean)
-       (gi-argument-ref gi-arg-res 'v-boolean))
+       (warning "Unimplemented type" (symbol->string return-type)))
       (else
-       (let* ((field (gi-type-tag->field return-type))
-              (val (gi-argument-ref gi-arg-res field)))
-         (case field
-           ((v-pointer)
-            (gi-pointer->scm val))
-           (else
-            val)))))))
+       (gi-argument-ref gi-arg-res
+                        (gi-type-tag->field return-type))))))
