@@ -389,7 +389,7 @@
         (n-gi-arg-out (!n-gi-arg-out function))
         (args-out (!args-out function)))
     (prepare-gi-args-in function n-gi-arg-in args-in args)
-    #;(prepare-gi-args-in function n-gi-arg-out args-out)))
+    (prepare-gi-args-out function n-gi-arg-out args-out)))
 
 (define (prepare-gi-args-in function n-gi-arg-in args-in args)
   (let loop ((i 0))
@@ -399,6 +399,7 @@
                (type-tag (!type-tag arg-in))
                (type-desc (!type-desc arg-in))
                (is-pointer? (!is-pointer? arg-in))
+               (may-be-null? (!may-be-null? arg-in))
                (forced-type (!forced-type arg-in))
                (gi-argument (!gi-argument arg-in))
                (field (!gi-argument-field arg-in))
@@ -424,8 +425,7 @@
               gslist
               ghash
               error)
-             (if (and (!may-be-null? arg-in)
-                      (not val))
+             (if (and may-be-null? (not val))
                  (gi-argument-set! gi-argument 'v-pointer #f)
                  (warning "Unimplemented type" (symbol->string type-tag))))
             ((utf8
@@ -442,6 +442,46 @@
              (gi-argument-set! gi-argument
                                (gi-type-tag->field forced-type)
                                val)))
+          (loop (+ i 1))))))
+
+(define (prepare-gi-args-out function n-gi-arg-out args-out)
+  (let loop ((i 0))
+    (if (= i n-gi-arg-out)
+        #t
+        (let* ((arg-out (list-ref args-out i))
+               (type-tag (!type-tag arg-out))
+               (type-desc (!type-desc arg-out))
+               (is-pointer? (!is-pointer? arg-out))
+               (may-be-null? (!may-be-null? arg-out))
+               (is-caller-allocate? (!is-caller-allocate? arg-out))
+               (forced-type (!forced-type arg-out))
+               (gi-argument (!gi-argument arg-out))
+               (field (!gi-argument-field arg-out)))
+          (case type-tag
+            ((interface)
+             (match type-desc
+               ((type name gi-type g-type)
+                (case type
+                  ((enum)
+                   (gi-argument-set! gi-argument 'v-int -1))
+                  ((struct)
+                   (match type-desc
+                     ((type name gi-type g-type)
+                      (make-c-struct (!scm-types gi-type)))))))))
+            ((array
+              glist
+              gslist
+              ghash
+              error)
+             (warning "Unimplemented type" (symbol->string type-tag))
+             (gi-argument-set! gi-argument 'v-pointer %null-pointer))
+            ((utf8
+              filename)
+             ;; not sure, but this shouldn't arm.
+             (gi-argument-set! gi-argument 'v-pointer %null-pointer))
+            (else
+             ;; not sure, but this shouldn't arm.
+             (gi-argument-set! gi-argument 'v-ulong 0)))
           (loop (+ i 1))))))
 
 (define (return-value->scm function)
