@@ -90,14 +90,19 @@
 	(display "\n")))
   (car (last-pair items)))
 
-(define* (warning what msg port #:key (msg-2 #f))
+(define* (warning what msg
+                  #:key (msg-2 #f)
+                  (port (current-output-port)))
   (display (string-append "Warning: " what ": " msg) port)
   (newline port)
   (when msg-2
     (display msg-2 port)
     (newline port)))
 
-(define* (abort what msg port #:key (msg-2 #f) (code -1))
+(define* (abort what msg
+                #:key (msg-2 #f)
+                (code -1)
+                (port (current-output-port)))
   (display (string-append "ERROR: " what ": " msg) port)
   (newline port)
   (when msg-2
