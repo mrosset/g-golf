@@ -22,6 +22,8 @@ GIStructInfo — Structs representing a C structure.
 @item @ref{gi-struct-field-types}
 @item @ref{g-struct-info-get-n-fields}
 @item @ref{g-struct-info-get-field}
+@item @ref{g-struct-info-get-n-methods}
+@item @ref{g-struct-info-get-method}
 @end table
 @end indentedblock
 
@@ -97,4 +99,26 @@ Obtains and returns the @var{info} type information (a pointer to a
 
 The @code{GIFieldInfo} must be freed by calling @ref{g-base-info-unref}
 when done.
+@end deffn
+
+
+@anchor{g-struct-info-get-n-methods}
+@deffn Procedure g-struct-info-get-n-methods info
+
+Returns an integer.
+
+Obtains the number of methods for @var{info}.
+@end deffn
+
+
+@anchor{g-struct-info-get-method}
+@deffn Procedure g-struct-info-get-method info n
+
+Returns a pointer.
+
+Obtains and returns the @var{info} type information (a pointer to a
+@code{GIFunctionInfo}) for the method at the specified @var{n} index.
+
+The @code{GIFunctionInfo} must be freed by calling
+@ref{g-base-info-unref} when done.
 @end deffn

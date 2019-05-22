@@ -48,7 +48,9 @@
             gi-struct-field-types
 
             g-struct-info-get-n-fields
-            g-struct-info-get-field))
+            g-struct-info-get-field
+            g-struct-info-get-n-methods
+            g-struct-info-get-method))
 
 
 ;;;
@@ -92,6 +94,12 @@
 (define (g-struct-info-get-field info n)
   (gi->scm (g_struct_info_get_field info n) 'pointer))
 
+(define (g-struct-info-get-n-methods info)
+  (g_struct_info_get_n_methods info))
+
+(define (g-struct-info-get-method info n)
+  (gi->scm (g_struct_info_get_method info n) 'pointer))
+
 
 ;;;
 ;;; GI Bindings
@@ -106,5 +114,17 @@
 (define g_struct_info_get_field
   (pointer->procedure '*
                       (dynamic-func "g_struct_info_get_field"
+				    %libgirepository)
+                      (list '* int)))
+
+(define g_struct_info_get_n_methods
+  (pointer->procedure int
+                      (dynamic-func "g_struct_info_get_n_methods"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_struct_info_get_method
+  (pointer->procedure '*
+                      (dynamic-func "g_struct_info_get_method"
 				    %libgirepository)
                       (list '* int)))
