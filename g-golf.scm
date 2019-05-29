@@ -107,6 +107,7 @@
                               (g-golf support push)
 			      (g-golf support keyword)
 			      (g-golf support enum)
+                              (g-golf support struct)
                               (g-golf support union)
 			      (g-golf init)
 			      (g-golf glib mem-alloc)
