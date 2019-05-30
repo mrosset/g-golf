@@ -467,7 +467,9 @@
                   ((struct)
                    (match type-desc
                      ((type name gi-type g-type)
-                      (make-c-struct (!scm-types gi-type)))))))))
+                      (gi-argument-set! gi-argument 'v-pointer
+                                        (make-c-struct (!scm-types gi-type)
+                                                       (!init-vals gi-type))))))))))
             ((array
               glist
               gslist
