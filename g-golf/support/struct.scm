@@ -38,7 +38,8 @@
 (g-export !gi-name
           !scm-name
           !field-types
-          !scm-types)
+          !scm-types
+          !init-vals)
 
 
 (define-class <gi-struct> ()
@@ -47,7 +48,8 @@
   (scm-name #:accessor !scm-name)
   (field-types #:accessor !field-types
                #:init-keyword #:field-types)
-  (scm-types #:accessor !scm-types))
+  (scm-types #:accessor !scm-types)
+  (init-vals #:accessor !init-vals))
 
 
 (define-method (initialize (self <gi-struct>) initargs)
@@ -60,4 +62,7 @@
                (g-name->scm-name gi-name)))
     (and field-types
          (set! (!scm-types self)
-               (map gi-type-tag->ffi field-types)))))
+               (map gi-type-tag->ffi field-types)))
+    (and field-types
+         (set! (!init-vals self)
+               (map gi-type-tag->init-val field-types)))))
