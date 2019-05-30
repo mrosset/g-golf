@@ -45,7 +45,8 @@
 	    g-name->scm-name
 	    g-name->class-name
 	    #;gi-class-name->method-name
-            gi-type-tag->ffi))
+            gi-type-tag->ffi
+            gi-type-tag->init-val))
 
 
 (define storage-get #f)
@@ -218,3 +219,21 @@
     ((unichar) uint32)
     (else
      (error "No such GI type tag: " type-tag))))
+
+
+(define (gi-type-tag->init-val type-tag)
+  "Returns the default init value (to initialize C struct) for
+TYPE-TAG."
+  (case type-tag
+    ((utf8
+      filename
+      pointer			;; <- forced type
+      array
+      interface
+      glist
+      gslist
+      ghash
+      error)
+     %null-pointer)
+    (else
+     0)))
