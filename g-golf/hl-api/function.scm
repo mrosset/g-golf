@@ -78,7 +78,8 @@
           !is-optional?
           !is-return-value?
           !is-skip?
-          !gi-argument
+          !gi-argument-in
+          !gi-argument-out
           !gi-argument-field
           !gi-arg-res
 
@@ -118,7 +119,11 @@
                                                              n-gi-arg-out
 			                                     gi-arg-res
                                                              g-error))
-                        (return-value->scm function))))
+                        (if (> n-gi-arg-out 0)
+                            (apply values
+                                   (cons (return-value->scm function)
+                                         (map arg-out->scm (!args-out function))))
+                            (return-value->scm function)))))
     (module-g-export! cm `(,name))))
 
 (define-class <function> ()
@@ -198,7 +203,8 @@
   (is-optional? #:accessor !is-optional?)
   (is-return-value? #:accessor !is-return-value?)
   (is-skip? #:accessor !is-skip?)
-  (gi-argument #:accessor !gi-argument)
+  (gi-argument-in #:accessor !gi-argument-in #:init-value #f)
+  (gi-argument-out #:accessor !gi-argument-out #:init-value #f)
   (gi-argument-field #:accessor !gi-argument-field))
 
 (define-method (initialize (self <argument>) initargs)
@@ -230,7 +236,11 @@
       (slot-set! self 'is-optional? (g-arg-info-is-optional info))
       (slot-set! self 'is-return-value? (g-arg-info-is-return-value info))
       (slot-set! self 'is-skip? (g-arg-info-is-skip info))
-      (slot-set! self 'gi-argument (make-gi-argument))
+      ;; the gi-argument-in or/and gi-argument-out slots can only be
+      ;; set!  at the end of function-arguments-and-gi-arguments, which
+      ;; needs to proccess them all before it can compute their
+      ;; respective pointer address (or/and because an argument can be
+      ;; 'in, 'inout or 'out).
       (slot-set! self 'gi-argument-field
                  (gi-type-tag->field forced-type)))))
 
@@ -332,7 +342,10 @@
                (n-gi-arg-out 0)
                (args-out '()))
       (if (= i n-arg)
-          (let* ((gi-args-in-bv (if (> n-gi-arg-in 0)
+          (let* ((arguments (reverse! arguments))
+                 (args-in (reverse! args-in))
+                 (args-out (reverse! args-out))
+                 (gi-args-in-bv (if (> n-gi-arg-in 0)
                                     (make-bytevector (* %gi-argument-size
                                                         n-gi-arg-in)
                                                      0)
@@ -348,13 +361,21 @@
                  (gi-args-out (if gi-args-out-bv
                                   (bytevector->pointer gi-args-out-bv)
                                   %null-pointer)))
+            (when gi-args-in-bv
+              (finalize-arguments-gi-argument-pointers args-in
+                                                       gi-args-in-bv
+                                                       !gi-argument-in))
+            (when gi-args-out-bv
+              (finalize-arguments-gi-argument-pointers args-out
+                                                       gi-args-out-bv
+                                                       !gi-argument-out))
             (values n-arg
-                    (reverse! arguments)
+                    arguments
                     n-gi-arg-in
-                    (reverse! args-in)
+                    args-in
                     gi-args-in
                     n-gi-arg-out
-                    (reverse! args-out)
+                    args-out
                     gi-args-out))
           (let* ((arg-info (g-callable-info-get-arg info i))
                  (argument (make <argument> #:info arg-info)))
@@ -382,6 +403,18 @@
                      (+ n-gi-arg-out 1)
                      (cons argument args-out)))))))))
 
+(define (finalize-arguments-gi-argument-pointers args gi-args-bv gi-argument-acc)
+  (let loop ((args args)
+             (i 0))
+    (match args
+      (() #t)
+      ((arg . rest)
+       (set! (gi-argument-acc arg)
+             (bytevector->pointer gi-args-bv
+                                  (* i %gi-argument-size)))
+       (loop rest
+             (+ i 1))))))
+
 (define (prepare-gi-arguments function args)
   (let ((arguments (!arguments function))
         (n-gi-arg-in (!n-gi-arg-in function))
@@ -401,7 +434,7 @@
                (is-pointer? (!is-pointer? arg-in))
                (may-be-null? (!may-be-null? arg-in))
                (forced-type (!forced-type arg-in))
-               (gi-argument (!gi-argument arg-in))
+               (gi-argument-in (!gi-argument-in arg-in))
                (field (!gi-argument-field arg-in))
                (val (list-ref args i)))
           ;; clearing the string pointer reference kept from a previous
@@ -415,7 +448,7 @@
                   ((enum)
                    (let ((e-val (enum->value gi-type val)))
                      (if e-val
-                         (gi-argument-set! gi-argument 'v-int e-val)
+                         (gi-argument-set! gi-argument-in 'v-int e-val)
                          (error "No such symbol " val " in " gi-type))))
                   ((struct)
                    (warning "Unimplemented type" "struct"))
@@ -426,7 +459,7 @@
               ghash
               error)
              (if (and may-be-null? (not val))
-                 (gi-argument-set! gi-argument 'v-pointer #f)
+                 (gi-argument-set! gi-argument-in 'v-pointer #f)
                  (warning "Unimplemented type" (symbol->string type-tag))))
             ((utf8
               filename)
@@ -437,9 +470,9 @@
                (set! (!string-pointer arg-in) string-pointer)
                ;; don't use 'v-string, which expects a string, calls
                ;; string->pointer (and does not keep a reference).
-               (gi-argument-set! gi-argument 'v-pointer string-pointer)))
+               (gi-argument-set! gi-argument-in 'v-pointer string-pointer)))
             (else
-             (gi-argument-set! gi-argument
+             (gi-argument-set! gi-argument-in
                                (gi-type-tag->field forced-type)
                                val)))
           (loop (+ i 1))))))
@@ -455,7 +488,7 @@
                (may-be-null? (!may-be-null? arg-out))
                (is-caller-allocate? (!is-caller-allocate? arg-out))
                (forced-type (!forced-type arg-out))
-               (gi-argument (!gi-argument arg-out))
+               (gi-argument-out (!gi-argument-out arg-out))
                (field (!gi-argument-field arg-out)))
           (case type-tag
             ((interface)
@@ -463,11 +496,11 @@
                ((type name gi-type g-type)
                 (case type
                   ((enum)
-                   (gi-argument-set! gi-argument 'v-int -1))
+                   (gi-argument-set! gi-argument-out 'v-int -1))
                   ((struct)
                    (match type-desc
                      ((type name gi-type g-type)
-                      (gi-argument-set! gi-argument 'v-pointer
+                      (gi-argument-set! gi-argument-out 'v-pointer
                                         (make-c-struct (!scm-types gi-type)
                                                        (!init-vals gi-type))))))))))
             ((array
@@ -476,14 +509,14 @@
               ghash
               error)
              (warning "Unimplemented type" (symbol->string type-tag))
-             (gi-argument-set! gi-argument 'v-pointer %null-pointer))
+             (gi-argument-set! gi-argument-out 'v-pointer %null-pointer))
             ((utf8
               filename)
              ;; not sure, but this shouldn't arm.
-             (gi-argument-set! gi-argument 'v-pointer %null-pointer))
+             (gi-argument-set! gi-argument-out 'v-pointer %null-pointer))
             (else
              ;; not sure, but this shouldn't arm.
-             (gi-argument-set! gi-argument 'v-ulong 0)))
+             (gi-argument-set! gi-argument-out 'v-ulong 0)))
           (loop (+ i 1))))))
 
 (define (return-value->scm function)
@@ -510,3 +543,38 @@
       (else
        (gi-argument-ref gi-arg-res
                         (gi-type-tag->field return-type))))))
+
+(define (arg-out->scm arg-out)
+  (let* ((type-tag (!type-tag arg-out))
+         (type-desc (!type-desc arg-out))
+         (is-pointer? (!is-pointer? arg-out))
+         (may-be-null? (!may-be-null? arg-out))
+         (is-caller-allocate? (!is-caller-allocate? arg-out))
+         (forced-type (!forced-type arg-out))
+         (gi-argument-out (!gi-argument-out arg-out))
+         (field (!gi-argument-field arg-out)))
+    (case type-tag
+      ((interface)
+       (match type-desc
+         ((type name gi-type g-type)
+          (case type
+            ((enum)
+             (gi-argument-ref gi-argument-out 'v-int))
+            ((struct)
+             (match type-desc
+               ((type name gi-type g-type)
+                (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
+                                (!scm-types gi-type)))))))))
+      ((array
+        glist
+        gslist
+        ghash
+        error)
+       (warning "Unimplemented type" (symbol->string type-tag))
+       (gi-argument-ref gi-argument-out 'v-pointer))
+      ((utf8
+        filename)
+       ;; not sure, but this shouldn't arm.
+       (gi->scm (gi-argument-ref gi-argument-out 'v-pointer) 'string))
+      (else
+       (gi-argument-ref gi-argument-out field)))))
