@@ -121,8 +121,8 @@
                                                              g-error))
                         (if (> n-gi-arg-out 0)
                             (apply values
-                                   (cons (return-value->scm function)
-                                         (map arg-out->scm (!args-out function))))
+                                   (append (map arg-out->scm (!args-out function))
+                                           (list (return-value->scm function))))
                             (return-value->scm function)))))
     (module-g-export! cm `(,name))))
 
