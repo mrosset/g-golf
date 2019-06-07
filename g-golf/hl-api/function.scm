@@ -104,6 +104,7 @@
                       (let ((info info)
                             (function function)
                             (name name)
+                            (return-type (!return-type function))
                             (n-gi-arg-in (!n-gi-arg-in function))
                             (gi-args-in (!gi-args-in function))
                             (n-gi-arg-out (!n-gi-arg-out function))
@@ -120,10 +121,30 @@
 			                                     gi-arg-res
                                                              g-error))
                         (if (> n-gi-arg-out 0)
-                            (apply values
-                                   (append (map arg-out->scm (!args-out function))
-                                           (list (return-value->scm function))))
-                            (return-value->scm function)))))
+                            (case return-type
+                              ((boolean)
+                               ;; we strip it if #t and raise an
+                               ;; exception otherwise, because when the
+                               ;; function returns a boolean and at
+                               ;; least one 'inout or 'out argument(s),
+                               ;; that boolean returned value is 'only'
+                               ;; there to tell us if the functon call
+                               ;; was successfull.
+                               (if (return-value->scm function)
+                                   (apply values
+                                          (map arg-out->scm (!args-out function)))
+                                   (error " " name " failed.")))
+                              ((void)
+                               (apply values
+                                          (map arg-out->scm (!args-out function))))
+                              (else
+                               (apply values
+                                      (cons (return-value->scm function)
+                                            (map arg-out->scm (!args-out function))))))
+                            (case return-type
+                              ((void) (values))
+                              (else
+                               (return-value->scm function)))))))
     (module-g-export! cm `(,name))))
 
 (define-class <function> ()
