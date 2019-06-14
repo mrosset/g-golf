@@ -42,7 +42,9 @@
 		warn
 		last)
   
-  #:export (gi-import-function
+  #:export (%gi-strip-boolean-result
+
+            gi-import-function
             <function>
             <argument>))
 
@@ -90,6 +92,8 @@
 ;;; 
 ;;;
 
+(define %gi-strip-boolean-result '())
+
 (define (gi-import-function info)
   (let* ((cm (current-module))
          (function (make <function> #:info info))
@@ -123,20 +127,18 @@
                         (if (> n-gi-arg-out 0)
                             (case return-type
                               ((boolean)
-                               ;; we strip it if #t and raise an
-                               ;; exception otherwise, because when the
-                               ;; function returns a boolean and at
-                               ;; least one 'inout or 'out argument(s),
-                               ;; that boolean returned value is 'only'
-                               ;; there to tell us if the functon call
-                               ;; was successfull.
-                               (if (return-value->scm function)
+                               (if (memq name
+                                         %gi-strip-boolean-result)
+                                   (if (return-value->scm function)
+                                       (apply values
+                                              (map arg-out->scm (!args-out function)))
+                                       (error " " name " failed."))
                                    (apply values
-                                          (map arg-out->scm (!args-out function)))
-                                   (error " " name " failed.")))
+                                          (cons (return-value->scm function)
+                                                (map arg-out->scm (!args-out function))))))
                               ((void)
                                (apply values
-                                          (map arg-out->scm (!args-out function))))
+                                      (map arg-out->scm (!args-out function))))
                               (else
                                (apply values
                                       (cons (return-value->scm function)
