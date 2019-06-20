@@ -35,6 +35,7 @@
 
   #:export (g-callable-info-get-n-args
 	    g-callable-info-get-arg
+            g-callable-info-get-instance-ownership-transfer
 	    g-callable-info-get-caller-owns
 	    g-callable-info-get-return-type
 	    g-callable-info-may-return-null))
@@ -49,6 +50,10 @@
 
 (define (g-callable-info-get-arg info n)
   (gi->scm (g_callable_info_get_arg info n) 'pointer))
+
+(define (g-callable-info-get-instance-ownership-transfer info)
+  (enum->symbol %gi-transfer
+                (g_callable_info_get_instance_ownership_transfer info)))
 
 (define (g-callable-info-get-caller-owns info)
   (enum->symbol %gi-transfer
@@ -76,6 +81,12 @@
                       (dynamic-func "g_callable_info_get_arg"
 				    %libgirepository)
                       (list '* int)))
+
+(define g_callable_info_get_instance_ownership_transfer
+  (pointer->procedure int
+                      (dynamic-func "g_callable_info_get_instance_ownership_transfer"
+				    %libgirepository)
+                      (list '*)))
 
 (define g_callable_info_get_caller_owns
   (pointer->procedure int
