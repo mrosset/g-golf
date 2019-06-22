@@ -35,6 +35,26 @@
 (define-class <g-golf-test-support> (<test-case>))
 
 
+;;;
+;;; Goops
+;;;
+
+(define-class <a> () (name) (val))
+
+(define-method (test-mslot-set! (self <g-golf-test-support>))
+  (let ((inst (make <a>)))
+    (assert (mslot-set! inst
+                        'name 'alice
+                        'val 7))
+    (assert-exception (mslot-set! inst
+                                  'name 'alice
+                                  'val))))
+
+
+;;;
+;;; Enum
+;;;
+
 (define-method (test-enum (self <g-golf-test-support>))
   (let* ((a-set '((foo . 0) (bar  . 1)))
          (enum (make <enum> #:enum-set a-set)))
@@ -52,6 +72,5 @@
     (assert-true (enum->name enum 1))
     (assert-false (enum->name enum 2))
     (assert (enum->names enum))))
-
 
 (exit-with-summary (run-all-defined-test-cases))

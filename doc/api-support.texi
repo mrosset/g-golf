@@ -22,13 +22,10 @@ support goops))}, ...
 
 
 @include api-support-modules.texi
-
-@node Goops
-@subsection Goops
+@include api-support-goops.texi
 
 @node G-export
 @subsection G-export
-
 
 @include api-support-enum.texi
 @include api-support-struct.texi

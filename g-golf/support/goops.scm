@@ -38,6 +38,7 @@
 
 
 (define-module (g-golf support goops)
+  #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
@@ -49,7 +50,8 @@
 		warn
 		last)
 
-  #:export (define-method*))
+  #:export (define-method*
+            mslot-set!))
 
 
 (g-export class-direct-virtual-slots
@@ -97,3 +99,14 @@
 			    "#<unbound>"))))
 	    (class-slots (class-of self)))
   *unspecified*)
+
+(define (mslot-set! self . args)
+  (if (even? (length args))
+      (let loop ((args args))
+        (match args
+          (()
+           (values))
+          ((name val . rest)
+           (slot-set! self name val)
+           (loop rest))))
+      (error "Wrong number of arguments: " args)))

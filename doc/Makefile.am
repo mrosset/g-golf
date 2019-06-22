@@ -64,9 +64,10 @@ g_golf_TEXINFOS = \
   api-utilities.texi		\
   api-support.texi		\
   api-support-modules.texi	\
-  api-support-utils.texi	\
+  api-support-goops.texi	\
   api-support-enum.texi		\
   api-support-struct.texi	\
+  api-support-utils.texi	\
   api-hl-api.texi		\
   api-hl-api-gtype.texi		\
   api-hl-api-gobject.texi	\
