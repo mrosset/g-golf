@@ -179,26 +179,28 @@
            (return-type (g-type-info-get-tag return-type-info))
            (type-desc (type-description return-type-info #:type-tag return-type)))
       (g-base-info-unref return-type-info)
-      (slot-set! self 'info info)
-      (slot-set! self 'name name)
-      (slot-set! self 'flags (g-function-info-get-flags info))
-      (slot-set! self 'caller-owns (g-callable-info-get-caller-owns info))
-      (slot-set! self 'return-type return-type)
-      (slot-set! self 'type-desc type-desc)
-      (slot-set! self 'may-return-null? (g-callable-info-may-return-null info))
+      (mslot-set! self
+                  'info info
+                  'name name
+                  'flags (g-function-info-get-flags info)
+                  'caller-owns (g-callable-info-get-caller-owns info)
+                  'return-type return-type
+                  'type-desc type-desc
+                  'may-return-null? (g-callable-info-may-return-null info))
       (receive (n-arg args
                 n-gi-arg-in args-in gi-args-in
                 n-gi-arg-out args-out gi-args-out)
           (function-arguments-and-gi-arguments info)
-        (slot-set! self 'n-arg n-arg)
-        (slot-set! self 'arguments args)
-        (slot-set! self 'n-gi-arg-in n-gi-arg-in)
-        (slot-set! self 'args-in args-in)
-        (slot-set! self 'gi-args-in gi-args-in)
-        (slot-set! self 'n-gi-arg-out n-gi-arg-out)
-        (slot-set! self 'args-out args-out)
-        (slot-set! self 'gi-args-out gi-args-out)
-        (slot-set! self 'gi-arg-res (make-gi-argument))))))
+        (mslot-set! self
+                    'n-arg n-arg
+                    'arguments args
+                    'n-gi-arg-in n-gi-arg-in
+                    'args-in args-in
+                    'gi-args-in gi-args-in
+                    'n-gi-arg-out n-gi-arg-out
+                    'args-out args-out
+                    'gi-args-out gi-args-out
+                    'gi-arg-res (make-gi-argument))))))
 
 (define-method* (describe (self <function>) #:key (port #t))
   (next-method self #:port port)
@@ -247,28 +249,30 @@
            (is-pointer? (g-type-info-is-pointer type-info))
            (forced-type (arg-info-forced-type direction type-tag is-pointer?)))
       (g-base-info-unref type-info)
-      (slot-set! self 'name name)
-      (slot-set! self 'closure (g-arg-info-get-closure info))
-      (slot-set! self 'destroy (g-arg-info-get-destroy info))
-      (slot-set! self 'direction direction)
-      (slot-set! self 'transfert (g-arg-info-get-ownership-transfer info))
-      (slot-set! self 'scope (g-arg-info-get-scope info))
-      (slot-set! self 'type-tag type-tag)
-      (slot-set! self 'type-desc type-desc)
-      (slot-set! self 'forced-type forced-type)
-      (slot-set! self 'is-pointer? is-pointer?)
-      (slot-set! self 'may-be-null? (g-arg-info-may-be-null info))
-      (slot-set! self 'is-caller-allocate? (g-arg-info-is-caller-allocates info))
-      (slot-set! self 'is-optional? (g-arg-info-is-optional info))
-      (slot-set! self 'is-return-value? (g-arg-info-is-return-value info))
-      (slot-set! self 'is-skip? (g-arg-info-is-skip info))
-      ;; the gi-argument-in or/and gi-argument-out slots can only be
-      ;; set!  at the end of function-arguments-and-gi-arguments, which
-      ;; needs to proccess them all before it can compute their
-      ;; respective pointer address (or/and because an argument can be
-      ;; 'in, 'inout or 'out). See finalize-arguments-gi-argument-pointers.
-      (slot-set! self 'gi-argument-field
-                 (gi-type-tag->field forced-type)))))
+      (mslot-set! self
+                  'name name
+                  'closure (g-arg-info-get-closure info)
+                  'destroy (g-arg-info-get-destroy info)
+                  'direction direction
+                  'transfert (g-arg-info-get-ownership-transfer info)
+                  'scope (g-arg-info-get-scope info)
+                  'type-tag type-tag
+                  'type-desc type-desc
+                  'forced-type forced-type
+                  'is-pointer? is-pointer?
+                  'may-be-null? (g-arg-info-may-be-null info)
+                  'is-caller-allocate? (g-arg-info-is-caller-allocates info)
+                  'is-optional? (g-arg-info-is-optional info)
+                  'is-return-value? (g-arg-info-is-return-value info)
+                  'is-skip? (g-arg-info-is-skip info)
+                  ;; the gi-argument-in or/and gi-argument-out slots can
+                  ;; only be set!  at the end of
+                  ;; function-arguments-and-gi-arguments, which needs to
+                  ;; proccess them all before it can compute their
+                  ;; respective pointer address (or/and because an
+                  ;; argument can be 'in, 'inout or 'out). See
+                  ;; finalize-arguments-gi-argument-pointers.
+                  'gi-argument-field (gi-type-tag->field forced-type)))))
 
 (define-method (is-interface? (self <argument>))
   (and (eq? (!type-tag self 'interface))
