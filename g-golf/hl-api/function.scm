@@ -53,7 +53,7 @@
           !name
           !type-desc
 
-          !flags	;; functoon
+          !flags	;; function
           !n-arg
           !caller-owns
           !return-type
@@ -263,7 +263,7 @@
       ;; set!  at the end of function-arguments-and-gi-arguments, which
       ;; needs to proccess them all before it can compute their
       ;; respective pointer address (or/and because an argument can be
-      ;; 'in, 'inout or 'out).
+      ;; 'in, 'inout or 'out). See finalize-arguments-gi-argument-pointers.
       (slot-set! self 'gi-argument-field
                  (gi-type-tag->field forced-type)))))
 
@@ -474,8 +474,9 @@
                          (gi-argument-set! gi-argument-in 'v-int e-val)
                          (error "No such symbol " val " in " gi-type))))
                   ((struct)
-                   (warning "Unimplemented type" "struct"))
-                  ))))
+                   (gi-argument-set! gi-argument-in 'v-pointer
+                                     (make-c-struct (!scm-types gi-type)
+                                                    arg-in)))))))
             ((array
               glist
               gslist
