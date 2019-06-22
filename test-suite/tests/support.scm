@@ -46,6 +46,8 @@
     (assert (mslot-set! inst
                         'name 'alice
                         'val 7))
+    (assert-true (eq? (slot-ref inst 'name) 'alice))
+    (assert-true (= (slot-ref inst 'val) 7))
     (assert-exception (mslot-set! inst
                                   'name 'alice
                                   'val))))
