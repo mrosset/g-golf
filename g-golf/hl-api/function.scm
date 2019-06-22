@@ -53,7 +53,8 @@
           !name
           !type-desc
 
-          !flags	;; function
+          !info		;; function
+          !flags
           !n-arg
           !caller-owns
           !return-type
@@ -150,6 +151,7 @@
     (module-g-export! cm `(,name))))
 
 (define-class <function> ()
+  (info #:accessor !info)
   (name #:accessor !name)
   (flags #:accessor !flags)
   (n-arg #:accessor !n-arg)
@@ -177,6 +179,7 @@
            (return-type (g-type-info-get-tag return-type-info))
            (type-desc (type-description return-type-info #:type-tag return-type)))
       (g-base-info-unref return-type-info)
+      (slot-set! self 'info info)
       (slot-set! self 'name name)
       (slot-set! self 'flags (g-function-info-get-flags info))
       (slot-set! self 'caller-owns (g-callable-info-get-caller-owns info))
