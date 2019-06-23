@@ -564,7 +564,8 @@
                (or (enum->symbol gi-type val)
                    (error "No such " name " value: " val))))
             ((struct)
-             (warning "Unimplemented type" "struct"))))))
+             (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
+                             (!scm-types gi-type)))))))
       ((array
         glist
         gslist
@@ -592,10 +593,8 @@
             ((enum)
              (gi-argument-ref gi-argument-out 'v-int))
             ((struct)
-             (match type-desc
-               ((type name gi-type g-type)
-                (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
-                                (!scm-types gi-type)))))))))
+             (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
+                             (!scm-types gi-type)))))))
       ((array
         glist
         gslist
