@@ -66,6 +66,7 @@
           !n-gi-arg-out
           !args-out
           !gi-args-out
+          !gi-arg-res
 
           !closure	;; argument
           !destroy
@@ -84,7 +85,6 @@
           !gi-argument-in
           !gi-argument-out
           !gi-argument-field
-          !gi-arg-res
 
           is-interface?)
 
@@ -175,6 +175,7 @@
     (let* ((gi-name (g-function-info-get-symbol info))
            (scm-name (g-name->scm-name gi-name))
            (name (string->symbol scm-name))
+           (flags (g-function-info-get-flags info))
            (return-type-info (g-callable-info-get-return-type info))
            (return-type (g-type-info-get-tag return-type-info))
            (type-desc (type-description return-type-info #:type-tag return-type)))
@@ -182,7 +183,7 @@
       (mslot-set! self
                   'info info
                   'name name
-                  'flags (g-function-info-get-flags info)
+                  'flags flags
                   'caller-owns (g-callable-info-get-caller-owns info)
                   'return-type return-type
                   'type-desc type-desc
@@ -190,7 +191,7 @@
       (receive (n-arg args
                 n-gi-arg-in args-in gi-args-in
                 n-gi-arg-out args-out gi-args-out)
-          (function-arguments-and-gi-arguments info)
+          (function-arguments-and-gi-arguments info flags)
         (mslot-set! self
                     'n-arg n-arg
                     'arguments args
@@ -215,64 +216,70 @@
       (!arguments self)))
 
 (define-class <argument> ()
-  (name #:accessor !name)
+  (name #:accessor !name #:init-keyword #:name)
   (closure #:accessor !closure)
   (destroy #:accessor !destroy)
-  (direction #:accessor !direction)
+  (direction #:accessor !direction #:init-keyword #:direction)
   (transfert #:accessor !transfert)
   (scope #:accessor !scope)
-  (type-tag #:accessor !type-tag)
-  (type-desc #:accessor !type-desc)
-  (forced-type #:accessor !forced-type)
+  (type-tag #:accessor !type-tag #:init-keyword #:type-tag)
+  (type-desc #:accessor !type-desc #:init-keyword #:type-desc)
+  (forced-type #:accessor !forced-type #:init-keyword #:forced-type)
   (string-pointer #:accessor !string-pointer)
-  (is-pointer? #:accessor !is-pointer?)
-  (may-be-null? #:accessor !may-be-null?)
+  (is-pointer? #:accessor !is-pointer? #:init-keyword #:is-pointer?)
+  (may-be-null? #:accessor !may-be-null? #:init-keyword #:may-be-null?)
   (is-caller-allocate? #:accessor !is-caller-allocate?)
   (is-optional? #:accessor !is-optional?)
   (is-return-value? #:accessor !is-return-value?)
   (is-skip? #:accessor !is-skip?)
   (gi-argument-in #:accessor !gi-argument-in #:init-value #f)
   (gi-argument-out #:accessor !gi-argument-out #:init-value #f)
-  (gi-argument-field #:accessor !gi-argument-field))
+  (gi-argument-field #:accessor !gi-argument-field #:init-keyword #:gi-argument-field))
 
 (define-method (initialize (self <argument>) initargs)
   (let ((info (or (get-keyword #:info initargs #f)
                   (error "Missing #:info initarg: " initargs))))
-    (next-method self '())
-    (let* ((gi-name (g-base-info-get-name info))
-           (scm-name (g-name->scm-name gi-name))
-           (name (string->symbol scm-name))
-           (direction (g-arg-info-get-direction info))
-           (type-info (g-arg-info-get-type info))
-           (type-tag (g-type-info-get-tag type-info))
-           (type-desc (type-description type-info #:type-tag type-tag))
-           (is-pointer? (g-type-info-is-pointer type-info))
-           (forced-type (arg-info-forced-type direction type-tag is-pointer?)))
-      (g-base-info-unref type-info)
-      (mslot-set! self
-                  'name name
-                  'closure (g-arg-info-get-closure info)
-                  'destroy (g-arg-info-get-destroy info)
-                  'direction direction
-                  'transfert (g-arg-info-get-ownership-transfer info)
-                  'scope (g-arg-info-get-scope info)
-                  'type-tag type-tag
-                  'type-desc type-desc
-                  'forced-type forced-type
-                  'is-pointer? is-pointer?
-                  'may-be-null? (g-arg-info-may-be-null info)
-                  'is-caller-allocate? (g-arg-info-is-caller-allocates info)
-                  'is-optional? (g-arg-info-is-optional info)
-                  'is-return-value? (g-arg-info-is-return-value info)
-                  'is-skip? (g-arg-info-is-skip info)
-                  ;; the gi-argument-in or/and gi-argument-out slots can
-                  ;; only be set!  at the end of
-                  ;; function-arguments-and-gi-arguments, which needs to
-                  ;; proccess them all before it can compute their
-                  ;; respective pointer address (or/and because an
-                  ;; argument can be 'in, 'inout or 'out). See
-                  ;; finalize-arguments-gi-argument-pointers.
-                  'gi-argument-field (gi-type-tag->field forced-type)))))
+    (case info
+      ((instance)
+       (receive (split-kw split-rest)
+           (split-keyword-args (list #:info) initargs)
+         (next-method self split-rest)))
+      (else
+       (next-method self '())
+       (let* ((gi-name (g-base-info-get-name info))
+              (scm-name (g-name->scm-name gi-name))
+              (name (string->symbol scm-name))
+              (direction (g-arg-info-get-direction info))
+              (type-info (g-arg-info-get-type info))
+              (type-tag (g-type-info-get-tag type-info))
+              (type-desc (type-description type-info #:type-tag type-tag))
+              (is-pointer? (g-type-info-is-pointer type-info))
+              (forced-type (arg-info-forced-type direction type-tag is-pointer?)))
+         (g-base-info-unref type-info)
+         (mslot-set! self
+                     'name name
+                     'closure (g-arg-info-get-closure info)
+                     'destroy (g-arg-info-get-destroy info)
+                     'direction direction
+                     'transfert (g-arg-info-get-ownership-transfer info)
+                     'scope (g-arg-info-get-scope info)
+                     'type-tag type-tag
+                     'type-desc type-desc
+                     'forced-type forced-type
+                     'is-pointer? is-pointer?
+                     'may-be-null? (g-arg-info-may-be-null info)
+                     'is-caller-allocate? (g-arg-info-is-caller-allocates info)
+                     'is-optional? (g-arg-info-is-optional info)
+                     'is-return-value? (g-arg-info-is-return-value info)
+                     'is-skip? (g-arg-info-is-skip info)
+                     ;; the gi-argument-in or/and gi-argument-out slots can
+                     ;; only be set!  at the end of
+                     ;; function-arguments-and-gi-arguments, which needs to
+                     ;; proccess them all before it can compute their
+                     ;; respective pointer address (or/and because an
+                     ;; argument can be 'in, 'inout or 'out). See
+                     ;; finalize-arguments-gi-argument-pointers.
+                     'gi-argument-field (gi-type-tag->field forced-type)))))))
 
 (define-method (is-interface? (self <argument>))
   (and (eq? (!type-tag self 'interface))
@@ -334,6 +341,7 @@
                (or (gi-cache-ref 'boxed key)
                    (let ((gi-struct (gi-struct-import info)))
                      (gi-cache-set! 'boxed key gi-struct)
+                     (gi-struct-import-methods info)
                      gi-struct))))
       (else
        (values #f key id)))))
@@ -363,18 +371,24 @@
           (cons 'param-n n)
           (cons 'param-tag param-tag))))
 
-(define (function-arguments-and-gi-arguments info)
-  (let ((n-arg (g-callable-info-get-n-args info)))
+(define* (function-arguments-and-gi-arguments info #:optional (flags #f))
+  (let* ((flags (or flags
+                    (g-function-info-get-flags info)))
+         (n-arg (g-callable-info-get-n-args info))
+         (is-method? (is-method? info flags))
+         (args (if is-method?
+                   (list (make-instance-argument info))
+                   '())))
     (let loop ((i 0)
-               (arguments '())
-               (n-gi-arg-in 0)
-               (args-in '())
+               (arguments args)
+               (n-gi-arg-in (length args))
+               (args-in args)
                (n-gi-arg-out 0)
                (args-out '()))
       (if (= i n-arg)
-          (let* ((arguments (reverse! arguments))
-                 (args-in (reverse! args-in))
-                 (args-out (reverse! args-out))
+          (let* ((arguments (reverse arguments))
+                 (args-in (reverse args-in))
+                 (args-out (reverse args-out))
                  (gi-args-in-bv (if (> n-gi-arg-in 0)
                                     (make-bytevector (* %gi-argument-size
                                                         n-gi-arg-in)
@@ -399,7 +413,7 @@
               (finalize-arguments-gi-argument-pointers args-out
                                                        gi-args-out-bv
                                                        !gi-argument-out))
-            (values n-arg
+            (values (if is-method? (+ n-arg 1) n-arg)
                     arguments
                     n-gi-arg-in
                     args-in
@@ -466,7 +480,7 @@
                (forced-type (!forced-type arg-in))
                (gi-argument-in (!gi-argument-in arg-in))
                (field (!gi-argument-field arg-in))
-               (val (list-ref args i)))
+               (arg (list-ref args i)))
           ;; clearing the string pointer reference kept from a previous
           ;; call.
           (set! (!string-pointer arg-in) #f)
@@ -476,20 +490,20 @@
                ((type name gi-type g-type)
                 (case type
                   ((enum)
-                   (let ((e-val (enum->value gi-type val)))
+                   (let ((e-val (enum->value gi-type arg)))
                      (if e-val
                          (gi-argument-set! gi-argument-in 'v-int e-val)
-                         (error "No such symbol " val " in " gi-type))))
+                         (error "No such symbol " arg " in " gi-type))))
                   ((struct)
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (make-c-struct (!scm-types gi-type)
-                                                    arg-in)))))))
+                                                    arg)))))))
             ((array
               glist
               gslist
               ghash
               error)
-             (if (and may-be-null? (not val))
+             (if (and may-be-null? (not arg))
                  (gi-argument-set! gi-argument-in 'v-pointer #f)
                  (warning "Unimplemented type" (symbol->string type-tag))))
             ((utf8
@@ -497,7 +511,7 @@
              ;; we need to keep a reference to string pointers,
              ;; otherwise the C string will be freed, which might happen
              ;; before the C call actually occurred.
-             (let ((string-pointer (string->pointer val)))
+             (let ((string-pointer (string->pointer arg)))
                (set! (!string-pointer arg-in) string-pointer)
                ;; don't use 'v-string, which expects a string, calls
                ;; string->pointer (and does not keep a reference).
@@ -505,7 +519,7 @@
             (else
              (gi-argument-set! gi-argument-in
                                (gi-type-tag->field forced-type)
-                               val)))
+                               arg)))
           (loop (+ i 1))))))
 
 (define (prepare-gi-args-out function n-gi-arg-out args-out)
@@ -608,3 +622,49 @@
        (gi->scm (gi-argument-ref gi-argument-out 'v-pointer) 'string))
       (else
        (gi-argument-ref gi-argument-out field)))))
+
+
+;;;
+;;; Struct have methods
+;;;
+
+(define (gi-struct-import-methods info)
+  (let ((n-method (g-struct-info-get-n-methods info)))
+    (do ((i 0
+            (+ i 1)))
+        ((= i n-method))
+      (let* ((m-info (g-struct-info-get-method info i))
+             (namespace (g-base-info-get-namespace m-info))
+             (name (g-function-info-get-symbol m-info)))
+        ;; Some methods listed here are functions: (a) their flags is an
+        ;; empty list; (b) they do not expect an additional instance
+        ;; argument (their GIargInfo list is complete); (c) they have a
+        ;; GIFuncInfo entry in the namespace (methods do not). We do not
+        ;; (re)import those here.
+        (unless (g-irepository-find-by-name namespace name)
+          (gi-import-function m-info))))))
+
+
+;;;
+;;; Method instance argument
+;;;
+
+(define (make-instance-argument info)
+  (let* ((container (g-base-info-get-container info))
+         (gi-name (g-base-info-get-name container))
+         (scm-name (g-name->scm-name gi-name))
+         (name (string->symbol scm-name))
+         (type (g-base-info-get-type container)))
+    (receive (gi-type r-name id)
+        (registered-type->gi-type container type)
+      (g-base-info-unref container)
+      (make <argument>
+        #:info 'instance
+        #:name name
+        #:direction 'in
+        #:type-tag 'interface
+        #:type-desc (list type r-name id gi-type)
+        #:is-pointer? #t
+        #:may-be-null? #f
+        #:forced-type 'pointer
+        #:gi-argument-field 'v-pointer))))
