@@ -18,6 +18,7 @@ GIFunctionInfo — Struct representing a function.
 
 @indentedblock
 @table @code
+@item @ref{is-method?}
 @item @ref{g-function-info-get-flags}
 @item @ref{g-function-info-get-property}
 @item @ref{g-function-info-get-symbol}
@@ -62,6 +63,17 @@ arguments and other metadata.
 
 Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIFunctionInfo}.
+
+
+@anchor{is-method?}
+@deffn Procedure is-method? info [flags #f]
+
+Returns @code{#t} if @var{info} is a method, that is if @code{is-method}
+is a member of the @var{info} flags. Otherwise, it returns @code{#f}.
+
+The optional @var{flags} argument, if passed, must be the list of the
+function info flags as returned by @ref{g-function-info-get-flags}.
+@end deffn
 
 
 @anchor{g-function-info-get-flags}

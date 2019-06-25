@@ -39,12 +39,24 @@
 		warn
 		last)
 
-  #:export (g-function-info-get-flags
+  #:export (is-method?
+
+            g-function-info-get-flags
             g-function-info-get-property
             g-function-info-get-symbol
             g-function-info-get-vfunc
             g-function-info-invoke
             %g-function-info-flags))
+
+
+;;;
+;;; High level API
+;;;
+
+(define* (is-method? info #:optional (flags #f))
+  (let ((flags (or flags
+                   (g-function-info-get-flags info))))
+    (memq 'is-method flags)))
 
 
 ;;;
