@@ -176,11 +176,7 @@
          (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'enum key)
-        (let* ((b-info (g-irepository-find-by-gtype id))
-               (gi-enum (gi-enum-import b-info)))
-          (g-base-info-unref b-info)
-          (gi-cache-set! 'enum key gi-enum)
-          gi-enum))))
+        (error "No such enum type: " key))))
 
 (define (g-value-get-enum g-value)
   (let* ((gi-enum (g-value-get-gi-enum g-value))
@@ -216,16 +212,7 @@
          (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'boxed key)
-        (let* ((b-info (g-irepository-find-by-gtype id))
-               (type (g-base-info-get-type b-info)))
-          (case type
-            ((struct)
-             (let ((gi-struct (gi-struct-import b-info)))
-               (g-base-info-unref b-info)
-               (gi-cache-set! 'boxed key gi-struct)
-               gi-struct))
-            (else
-             (error "Not implemented: " type)))))))
+        (error "No such boxed type: " key))))
 
 (define (g-value-get-boxed g-value)
   (let ((gi-boxed (g-value-get-gi-boxed g-value))
