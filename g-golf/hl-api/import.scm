@@ -43,35 +43,53 @@
 		warn
 		last)
   
-  #:export (gi-import))
+  #:export (%gi-base-info-types
+            %gi-imported-base-info-types
+            gi-import))
 
 
 #;(g-export )
 
 
 ;;;
-;;; 
 ;;;
+;;;
+
+(define %gi-base-info-types '())
+(define %gi-imported-base-info-types '())
 
 (define (gi-import namespace)
   (g-irepository-require namespace)
-  (let ((n-info (g-irepository-get-n-infos namespace)))
+  (let ((n-info (g-irepository-get-n-infos namespace))
+        (base-info-types (reverse %gi-base-info-types))
+        (imported-base-info-types (reverse %gi-imported-base-info-types)))
     (do ((i 0
             (+ i 1)))
         ((= i n-info))
       (let* ((info (g-irepository-get-info namespace i))
              (i-type (g-base-info-get-type info)))
-        #;(dimfi (g-base-info-get-name info) "; " i-type)
+        #;(dimfi (g-base-info-get-name info) " " i-type)
+        (unless (memq i-type
+                      base-info-types)
+          (push! i-type base-info-types))
         (case i-type
           ((function)
+           (unless (memq i-type
+                         imported-base-info-types)
+             (push! i-type imported-base-info-types))
            (gi-import-function info))
           ((object)
+           (unless (memq i-type
+                         imported-base-info-types)
+             (push! i-type imported-base-info-types))
            (gi-import-object info))
           (else
            ;; I won't do nothing, not even displaying a message, till
            ;; G-Golf is complete, because it would fill the repl ...
            ;; Ultimately, it will raise an exception
            'nothing))))
+    (set! %gi-base-info-types (reverse! base-info-types))
+    (set! %gi-imported-base-info-types (reverse! imported-base-info-types))
     (values)))
 
 (define (gi-import-object info)

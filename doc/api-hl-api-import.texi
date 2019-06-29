@@ -23,19 +23,20 @@ The G-Golf GIR namespace (Typelib) import high level API.
 @end indentedblock
 
 
-@c @subheading Types and Values
+@subheading Variables
 
-@c @indentedblock
-@c @table @code
-@c @item @ref{%g-arg-info-transfer}
-@c @end table
-@c @end indentedblock
+@indentedblock
+@table @code
+@item @ref{%gi-base-info-types}
+@item @ref{%gi-imported-base-info-types}
+@end table
+@end indentedblock
 
 
 @c @subheading Description
 
 
-@c @subheading Procedures
+@subheading Procedures
 
 
 @anchor{gi-import}
@@ -47,3 +48,32 @@ Imports the GIR @var{namespace} (Typelib) in Guile and exports its
 interface - functions (procedures), classes, methods and properties
 accessors.
 @end deffn
+
+
+@subheading Variables
+
+
+@anchor{%gi-base-info-types}
+@anchor{%gi-imported-base-info-types}
+@defvar %gi-base-info-types
+@defvarx %gi-imported-base-info-types
+
+A (cumulative) list of the distinct (top level) base info types
+contained in the imported namespace(s).
+
+These two variables have no other purpose then offering a feedback
+about: (a) the (top level) base info types contained in the namespace(s)
+passed to @ref{gi-import}; (b) the (top level) base info types that have
+effectively been imported - when @code{G-Golf} is complete, both lists
+should be identical.
+
+Initially, these variables are empty. As @ref{gi-import} is being
+called, they are filled, and not that it particularly matters, but the
+order in which the types appear in the first imported namespace is
+preserved. Then new types, if any, are added to the end of both lists,
+in the order they appear in subsequent @ref{gi-import} calls.
+
+As a consequence, the order in which (top level) base info types appear
+may slightly vary, depending on the order of the namespace used for the
+successive @ref{gi-import} calls and how complete is @code{G-Golf}.
+@end defvar
