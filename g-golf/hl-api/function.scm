@@ -43,10 +43,10 @@
 		last)
   
   #:export (%gi-strip-boolean-result
-
             gi-import-function
             <function>
-            <argument>))
+            <argument>
+            gi-struct-import-methods))
 
 
 (g-export describe	;; function and argument
