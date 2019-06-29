@@ -73,6 +73,11 @@
                       base-info-types)
           (push! i-type base-info-types))
         (case i-type
+          ((struct)
+           (unless (memq i-type
+                         imported-base-info-types)
+             (push! i-type imported-base-info-types))
+           (gi-import-struct info))
           ((function)
            (unless (memq i-type
                          imported-base-info-types)
@@ -103,3 +108,13 @@
                              #:info info)))
     (module-define! cm c-name c-inst)
     (module-g-export! cm `(,c-name))))
+
+(define (gi-import-struct info)
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-studly-caps-expand (g-type-name id)))
+         (key (string->symbol name)))
+    (or (gi-cache-ref 'boxed key)
+        (let ((gi-struct (gi-struct-import info)))
+          (gi-cache-set! 'boxed key gi-struct)
+          (gi-struct-import-methods info)
+          gi-struct))))
