@@ -73,6 +73,11 @@
                       base-info-types)
           (push! i-type base-info-types))
         (case i-type
+          ((enum flags)
+           (unless (memq i-type
+                         imported-base-info-types)
+             (push! i-type imported-base-info-types))
+           (gi-import-enum info))
           ((struct)
            (unless (memq i-type
                          imported-base-info-types)
@@ -108,6 +113,16 @@
                              #:info info)))
     (module-define! cm c-name c-inst)
     (module-g-export! cm `(,c-name))))
+
+(define (gi-import-enum info)
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-studly-caps-expand (g-type-name id)))
+         (key (string->symbol name)))
+    (or (gi-cache-ref 'enum key)
+        (let ((gi-enum (gi-enum-import info)))
+          (gi-cache-set! 'enum key gi-enum)
+          (gi-enum-import-methods info)
+          gi-enum))))
 
 (define (gi-import-struct info)
   (let* ((id (g-registered-type-info-get-g-type info))
