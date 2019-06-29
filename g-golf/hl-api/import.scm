@@ -45,7 +45,10 @@
   
   #:export (%gi-base-info-types
             %gi-imported-base-info-types
-            gi-import))
+            gi-import
+            gi-import-object
+            gi-import-enum
+            gi-import-struct))
 
 
 #;(g-export )
