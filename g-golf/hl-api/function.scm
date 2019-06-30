@@ -365,12 +365,9 @@
          (fixed-size (g-type-info-get-array-fixed-size info))
          (is-zero-terminated (g-type-info-is-zero-terminated info))
          (n (g-type-info-get-array-length info))
-         (param-type (and (>= n 0)
-                          (g-type-info-get-param-type info n)))
-         (param-tag (and param-type
-                         (g-type-info-get-tag param-type))))
-    (when param-type
-      (g-base-info-unref param-type))
+         (param-type (g-type-info-get-param-type info 0))
+         (param-tag (g-type-info-get-tag param-type)))
+    (g-base-info-unref param-type)
     (list (cons 'array type)
           (cons 'fixed-size fixed-size)
           (cons 'is-zero-terminated is-zero-terminated)
