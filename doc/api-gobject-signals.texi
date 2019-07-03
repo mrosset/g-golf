@@ -1,0 +1,116 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Signals
+@subsection Signals
+
+G-Golf GObject Signals low level API.@*
+
+Signals — A means for customization of object behaviour and a general
+purpose notification mechanism
+
+
+@c @subheading Procedures
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{g-type-name}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%g-signal-flags}
+@end table
+@end indentedblock
+
+
+@subheading Description
+
+The basic concept of the signal system is that of the emission of a
+signal. Signals are introduced per-type and are identified through
+strings. Signals introduced for a parent type are available in derived
+types as well, so basically they are a per-type facility that is
+inherited.
+
+Please read the @uref{@value{UGOBJECT-Signals}, Signals} section from
+the GObject reference manual for a complete description.
+
+
+@c @subheading Procedures
+
+
+@c @anchor{g-type->symbol}
+@c @deffn Procedure g-type->symbol g-type
+
+@c Returns a symbol.
+@c @end deffn
+
+
+@subheading Types and Values
+
+
+@anchor{%g-signal-flags}
+@defivar <gi-enum> %g-signal-flags
+
+The signal flags are used to specify a signal's behaviour, the overall
+signal description outlines how especially the RUN flags control the
+stages of a signal emission.
+
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the @code{GSignalFlags}:
+
+@indentedblock
+@emph{gi-name}: GSignalFlags  @*
+@emph{scm-name}: g-signal-flags  @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+
+@item run-first
+nvoke the object method handler in the first emission stage.
+
+@item run-last
+Invoke the object method handler in the third emission stage.
+
+@item run-cleanup
+Invoke the object method handler in the last emission stage.
+
+@item no-recurse
+Signals being emitted for an object while currently being in emission
+for this very object will not be emitted recursively, but instead cause
+the first emission to be restarted.
+
+@item detailed
+This signal supports "::detail" appendices to the signal name upon
+handler connections and emissions.
+
+@item action
+Action signals are signals that may freely be emitted on alive objects
+from user code via @code{g-signal-emit} and friends, without the need of
+being embedded into extra code that performs pre or post emission
+adjustments on the object. They can also be thought of as object methods
+which can be called generically by third-party code.
+
+@item no-hooks
+No emissions hooks are supported for this signal.
+
+@item must-collect
+Varargs signal emission will always collect the arguments, even if there
+are no signal handlers connected. Since 2.30.
+
+@item deprecated
+The signal is deprecated and will be removed in a future version. A
+warning will be generated if it is connected while running with
+@code{G_ENABLE_DIAGNOSTIC=1}. Since 2.32.
+
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar

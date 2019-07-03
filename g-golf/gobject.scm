@@ -51,7 +51,7 @@
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject params-vals)
   #:use-module (g-golf gobject param-spec)
-  #:use-module (g-golf gobject gobject)
+  #:use-module (g-golf gobject signals)
 
   #:duplicates (merge-generics
 		replace
@@ -75,4 +75,4 @@
 			      (g-golf gobject generic-values)
                               (g-golf gobject params-vals)
 			      (g-golf gobject param-spec)
-                              (g-golf gobject gobject)))
+                              (g-golf gobject signals)))

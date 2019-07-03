@@ -47,11 +47,12 @@ SOURCES = \
 	g-golf/glib/main-event-loop.scm		\
 	g-golf/glib.scm				\
 	g-golf/gobject/type-info.scm		\
+	g-golf/gobject/gobject.scm		\
 	g-golf/gobject/enum-flags.scm		\
 	g-golf/gobject/generic-values.scm	\
 	g-golf/gobject/params-vals.scm		\
 	g-golf/gobject/param-spec.scm		\
-	g-golf/gobject/gobject.scm		\
+	g-golf/gobject/signals.scm		\
 	g-golf/gobject.scm			\
 	g-golf/gi/utils.scm			\
 	g-golf/gi/cache.scm			\

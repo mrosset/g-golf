@@ -1,6 +1,6 @@
 @c -*-texinfo-*-
 @c This is part of the GNU G-Golf Reference Manual.
-@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c Copyright (C) 2016 - 2019 Free Software Foundation, Inc.
 @c See the file g-golf.texi for copying conditions.
 
 
@@ -69,11 +69,10 @@
 @set UGOBJECT-GObject https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html
 @set UGOBJECT-GObject-struct https://developer.gnome.org/gobject/stable/gobject-The-Base-Object-Type.html#GObject-struct
 @set UGOBJECT-Enum-Flags https://developer.gnome.org/gobject/stable/gobject-Enumeration-and-Flag-Types.html
-@set UGOBJECT-Gen_vals https://developer.gnome.org/gobject/stable/gobject-Generic-Values.html
+@set UGOBJECT-Gen-Vals https://developer.gnome.org/gobject/stable/gobject-Generic-Values.html
 @set UGOBJECT-Params-Vals https://developer.gnome.org/gobject/stable/gobject-Parameters-and-Values.html
 @set UGOBJECT-GParamSpec https://developer.gnome.org/gobject/stable/gobject-GParamSpec.html
-@set UGOBJECT-Gen-Vals https://developer.gnome.org/gobject/stable/gobject-Generic-values.html
-
+@set UGOBJECT-Signals https://developer.gnome.org/gobject/stable/gobject-Signals.html
 
 @c GG -> Guile-Gnome
 @set UGG https://www.gnu.org/software/guile-gnome

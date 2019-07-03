@@ -28,6 +28,8 @@ though they might be some exception in the future.
 * Generic Values::  A polymorphic type that can hold values of any other type.
 * Parameters and Values:: Standard Parameter and Value Types.
 * GParamSpec::  Metadata for parameter specifications.
+* Signals:: A means for customization of object behaviour and a general
+  purpose notification mechanism
 
 @end menu
 
@@ -37,3 +39,4 @@ though they might be some exception in the future.
 @include api-gobject-gen-vals.texi
 @include api-gobject-params-vals.texi
 @include api-gobject-param-spec.texi
+@include api-gobject-signals.texi
