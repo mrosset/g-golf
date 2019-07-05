@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -38,6 +38,7 @@
 (define %align-info (g-irepository-find-by-name "Clutter" "ActorAlign"))
 (define %gtype (g-registered-type-info-get-g-type %align-info))
 
+(gi-import-enum %align-info)
 
 (define-class <g-golf-test-gobject> (<test-case>))
 
