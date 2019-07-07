@@ -37,13 +37,9 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf gi cache)
   #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi repository)
-  #:use-module (g-golf gi base-info)
-  #:use-module (g-golf gi enum-info)
-  #:use-module (g-golf gi struct-info)
+  #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gobject enum-flags)
   #:use-module (g-golf gobject generic-values)
-  #:use-module (g-golf gobject type-info)
 
   #:duplicates (merge-generics
 		replace
