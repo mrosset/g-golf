@@ -32,10 +32,13 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf init)
+  #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gobject param-spec)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
+  #:use-module (g-golf gi registered-type-info)
   #:use-module (g-golf gi arg-info)
+  #:use-module (g-golf gi type-info)
   
   #:duplicates (merge-generics
 		replace
@@ -43,20 +46,30 @@
 		warn
 		last)
 
-  #:export (gi-property-import
-
+  #:export (gi-property-g-type
 	    g-property-info-get-flags
 	    g-property-info-get-ownership-transfer
 	    g-property-info-get-type))
 
 
 ;;;
-;;; Build Interface
+;;;
 ;;;
 
-(define (gi-property-import info)
-  ;; Fixme...
-  (g-base-info-get-name info))
+(define (gi-property-g-type info)
+  (let* ((type-info (g-property-info-get-type info))
+	 (type-tag (g-type-info-get-tag type-info)))
+    (case type-tag
+      ((interface)
+       (gi-interface-g-type type-info))
+      (else
+       (symbol->g-type type-tag)))))
+
+(define (gi-interface-g-type info)
+  (let* ((interface (g-type-info-get-interface info))
+         (g-type (g-registered-type-info-get-g-type interface)))
+    (g-base-info-unref interface)
+    g-type))
 
 
 ;;;

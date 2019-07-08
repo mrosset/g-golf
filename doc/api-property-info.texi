@@ -18,6 +18,7 @@ GIPropertyInfo — Struct representing a property.
 
 @indentedblock
 @table @code
+@item @ref{gi-property-g-type}
 @item @ref{g-property-info-get-flags}
 @item @ref{g-property-info-get-ownership-transfer}
 @item @ref{g-property-info-get-type}
@@ -45,13 +46,22 @@ Note: in this section, the @var{info} argument is [must be] a pointer to
 a @code{GIPropertyInfo}.
 
 
+@anchor{gi-property-g-type}
+@deffn Procedure gi-property-g-type info
+
+Returns an integer.
+
+Obtains and returns the @code{GType} value of the property.
+@end deffn
+
+
 @anchor{g-property-info-get-flags}
 @deffn Procedure g-property-info-get-flags info
 
 Returns a list of @ref{%g-param-flags}.
 
-Obtain the flags for this property info.  See @ref{GParamSpec} for the
-list of possible flag values.
+Obtain the flags for this property @var{info}.  See @ref{GParamSpec} for
+the list of possible flag values.
 @end deffn
 
 

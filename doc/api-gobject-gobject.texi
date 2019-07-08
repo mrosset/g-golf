@@ -15,11 +15,10 @@ GObject — The base object type
 
 @indentedblock
 @table @code
-@item @ref{gi-object-property-g-type}
+@item @ref{g-object-new}
+@item @ref{g-object-type}
 @item @ref{g-object-get-property}
 @item @ref{g-object-set-property}
-@item @ref{g-object-type}
-@item @ref{g-object-new}
 @end table
 @end indentedblock
 
@@ -61,13 +60,20 @@ Note: in this section, unless otherwise specified, the @var{object}
 argument is [must be] a pointer to a @code{GObject} (instance).
 
 
-@anchor{gi-object-property-g-type}
-@deffn Procedure gi-object-property-g-type property
+@anchor{g-object-new}
+@deffn Procedure g-object-new gtype
 
-Returns an integer.
+Returns a pointer.
 
-Obtains and returns the @code{GType} value for @var{property}, which is
-(must be) a pointer to a valid @code{GIPropertyInfo}.
+Creates and returns a (pointer to) a new instance of a GObject subtype
+@var{gtype}.  All properties are set to there default values.
+@end deffn
+
+
+@anchor{g-object-type}
+@deffn Procedure g-object-type object
+
+Returns the @var{GType} (the type id) for @var{object}.
 @end deffn
 
 
@@ -80,7 +86,7 @@ The @var{property} argument is (must be) a pointer to a valid
 @code{GIPropertyInfo} (@var{property} must point to one of the
 properties infos of the class of @var{object}).  The @var{g-type}
 argument must be a valid @code{GType} value.  If @code{#f}, which is the
-default, @ref{gi-object-property-g-type} is called.
+default, @ref{gi-property-g-type} is called.
 @end deffn
 
 
@@ -94,24 +100,7 @@ Sets the @var{object} @var{property} to @var{value}.  The
 @code{GIPropertyInfo} (@var{property} must point to one of the
 properties infos of the class of @var{object}).  The @var{g-type}
 argument must be a valid @code{GType} value.  If @code{#f}, which is the
-default, @ref{gi-object-property-g-type} is called.
-@end deffn
-
-
-@anchor{g-object-type}
-@deffn Procedure g-object-type object
-
-Returns the @var{GType} (the type id) for @var{object}.
-@end deffn
-
-
-@anchor{g-object-new}
-@deffn Procedure g-object-new gtype
-
-Returns a pointer.
-
-Creates and returns a (pointer to) a new instance of a GObject subtype
-@var{gtype}.  All properties are set to there default values.
+default, @ref{gi-property-g-type} is called.
 @end deffn
 
 

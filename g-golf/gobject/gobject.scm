@@ -31,14 +31,9 @@
   #:use-module (system foreign)
   #:use-module (rnrs arithmetic bitwise)
   #:use-module (g-golf init)
-  #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi common-types)
-  #:use-module (g-golf gi base-info)
-  #:use-module (g-golf gi registered-type-info)
-  #:use-module (g-golf gi property-info)
-  #:use-module (g-golf gi type-info)
   #:use-module (g-golf support libg-golf)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf gi utils)
   #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject params-vals)
@@ -49,60 +44,29 @@
 		warn
 		last)
 
-  #:export (gi-object-property-g-type
-            gi-interface-g-type
+  #:export (g-object-new
             g-object-get-property
-	    g-object-set-property
-            g-object-new
-            #;g-object-type-name
-            g-object-type))
+            g-object-set-property
+            g-object-type
+            #;g-object-type-name))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (gi-object-property-g-type property)
-  (let* ((type-info (g-property-info-get-type property))
-	 (type-tag (g-type-info-get-tag type-info)))
-    (case type-tag
-      ((interface)
-       (gi-interface-g-type type-info))
-      (else
-       (symbol->g-type type-tag)))))
-
-(define (gi-interface-g-type info)
-  (let* ((interface (g-type-info-get-interface info))
-         (g-type (g-registered-type-info-get-g-type interface)))
-    (g-base-info-unref interface)
-    g-type))
-
-(define* (g-object-get-property object property #:optional (g-type #f))
-  (let* ((name (g-base-info-get-name property))
-         (g-type (or g-type
-                     (gi-object-property-g-type property)))
-	 (g-value (g-value-init g-type)))
-    (g_object_get_property object
-			   (string->pointer name)
-			   g-value)
-    (let ((result (g-value-ref g-value)))
-      (g-value-unset g-value)
-      result)))
-
-(define* (g-object-set-property object property value #:optional (g-type #f))
-  (let* ((name (g-base-info-get-name property))
-         (g-type (or g-type
-                     (gi-object-property-g-type property)))
-	 (g-value (g-value-init g-type)))
-    (g-value-set! g-value value)
-    (g_object_set_property object
-			   (string->pointer name)
-			   g-value)
-    (g-value-unset g-value)
-    value))
-
 (define (g-object-new gtype)
   (gi->scm (g_object_new gtype %null-pointer) 'pointer))
+
+(define* (g-object-get-property object name g-value)
+  (g_object_get_property object
+			 (string->pointer name)
+			 g-value))
+
+(define* (g-object-set-property object name g-value)
+  (g_object_set_property object
+			 (string->pointer name)
+			 g-value))
 
 
 ;;;

@@ -97,7 +97,7 @@
                             (let* ((cm (current-module))
                                    (g-name (g-base-info-get-name g-property))
                                    (g-flags (g-property-info-get-flags g-property))
-	                           (g-type (gi-object-property-g-type g-property))
+	                           (g-type (gi-property-g-type g-property))
                                    (scm-name (g-name->scm-name g-name))
                                    (s-name (string->symbol scm-name))
                                    (a-name (string->symbol (string-append "!" scm-name)))
@@ -136,7 +136,7 @@
 ;; which raises an error saying that the setter, the getter or the
 ;; accessor name is not a valid generic function.
 
-(define (gobject-class-get-properties class)
+(define (gobject-class-properties class)
   (if (boolean? (!info class))
       '()
       (let* ((info (!info class))
@@ -152,7 +152,7 @@
 (define-method (compute-slots (class <gobject-class>))
   (let* ((slots (next-method))
          (extra (compute-extra-slots class
-                                     (gobject-class-get-properties class)
+                                     (gobject-class-properties class)
                                      slots)))
     (slot-set! class 'direct-slots
                (append (slot-ref class 'direct-slots)
@@ -167,12 +167,12 @@
                (let* ((slot-opts (slot-definition-options slot-def))
                       (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-                 (g-object-get-property (!g-inst obj) g-property g-type)))
+                 (g-inst-get-property (!g-inst obj) g-property g-type)))
              (lambda (obj val)
                (let* ((slot-opts (slot-definition-options slot-def))
                       (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-               (g-object-set-property (!g-inst obj) g-property val g-type)))))
+               (g-inst-set-property (!g-inst obj) g-property val g-type)))))
       (else
        (next-method)))))
 
@@ -184,6 +184,25 @@
   #;(install-properties!)
   #;(install-signals!))
 
+(define* (g-inst-get-property object property #:optional (g-type #f))
+  (let* ((name (g-base-info-get-name property))
+         (g-type (or g-type
+                     (gi-property-g-type property)))
+	 (g-value (g-value-init g-type)))
+    (g-object-get-property object name g-value)
+    (let ((result (g-value-ref g-value)))
+      (g-value-unset g-value)
+      result)))
+
+(define* (g-inst-set-property object property value #:optional (g-type #f))
+  (let* ((name (g-base-info-get-name property))
+         (g-type (or g-type
+                     (gi-property-g-type property)))
+	 (g-value (g-value-init g-type)))
+    (g-value-set! g-value value)
+    (g-object-set-property object name g-value)
+    (g-value-unset g-value)
+    value))
 
 (define-class <gobject> (<gtype-instance>)
   #:info #t
