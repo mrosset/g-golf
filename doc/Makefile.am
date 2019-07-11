@@ -52,6 +52,7 @@ g_golf_TEXINFOS = \
   api-common-types.texi		\
   api-base-info.texi		\
   api-callable-info.texi	\
+  api-signal-info.texi		\
   api-function-info.texi	\
   api-registered-type-info.texi	\
   api-enum-info.texi		\

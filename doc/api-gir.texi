@@ -30,6 +30,7 @@ Intropection (manual) section, but there are some exceptions, such as
 * Common Types::          GObject Introspection common types. 
 * Base Info::             Base struct for all GITypelib structs.
 * Callable Info::	  Struct representing a callable.
+* Signal Info::		  Struct representing a signal.
 * Function Info::	  Struct representing a function.
 * Registered Type Info::  Struct representing a struct with a GType.
 * Enum Info::		  Struct representing an enumeration and its values.
@@ -52,6 +53,7 @@ Intropection (manual) section, but there are some exceptions, such as
 @include api-common-types.texi
 @include api-base-info.texi
 @include api-callable-info.texi
+@include api-signal-info.texi
 @include api-function-info.texi
 @include api-registered-type-info.texi
 @include api-enum-info.texi
