@@ -39,9 +39,9 @@
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support)
-  #:use-module (g-golf gi)
   #:use-module (g-golf glib)
   #:use-module (g-golf gobject)
+  #:use-module (g-golf gi)
 
   #:use-module (g-golf hl-api gtype)
 
@@ -58,7 +58,7 @@
 
 
 ;;;
-;;; 
+;;; <gobject-class>
 ;;;
 
 
@@ -182,7 +182,7 @@
 (define-method (initialize (class <gobject-class>) initargs)
   (next-method)
   #;(install-properties!)
-  #;(install-signals!))
+  (install-signals! class))
 
 (define* (g-inst-get-property object property #:optional (g-type #f))
   (let* ((name (g-base-info-get-name property))
@@ -203,6 +203,36 @@
     (g-object-set-property object name g-value)
     (g-value-unset g-value)
     value))
+
+
+;;;
+;;; Signals
+;;;
+
+(define (install-signals! class)
+  (let ((signals (gobject-class-signals class)))
+    (dimfi class)
+    (for-each (lambda (info)
+                (dimfi "  " (g-base-info-get-name info)))
+        signals)))
+
+(define (gobject-class-signals class)
+  (if (boolean? (!info class))
+      '()
+      (let* ((info (!info class))
+             (n-signal (g-object-info-get-n-signals info)))
+        (let loop ((i 0)
+                   (result '()))
+          (if (= i n-signal)
+              (reverse! result)
+              (loop (+ i 1)
+                    (cons (g-object-info-get-signal info i)
+                          result)))))))
+
+
+;;;
+;;; <gobject>
+;;;
 
 (define-class <gobject> (<gtype-instance>)
   #:info #t
