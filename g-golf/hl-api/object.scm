@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2018 - 2019
+;;;; Copyright (C) 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -26,27 +26,39 @@
 ;;; Code:
 
 
-(define-module (g-golf hl-api)
+(define-module (g-golf hl-api object)
+  #:use-module (ice-9 match)
+  #:use-module (ice-9 receive)
+  #:use-module (srfi srfi-1)
   #:use-module (oop goops)
-  #:use-module (g-golf support utils)
-  #:use-module (g-golf support modules)
-  #:use-module (g-golf support goops)
+  #:use-module (g-golf support)
+  #:use-module (g-golf gi)
+  #:use-module (g-golf glib)
+  #:use-module (g-golf gobject)
   #:use-module (g-golf hl-api gtype)
   #:use-module (g-golf hl-api gobject)
   #:use-module (g-golf hl-api function)
-  #:use-module (g-golf hl-api object)
 
   #:duplicates (merge-generics
 		replace
 		warn-override-core
 		warn
-		last))
+		last)
+  
+  #:export (gi-import-object))
 
 
-(re-export-public-interface (oop goops)
-                            (g-golf support utils)
-                            (g-golf support goops)
-                            (g-golf hl-api gtype)
-                            (g-golf hl-api gobject)
-                            (g-golf hl-api function)
-                            (g-golf hl-api object))
+#;(g-export )
+
+
+(define (gi-import-object info)
+  (let* ((cm (current-module))
+         (r-type (g-registered-type-info-get-g-type info))
+         (gi-name (g-type-name r-type))
+         (c-name (g-name->class-name gi-name))
+         (c-inst (make-class (list <gobject>)
+                             '()
+                             #:name c-name
+                             #:info info)))
+    (module-define! cm c-name c-inst)
+    (module-g-export! cm `(,c-name))))

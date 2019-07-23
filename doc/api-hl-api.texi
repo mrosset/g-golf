@@ -32,6 +32,7 @@ Reference Manual}), in a way that is largely inspired by
 * GType:: The base of the GObject type system.
 * GObject__:: The G-Golf integration with the GObject object system.
 * Function:: The G-Golf GI function import high level API.
+* Object:: The G-Golf GI object import high level API.
 * Import:: The G-Golf GIR namespace (Typelib) import high level API.
 
 @end menu
@@ -40,4 +41,5 @@ Reference Manual}), in a way that is largely inspired by
 @include api-hl-api-gtype.texi
 @include api-hl-api-gobject.texi
 @include api-hl-api-function.texi
+@include api-hl-api-object.texi
 @include api-hl-api-import.texi

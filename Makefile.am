@@ -72,11 +72,12 @@ SOURCES = \
 	g-golf/gi/type-info.scm			\
 	g-golf/gi/typelib.scm			\
 	g-golf/gi.scm				\
-	g-golf/hl-api.scm			\
 	g-golf/hl-api/gtype.scm			\
 	g-golf/hl-api/gobject.scm		\
 	g-golf/hl-api/function.scm		\
+	g-golf/hl-api/object.scm		\
 	g-golf/hl-api/import.scm		\
+	g-golf/hl-api.scm			\
 	g-golf.scm
 
 # NOCOMP_SOURCES= \

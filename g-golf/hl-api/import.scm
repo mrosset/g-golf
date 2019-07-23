@@ -36,6 +36,7 @@
   #:use-module (g-golf hl-api gtype)
   #:use-module (g-golf hl-api gobject)
   #:use-module (g-golf hl-api function)
+  #:use-module (g-golf hl-api object)
 
   #:duplicates (merge-generics
 		replace
@@ -46,7 +47,6 @@
   #:export (%gi-base-info-types
             %gi-imported-base-info-types
             gi-import
-            gi-import-object
             gi-import-enum
             gi-import-struct))
 
@@ -104,18 +104,6 @@
     (set! %gi-base-info-types (reverse! base-info-types))
     (set! %gi-imported-base-info-types (reverse! imported-base-info-types))
     (values)))
-
-(define (gi-import-object info)
-  (let* ((cm (current-module))
-         (r-type (g-registered-type-info-get-g-type info))
-         (gi-name (g-type-name r-type))
-         (c-name (g-name->class-name gi-name))
-         (c-inst (make-class (list <gobject>)
-                             '()
-                             #:name c-name
-                             #:info info)))
-    (module-define! cm c-name c-inst)
-    (module-g-export! cm `(,c-name))))
 
 (define (gi-import-enum info)
   (let* ((id (g-registered-type-info-get-g-type info))
