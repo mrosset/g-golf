@@ -79,7 +79,7 @@ Autoconf >= 2.69
 @item
 Automake >= 1.14
 @item
-Makeinfo >= 6.3
+Makeinfo >= 6.6
 @item
 @uref{@value{UGUILE}, Guile} >= 2.0.14  [allows 2.2 3.0]
 @item
