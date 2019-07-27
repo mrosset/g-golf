@@ -51,8 +51,7 @@ LT_INIT([disable-static])
 AC_COPYRIGHT(G_GOLF_CONFIGURE_COPYRIGHT)
 AC_CONFIG_SRCDIR([g-golf])
 
-AC_CHECK_PROG(have_makeinfo, makeinfo, yes, no)
-AM_CONDITIONAL(HAVE_MAKEINFO, test "$have_makeinfo" = yes)
+MAKEINFO_PROG([6.6])
 
 GUILE_PKG([3.0 2.2 2.0])
 GUILE_PROGS([2.0.14])
