@@ -5,7 +5,7 @@
 
 
 @node GObject_
-@subsection GObject_
+@subsection GObject
 
 G-Golf GObject low level API.@*
 GObject — The base object type

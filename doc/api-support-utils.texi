@@ -5,7 +5,7 @@
 
 
 @node Utilities_
-@subsection Utilities_
+@subsection Utilities
 
 
 @subheading Procedures

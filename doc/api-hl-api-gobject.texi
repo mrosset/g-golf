@@ -8,7 +8,7 @@
 
 
 @node GObject__
-@subsection GObject__
+@subsection GObject
 
 G-Golf GObject high level API.@*
 The G-Golf integration with the GObject object system.
