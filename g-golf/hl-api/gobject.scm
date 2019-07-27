@@ -182,7 +182,7 @@
 (define-method (initialize (class <gobject-class>) initargs)
   (next-method)
   #;(install-properties!)
-  (install-signals! class))
+  #;(install-signals! class))
 
 (define* (g-inst-get-property object property #:optional (g-type #f))
   (let* ((name (g-base-info-get-name property))
