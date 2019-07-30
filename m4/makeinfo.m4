@@ -53,7 +53,7 @@ AC_DEFUN([MAKEINFO_PROG],
   fi
 
   AC_MSG_CHECKING([for Makeinfo version >= $_makeinfo_required_version])
-  _texinfo_version=`"$MAKEINFO" --version | egrep 'texinfo'`
+  _texinfo_version=`"$MAKEINFO" --version | head -n 1`
   _makeinfo_version=`echo $_texinfo_version | cut -d " " -f 4`
   _makeinfo_major_version=`echo $_makeinfo_version | cut -d . -f 1`
   _makeinfo_minor_version=`echo $_makeinfo_version | cut -d . -f 2`
