@@ -330,27 +330,54 @@
 
 (define (registered-type->gi-type info type)
   (let* ((id (g-registered-type-info-get-g-type info))
-         (name (g-studly-caps-expand (g-type-name id)))
-         (key (string->symbol name)))
+         (gi-name (g-type-name id))
+         (name (string->symbol (g-studly-caps-expand gi-name))))
     (case type
       ((enum)
        (values id
-               key
-               (or (gi-cache-ref 'enum key)
+               name
+               (or (gi-cache-ref 'enum name)
                    (let ((gi-enum (gi-enum-import info)))
-                     (gi-cache-set! 'enum key gi-enum)
+                     (gi-cache-set! 'enum name gi-enum)
                      (gi-enum-import-methods info)
                      gi-enum))))
       ((struct)
        (values id
-               key
-               (or (gi-cache-ref 'boxed key)
+               name
+               (or (gi-cache-ref 'boxed name)
                    (let ((gi-struct (gi-struct-import info)))
-                     (gi-cache-set! 'boxed key gi-struct)
+                     (gi-cache-set! 'boxed name gi-struct)
                      (gi-struct-import-methods info)
                      gi-struct))))
+      ((object)
+       (let ((module (resolve-module '(g-golf hl-api object)))
+             (c-name (g-name->class-name gi-name)))
+         ;; In the code below, it is necessary to make sure c-name has
+         ;; been defined before to (maybe) get its value, because it
+         ;; could be that c-name hasn't been defined yet, due to the
+         ;; unspecified order in which <gobject> subclasses are being
+         ;; imported, and methods defined. For example, which happened
+         ;; while I was working on this, importing "Cutter", it appears
+         ;; that <clutter-actor> may exists, and one of its methods
+         ;; requiring, let's say, a <clutter-constraint> argument, but
+         ;; the <clutter-constraint> class hasn't been imported yet, and
+         ;; therefore its class name is unbound at the time
+         ;; <clutter-actor> methods are being defined. Ultimately, all
+         ;; classes will be defined of course, and the following
+         ;; returned values updated, but only after the call to
+         ;; gi-import is fully completed. Now, these returned values are
+         ;; used to define (gi)arguments, and those are 'permanent'
+         ;; (their definition is, not their value of course), and stored
+         ;; in the arguments slot of <function> instances. Therefore, it
+         ;; is possible to later permanently complete missing classes,
+         ;; while processing (calling) those functions/methods, and only
+         ;; as part of the first call.
+         (values id
+                 c-name
+                 (and (module-variable module c-name)
+                      (module-ref module c-name)))))
       (else
-       (values #f key id)))))
+       (values id name #f)))))
 
 (define (is-registered? type-tag)
   (member type-tag
