@@ -60,4 +60,13 @@
                              #:name c-name
                              #:info info)))
     (module-define! module c-name c-inst)
-    (module-g-export! module `(,c-name))))
+    (module-g-export! module `(,c-name))
+    (gi-object-import-methods info)))
+
+(define (gi-object-import-methods info)
+  (let ((n-method (g-object-info-get-n-methods info)))
+    (do ((i 0
+            (+ i 1)))
+        ((= i n-method))
+      (let ((m-info (g-object-info-get-method info i)))
+        (gi-import-function m-info)))))
