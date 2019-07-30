@@ -50,9 +50,8 @@
 
 #;(g-export )
 
-
 (define (gi-import-object info)
-  (let* ((cm (current-module))
+  (let* ((module (resolve-module '(g-golf hl-api object)))
          (r-type (g-registered-type-info-get-g-type info))
          (gi-name (g-type-name r-type))
          (c-name (g-name->class-name gi-name))
@@ -60,5 +59,5 @@
                              '()
                              #:name c-name
                              #:info info)))
-    (module-define! cm c-name c-inst)
-    (module-g-export! cm `(,c-name))))
+    (module-define! module c-name c-inst)
+    (module-g-export! module `(,c-name))))
