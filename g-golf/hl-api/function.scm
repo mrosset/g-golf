@@ -35,6 +35,8 @@
   #:use-module (g-golf gi)
   #:use-module (g-golf glib)
   #:use-module (g-golf gobject)
+  #:use-module (g-golf hl-api gtype)
+  #:use-module (g-golf hl-api gobject)
 
   #:duplicates (merge-generics
 		replace
@@ -333,7 +335,7 @@
          (gi-name (g-type-name id))
          (name (string->symbol (g-studly-caps-expand gi-name))))
     (case type
-      ((enum)
+      ((enum flags)
        (values id
                name
                (or (gi-cache-ref 'enum name)
@@ -382,6 +384,7 @@
 (define (is-registered? type-tag)
   (member type-tag
           '(enum
+            flags
             interface
             object
             struct
@@ -524,6 +527,11 @@
                      (if e-val
                          (gi-argument-set! gi-argument-in 'v-int e-val)
                          (error "No such symbol " arg " in " gi-type))))
+                  ((flags)
+                   (let ((f-val (gi-gflags->integer gi-type arg)))
+                     (if f-val
+                         (gi-argument-set! gi-argument-in 'v-int f-val)
+                         (error "No such flag(s) " arg " in " gi-type))))
                   ((struct)
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (make-c-struct (!scm-types gi-type)
@@ -572,6 +580,8 @@
                 (case type
                   ((enum)
                    (gi-argument-set! gi-argument-out 'v-int -1))
+                  ((flags)
+                   (gi-argument-set! gi-argument-out 'v-int -1))
                   ((struct)
                    (match type-desc
                      ((type name gi-type g-type)
@@ -607,6 +617,9 @@
              (let ((val (gi-argument-ref gi-arg-res 'v-int)))
                (or (enum->symbol gi-type val)
                    (error "No such " name " value: " val))))
+            ((flags)
+             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
+               (gi-integer->gflags gi-type val)))
             ((struct)
              (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
                              (!scm-types gi-type)))))))
@@ -635,7 +648,12 @@
          ((type name gi-type g-type)
           (case type
             ((enum)
-             (gi-argument-ref gi-argument-out 'v-int))
+             (let ((val (gi-argument-ref gi-argument-out 'v-int)))
+               (or (enum->symbol gi-type val)
+                   (error "No such " name " value: " val))))
+            ((flags)
+             (let ((val (gi-argument-ref gi-argument-out 'v-int)))
+               (gi-integer->gflags gi-type val)))
             ((struct)
              (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
                              (!scm-types gi-type)))))))
