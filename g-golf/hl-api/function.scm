@@ -535,7 +535,10 @@
                   ((struct)
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (make-c-struct (!scm-types gi-type)
-                                                    arg)))))))
+                                                    arg)))
+                  ((object)
+                   (gi-argument-set! gi-argument-in 'v-pointer
+                                     (!g-inst arg)))))))
             ((array
               glist
               gslist
@@ -587,7 +590,11 @@
                      ((type name gi-type g-type)
                       (gi-argument-set! gi-argument-out 'v-pointer
                                         (make-c-struct (!scm-types gi-type)
-                                                       (!init-vals gi-type))))))))))
+                                                       (!init-vals gi-type))))))
+                  ((object)
+                   (warning "Arg out"
+                            "type-tag object - not sure this will ever happen ...")
+                   (gi-argument-set! gi-argument-out 'v-pointer %null-pointer))))))
             ((array
               glist
               gslist
