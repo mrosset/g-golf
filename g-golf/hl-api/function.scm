@@ -103,14 +103,14 @@
          (scm-name (g-name->scm-name gi-name))
          (name (string->symbol scm-name)))
     (unless (gi-cache-ref 'function name)
-      (let* ((cm (current-module))
+      (let* ((module (resolve-module '(g-golf hl-api function)))
              (function (make <function> #:info info))
              (name (!name function)))
         ;; unlike one may think 'at first glance', we don't unref the function
         ;; info, it is needed by g-function-info-invoke ...
         ;; (g-base-info-unref info)
         (gi-cache-set! 'function name function)
-        (module-define! cm
+        (module-define! module
                         name
                         (lambda ( . args)
                           (let ((info info)
@@ -155,7 +155,7 @@
                                   ((void) (values))
                                   (else
                                    (return-value->scm function)))))))
-        (module-g-export! cm `(,name))))))
+        (module-g-export! module `(,name))))))
 
 (define-class <function> ()
   (info #:accessor !info)
