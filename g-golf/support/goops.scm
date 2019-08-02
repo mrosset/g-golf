@@ -42,7 +42,9 @@
   #:use-module (ice-9 receive)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
+  #:use-module (oop goops describe)
   #:use-module (g-golf support g-export)
+  #:use-module (g-golf support modules)
 
   #:duplicates (merge-generics
 		replace
@@ -56,7 +58,12 @@
 
 (g-export class-direct-virtual-slots
 	  class-virtual-slots
-	  describe)
+	  #;describe)
+
+
+(eval-when (expand load eval)
+  (re-export-public-interface (oop goops)
+                              (oop goops describe)))
 
 
 (define-syntax define-method*
@@ -85,7 +92,7 @@
 		     slot-definition))
       (class-slots c)))
 
-(define-method* (describe (self <object>) #:key (port #t))
+#;(define-method* (describe (self <object>) #:key (port #t))
   (format port "~S - instance of ~A~%"
 	  self
 	  (class-name (class-of self)))

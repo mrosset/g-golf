@@ -28,6 +28,7 @@
 
 (define-module (g-golf gi)
   #:use-module (oop goops)
+  #:use-module (oop goops describe)
   #:use-module (ice-9 binary-ports)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
@@ -60,6 +61,7 @@
 
 (eval-when (expand load eval)
   (re-export-public-interface (oop goops)
+                              (oop goops describe)
 			      (ice-9 binary-ports)
 			      (rnrs bytevectors)
 			      (system foreign)

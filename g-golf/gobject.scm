@@ -36,6 +36,7 @@
 
 (define-module (g-golf gobject)
   #:use-module (oop goops)
+  #:use-module (oop goops describe)
   #:use-module (system foreign)
   #:use-module (rnrs bytevectors)
   #:use-module (rnrs arithmetic bitwise)
@@ -61,6 +62,7 @@
 
 (eval-when (expand load eval)
   (re-export-public-interface (oop goops)
+                              (oop goops describe)
 			      (system foreign)
 			      (rnrs bytevectors)
 			      (rnrs arithmetic bitwise)

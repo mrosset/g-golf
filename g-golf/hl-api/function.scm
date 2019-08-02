@@ -210,7 +210,7 @@
                     'gi-args-out gi-args-out
                     'gi-arg-res (make-gi-argument))))))
 
-(define-method* (describe (self <function>) #:key (port #t))
+#;(define-method* (describe (self <function>) #:key (port #t))
   (next-method self #:port port)
   (if (boolean? port)
       (newline)
@@ -220,6 +220,14 @@
               (if (boolean? port)
                   (newline)
                   (newline port)))
+      (!arguments self)))
+
+(define-method (describe (self <function>))
+  (next-method)
+  (newline)
+  (for-each (lambda (argument)
+              (describe argument)
+              (newline))
       (!arguments self)))
 
 (define-class <argument> ()
@@ -292,7 +300,7 @@
   (and (eq? (!type-tag self 'interface))
        (!type-desc self)))
 
-(define-method* (describe (self <argument>) #:key (port #t))
+#;(define-method* (describe (self <argument>) #:key (port #t))
   (next-method self #:port port))
 
 (define (check-n-arg n-arg-in args)
