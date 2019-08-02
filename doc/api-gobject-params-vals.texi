@@ -27,6 +27,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-uint}
 @item @ref{g-value-get-float}
 @item @ref{g-value-set-float}
+@item @ref{g-value-get-double}
+@item @ref{g-value-set-double}
 @item @ref{g-value-get-enum}
 @item @ref{g-value-set-enum}
 @item @ref{g-value-get-string}
@@ -188,6 +190,24 @@ Gets and returns the content of @var{g-value}.
 Returns nothing.
 
 Sets the content of @var{g-value} to @var{float}.
+@end deffn
+
+
+@anchor{g-value-get-double}
+@deffn Procedure g-value-get-double g-value
+
+Returns a double.
+
+Gets and returns the content of @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-double}
+@deffn Procedure g-value-set-double g-value double
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{double}.
 @end deffn
 
 

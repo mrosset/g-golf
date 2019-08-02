@@ -59,6 +59,8 @@
             g-value-set-boolean
             g-value-get-float
             g-value-set-float
+            g-value-get-double
+            g-value-set-double
             g-value-get-enum
             g-value-get-string
             g-value-set-string
@@ -101,6 +103,8 @@
      (g-value-get-int g-value))
     ((float)
      (g-value-get-float g-value))
+    ((double)
+     (g-value-get-double g-value))
     ((enum)
      (g-value-get-enum g-value))
     ((string)
@@ -124,6 +128,8 @@
      (g-value-set-int g-value value))
     ((float)
      (g-value-set-float g-value value))
+    ((double)
+     (g-value-set-double g-value value))
     ((enum)
      (g-value-set-enum g-value value))
     ((string)
@@ -166,6 +172,12 @@
 
 (define (g-value-set-float g-value float)
   (g_value_set_float g-value float))
+
+(define (g-value-get-double g-value)
+  (g_value_get_double g-value))
+
+(define (g-value-set-double g-value double)
+  (g_value_set_double g-value double))
 
 (define (g-value-get-gi-enum g-value)
   (let* ((id (g-value->g-type-id g-value))
@@ -296,6 +308,19 @@
 				    %libgobject)
                       (list '*
                             float)))
+
+(define g_value_get_double
+  (pointer->procedure double
+                      (dynamic-func "g_value_get_double"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_double
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_double"
+				    %libgobject)
+                      (list '*
+                            double)))
 
 (define g_value_get_enum
   (pointer->procedure int

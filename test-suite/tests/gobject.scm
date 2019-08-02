@@ -91,6 +91,14 @@
   (let ((g-value (g-value-init (symbol->g-type 'float))))
     (assert (g-value-set! g-value 5.0))))
 
+(define-method (test-g-value-get-double (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'double))))
+    (assert (g-value-ref g-value))))
+
+(define-method (test-g-value-set-double (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init (symbol->g-type 'double))))
+    (assert (g-value-set! g-value 5.0))))
+
 (define-method (test-g-value-get-enum (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init %gtype
                                #;(symbol->g-type 'enum))))
