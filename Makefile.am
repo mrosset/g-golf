@@ -23,8 +23,6 @@
 
 include $(top_srcdir)/am/guile.mk
 
-moddir=$(GUILE_GLOBAL_SITE)
-godir=$(GUILE_SITE_CCACHE)
 
 pkgconfigdir=$(libdir)/pkgconfig
 pkgconfig_DATA=meta/g-golf-1.0.pc
