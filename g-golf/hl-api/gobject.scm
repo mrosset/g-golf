@@ -159,6 +159,22 @@
                        extra))
     (append slots extra)))
 
+(define* (is-readable? slot #:optional (slot-opts #f))
+  (let* ((slot-opts (or slot-opts
+                        (slot-definition-options slot)))
+         (g-flags (get-keyword #:g-flags slot-opts #f)))
+    (and g-flags
+         (or (memq 'readable g-flags)
+             (memq 'readwrite g-flags)))))
+
+(define* (is-writable? slot #:optional (slot-opts #f))
+  (let* ((slot-opts (or slot-opts
+                        (slot-definition-options slot)))
+         (g-flags (get-keyword #:g-flags slot-opts #f)))
+    (and g-flags
+         (or (memq 'writable g-flags)
+             (memq 'readwrite g-flags)))))
+
 (define-method (compute-get-n-set (class <gobject-class>) slot-def)
   (let ((name (slot-definition-name slot-def)))
     (case (slot-definition-allocation slot-def)
@@ -167,12 +183,16 @@
                (let* ((slot-opts (slot-definition-options slot-def))
                       (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-                 (g-inst-get-property (!g-inst obj) g-property g-type)))
+                 (if (is-readable? slot-def slot-opts)
+                     (g-inst-get-property (!g-inst obj) g-property g-type)
+                     (error "Unreadable slot:" name))))
              (lambda (obj val)
                (let* ((slot-opts (slot-definition-options slot-def))
                       (g-property (get-keyword #:g-property slot-opts #f))
                       (g-type (get-keyword #:g-type slot-opts #f)))
-               (g-inst-set-property (!g-inst obj) g-property val g-type)))))
+                 (if (is-writable? slot-def slot-opts)
+                     (g-inst-set-property (!g-inst obj) g-property val g-type)
+                     (error "Unwritable slot:" name))))))
       (else
        (next-method)))))
 
@@ -237,3 +257,34 @@
 (define-class <gobject> (<gtype-instance>)
   #:info #t
   #:metaclass <gobject-class>)
+
+(define safe-class-name
+  (@@ (oop goops describe) safe-class-name))
+
+(define-method (describe (x <gobject>))
+  (format #t "~S is an instance of class ~A~%"
+	  x
+          (safe-class-name (class-of x)))
+  (format #t "Slots are: ~%")
+  (for-each (lambda (slot)
+	      (let ((name (slot-definition-name slot))
+                    (slot-opts (slot-definition-options slot)))
+                (case (slot-definition-allocation slot)
+                  ((#:g-property)
+                   (if (is-readable? slot slot-opts)
+                       (format #t "     ~S = ~A~%"
+			       name
+			       (if (slot-bound? x name)
+			           (format #f "~S" (slot-ref x name))
+			           "#<unbound>"))
+                       (format #t "     ~S = n/a [the slot is ~S only]~%"
+			       name
+                               (get-keyword #:g-flags slot-opts #f))))
+                  (else
+		   (format #t "     ~S = ~A~%"
+			   name
+			   (if (slot-bound? x name)
+			       (format #f "~S" (slot-ref x name))
+			       "#<unbound>"))))))
+	    (class-slots (class-of x)))
+  *unspecified*)
