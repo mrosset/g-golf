@@ -31,6 +31,8 @@
   #:use-module (g-golf init)
 
   #:export (g-main-loop-new
+            g-main-loop-run
+            g-main-loop-quit
             g-idle-source-new))
 
 
@@ -38,9 +40,15 @@
 ;;; Glib Low level API
 ;;;
 
-(define (g-main-loop-new context is-running?)
+(define* (g-main-loop-new #:optional (context #f) (is-running? #f))
   (g_main_loop_new (if context context %null-pointer)
                    (if is-running? 1 0)))
+
+(define (g-main-loop-run loop)
+  (g_main_loop_run loop))
+
+(define (g-main-loop-quit loop)
+  (g_main_loop_quit loop))
 
 (define (g-idle-source-new)
   (g_idle_source_new))
@@ -56,6 +64,18 @@
 				    %libglib)
                       (list '*		;; context
                             int)))	;; is-running?
+
+(define g_main_loop_run
+  (pointer->procedure void
+                      (dynamic-func "g_main_loop_run"
+				    %libglib)
+                      (list '*)))	;; loop
+
+(define g_main_loop_quit
+  (pointer->procedure void
+                      (dynamic-func "g_main_loop_quit"
+				    %libglib)
+                      (list '*)))	;; loop
 
 (define g_idle_source_new
   (pointer->procedure '*

@@ -27,6 +27,7 @@
 
 
 (define-module (tests glib)
+  #:use-module (ice-9 threads)
   #:use-module (oop goops)
   #:use-module (unit-test)
   #:use-module (g-golf))
@@ -77,6 +78,10 @@
 
 (define-method (test-main-loop (self <g-golf-test-glib>))
   (assert (g-main-loop-new #f #f))
+  (let* ((loop (g-main-loop-new))
+         (thread (make-thread g-main-loop-run loop)))
+    (g-main-loop-quit loop)
+    (cancel-thread thread))
   (assert (g-idle-source-new)))
 
 

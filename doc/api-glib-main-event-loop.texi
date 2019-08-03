@@ -19,6 +19,8 @@ The Main Event Loop — manages all available sources of events
 @indentedblock
 @table @code
 @item @ref{g-main-loop-new}
+@item @ref{g-main-loop-run}
+@item @ref{g-main-loop-quit}
 @item @ref{g-idle-source-new}
 @end table
 @end indentedblock
@@ -57,7 +59,7 @@ section from the Glib reference manual for a complete description.
 @subheading Procedures
 
 @anchor{g-main-loop-new}
-@deffn Procedure g-main-loop-new context is-running?
+@deffn Procedure g-main-loop-new [context #f] [is-running? #f]
 
 Returns a pointer to a new @code{GMainLoop}.
 
@@ -68,6 +70,31 @@ The @var{context} must be a pointer to a @code{GMainContext} of
 @var{is-running?} is @code{#t}, it indicates that the loop is
 running. This is not very important since calling @code{g-main-loop-run}
 will set this to @code{#t} anyway.
+@end deffn
+
+
+@anchor{g-main-loop-run}
+@deffn Procedure g-main-loop-run loop
+
+Returns nothing.
+
+Runs a main loop until @ref{g-main-loop-quit} is called on the
+@var{loop}. If this is called for the thread of the loop's
+@code{GMainContext}, it will process events from the @var{loop},
+otherwise it will simply wait.
+@end deffn
+
+
+@anchor{g-main-loop-quit}
+@deffn Procedure g-main-loop-quit loop
+
+Returns nothing.
+
+Stops a @code{GMainLoop} from running. Any calls to
+@ref{g-main-loop-run} for the @var{loop} will return.
+
+Note that sources that have already been dispatched when
+@code{g-main-loop-quit} is called will still be executed.
 @end deffn
 
 
