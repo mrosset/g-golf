@@ -48,12 +48,12 @@
     #:gi-name "GParamFlags"
     #:enum-set '(readable
                  writable
-                 readwrite
+                 #;readwrite
                  construct
                  construct-only
                  lax-validation
                  static-name
-                 private
+                 #;private
                  static-nick
                  static-blurb
                  explicit-notify
