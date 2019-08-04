@@ -53,6 +53,7 @@
 
 
 (g-export !info
+          !derived
           !namespace
           !gtype-id
           !gtype-name
@@ -70,6 +71,8 @@
 (define-class <gtype-class> (<class>)
   (info #:accessor !info
         #:init-keyword #:info)
+  (derived #:accessor !derived
+           #:init-keyword #:derived #:init-value #f)
   (namespace #:accessor !namespace
 	     #:allocation #:virtual
 	     #:slot-ref (lambda (self)

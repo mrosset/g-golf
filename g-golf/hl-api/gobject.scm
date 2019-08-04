@@ -137,7 +137,8 @@
 ;; accessor name is not a valid generic function.
 
 (define (gobject-class-properties class)
-  (if (boolean? (!info class))
+  (if (or (boolean? (!info class))
+          (!derived class))
       '()
       (let* ((info (!info class))
              (n-prop (g-object-info-get-n-properties info)))
@@ -199,7 +200,17 @@
   (memq <gobject> (class-precedence-list class)))
 
 (define-method (initialize (class <gobject-class>) initargs)
-  (next-method)
+  (let ((info (get-keyword #:info initargs #f)))
+    (next-method
+     class
+     (if info
+         (cons* #:info info initargs)
+         (cons* #:derived #t
+                #:info (!info (find gobject-class?
+                                    (apply append
+                                           (map class-precedence-list
+                                             (get-keyword #:dsupers initargs '())))))
+                initargs))))
   #;(install-properties!)
   #;(install-signals! class))
 
