@@ -164,16 +164,15 @@
                         (slot-definition-options slot)))
          (g-flags (get-keyword #:g-flags slot-opts #f)))
     (and g-flags
-         (or (memq 'readable g-flags)
-             (memq 'readwrite g-flags)))))
+         (memq 'readable g-flags))))
 
 (define* (is-writable? slot #:optional (slot-opts #f))
   (let* ((slot-opts (or slot-opts
                         (slot-definition-options slot)))
          (g-flags (get-keyword #:g-flags slot-opts #f)))
     (and g-flags
-         (or (memq 'writable g-flags)
-             (memq 'readwrite g-flags)))))
+         (memq 'writable g-flags)
+         (not (memq 'construct-only g-flags)))))
 
 (define-method (compute-get-n-set (class <gobject-class>) slot-def)
   (let ((name (slot-definition-name slot-def)))
