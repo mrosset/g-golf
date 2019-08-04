@@ -94,15 +94,15 @@
          (init-keywords '())
          (extra-slots (filter-map
                           (lambda (g-property)
-                            (let* ((cm (current-module))
+                            (let* ((module (resolve-module '(g-golf hl-api gobject)))
                                    (g-name (g-base-info-get-name g-property))
                                    (g-flags (g-property-info-get-flags g-property))
 	                           (g-type (gi-property-g-type g-property))
                                    (scm-name (g-name->scm-name g-name))
                                    (s-name (string->symbol scm-name))
                                    (a-name (string->symbol (string-append "!" scm-name)))
-                                   (a-inst (if (module-variable cm a-name)
-                                               (module-ref cm a-name)
+                                   (a-inst (if (module-variable module a-name)
+                                               (module-ref module a-name)
                                                (make-accessor a-name)))
                                    (a-setter setter)
                                    (k-name (with-input-from-string
@@ -117,8 +117,8 @@
                                              #:g-flags g-flags
                                              #:allocation #:g-property
                                              #:init-keyword k-name)))
-                                 (module-g-export! cm `(,a-name))
-                                 (module-define! cm a-name a-inst)
+                                 (module-g-export! module `(,a-name))
+                                 (module-define! module a-name a-inst)
                                  (add-method! a-inst
                                               (compute-getter-method class slot))
                                  (add-method! (a-setter a-inst)

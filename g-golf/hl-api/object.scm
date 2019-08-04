@@ -51,7 +51,7 @@
 #;(g-export )
 
 (define (gi-import-object info)
-  (let* ((module (resolve-module '(g-golf hl-api object)))
+  (let* ((module (resolve-module '(g-golf hl-api gobject)))
          (r-type (g-registered-type-info-get-g-type info))
          (gi-name (g-type-name r-type))
          (c-name (g-name->class-name gi-name))
