@@ -100,25 +100,28 @@
 	                           (g-type (gi-property-g-type g-property))
                                    (scm-name (g-name->scm-name g-name))
                                    (s-name (string->symbol scm-name))
-                                   (a-name (string->symbol (string-append "!" scm-name)))
-                                   (a-inst (if (module-variable module a-name)
-                                               (module-ref module a-name)
-                                               (make-accessor a-name)))
-                                   (a-setter setter)
                                    (k-name (with-input-from-string
-                                               (string-append "#:" scm-name) read)))
+                                               (string-append "#:" scm-name)
+                                             read)))
                               (and #;(has-valid-property-flag? g-flags)
                                (not (has-slot? scm-name slots))
                                g-type
-                               (let ((slot (make <slot>
-                                             #:name s-name
-                                             #:g-property g-property
-                                             #:g-type g-type
-                                             #:g-flags g-flags
-                                             #:allocation #:g-property
-                                             #:init-keyword k-name)))
-                                 (module-g-export! module `(,a-name))
-                                 (module-define! module a-name a-inst)
+                               (let* ((slot (make <slot>
+                                              #:name s-name
+                                              #:g-property g-property
+                                              #:g-type g-type
+                                              #:g-flags g-flags
+                                              #:allocation #:g-property
+                                              #:init-keyword k-name))
+                                      (a-name (string->symbol
+                                               (string-append "!" scm-name)))
+                                      (a-inst (if (module-variable module a-name)
+                                                  (module-ref module a-name)
+                                                  (let ((a-inst (make-accessor a-name)))
+                                                    (module-g-export! module `(,a-name))
+                                                    (module-set! module a-name a-inst)
+                                                    a-inst)))
+                                      (a-setter setter))
                                  (add-method! a-inst
                                               (compute-getter-method class slot))
                                  (add-method! (a-setter a-inst)
