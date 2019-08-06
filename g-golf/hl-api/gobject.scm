@@ -83,10 +83,6 @@
              (loop rest)))))))
 
 (define (compute-extra-slots class g-properties slots)
-  ;; there is a bug in goops, and till it's solved, it is not possible
-  ;; to specify a getter, a setter nor an accessor to 'make <slot>. [*]
-  ;; to circumvent this, we therefore 'manually' perform the actions
-  ;; needed to acheive the same result (see make-accessor, add-method!.
   (let* ((c-name (class-name class))
          ;; we need to cache extra slots init-keywords, needed by the
          ;; initialize <gtype-instance> method - this is explained in a
@@ -106,14 +102,7 @@
                               (and #;(has-valid-property-flag? g-flags)
                                (not (has-slot? scm-name slots))
                                g-type
-                               (let* ((slot (make <slot>
-                                              #:name s-name
-                                              #:g-property g-property
-                                              #:g-type g-type
-                                              #:g-flags g-flags
-                                              #:allocation #:g-property
-                                              #:init-keyword k-name))
-                                      (a-name (string->symbol
+                               (let* ((a-name (string->symbol
                                                (string-append "!" scm-name)))
                                       (a-inst (if (module-variable module a-name)
                                                   (module-ref module a-name)
@@ -121,11 +110,14 @@
                                                     (module-g-export! module `(,a-name))
                                                     (module-set! module a-name a-inst)
                                                     a-inst)))
-                                      (a-setter setter))
-                                 (add-method! a-inst
-                                              (compute-getter-method class slot))
-                                 (add-method! (a-setter a-inst)
-                                              (compute-setter-method class slot))
+                                      (slot (make <slot>
+                                              #:name s-name
+                                              #:g-property g-property
+                                              #:g-type g-type
+                                              #:g-flags g-flags
+                                              #:allocation #:g-property
+                                              #:accessor a-inst
+                                              #:init-keyword k-name)))
                                  (push! k-name init-keywords)
                                  slot))))
                           g-properties)))
@@ -133,11 +125,6 @@
                    c-name
                    (reverse! init-keywords))
     extra-slots))
-
-;; [*] actually to be precise, (make <slot> ...) itself won't
-;; complain, but later on, the class definition calls compute-slots,
-;; which raises an error saying that the setter, the getter or the
-;; accessor name is not a valid generic function.
 
 (define (gobject-class-properties class)
   (if (or (boolean? (!info class))
