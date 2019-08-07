@@ -25,7 +25,8 @@ TESTS = \
 	tests/support.scm	\
 	tests/glib.scm		\
 	tests/gobject.scm	\
-	tests/gi.scm
+	tests/gi.scm		\
+	tests/hl-api.scm
 
 
 TEST_EXTENSIONS = .scm
