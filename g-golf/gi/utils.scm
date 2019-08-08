@@ -139,7 +139,7 @@
 
 
 ;;;
-;;; gi->scm procedures
+;;; scm->gi procedures
 ;;;
 
 (define (scm->gi value type)
