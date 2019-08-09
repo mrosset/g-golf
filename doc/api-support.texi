@@ -17,6 +17,7 @@ support goops))}, ...
 * G-export::
 * Enum::
 * Struct::
+* Union::
 * Utilities_::
 @end menu
 
@@ -29,4 +30,5 @@ support goops))}, ...
 
 @include api-support-enum.texi
 @include api-support-struct.texi
+@include api-support-union.texi
 @include api-support-utils.texi

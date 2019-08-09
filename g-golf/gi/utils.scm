@@ -53,7 +53,7 @@
 
 
 (define %gi-pointer-size (sizeof '*))
-  
+
 (define (gi-pointer-new)
   ;; (bytevector->pointer (make-bytevector %gi-pointer-size 0))
   ;; The above would work iif none of Glib, Gobject and GI would ever call
@@ -157,6 +157,25 @@
 
 (define (scm->gi-string value)
   (string->pointer value))
+
+(define (scm->gi-strings lst)
+  (if (nuul? lst)
+      %null-pointer
+      (let* ((n-string (length lst))
+             (array (make-bytevector (* (+ n-string 1)
+                                        %gi-pointer-size)
+                                     0))
+             (ptr (bytevector->pointer array)))
+        (let loop ((ptr ptr)
+                   (lst lst))
+          (if (null? lst)
+              fill the ptr location with %null-pointer
+              (match lst
+                ((str . rest)
+                 fill the ptr location with (string->pointer str)
+                 (loop (increase ptr)
+                       rest)))))
+        ptr)))
 
 (define (scm->gi-pointer value)
   (if value
