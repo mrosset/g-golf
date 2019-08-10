@@ -56,6 +56,13 @@
                                       '(is-constructor))
                   2)))
 
+(define-method (test-utils-strings (self <g-golf-test-gi>))
+  (let ((a '("the" "bluefox" "and" "the" "red" "bear")))
+    (assert-true
+     (let ((b (gi->scm (scm->gi a 'strings) 'strings)))
+       (and (= (length a) (length b))
+            (every string=? a b))))))
+
 
 ;;;
 ;;; Repository

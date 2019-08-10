@@ -34,6 +34,7 @@
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-60)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support bytevector)
   #:use-module (g-golf glib mem-alloc)
 
   #:export (%gi-pointer-size
@@ -116,15 +117,16 @@
       (pointer->string pointer)))
 
 (define (gi-strings->scm pointer)
-  (define (gi-strings->scm-1 pointer result)
-    (receive (d-pointer)
-	(dereference-pointer pointer)
-      (if (null-pointer? d-pointer)
-          (reverse! result)
-          (gi-strings->scm-1 (gi-pointer-inc pointer)
-                             (cons (pointer->string d-pointer)
-                                   result)))))
-  (gi-strings->scm-1 pointer '()))
+  (letrec ((gi-strings->scm-1
+            (lambda (pointer result)
+              (receive (d-pointer)
+	          (dereference-pointer pointer)
+                (if (null-pointer? d-pointer)
+                    (reverse! result)
+                    (gi-strings->scm-1 (gi-pointer-inc pointer)
+                                       (cons (pointer->string d-pointer)
+                                             result)))))))
+    (gi-strings->scm-1 pointer '())))
 
 (define (gi-csv-string->scm pointer)
   (if (null-pointer? pointer)
@@ -146,7 +148,7 @@
   (case type
     ((boolean) (scm->gi-boolean value))
     ((string) (scm->gi-string value))
-    #;((strings) (scm->gi-strings value))
+    ((strings) (scm->gi-strings value))
     #;((csv-string) (scm->gi-cvs-string value))
     ((pointer) (scm->gi-pointer value))
     (else
@@ -159,21 +161,20 @@
   (string->pointer value))
 
 (define (scm->gi-strings lst)
-  (if (nuul? lst)
+  (if (null? lst)
       %null-pointer
-      (let* ((n-string (length lst))
-             (array (make-bytevector (* (+ n-string 1)
-                                        %gi-pointer-size)
-                                     0))
-             (ptr (bytevector->pointer array)))
+      (let* ((p-size %gi-pointer-size)
+             (n-string (length lst))
+             (bv (make-bytevector (* (+ n-string 1) p-size) 0))
+             (ptr (bytevector->pointer bv)))
         (let loop ((ptr ptr)
                    (lst lst))
           (if (null? lst)
-              fill the ptr location with %null-pointer
+              (bv-ptr-set! ptr %null-pointer)
               (match lst
                 ((str . rest)
-                 fill the ptr location with (string->pointer str)
-                 (loop (increase ptr)
+                 (bv-ptr-set! ptr (string->pointer str))
+                 (loop (gi-pointer-inc ptr)
                        rest)))))
         ptr)))
 

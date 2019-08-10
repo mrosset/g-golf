@@ -36,6 +36,17 @@
 
 
 ;;;
+;;; Bytevector
+;;;
+
+(define-method (test-bytevector (self <g-golf-test-support>))
+  (let* ((bv (make-bytevector (sizeof '*) 0))
+         (ptr (bytevector->pointer bv)))
+    (assert (bv-ptr-set! ptr %null-pointer))
+    (assert-true (eq? (bv-ptr-ref ptr) %null-pointer))))
+
+
+;;;
 ;;; Goops
 ;;;
 
