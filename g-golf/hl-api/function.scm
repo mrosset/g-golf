@@ -29,6 +29,7 @@
 (define-module (g-golf hl-api function)
   #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
+  #:use-module (ice-9 format)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support)
@@ -547,8 +548,19 @@
                   ((object)
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (!g-inst arg)))))))
-            ((array
-              glist
+            ((array)
+             (match (map cdr type-desc)
+               ((array fixed-size is-zero-terminated param-n param-tag)
+                (if (and (eq? array 'c)
+                         (= fixed-size -1)
+                         is-zero-terminated
+                         (= param-n -1)
+                         (eq? param-tag 'utf8))
+                    (gi-argument-set! gi-argument-in 'v-pointer
+                                      (scm->gi arg 'strings))
+                    (warning "Unimplemented type - array;"
+                             (format #f "~S" type-desc))))))
+            ((glist
               gslist
               ghash
               error)
@@ -603,8 +615,18 @@
                    (warning "Arg out"
                             "type-tag object - not sure this will ever happen ...")
                    (gi-argument-set! gi-argument-out 'v-pointer %null-pointer))))))
-            ((array
-              glist
+            ((array)
+             (match (map cdr type-desc)
+               ((array fixed-size is-zero-terminated param-n param-tag)
+                (if (and (eq? array 'c)
+                         (= fixed-size -1)
+                         is-zero-terminated
+                         (= param-n -1)
+                         (eq? param-tag 'utf8))
+                    (gi-argument-set! gi-argument-out 'v-pointer %null-pointer)
+                    (warning "Unimplemented type - array;"
+                             (format #f "~S" type-desc))))))
+            ((glist
               gslist
               ghash
               error)
@@ -618,35 +640,6 @@
              ;; not sure, but this shouldn't arm.
              (gi-argument-set! gi-argument-out 'v-ulong 0)))
           (loop (+ i 1))))))
-
-(define (return-value->scm function)
-  (let ((return-type (!return-type function))
-        (type-desc (!type-desc function))
-        (gi-arg-res (!gi-arg-res function)))
-    (case return-type
-      ((interface)
-       (match type-desc
-         ((type name gi-type g-type)
-          (case type
-            ((enum)
-             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
-               (or (enum->symbol gi-type val)
-                   (error "No such " name " value: " val))))
-            ((flags)
-             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
-               (gi-integer->gflags gi-type val)))
-            ((struct)
-             (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
-                             (!scm-types gi-type)))))))
-      ((array
-        glist
-        gslist
-        ghash
-        error)
-       (warning "Unimplemented type" (symbol->string return-type)))
-      (else
-       (gi-argument-ref gi-arg-res
-                        (gi-type-tag->field return-type))))))
 
 (define (arg-out->scm arg-out)
   (let* ((type-tag (!type-tag arg-out))
@@ -672,19 +665,71 @@
             ((struct)
              (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
                              (!scm-types gi-type)))))))
-      ((array
-        glist
+      ((array)
+       (match (map cdr type-desc)
+         ((array fixed-size is-zero-terminated param-n param-tag)
+          (if (and (eq? array 'c)
+                   (= fixed-size -1)
+                   is-zero-terminated
+                   (= param-n -1)
+                   (eq? param-tag 'utf8))
+              (gi->scm (gi-argument-ref gi-argument-out 'v-pointer) 'strings)
+              (warning "Unimplemented type - array;"
+                       (format #f "~S" type-desc))))))
+      ((glist
         gslist
         ghash
         error)
-       (warning "Unimplemented type" (symbol->string type-tag))
-       (gi-argument-ref gi-argument-out 'v-pointer))
+       (warning "Unimplemented type" (symbol->string type-tag)))
       ((utf8
         filename)
        ;; not sure, but this shouldn't arm.
        (gi->scm (gi-argument-ref gi-argument-out 'v-pointer) 'string))
       (else
        (gi-argument-ref gi-argument-out field)))))
+
+(define (return-value->scm function)
+  (let ((return-type (!return-type function))
+        (type-desc (!type-desc function))
+        (gi-arg-res (!gi-arg-res function)))
+    (case return-type
+      ((interface)
+       (match type-desc
+         ((type name gi-type g-type)
+          (case type
+            ((enum)
+             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
+               (or (enum->symbol gi-type val)
+                   (error "No such " name " value: " val))))
+            ((flags)
+             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
+               (gi-integer->gflags gi-type val)))
+            ((struct)
+             (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
+                             (!scm-types gi-type)))))))
+      ((array)
+       (match (map cdr type-desc)
+         ((array fixed-size is-zero-terminated param-n param-tag)
+          (if (and (eq? array 'c)
+                   (= fixed-size -1)
+                   is-zero-terminated
+                   (= param-n -1)
+                   (eq? param-tag 'utf8))
+              (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) 'strings)
+              (warning "Unimplemented type - array;"
+                       (format #f "~S" type-desc))))))
+      ((glist
+        gslist
+        ghash
+        error)
+       (warning "Unimplemented type" (symbol->string return-type)))
+      ((utf8
+        filename)
+       ;; not sure, but this shouldn't arm.
+       (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) 'string))
+      (else
+       (gi-argument-ref gi-arg-res
+                        (gi-type-tag->field return-type))))))
 
 
 ;;;
