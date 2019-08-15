@@ -23,7 +23,7 @@
 
 ;;; Commentary:
 
-;; this file is a copy of (grip utils)
+;; this file is partially a copy of (grip utils)
 ;; http://www.nongnu.org/grip/
 
 ;;; Code:
@@ -42,6 +42,7 @@
 	    abort
 	    and-l
 	    identities
+            flatten
             g-studly-caps-expand
 	    %g-name-transform-exceptions
             %g-studly-caps-expand-token-exceptions
@@ -124,6 +125,16 @@
 (define (identities . args)
   args)
 
+(define (flatten lst)
+  (reverse! (let loop ((lst lst)
+                       (result '()))
+              (match lst
+                (() result)
+                ((x . rests)
+                 (if (pair? x)
+                     (loop rests (append (loop x '()) result))
+                     (loop rests (cons x result))))))))
+
 
 ;;;
 ;;; Name Transformation
@@ -150,12 +161,9 @@
   (or (assoc-ref %g-name-transform-exceptions name)
       (g-studly-caps-expand name)))
 
-
-;; "GtkAccelGroup" => <gtk-accel-group>
-;; "GSource*" => <g-source*>
 (define (g-name->class-name name)
   (string->symbol (string-append "<"
-				 (g-studly-caps-expand name)
+				 (g-name->scm-name name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well
@@ -173,26 +181,32 @@
              (result '()))
     (match tokens
       (()
-       (string-join result "-"))
+       (string-join (reverse! (flatten result)) "-"))
       ((token . rest)
        (loop rest
-             (append (caps-expand-token token)
-                     result))))))
+             (cons (caps-expand-token token)
+                   result))))))
 
 (define (caps-expand-token token)
-  (or (assoc-ref %g-studly-caps-expand-token-exceptions token)
-      (caps-expand-token-1 token '())))
+  ;; that token might be an empty string may happen, if the name received
+  ;; and split by the caller has a trailing character that is precisely
+  ;; the character used to split.  In these cases, we wish a trailing
+  ;; #\- to.
+  (if (string-null? token)
+      token
+      (or (assoc-ref %g-studly-caps-expand-token-exceptions token)
+          (caps-expand-token-1 token '()))))
 
 (define (caps-expand-token-1 token subtokens)
   (if (string-null? token)
-      (reverse! subtokens)
+      subtokens
       (receive (idx exception)
           (any-caps-expand-token-exception token)
         (if exception
             (caps-expand-token-1 (substring token idx)
                                  (cons exception subtokens))
-            (reverse! (cons (caps-expand-token-2 token)
-                            subtokens))))))
+            (cons (caps-expand-token-2 token)
+                  subtokens)))))
 
 (define (caps-expand-token-2 token)
   (do ((idx (- (string-length token) 1)
