@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -85,5 +85,22 @@
     (assert-true (enum->name enum 1))
     (assert-false (enum->name enum 2))
     (assert (enum->names enum))))
+
+;;;
+;;; Utils
+;;;
+
+(define-method (test-utils (self <g-golf-test-support>))
+  (assert-equal "g-studly-caps-expand"
+                (g-studly-caps-expand "GStudlyCapsExpand"))
+  (assert-equal "webkit-web-content"
+                (g-studly-caps-expand "WebKitWebContent"))
+  (assert-equal "bluefox"
+                (g-name->scm-name "BLuefox"))
+  (assert-equal "clutter-actor"
+		(g-name->scm-name "ClutterActor"))
+  (assert-equal '<clutter-actor>
+		(g-name->class-name "ClutterActor")))
+
 
 (exit-with-summary (run-all-defined-test-cases))

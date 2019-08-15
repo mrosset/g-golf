@@ -26,6 +26,7 @@
 @indentedblock
 @table @code
 @item @ref{%g-name-transform-exceptions}
+@item @ref{%g-studly-caps-expand-token-exceptions}
 @end table
 @end indentedblock
 
@@ -45,37 +46,44 @@ G-Golf utilities low level API.@*
 Returns a string.
 
 Given a @samp{@uref{@value{UWIKI-CAMELCASE}, Camel Case}} string, this
-procedure@footnote{This procedure, as well as @ref{g-name->scm-name}
-and @ref{g-name->class-name} come from @uref{@value{UGG}, Guile-Gnome},
+procedure@footnote{This procedure, as well as @ref{g-name->scm-name} and
+@ref{g-name->class-name} come from @uref{@value{UGG}, Guile-Gnome},
 where there are named @code{GStudlyCapsExpand},
 @code{gtype-name->scm-name} and @code{gtype-name->class-name}, in the
 (Guile-Gnome) module (gnome gobject utils).  In G-Golf, these will also
 be used to transform other (Gobject Inptrospection given) names, such as
 function names, hence their @code{g-name->} prefix instead} returns a
-new string, with all uppercase letters being transformed into their
-corresponding lowercase letter, and where a @code{#\-} is inserted in
-between occurrences of two consecutive uppercase letters.  Here is an
-example:
+new string, with all @samp{_} transformed into @samp{-}, uppercase
+letters are transformed into their corresponding lowercase letter, and
+with a @code{#\-} is inserted in between occurrences of two consecutive
+uppercase letters, unless the sequence analysed is part of a prefix
+defined in the @ref{%g-studly-caps-expand-token-exceptions} alist .
+Here are two examples:
 
 @lisp
 (g-studly-caps-expand "GStudlyCapsExpand")
 @print{}
 $2 = "g-studly-caps-expand"
 @end lisp
+
+@lisp
+(g-studly-caps-expand "WebKitWebContext")
+@print{}
+$3 = "webkit-web-context"
+@end lisp
 @end deffn
 
 
 @anchor{g-name->scm-name}
 @anchor{g-name->class-name}
-@deffn Procedure g-name->scm-name type-name
-@deffnx Procedure g-name->class-name type-name
+@deffn Procedure g-name->scm-name name
+@deffnx Procedure g-name->class-name name
 
 Returns a string - a symbol - respectively.
 
-The former obtains the scheme name for @var{type-name}, by (a) looking
-for a possible entry in @ref{%g-name-transform-exceptions}, then, if
-it failed, by (b) transforming @code{#\_} into @code{#\-} and calling
-@ref{g-studly-caps-expand}.
+The former obtains the scheme name for @var{name}, by looking for a
+possible entry in @ref{%g-name-transform-exceptions}, then, if it
+failed, by calling @ref{g-studly-caps-expand}.
 
 The later uses the former, surrounds the result using @code{#\<} and
 @code{#\>} characters then calls @code{string->symbol}. For example:
@@ -124,7 +132,7 @@ instead. As an example, it could be defined as:
 
 @lisp
 (define %g-name-transform-exceptions
-        '((GEnum . genum)))
+  '((GEnum . genum)))
 @end lisp
 
 However currently it is an exmpty list@footnote{@uref{@value{UGG},
@@ -133,4 +141,23 @@ exceptions, including GEnum, but I'm still not sure about what G-Golf
 will do and currently decided not to apply any exception.  Will this
 change in the future? Maybe, but it will become stable before G-Golf
 1.0.}.
+@end defvar
+
+
+@anchor{%g-studly-caps-expand-token-exceptions}
+@defvar %g-studly-caps-expand-token-exceptions
+
+Contains an alist where each @code{key} is a @code{token} exception for
+the @ref{g-studly-caps-expand} procedure, and the corresponding
+@code{value} the string that @ref{g-studly-caps-expand} will use for
+that @code{token} transformation instead.
+
+It is currently defined as:
+
+@lisp
+(define %g-studly-caps-expand-token-exceptions
+  '(("WebKit" . "webkit")))
+@end lisp
+
+Users may add or remove alist pairs to satisfy their needs.
 @end defvar

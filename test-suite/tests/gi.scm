@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -43,14 +43,6 @@
   (assert (gi-pointer-new))
   (assert (gi-pointer-inc (gi-pointer-new) 0))
   (assert (gi-attribute-iter-new))
-  (assert-true (string=? (g-studly-caps-expand "GStudlyCapsExpand")
-                         "g-studly-caps-expand"))
-  (assert-equal "bluefox"
-                (g-name->scm-name "BLuefox"))
-  (assert-equal "clutter-actor"
-		(g-name->scm-name "ClutterActor"))
-  (assert-equal '<clutter-actor>
-		(g-name->class-name "ClutterActor"))
   (assert (gi-integer->gflags %g-function-info-flags 2))
   (assert-true (= (gi-gflags->integer %g-function-info-flags
                                       '(is-constructor))

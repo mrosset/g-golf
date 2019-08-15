@@ -30,6 +30,8 @@
 
 
 (define-module (g-golf support utils)
+  #:use-module (ice-9 match)
+  #:use-module (ice-9 receive)
   #:use-module (system foreign)
 
   #:export (storage-get
@@ -42,6 +44,7 @@
 	    identities
             g-studly-caps-expand
 	    %g-name-transform-exceptions
+            %g-studly-caps-expand-token-exceptions
 	    g-name->scm-name
 	    g-name->class-name
 	    #;gi-class-name->method-name
@@ -126,62 +129,33 @@
 ;;; Name Transformation
 ;;;
 
-;; Based on Guile-Gnome (gobject gw utils)
+;; Initially based on Guile-Gnome (gobject gw utils), from which we keep
+;; one algorithm - see caps-expand-token-2 - the original idea and
+;; procedures have been enhanced to allow special treatment of any token
+;; that compose the name to be transformed. A typical example of such a
+;; need is from the WebKit2 namespace, where most users prefer that
+;; class names use webkit- as their prefix, not web-kit. Up to the point
+;; that we made this a default in G-Golf. Those who would prefer not to
+;; do this may of course remove the assoc pair from
+;; %g-studly-caps-expand-token-exceptions.
 
-(define (g-studly-caps-expand nstr)
-  ;; GStudlyCapsExpand
-  (do ((idx (- (string-length nstr) 1)
-	    (- idx 1)))
-      ((> 1 idx)
-       (string-downcase nstr))
-    (cond ((and (> idx 2)
-                (char-lower-case? (string-ref nstr (- idx 3)))
-                (char-upper-case? (string-ref nstr (- idx 2)))
-                (char-upper-case? (string-ref nstr (- idx 1)))
-                (char-lower-case? (string-ref nstr idx)))
-           (set! idx (- idx 1))
-           (set! nstr
-                 (string-append (substring nstr 0 (- idx 1))
-                                "-"
-                                (substring nstr (- idx 1)
-                                           (string-length nstr)))))
-          ((and (> idx 1)
-                (char-upper-case? (string-ref nstr (- idx 1)))
-                (char-lower-case? (string-ref nstr idx)))
-           (set! nstr
-                 (string-append (substring nstr 0 (- idx 1))
-                                "-"
-                                (substring nstr (- idx 1)
-                                           (string-length nstr)))))
-          ((and (char-lower-case? (string-ref nstr (- idx 1)))
-                (char-upper-case? (string-ref nstr idx)))
-           (set! nstr
-                 (string-append (substring nstr 0 idx)
-                                "-"
-                                (substring nstr idx
-                                           (string-length nstr))))))))
-
-;; Default name transformations can be overridden, but g-golf won't
-;; define exceptions for now, let's see.
 (define %g-name-transform-exceptions
+  ;; Default name transformations can be overridden, but g-golf won't
+  ;; define exceptions for now, let's see.
   '(("BLuefox" . "bluefox") ;; to test
     ;; ("GEnum" . "genum")  ;; no sure yet
     ))
 
-(define (g-name->scm-name type-name)
-  (or (assoc-ref %g-name-transform-exceptions type-name)
-      (string-trim-right (g-studly-caps-expand
-			  ;; only change _ to -
-			  ;; other chars are not valid in a type name
-			  (string-map (lambda (c) (if (eq? c #\_) #\- c))
-				      type-name))
-			 #\-)))
+(define (g-name->scm-name name)
+  (or (assoc-ref %g-name-transform-exceptions name)
+      (g-studly-caps-expand name)))
+
 
 ;; "GtkAccelGroup" => <gtk-accel-group>
 ;; "GSource*" => <g-source*>
-(define (g-name->class-name type-name)
+(define (g-name->class-name name)
   (string->symbol (string-append "<"
-				 (g-studly-caps-expand type-name)
+				 (g-studly-caps-expand name)
 				 ">")))
 
 ;; Not sure this is used but let's keep it as well
@@ -190,6 +164,84 @@
     (string->symbol
      (string-append (substring class-string 1 (1- (string-length class-string)))
                     ":" (symbol->string name)))))
+
+(define %g-studly-caps-expand-token-exceptions
+  '(("WebKit" . "webkit")))
+
+(define (g-studly-caps-expand name)
+  (let loop ((tokens (string-split name #\_))
+             (result '()))
+    (match tokens
+      (()
+       (string-join result "-"))
+      ((token . rest)
+       (loop rest
+             (append (caps-expand-token token)
+                     result))))))
+
+(define (caps-expand-token token)
+  (or (assoc-ref %g-studly-caps-expand-token-exceptions token)
+      (caps-expand-token-1 token '())))
+
+(define (caps-expand-token-1 token subtokens)
+  (if (string-null? token)
+      (reverse! subtokens)
+      (receive (idx exception)
+          (any-caps-expand-token-exception token)
+        (if exception
+            (caps-expand-token-1 (substring token idx)
+                                 (cons exception subtokens))
+            (reverse! (cons (caps-expand-token-2 token)
+                            subtokens))))))
+
+(define (caps-expand-token-2 token)
+  (do ((idx (- (string-length token) 1)
+	    (- idx 1)))
+      ((> 1 idx)
+       (string-downcase token))
+    (cond ((and (> idx 2)
+                (char-lower-case? (string-ref token (- idx 3)))
+                (char-upper-case? (string-ref token (- idx 2)))
+                (char-upper-case? (string-ref token (- idx 1)))
+                (char-lower-case? (string-ref token idx)))
+           (set! idx (- idx 1))
+           (set! token
+                 (string-append (substring token 0 (- idx 1))
+                                "-"
+                                (substring token (- idx 1)
+                                           (string-length token)))))
+          ((and (> idx 1)
+                (char-upper-case? (string-ref token (- idx 1)))
+                (char-lower-case? (string-ref token idx)))
+           (set! token
+                 (string-append (substring token 0 (- idx 1))
+                                "-"
+                                (substring token (- idx 1)
+                                           (string-length token)))))
+          ((and (char-lower-case? (string-ref token (- idx 1)))
+                (char-upper-case? (string-ref token idx)))
+           (set! token
+                 (string-append (substring token 0 idx)
+                                "-"
+                                (substring token idx
+                                           (string-length token))))))))
+
+(define (any-caps-expand-token-exception token)
+  (let loop ((exceptions %g-studly-caps-expand-token-exceptions))
+    (match exceptions
+      (()
+       (values 0 #f))
+      ((exception . rest)
+       (match exception
+         ((key . val)
+          (if (string-prefix? key token)
+              (values (string-length key) val)
+              (loop rest))))))))
+
+
+;;;
+;;;
+;;;
 
 (define (gi-type-tag->ffi type-tag)
   (case type-tag
