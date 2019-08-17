@@ -39,7 +39,9 @@
           !scm-name
           !field-types
           !scm-types
-          !init-vals)
+          !init-vals
+
+          is-opaque?)
 
 
 (define-class <gi-struct> ()
@@ -66,3 +68,7 @@
     (and field-types
          (set! (!init-vals self)
                (map gi-type-tag->init-val field-types)))))
+
+(define-method (is-opaque? (self <gi-struct>))
+  (null? (!field-types self)))
+

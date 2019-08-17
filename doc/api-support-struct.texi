@@ -23,6 +23,7 @@
 @item @ref{!scm-name__}
 @item @ref{!field-types}
 @item @ref{!scm-types}
+@item @ref{is-opaque?}
 @end table
 @end indentedblock
 
@@ -71,4 +72,20 @@ are not meant to be mutated, see @ref{GOOPS Notes and Conventions},
 
 Returns the content of the gi-name, scm-name, field-types or scm-types
 slot for @var{gi-struct}, respectively.
+@end deffn
+
+
+@anchor{is-opaque?}
+@deffn Method is-opaque? gi-struct
+
+Returns @code{#t} if @var{gi-struct} is @samp{opaque}, otherwise,
+it returns @code{#f}.
+
+A <gi-struct> instance is said to be @samp{opaque} when the call to
+@code{g-struct-info-get-size} upon its GIStructInfo pointer returns
+@code{zero}. In scheme, these <gi-struct> instances have no fields.
+
+@samp{Opaque} boxed types should never be @samp{decoded}, nor
+@samp{encoded}. Instead, procedures and methods should @samp{blindingly}
+receive, pass and/or return their pointer(s).
 @end deffn
