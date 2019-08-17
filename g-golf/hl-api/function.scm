@@ -543,8 +543,10 @@
                          (error "No such flag(s) " arg " in " gi-type))))
                   ((struct)
                    (gi-argument-set! gi-argument-in 'v-pointer
-                                     (make-c-struct (!scm-types gi-type)
-                                                    arg)))
+                                     (if (is-opaque? gi-type)
+                                         arg
+                                         (make-c-struct (!scm-types gi-type)
+                                                        arg))))
                   ((object)
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (!g-inst arg)))))))
@@ -609,8 +611,10 @@
                    (match type-desc
                      ((type name gi-type g-type)
                       (gi-argument-set! gi-argument-out 'v-pointer
-                                        (make-c-struct (!scm-types gi-type)
-                                                       (!init-vals gi-type))))))
+                                        (if (is-opaque? gi-type)
+                                            %null-pointer
+                                            (make-c-struct (!scm-types gi-type)
+                                                           (!init-vals gi-type)))))))
                   ((object)
                    (warning "Arg out"
                             "type-tag object - not sure this will ever happen ...")
@@ -663,8 +667,10 @@
              (let ((val (gi-argument-ref gi-argument-out 'v-int)))
                (gi-integer->gflags gi-type val)))
             ((struct)
-             (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
-                             (!scm-types gi-type)))))))
+             (if (is-opaque? gi-type)
+                 (gi-argument-ref gi-argument-out 'v-pointer)
+                 (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
+                                 (!scm-types gi-type))))))))
       ((array)
        (match (map cdr type-desc)
          ((array fixed-size is-zero-terminated param-n param-tag)
@@ -705,8 +711,10 @@
              (let ((val (gi-argument-ref gi-arg-res 'v-int)))
                (gi-integer->gflags gi-type val)))
             ((struct)
-             (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
-                             (!scm-types gi-type)))))))
+             (if (is-opaque? gi-type)
+                 (gi-argument-ref gi-arg-res 'v-pointer)
+                 (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
+                                 (!scm-types gi-type))))))))
       ((array)
        (match (map cdr type-desc)
          ((array fixed-size is-zero-terminated param-n param-tag)
