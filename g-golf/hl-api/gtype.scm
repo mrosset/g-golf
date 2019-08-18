@@ -132,10 +132,13 @@
       (gtype-instance-initialize-properties self split-kw))))
 
 (define (gtype-instance-construct self initargs)
-  (let* ((class (class-of self))
-         (gtype-id (!gtype-id class)))
-    (set! (!g-inst self)
-          (g-object-new gtype-id))))
+  (let ((g-inst (get-keyword #:g-inst initargs #f)))
+    (if g-inst
+        (set! (!g-inst self) g-inst)
+        (let* ((class (class-of self))
+               (gtype-id (!gtype-id class)))
+          (set! (!g-inst self)
+                (g-object-new gtype-id))))))
 
 (define (gtype-instance-initialize-properties self g-props-init-kw)
   (for-each (lambda (slot)
