@@ -714,7 +714,10 @@
              (if (is-opaque? gi-type)
                  (gi-argument-ref gi-arg-res 'v-pointer)
                  (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
-                                 (!scm-types gi-type))))))))
+                                 (!scm-types gi-type))))
+            ((object)
+             (make gi-type
+               #:g-inst (gi-argument-ref gi-arg-res 'v-pointer)))))))
       ((array)
        (match (map cdr type-desc)
          ((array fixed-size is-zero-terminated param-n param-tag)
