@@ -36,6 +36,7 @@
 
 (define-module (g-golf hl-api gtype)
   #:use-module (ice-9 receive)
+  #:use-module (ice-9 format)
   #:use-module (oop goops)
   #:use-module (g-golf support)
   #:use-module (g-golf gi)
@@ -50,11 +51,12 @@
   
   #:export (<gtype-class>
             <gtype-instance>
-            %g-instance-cache-default-size
-            %g-instance-cache
-            g-instance-cache-ref
-            g-instance-cache-set!
-            g-instance-cache-show))
+            %g-inst-cache-default-size
+            %g-inst-cache
+            g-inst-cache-ref
+            g-inst-cache-set!
+            g-inst-cache-for-each
+            g-inst-cache-show))
 
 
 (g-export !info
@@ -64,7 +66,8 @@
           !gtype-name
           !scm-name
           
-          !g-inst)
+          !g-inst
+          g-inst-cache-remove!)
 
 
 ;;;
@@ -126,19 +129,19 @@
   ;; which case we just return the goops instance associated with it.
   (let ((g-inst (get-keyword #:g-inst initargs #f)))
     (or (and g-inst
-             (g-instance-cache-ref g-inst))
+             (g-inst-cache-ref g-inst))
         (next-method))))
 
 (define-method (initialize (self <gtype-instance>) initargs)
   (let ((g-inst (or (get-keyword #:g-inst initargs #f)
-                    (g-instance-construct (class-of self)))))
+                    (g-inst-construct (class-of self)))))
     (receive (split-kw split-rest)
         (split-keyword-args '(#:g-inst) initargs)
       (set! (!g-inst self) g-inst)
       (next-method self split-rest)
-      (g-instance-cache-set! g-inst self))))
+      (g-inst-cache-set! g-inst self))))
 
-(define (g-instance-construct class)
+(define (g-inst-construct class)
   (g-object-new (!gtype-id class)))
 
 ;; previous initialze core code, with its comment, which I may need in
@@ -157,11 +160,11 @@
   (receive (split-kw split-rest)
       (split-keyword-args g-props-init-kw initargs)
     (next-method self split-rest)
-    (g-instance-construct self initargs)
-    (g-instance-initialize-properties self split-kw)))
+    (g-inst-construct self initargs)
+    (g-inst-initialize-properties self split-kw)))
 
 ;; we don't need the followig anymore, but let's keep it for now.
-#;(define (g-instance-initialize-properties self g-props-init-kw)
+#;(define (g-inst-initialize-properties self g-props-init-kw)
   (for-each (lambda (slot)
               (case (slot-definition-allocation slot)
                 ((#:g-property)
@@ -174,23 +177,44 @@
 
 
 ;;;
-;;; g-instace-cache
+;;; The g-inst(ance) cache
 ;;;
 
-(define %g-instance-cache-default-size 1013)
+(define %g-inst-cache-default-size 1013)
 
-(define %g-instance-cache
-  (make-hash-table %g-instance-cache-default-size))
+(define %g-inst-cache
+  (make-hash-table %g-inst-cache-default-size))
 
-(define (g-instance-cache-ref g-inst)
-  (hashq-ref %g-instance-cache
+(define (g-inst-cache-ref g-inst)
+  (hashq-ref %g-inst-cache
              (pointer-address g-inst)))
 
-(define (g-instance-cache-set! g-inst inst)
-  (hashq-set! %g-instance-cache
+(define (g-inst-cache-set! g-inst inst)
+  (hashq-set! %g-inst-cache
               (pointer-address g-inst)
               inst))
 
-(define (g-instance-cache-show)
-  (hash-for-each dimfi
-                 %g-instance-cache))
+(define-method (g-inst-cache-remove! (self <foreign>))
+  (hashq-remove! %g-inst-cache
+                 (pointer-address self)))
+
+(define-method (g-inst-cache-remove! (self <gtype-instance>))
+  (hashq-remove! %g-inst-cache
+                 (pointer-address (!g-inst self))))
+
+(define (g-inst-cache-for-each proc)
+  (hash-for-each proc
+                 %g-inst-cache))
+
+(define %g-inst-cache-show-prelude
+  "The g-inst cache entries are")
+
+(define* (g-inst-cache-show #:optional
+                                (port (current-output-port)))
+  (format port "~A~%"
+          %g-inst-cache-show-prelude)
+  (letrec ((show (lambda (key value)
+                   (format port "  ~S  -  ~S~%"
+                           (!g-inst value)
+                           value))))
+    (g-inst-cache-for-each show)))
