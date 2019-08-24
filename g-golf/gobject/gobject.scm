@@ -48,7 +48,7 @@
             g-object-get-property
             g-object-set-property
             g-object-type
-            #;g-object-type-name))
+            g-object-type-name))
 
 
 ;;;
@@ -67,6 +67,9 @@
   (g_object_set_property object
 			 (string->pointer name)
 			 g-value))
+
+(define (g-object-type-name object)
+  (g-type-name (g-object-type object)))
 
 
 ;;;

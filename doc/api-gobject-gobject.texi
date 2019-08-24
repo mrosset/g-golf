@@ -17,6 +17,7 @@ GObject — The base object type
 @table @code
 @item @ref{g-object-new}
 @item @ref{g-object-type}
+@item @ref{g-object-type-name}
 @item @ref{g-object-get-property}
 @item @ref{g-object-set-property}
 @end table
@@ -74,6 +75,13 @@ Creates and returns a (pointer to) a new instance of a GObject subtype
 @deffn Procedure g-object-type object
 
 Returns the @var{GType} (the type id) for @var{object}.
+@end deffn
+
+
+@anchor{g-object-type-name}
+@deffn Procedure g-object-type-name object
+
+Returns the @var{GType} name for @var{object}.
 @end deffn
 
 

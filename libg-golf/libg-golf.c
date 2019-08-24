@@ -1,7 +1,7 @@
 /*  -*- mode: C; coding: utf-8 -*-
 
 ####
-#### Copyright (C) 2016 - 2018
+#### Copyright (C) 2016 - 2019
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf.
@@ -69,7 +69,7 @@ int float_to_int_c (float f)
 
 
 /*
- * GOjbetct
+ * GObject
  *
 */
 
