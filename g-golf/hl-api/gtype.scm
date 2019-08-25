@@ -182,8 +182,8 @@
   (let ((g-inst (!g-inst self)))
     (g-object-unref g-inst)
     (when (= (g-object-ref-count g-inst) 0)
-      (set! (!g-inst self) #f)
-      (g-inst-cache-remove! self))
+      (g-inst-cache-remove! self)
+      (set! (!g-inst self) #f))
     (values)))
 
 
