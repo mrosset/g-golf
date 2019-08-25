@@ -34,6 +34,7 @@ The base of the GObject type system.
 @item @ref{!gtype-name}
 @item @ref{!scm-name_}
 @item @ref{!g-inst}
+@item @ref{unref}
 @end table
 @end indentedblock
 
@@ -133,4 +134,22 @@ Conventions}, 'Slots are not Immutable').
 @deffn Method !g-inst instance
 
 Returns the content of the @var{g-inst} slot for @var{instance}.
+@end deffn
+
+
+@anchor{unref}
+@deffn Method unref instance
+
+Returns nothing.
+
+This method calls @ref{g-object-unref} on the @code{g-inst} of
+@var{instance}.
+
+When the reference count for the @code{g-inst} reaches 0 (zero), it sets
+the @code{g-inst} slot value for @var{instance} to #f and removes
+@var{instance} from the @code{%g-inst-cache}.
+
+This method must be called upon instances that are not referenced
+anywhere anymore, so that their memory can be freed by the next gc
+occurrence.
 @end deffn

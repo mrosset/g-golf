@@ -67,6 +67,7 @@
           !scm-name
           
           !g-inst
+          unref
           g-inst-cache-remove!)
 
 
@@ -176,6 +177,14 @@
                    (and i-value
                         (slot-set! self s-name i-value))))))
       (class-direct-slots (class-of self))))
+
+(define-method (unref (self <gtype-instance>))
+  (let ((g-inst (!g-inst self)))
+    (g-object-unref g-inst)
+    (when (= (g-object-ref-count g-inst) 0)
+      (set! (!g-inst self) #f)
+      (g-inst-cache-remove! self))
+    (values)))
 
 
 ;;;
