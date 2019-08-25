@@ -137,6 +137,8 @@
                     (g-inst-construct (class-of self)))))
     (receive (split-kw split-rest)
         (split-keyword-args '(#:g-inst) initargs)
+      (when (g-object-is-floating g-inst)
+        (g-object-ref-sink g-inst))
       (set! (!g-inst self) g-inst)
       (next-method self split-rest)
       (g-inst-cache-set! g-inst self))))
