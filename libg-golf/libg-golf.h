@@ -47,4 +47,4 @@ int float_to_int (float f);
 
 GType g_object_type (GObject *obj);
 const gchar * g_object_type_name (GObject *obj);
-uint g_object_refount (GObject *obj);
+uint g_object_ref_count (GObject *obj);
