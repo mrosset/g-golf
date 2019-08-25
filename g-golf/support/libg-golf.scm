@@ -31,24 +31,24 @@
   #:use-module (g-golf init)
   
   #:export (;; misc.
-            pointer-address-size-c
+            pointer_address_size
 
             ;; floats
-            float-to-int-c
+            float_to_int
 
             ;; GObject
-            g-object-type-c
-            #;g-object-type-name-c
-            g-object-ref-count-c))
+            g_object_type
+            #;g_object_type_name
+            g_object_ref_count))
 
 
 ;;;
 ;;; misc.
 ;;;
 
-(define pointer-address-size-c
+(define pointer_address_size
   (pointer->procedure size_t
-                      (dynamic-func "pointer_address_size_c"
+                      (dynamic-func "pointer_address_size"
                                     %libg-golf)
                       (list)))
 
@@ -57,9 +57,9 @@
 ;;; floats
 ;;;
 
-(define float-to-int-c
+(define float_to_int
   (pointer->procedure int
-                      (dynamic-func "float_to_int_c"
+                      (dynamic-func "float_to_int"
                                     %libg-golf)
                       (list float)))
 
@@ -68,9 +68,9 @@
 ;;; GObject
 ;;;
 
-(define g-object-type-c
+(define g_object_type
   (pointer->procedure unsigned-long
-                      (dynamic-func "g_object_type_c"
+                      (dynamic-func "g_object_type"
                                     %libg-golf)
                       (list '*)))
 
@@ -88,16 +88,16 @@ It is not a real problem though, because we already bind g_type_name
 using the ffi, in (g-golf gobject type-info).  I'll try to fix this
 later.
 
-(define g-object-type-name-c
+(define g_object_type_name
   (pointer->procedure '*
-                      (dynamic-func "g_object_type_name_c"
+                      (dynamic-func "g_object_type_name"
                                     %libg-golf)
                       (list '*)))
 
 !#
 
-(define g-object-ref-count-c
+(define g_object_ref_count
   (pointer->procedure unsigned-int
-                      (dynamic-func "g_object_ref_count_c"
+                      (dynamic-func "g_object_ref_count"
                                     %libg-golf)
                       (list '*)))

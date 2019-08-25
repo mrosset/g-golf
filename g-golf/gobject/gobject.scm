@@ -74,14 +74,14 @@
 
 ;; from libg-golf
 (define (g-object-ref-count object)
-  (g-object-ref-count-c object))
+  (g_object_ref_count object))
 
 (define (g-object-is-floating object)
   (gi->scm (g_object_is_floating object) 'boolean))
 
 ;; from libg-golf
 (define (g-object-type object)
-  (g-object-type-c object))
+  (g_object_type object))
 
 (define (g-object-type-name object)
   (g-type-name (g-object-type object)))

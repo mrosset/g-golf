@@ -39,4 +39,4 @@
 ;;;
 
 
-(define float->int float-to-int-c)
+(define float->int float_to_int)
