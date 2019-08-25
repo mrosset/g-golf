@@ -45,10 +45,15 @@
 		last)
 
   #:export (g-object-new
-            g-object-get-property
-            g-object-set-property
+            g-object-ref
+            g-object-unref
+            g-object-ref-sink
+            g-object-ref-count
+            g-object-is-floating
             g-object-type
-            g-object-type-name))
+            g-object-type-name
+            g-object-get-property
+            g-object-set-property))
 
 
 ;;;
@@ -57,6 +62,29 @@
 
 (define (g-object-new gtype)
   (gi->scm (g_object_new gtype %null-pointer) 'pointer))
+
+(define (g-object-ref object)
+  (g_object_ref object))
+
+(define (g-object-unref object)
+  (g_object_unref object))
+
+(define (g-object-ref-sink object)
+  (g_object_ref_sink object))
+
+;; from libg-golf
+(define (g-object-ref-count object)
+  (g-object-ref-count-c object))
+
+(define (g-object-is-floating object)
+  (gi->scm (g_object_is_floating object) 'boolean))
+
+;; from libg-golf
+(define (g-object-type object)
+  (g-object-type-c object))
+
+(define (g-object-type-name object)
+  (g-type-name (g-object-type object)))
 
 (define* (g-object-get-property object name g-value)
   (g_object_get_property object
@@ -68,26 +96,6 @@
 			 (string->pointer name)
 			 g-value))
 
-(define (g-object-type-name object)
-  (g-type-name (g-object-type object)))
-
-
-;;;
-;;; From libg-golf
-;;;
-
-(define (g-object-type object)
-  (g-object-type-c object))
-
-#!
-
-Not working yet, see libg-golf.scm for a problem description
-
-(define (g-object-type-name object)
-  (gi->scm (g-object-type-name-c object) 'string))
-
-!#
-
 
 ;;;
 ;;; GObject Bindings
@@ -98,6 +106,30 @@ Not working yet, see libg-golf.scm for a problem description
                       (dynamic-func "g_object_new"
 				    %libgobject)
                       (list unsigned-long '*)))
+
+(define g_object_ref
+  (pointer->procedure '*
+                      (dynamic-func "g_object_ref"
+				    %libgobject)
+                      (list '*)))
+
+(define g_object_unref
+  (pointer->procedure void
+                      (dynamic-func "g_object_unref"
+				    %libgobject)
+                      (list '*)))
+
+(define g_object_ref_sink
+  (pointer->procedure '*
+                      (dynamic-func "g_object_ref_sink"
+				    %libgobject)
+                      (list '*)))
+
+(define g_object_is_floating
+  (pointer->procedure int
+                      (dynamic-func "g_object_is_floating"
+				    %libgobject)
+                      (list '*)))
 
 (define g_object_get_property
   (pointer->procedure void

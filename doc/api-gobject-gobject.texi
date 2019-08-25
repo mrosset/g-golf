@@ -16,6 +16,11 @@ GObject — The base object type
 @indentedblock
 @table @code
 @item @ref{g-object-new}
+@item @ref{g-object-ref}
+@item @ref{g-object-unref}
+@item @ref{g-object-ref-sink}
+@item @ref{g-object-ref-count}
+@item @ref{g-object-is-floating}
 @item @ref{g-object-type}
 @item @ref{g-object-type-name}
 @item @ref{g-object-get-property}
@@ -68,6 +73,63 @@ Returns a pointer.
 
 Creates and returns a (pointer to) a new instance of a GObject subtype
 @var{gtype}.  All properties are set to there default values.
+@end deffn
+
+
+@anchor{g-object-ref}
+@deffn Procedure g-object-ref object
+
+Returns a pointer.
+
+Increases the reference count of @var{object}.
+@end deffn
+
+
+@anchor{g-object-unref}
+@deffn Procedure g-object-unref object
+
+Returns nothing.
+
+Decreases the reference count of @var{object}. When its reference count
+drops to 0, the object is finalized (i.e. its memory is freed).
+
+If the pointer to the GObject may be reused in future (for example, if
+it is an instance variable of another object), it is recommended to
+clear the pointer to NULL rather than retain a dangling pointer to a
+potentially invalid GObject instance. Use @code{g-clear-object} for this.
+@end deffn
+
+
+@anchor{g-object-ref-sink}
+@deffn Procedure g-object-ref-sink object
+
+Returns a pointer.
+
+If @var{object} has a floating reference, then this call @samp{assumes
+ownership} of the floating reference, converting it to a normal
+reference by clearing the floating flag while leaving the reference
+count unchanged.
+
+If @var{object} is not floating, then this call adds a new normal
+reference increasing the reference count by one.
+@end deffn
+
+
+@anchor{g-object-ref-count}
+@deffn Procedure g-object-ref-count object
+
+Returns an integer.
+
+Obtains and returns the (public GObject struct field) @code{ref_count}
+value for @var{object}.
+@end deffn
+
+
+@anchor{g-object-is-floating}
+@deffn Procedure g-object-is-floating object
+
+Returns @code{#t} if @var{object} has a floating reference, otherwise it
+returns @code{#f}.
 @end deffn
 
 
