@@ -93,3 +93,9 @@ g_object_type_name_c (GObject *obj)
 
     return (name);
 }
+
+uint
+g_object_ref_count_c (GObject *obj)
+{
+    return (obj->ref_count);
+}

@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -38,7 +38,8 @@
 
             ;; GObject
             g-object-type-c
-            #;g-object-type-name-c))
+            #;g-object-type-name-c
+            g-object-ref-count-c))
 
 
 ;;;
@@ -94,3 +95,9 @@ later.
                       (list '*)))
 
 !#
+
+(define g-object-ref-count-c
+  (pointer->procedure unsigned-int
+                      (dynamic-func "g_object_ref_count_c"
+                                    %libg-golf)
+                      (list '*)))
