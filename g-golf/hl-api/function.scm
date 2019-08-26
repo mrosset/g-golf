@@ -716,8 +716,19 @@
                  (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
                                  (!scm-types gi-type))))
             ((object)
-             (make gi-type
-               #:g-inst (gi-argument-ref gi-arg-res 'v-pointer)))))))
+             ;; We need this rather uggly hack, because we can't rely on
+             ;; GI to tell us, at import time, the exact gi-type of the
+             ;; returned instance. As an example, at import time,
+             ;; WebKit2 webkit-web-view-new returned value signature
+             ;; says the returned value is a GtkWidget instance (which
+             ;; by the way is not even instantiable), but it should say
+             ;; it is a WebKitWebView.
+             (let* ((module (resolve-module '(g-golf hl-api object)))
+                    (foreign (gi-argument-ref gi-arg-res 'v-pointer))
+                    (gi-name (g-object-type-name foreign))
+                    (c-name (g-name->class-name gi-name))
+                    (class (module-ref module c-name)))
+               (make class #:g-inst foreign)))))))
       ((array)
        (match (map cdr type-desc)
          ((array fixed-size is-zero-terminated param-n param-tag)
