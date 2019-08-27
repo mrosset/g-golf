@@ -331,10 +331,10 @@
   (let* ((info (g-type-info-get-interface info))
          (type (g-base-info-get-type info)))
     (if (is-registered? type)
-        (receive (gi-type name id confirmed?)
+        (receive (id name gi-type confirmed?)
             (registered-type->gi-type info type)
           (g-base-info-unref info)
-          (list type name id gi-type confirmed?))
+          (list type name gi-type id confirmed?))
         (begin
           (g-base-info-unref info)
           type))))
@@ -546,7 +546,7 @@
           (case type-tag
             ((interface)
              (match type-desc
-               ((type name gi-type g-type)
+               ((type name gi-type g-type confirmed?)
                 (case type
                   ((enum)
                    (let ((e-val (enum->value gi-type arg)))
@@ -618,20 +618,18 @@
           (case type-tag
             ((interface)
              (match type-desc
-               ((type name gi-type g-type)
+               ((type name gi-type g-type confirmed?)
                 (case type
                   ((enum)
                    (gi-argument-set! gi-argument-out 'v-int -1))
                   ((flags)
                    (gi-argument-set! gi-argument-out 'v-int -1))
                   ((struct)
-                   (match type-desc
-                     ((type name gi-type g-type)
-                      (gi-argument-set! gi-argument-out 'v-pointer
-                                        (if (is-opaque? gi-type)
-                                            %null-pointer
-                                            (make-c-struct (!scm-types gi-type)
-                                                           (!init-vals gi-type)))))))
+                   (gi-argument-set! gi-argument-out 'v-pointer
+                                     (if (is-opaque? gi-type)
+                                         %null-pointer
+                                         (make-c-struct (!scm-types gi-type)
+                                                        (!init-vals gi-type)))))
                   ((object)
                    (warning "Arg out"
                             "type-tag object - not sure this will ever happen ...")
@@ -674,7 +672,7 @@
     (case type-tag
       ((interface)
        (match type-desc
-         ((type name gi-type g-type)
+         ((type name gi-type g-type confirmed?)
           (case type
             ((enum)
              (let ((val (gi-argument-ref gi-argument-out 'v-int)))
@@ -824,7 +822,7 @@
          (scm-name (g-name->scm-name gi-name))
          (name (string->symbol scm-name))
          (type (g-base-info-get-type container)))
-    (receive (gi-type r-name id confirmed?)
+    (receive (id r-name gi-type confirmed?)
         (registered-type->gi-type container type)
       (g-base-info-unref container)
       (make <argument>
@@ -832,7 +830,7 @@
         #:name name
         #:direction 'in
         #:type-tag 'interface
-        #:type-desc (list type r-name id gi-type)
+        #:type-desc (list type r-name gi-type id confirmed?)
         #:is-pointer? #t
         #:may-be-null? #f
         #:forced-type 'pointer
