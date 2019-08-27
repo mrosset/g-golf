@@ -331,10 +331,10 @@
   (let* ((info (g-type-info-get-interface info))
          (type (g-base-info-get-type info)))
     (if (is-registered? type)
-        (receive (gi-type name id)
+        (receive (gi-type name id confirmed?)
             (registered-type->gi-type info type)
           (g-base-info-unref info)
-          (list type name id gi-type))
+          (list type name id gi-type confirmed?))
         (begin
           (g-base-info-unref info)
           type))))
@@ -351,7 +351,8 @@
                    (let ((gi-enum (gi-enum-import info)))
                      (gi-cache-set! 'enum name gi-enum)
                      (gi-enum-import-methods info)
-                     gi-enum))))
+                     gi-enum))
+               #t))
       ((struct)
        (values id
                name
@@ -359,7 +360,8 @@
                    (let ((gi-struct (gi-struct-import info)))
                      (gi-cache-set! 'boxed name gi-struct)
                      (gi-struct-import-methods info)
-                     gi-struct))))
+                     gi-struct))
+               #t))
       ((object)
        (let ((module (resolve-module '(g-golf hl-api object)))
              (c-name (g-name->class-name gi-name)))
@@ -386,9 +388,24 @@
          (values id
                  c-name
                  (and (module-variable module c-name)
-                      (module-ref module c-name)))))
+                      (module-ref module c-name))
+                 ;; we can't rely on GI to tell us, at import time, the
+                 ;; exact class name of the returned instance. As an
+                 ;; example, at import time, the WebKit2 typelib pretend
+                 ;; that webkit-web-view-new returned value signature
+                 ;; says the returned value is a GtkWidget instance
+                 ;; (which by the way is not even instantiable), but it
+                 ;; should say it is a WebKitWebView.
+                 ;; So, below, a boolean, initialized to #f, which
+                 ;; indicates, to those procedures that will refer to
+                 ;; this type-spec if it has been confirmed - that is,
+                 ;; if c-name here above is equal to calling
+                 ;; g-object-type-name on the instance pointer
+                 ;; returned by a function call that uses this
+                 ;; type-spec.
+                 #f)))
       (else
-       (values id name #f)))))
+       (values id name #f #f)))))
 
 (define (is-registered? type-tag)
   (member type-tag
@@ -701,7 +718,7 @@
     (case return-type
       ((interface)
        (match type-desc
-         ((type name gi-type g-type)
+         ((type name gi-type g-type confirmed?)
           (case type
             ((enum)
              (let ((val (gi-argument-ref gi-arg-res 'v-int)))
@@ -716,19 +733,20 @@
                  (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
                                  (!scm-types gi-type))))
             ((object)
-             ;; We need this rather uggly hack, because we can't rely on
-             ;; GI to tell us, at import time, the exact gi-type of the
-             ;; returned instance. As an example, at import time,
-             ;; WebKit2 webkit-web-view-new returned value signature
-             ;; says the returned value is a GtkWidget instance (which
-             ;; by the way is not even instantiable), but it should say
-             ;; it is a WebKitWebView.
-             (let* ((module (resolve-module '(g-golf hl-api object)))
-                    (foreign (gi-argument-ref gi-arg-res 'v-pointer))
-                    (gi-name (g-object-type-name foreign))
-                    (c-name (g-name->class-name gi-name))
-                    (class (module-ref module c-name)))
-               (make class #:g-inst foreign)))))))
+             ;; See the comment in registered-type->gi-type which
+             ;; describes the role of confirmed? in the pattern.
+             (if confirmed?
+                 (make gi-type
+                   #:g-inst (gi-argument-ref gi-arg-res 'v-pointer))
+                 (let* ((module (resolve-module '(g-golf hl-api object)))
+                        (foreign (gi-argument-ref gi-arg-res 'v-pointer))
+                        (type (g-object-type foreign))
+                        (gi-name (g-object-type-name foreign))
+                        (c-name (g-name->class-name gi-name))
+                        (class (module-ref module c-name)))
+                   (set! (!type-desc function)
+                         (list 'object c-name class (g-object-type foreign) #t))
+                   (make class #:g-inst foreign))))))))
       ((array)
        (match (map cdr type-desc)
          ((array fixed-size is-zero-terminated param-n param-tag)
@@ -806,7 +824,7 @@
          (scm-name (g-name->scm-name gi-name))
          (name (string->symbol scm-name))
          (type (g-base-info-get-type container)))
-    (receive (gi-type r-name id)
+    (receive (gi-type r-name id confirmed?)
         (registered-type->gi-type container type)
       (g-base-info-unref container)
       (make <argument>
