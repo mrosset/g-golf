@@ -420,15 +420,15 @@
   (let* ((type (g-type-info-get-array-type info))
          (fixed-size (g-type-info-get-array-fixed-size info))
          (is-zero-terminated (g-type-info-is-zero-terminated info))
-         (n (g-type-info-get-array-length info))
+         (param-n (g-type-info-get-array-length info))
          (param-type (g-type-info-get-param-type info 0))
          (param-tag (g-type-info-get-tag param-type)))
     (g-base-info-unref param-type)
-    (list (cons 'array type)
-          (cons 'fixed-size fixed-size)
-          (cons 'is-zero-terminated is-zero-terminated)
-          (cons 'param-n n)
-          (cons 'param-tag param-tag))))
+    (list type
+          fixed-size
+          is-zero-terminated
+          param-n
+          param-tag)))
 
 (define* (function-arguments-and-gi-arguments info #:optional (flags #f))
   (let* ((flags (or flags
@@ -568,7 +568,7 @@
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (!g-inst arg)))))))
             ((array)
-             (match (map cdr type-desc)
+             (match type-desc
                ((array fixed-size is-zero-terminated param-n param-tag)
                 (if (and (eq? array 'c)
                          (= fixed-size -1)
@@ -635,7 +635,7 @@
                             "type-tag object - not sure this will ever happen ...")
                    (gi-argument-set! gi-argument-out 'v-pointer %null-pointer))))))
             ((array)
-             (match (map cdr type-desc)
+             (match type-desc
                ((array fixed-size is-zero-terminated param-n param-tag)
                 (if (and (eq? array 'c)
                          (= fixed-size -1)
@@ -687,7 +687,7 @@
                  (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
                                  (!scm-types gi-type))))))))
       ((array)
-       (match (map cdr type-desc)
+       (match type-desc
          ((array fixed-size is-zero-terminated param-n param-tag)
           (if (and (eq? array 'c)
                    (= fixed-size -1)
@@ -746,7 +746,7 @@
                          (list 'object c-name class (g-object-type foreign) #t))
                    (make class #:g-inst foreign))))))))
       ((array)
-       (match (map cdr type-desc)
+       (match type-desc
          ((array fixed-size is-zero-terminated param-n param-tag)
           (if (and (eq? array 'c)
                    (= fixed-size -1)
