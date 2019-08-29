@@ -43,6 +43,9 @@
 (define-class <g-golf-test-gobject> (<test-case>))
 
 
+(define-method (test-g-value-size (self <g-golf-test-gobject>))
+  (assert (g-value-size)))
+
 (define-method (test-g-value-init (self <g-golf-test-gobject>))
   (assert (g-value-init (symbol->g-type 'float))))
 

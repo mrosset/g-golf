@@ -37,6 +37,7 @@
             float_to_int
 
             ;; GObject
+            g_value_size
             g_object_type
             #;g_object_type_name
             g_object_ref_count))
@@ -67,6 +68,12 @@
 ;;;
 ;;; GObject
 ;;;
+
+(define g_value_size
+  (pointer->procedure size_t
+                      (dynamic-func "g_value_size"
+                                    %libg-golf)
+                      (list)))
 
 (define g_object_type
   (pointer->procedure unsigned-long

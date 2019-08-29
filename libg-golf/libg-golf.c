@@ -46,7 +46,8 @@
  *
 */
 
-size_t pointer_address_size ()
+size_t
+pointer_address_size ()
 {
   size_t n = sizeof(float *) * CHAR_BIT;
 
@@ -59,7 +60,8 @@ size_t pointer_address_size ()
  *
 */
 
-int float_to_int (float f)
+int
+float_to_int (float f)
 {
   int i;
 
@@ -73,6 +75,13 @@ int float_to_int (float f)
  *
 */
 
+size_t
+g_value_size ()
+{
+  size_t n = sizeof(GValue);
+
+  return n;
+}
 
 GType
 g_object_type (GObject *obj)

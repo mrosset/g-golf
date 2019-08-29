@@ -30,6 +30,7 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf init)
+  #:use-module (g-golf support libg-golf)
 
   #:duplicates (merge-generics
 		replace
@@ -37,13 +38,20 @@
 		warn
 		last)
 
-  #:export (g-value-init
+  #:export (;; from libg-golf
+            g-value-size
+
+            g-value-init
             g-value-unset))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
+
+;; from libg-golf
+(define (g-value-size)
+  (g_value_size))
 
 (define (g-value-init g-type)
   (let ((g-value (make-c-struct (list unsigned-long double double)

@@ -16,6 +16,7 @@ type.
 
 @indentedblock
 @table @code
+@item @ref{g-value-size}
 @item @ref{g-value-init}
 @item @ref{g-value-unset}
 @end table
@@ -59,6 +60,15 @@ from the GObject reference manual for a complete description.
 
 @c Note: in this section, the @var{value} arguments are [must be] pointers
 @c to a @code{GValue}.
+
+
+@anchor{g-value-size}
+@deffn Procedure g-value-size
+
+Returns an integer.
+
+Obtains and returns the size of a @code{GValue}.
+@end deffn
 
 
 @anchor{g-value-init}
