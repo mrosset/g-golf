@@ -45,6 +45,7 @@
 		last)
 
   #:export (g-object-new
+            g-object-new-with-properties
             g-object-ref
             g-object-unref
             g-object-ref-sink
@@ -62,6 +63,9 @@
 
 (define (g-object-new gtype)
   (gi->scm (g_object_new gtype %null-pointer) 'pointer))
+
+(define (g-object-new-with-properties gtype n-prop names g-values)
+  (g_object_new_with_properties gtype n-prop names g-values))
 
 (define (g-object-ref object)
   (g_object_ref object))
@@ -106,6 +110,15 @@
                       (dynamic-func "g_object_new"
 				    %libgobject)
                       (list unsigned-long '*)))
+
+(define g_object_new_with_properties
+  (pointer->procedure '*
+                      (dynamic-func "g_object_new_with_properties"
+				    %libgobject)
+                      (list unsigned-long	;; the g-type
+                            unsigned-int	;; n-properties
+                            '*			;; *names[]
+                            '*)))		;; values[]
 
 (define g_object_ref
   (pointer->procedure '*

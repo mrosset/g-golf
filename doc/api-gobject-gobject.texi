@@ -16,6 +16,7 @@ GObject — The base object type
 @indentedblock
 @table @code
 @item @ref{g-object-new}
+@item @ref{g-object-new-with-properties}
 @item @ref{g-object-ref}
 @item @ref{g-object-unref}
 @item @ref{g-object-ref-sink}
@@ -73,6 +74,22 @@ Returns a pointer.
 
 Creates and returns a (pointer to) a new instance of a GObject subtype
 @var{gtype}.  All properties are set to there default values.
+@end deffn
+
+
+@anchor{g-object-new-with-properties}
+@deffn Procedure g-object-new-with-properties gtype n-prop names g-values
+
+Returns a pointer.
+
+Creates and returns a (pointer to) a new instance of a GObject subtype
+@var{gtype}. The other arguments are @var{n-prop} the number of
+properties, @var{names} a pointer to an array of pointers to strings
+with the names of each property to be set and @var{values} an array of
+@code{GValue} containing the values of each property to be set.
+
+Properties that are not explicitly specified are set to there default
+values.
 @end deffn
 
 
