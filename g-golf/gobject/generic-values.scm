@@ -38,8 +38,7 @@
 		warn
 		last)
 
-  #:export (;; from libg-golf
-            g-value-size
+  #:export (g-value-size
 
             g-value-init
             g-value-unset))
