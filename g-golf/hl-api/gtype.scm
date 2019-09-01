@@ -35,6 +35,7 @@
 
 
 (define-module (g-golf hl-api gtype)
+  #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (ice-9 format)
   #:use-module (oop goops)
@@ -118,7 +119,7 @@
     (next-method)))
 
 
-;; The root class of all instantiatable GType classes.
+;; The root class of all instantiable GType classes.
 
 (define-class <gtype-instance> ()
   (g-inst #:accessor !g-inst)
@@ -135,17 +136,67 @@
 
 (define-method (initialize (self <gtype-instance>) initargs)
   (let ((g-inst (or (get-keyword #:g-inst initargs #f)
-                    (g-inst-construct (class-of self)))))
+                    (g-inst-construct self initargs))))
     (receive (split-kw split-rest)
         (split-keyword-args '(#:g-inst) initargs)
       (when (g-object-is-floating g-inst)
         (g-object-ref-sink g-inst))
       (set! (!g-inst self) g-inst)
-      (next-method self split-rest)
       (g-inst-cache-set! g-inst self))))
 
-(define (g-inst-construct class)
-  (g-object-new (!gtype-id class)))
+(define %g_value_init
+  (@@ (g-golf gobject generic-values) g_value_init))
+
+(define-method (g-inst-construct (self <gtype-instance>) initargs)
+  (if (null? initargs)
+      (g-object-new (!gtype-id (class-of self)))
+      (let* ((class (class-of self))
+             (g-type (!gtype-id class))
+             (slot-def-init-val-pairs
+              (slot-definition-init-value-pairs self initargs))
+             (n-prop (length slot-def-init-val-pairs))
+             (%g-value-size (g-value-size))
+             (g-values (bytevector->pointer
+                        (make-bytevector (* n-prop %g-value-size) 0)))
+             (names
+              (let loop ((i 0)
+                         (names '())
+                         (g-value g-values)
+                         (slot-def-init-val-pairs slot-def-init-val-pairs))
+                (match slot-def-init-val-pairs
+                  (()
+                   (reverse! names))
+                  ((slot-def-init-val-pair . rest)
+                   (match slot-def-init-val-pair
+                     ((slot-def . init-val)
+                      (let* ((slot-opts (slot-definition-options slot-def))
+                             (g-property (get-keyword #:g-property slot-opts #f))
+                             (g-type (get-keyword #:g-type slot-opts #f)))
+                        (%g_value_init g-value g-type)
+                        (g-value-set! g-value init-val)
+                        (loop (+ i 1)
+                              (cons (g-base-info-get-name g-property) names)
+                              (gi-pointer-inc g-value %g-value-size)
+                              rest)))))))))
+        (g-object-new-with-properties g-type
+                                      n-prop
+                                      (scm->gi names 'strings)
+                                      g-values))))
+
+(define-method (slot-definition-init-value-pairs (self <gtype-instance>)
+                                                 initargs)
+  (let ((class (class-of self)))
+    (let loop ((initargs initargs)
+               (results '()))
+      (match initargs
+        (()
+         (reverse! results))
+        ((kw val . rest)
+         (loop rest
+               (cons (cons (class-slot-definition class
+                                                  (keyword->symbol kw))
+                           val)
+                     results)))))))
 
 ;; previous initialze core code, with its comment, which I may need in
 ;; another context (the code).
