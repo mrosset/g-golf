@@ -38,7 +38,6 @@
   #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (ice-9 format)
-  #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support)
   #:use-module (g-golf gi)
@@ -146,12 +145,6 @@
           (g-object-ref-sink g-inst))
         (set! (!g-inst self) g-inst)
         (g-inst-cache-set! g-inst self))))
-
-(define-method (class-g-property-slots (self <class>))
-  (filter-map (lambda (slot)
-                (eq? (slot-definition-allocation slot)
-                     #:g-property))
-      (class-slots self)))
 
 (define %g_value_init
   (@@ (g-golf gobject generic-values) g_value_init))

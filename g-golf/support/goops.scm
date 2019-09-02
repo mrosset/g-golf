@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016, 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -58,6 +58,7 @@
 
 (g-export class-direct-virtual-slots
 	  class-virtual-slots
+          class-g-property-slots
 	  #;describe)
 
 
@@ -91,6 +92,12 @@
 			  #:virtual)
 		     slot-definition))
       (class-slots c)))
+
+(define-method (class-g-property-slots (self <class>))
+  (filter-map (lambda (slot)
+                (eq? (slot-definition-allocation slot)
+                     #:g-property))
+      (class-slots self)))
 
 #;(define-method* (describe (self <object>) #:key (port #t))
   (format port "~S - instance of ~A~%"
