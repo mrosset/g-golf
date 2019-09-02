@@ -136,7 +136,8 @@
 
 (define-method (initialize (self <gtype-instance>) initargs)
   (receive (split-kw split-rest)
-      (split-keyword-args (class-g-property-slots (class-of self))
+      (split-keyword-args (map slot-definition-init-keyword
+                            (class-g-property-slots (class-of self)))
                           initargs)
     (let ((g-inst (or (get-keyword #:g-inst initargs #f)
                       (g-inst-construct self split-kw))))
