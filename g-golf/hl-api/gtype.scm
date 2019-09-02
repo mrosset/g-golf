@@ -201,37 +201,6 @@
                            val)
                      results)))))))
 
-;; previous initialze core code, with its comment, which I may need in
-;; another context (the code).
-
-;; Init keywords for g-properties are cached at class creation time, see
-;; (g-golg hl-api gobject).  This method needs to call next-method, but
-;; without passing it any g-property init keyword, because g-property
-;; slots redefine their slot-set!  method to call g-object-set-property
-;; and that needs a g-inst which either does not exist yet (g-inst above
-;; is #f), or it does, but we don't know that goops will set the g-inst
-;; slot before any other, and therefore we cn't rely ibecause
-
-#;(let* ((c-name (class-name (class-of self)))
-       (g-props-init-kw (gi-cache-ref 'g-props-init-kw c-name)))
-  (receive (split-kw split-rest)
-      (split-keyword-args g-props-init-kw initargs)
-    (next-method self split-rest)
-    (g-inst-construct self initargs)
-    (g-inst-initialize-properties self split-kw)))
-
-;; we don't need the followig anymore, but let's keep it for now.
-#;(define (g-inst-initialize-properties self g-props-init-kw)
-  (for-each (lambda (slot)
-              (case (slot-definition-allocation slot)
-                ((#:g-property)
-                 (let* ((s-name (slot-definition-name slot))
-                        (i-kw (slot-definition-init-keyword slot))
-                        (i-value (get-keyword i-kw g-props-init-kw)))
-                   (and i-value
-                        (slot-set! self s-name i-value))))))
-      (class-direct-slots (class-of self))))
-
 (define-method (unref (self <gtype-instance>))
   (let ((g-inst (!g-inst self)))
     (g-object-unref g-inst)
