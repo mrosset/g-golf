@@ -94,9 +94,10 @@
       (class-slots c)))
 
 (define-method (class-g-property-slots (self <class>))
-  (filter-map (lambda (slot)
-                (eq? (slot-definition-allocation slot)
-                     #:g-property))
+  (filter-map (lambda (slot-definition)
+                (and (eq? (slot-definition-allocation slot-definition)
+                          #:g-property)
+                     slot-definition))
       (class-slots self)))
 
 #;(define-method* (describe (self <object>) #:key (port #t))
