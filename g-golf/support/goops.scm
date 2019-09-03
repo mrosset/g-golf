@@ -58,6 +58,7 @@
 
 (g-export class-direct-virtual-slots
 	  class-virtual-slots
+          class-direct-g-property-slots
           class-g-property-slots
 	  #;describe)
 
@@ -92,6 +93,13 @@
 			  #:virtual)
 		     slot-definition))
       (class-slots c)))
+
+(define-method (class-direct-g-property-slots (self <class>))
+  (filter-map (lambda (slot-definition)
+                (and (eq? (slot-definition-allocation slot-definition)
+                          #:g-property)
+                     slot-definition))
+      (class-direct-slots self)))
 
 (define-method (class-g-property-slots (self <class>))
   (filter-map (lambda (slot-definition)
