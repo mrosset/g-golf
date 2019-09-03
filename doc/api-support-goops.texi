@@ -12,10 +12,46 @@
 
 @indentedblock
 @table @code
+@item @ref{class-direct-virtual-slots}
+@item @ref{class-virtual-slots}
+@item @ref{class-direct-g-property-slots}
 @item @ref{class-g-property-slots}
 @item @ref{mslot-set!}
 @end table
 @end indentedblock
+
+
+@anchor{class-direct-virtual-slots}
+@deffn Method class-direct-virtual-slots (self <class>)
+
+Returns a list.
+
+Obtains and returns the list of the class direct slots for @var{self}
+that satisfy the @code{(eq? (slot-definition-allocation slot)
+#:virtual)} predicate.
+@end deffn
+
+
+@anchor{class-virtual-slots}
+@deffn Method class-virtual-slots (self <class>)
+
+Returns a list.
+
+Obtains and returns the list of the class slots for @var{self} that
+satisfy the @code{(eq? (slot-definition-allocation slot) #:virtual)}
+predicate.
+@end deffn
+
+
+@anchor{class-direct-g-property-slots}
+@deffn Method class-direct-g-property-slots (self <class>)
+
+Returns a list.
+
+Obtains and returns the list of the class direct slots for @var{self}
+that satisfy the @code{(eq? (slot-definition-allocation slot)
+#:g-property)} predicate.
+@end deffn
 
 
 @anchor{class-g-property-slots}
