@@ -566,7 +566,11 @@
                                                         arg))))
                   ((object)
                    (gi-argument-set! gi-argument-in 'v-pointer
-                                     (!g-inst arg)))))))
+                                     (if arg
+                                         (!g-inst arg)
+                                         (if may-be-null?
+                                             %null-pointer
+                                             (error "Invalid arg: " arg)))))))))
             ((array)
              (match type-desc
                ((array fixed-size is-zero-terminated param-n param-tag)
