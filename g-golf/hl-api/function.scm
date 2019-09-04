@@ -321,13 +321,13 @@
                       (g-type-info-get-tag info))))
     (case type-tag
       ((interface)
-       (interface->g-type info))
+       (interface-description info))
       ((array)
        (array-description info))
       (else
        type-tag))))
 
-(define (interface->g-type info)
+(define (interface-description info)
   (let* ((info (g-type-info-get-interface info))
          (type (g-base-info-get-type info)))
     (if (is-registered? type)
