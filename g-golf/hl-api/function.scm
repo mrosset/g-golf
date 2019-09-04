@@ -324,6 +324,9 @@
        (interface-description info))
       ((array)
        (array-description info))
+      ((glist
+        gslist)
+       (glist-description info type-tag))
       (else
        type-tag))))
 
@@ -429,6 +432,25 @@
           is-zero-terminated
           param-n
           param-tag)))
+
+(define (glist-description info type-tag)
+  (let* ((param-type (g-type-info-get-param-type info 0))
+         (param-tag (g-type-info-get-tag param-type))
+         (is-pointer? (g-type-info-is-pointer param-type)))
+    (case param-tag
+      ((interface)
+       (let ((i-desc (interface-description param-type)))
+         (g-base-info-unref param-type)
+         (list type-tag
+               'interface
+               i-desc
+               is-pointer?)))
+      (else
+       (g-base-info-unref param-type)
+       (list type-tag
+             #f
+             param-tag
+             is-pointer?)))))
 
 (define* (function-arguments-and-gi-arguments info #:optional (flags #f))
   (let* ((flags (or flags
