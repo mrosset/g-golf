@@ -1,0 +1,87 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node Doubly-Linked Lists
+@subsection Doubly-Linked Lists
+
+G-Golf Glib Doubly-Linked Lists low level API.@*
+Doubly-Linked Lists — linked lists that can be iterated over in both
+directions
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-list-data}
+@item @ref{g-list-next}
+@item @ref{g-list-length}
+@item @ref{g-list-nth-data}
+@end table
+@end indentedblock
+
+
+@subheading Description
+
+The @code{GList} structure and its associated functions provide a
+standard doubly-linked list data structure.
+
+Each element in the list contains a piece of data, together with
+pointers which link to the previous and next elements in the list. Using
+these pointers it is possible to move through the list in both
+directions (unlike the singly-linked @code{GSList}, which only allows
+movement through the list in the forward direction).
+
+Please read the @uref{@value{UGLIB-GList}, Doubly-Linked-Lists}
+section from the Glib reference manual for a complete description.
+
+
+@subheading Procedures
+
+
+@anchor{g-list-data}
+@deffn Procedure g-list-data glist
+
+Returns a pointer.
+
+Obtains and returns a pointer to the data in @var{glist}, or any integer
+value, in which case, it is the responsibility of the caller to apply
+the appropirate type conversion procedure.
+@end deffn
+
+
+@anchor{g-list-next}
+@deffn Procedure g-list-next glist
+
+Returns a pointer or #f.
+
+Obtains and returns the next element in @var{glist}, or #f if there are
+no more elements.
+@end deffn
+
+
+@anchor{g-list-length}
+@deffn Procedure g-list-length glist
+
+Returns an integer.
+
+Obtains and returns the number of elements in @var{glist}. This function
+iterates over the whole list to count its elements.
+@end deffn
+
+
+@anchor{g-list-nth-data}
+@deffn Procedure g-list-nth-data glist n
+
+Returns a pointer or #f.
+
+Obtains and returns a pointer to the data of the @var{n}-th element of
+@var{glist}. This iterates over the list until it reaches the n-th
+position. If @var{n} is off the end of @var{glist}, it returns #f.
+@end deffn

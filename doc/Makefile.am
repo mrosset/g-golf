@@ -39,6 +39,7 @@ g_golf_TEXINFOS = \
   api-glib.texi			\
   api-glib-mem-alloc.texi	\
   api-glib-main-event-loop.texi \
+  api-glib-glist.texi		\
   api-gobject.texi		\
   api-gobject-type-info.texi	\
   api-gobject-gobject.texi	\

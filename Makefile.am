@@ -44,6 +44,7 @@ SOURCES = \
 	g-golf/init.scm				\
 	g-golf/glib/mem-alloc.scm		\
 	g-golf/glib/main-event-loop.scm		\
+	g-golf/glib/glist.scm			\
 	g-golf/glib.scm				\
 	g-golf/gobject/type-info.scm		\
 	g-golf/gobject/gobject.scm		\

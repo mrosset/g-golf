@@ -61,6 +61,7 @@
 @set UGIValueInfo https://developer.gnome.org/gi/stable/gi-GIValueInfo.html
 
 @set UGLIB https://developer.gnome.org/glib/stable/
+@set UGLIB-GList https://developer.gnome.org/glib/stable/glib-Doubly-Linked-Lists.html
 @set UGLIB-Mem-Alloc https://developer.gnome.org/glib/stable/glib-Memory-Allocation.html
 @set UGLIB-Main-Event-Loop https://developer.gnome.org/glib/stable/glib-The-Main-Event-Loop.html
 

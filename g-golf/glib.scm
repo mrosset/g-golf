@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -48,6 +48,7 @@
   #:use-module (g-golf init)
   #:use-module (g-golf glib mem-alloc)
   #:use-module (g-golf glib main-event-loop)
+  #:use-module (g-golf glib glist)
 
   #:duplicates (merge-generics
 		replace
@@ -68,4 +69,5 @@
 			      (g-golf support enum)
 			      (g-golf init)
 			      (g-golf glib mem-alloc)
-                              (g-golf glib main-event-loop)))
+                              (g-golf glib main-event-loop)
+                              (g-golf glib glist)))

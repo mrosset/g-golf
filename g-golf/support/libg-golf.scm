@@ -36,6 +36,10 @@
             ;; floats
             float_to_int
 
+            ;; glib
+            g_list_data
+            g_list_next
+
             ;; GObject
             g_value_size
             g_object_type
@@ -63,6 +67,23 @@
                       (dynamic-func "float_to_int"
                                     %libg-golf)
                       (list float)))
+
+
+;;;
+;;; Glib
+;;;
+
+(define g_list_data
+  (pointer->procedure '*
+                      (dynamic-func "g_list_data"
+                                    %libg-golf)
+                      (list '*)))
+
+(define g_list_next
+  (pointer->procedure '*
+                      (dynamic-func "g_list_next_"
+                                    %libg-golf)
+                      (list '*)))
 
 
 ;;;

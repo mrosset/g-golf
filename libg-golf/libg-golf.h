@@ -45,6 +45,15 @@ int float_to_int (float f);
  *
 */
 
+g_list_data (GList *list);
+g_list_next_ (GList *list);
+
+
+/*
+ * GObject
+ *
+*/
+
 size_t g_value_size ();
 GType g_object_type (GObject *obj);
 const gchar * g_object_type_name (GObject *obj);
