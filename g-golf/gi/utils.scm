@@ -29,13 +29,16 @@
 (define-module (g-golf gi utils)
   #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
+  #:use-module (oop goops)
   #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
   #:use-module (srfi srfi-1)
   #:use-module (srfi srfi-60)
+  #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support bytevector)
   #:use-module (g-golf glib mem-alloc)
+  #:use-module (g-golf glib glist)
 
   #:export (%gi-pointer-size
 	    gi-pointer-new
@@ -98,13 +101,14 @@
 ;;; gi->scm procedures
 ;;;
 
-(define (gi->scm value type)
+(define* (gi->scm value type #:optional (type-desc #f))
   (case type
     ((boolean) (gi-boolean->scm value))
     ((string) (gi-string->scm value))
     ((strings) (gi-strings->scm value))
     ((csv-string) (gi-cvs-string->scm value))
     ((pointer) (gi-pointer->scm value))
+    ((glist) (gi-glist->scm value type-desc))
     (else
      (error "No such type: " type))))
 
@@ -138,6 +142,41 @@
   (if (null-pointer? pointer)
       #f
       pointer))
+
+(define (gi-glist->scm glist type-desc)
+  ;; The reason glist, which is supposed to be a pointer, can be #f is
+  ;; that the caller may have already processed its value, which is what
+  ;; gi-argument-ref does for 'v-pointer fields for example. In this
+  ;; case, gi-pointer->scm has been called, which returns #f its
+  ;; argument is a %null-pointer.
+  (if (or (not glist)
+          (null-pointer? glist))
+      '()
+      (gi-glist-1->scm glist type-desc)))
+
+(define (gi-glist-1->scm glist type-desc)
+  (match type-desc
+    ((_ interface? i-desc is-pointer?)
+     (if interface?
+         (gi-glist-interface->scm glist i-desc)
+         (warning "Unimplemented glist type" type-desc)))))
+
+(define (gi-glist-interface->scm glist i-desc)
+  (match i-desc
+    ((type name gi-type g-type confirmed?)
+     (case type
+       ((object)
+        (let ((n-object (g-list-length glist)))
+          (let loop ((glist glist)
+                     (result '()))
+            (if (null-pointer? glist)
+                (reverse! result)
+                (loop (g-list-next glist)
+                      (cons (make gi-type
+                              #:g-inst (g-list-data glist))
+                            result))))))
+       (else
+        (warning "Unimplemented glist type" i-desc))))))
 
 
 ;;;
