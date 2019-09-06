@@ -75,18 +75,6 @@ float_to_int (float f)
  *
 */
 
-gpointer *
-g_list_data (GList *list)
-{
-  return (list->data);
-}
-
-GList *
-g_list_next_ (GList *list)
-{
-  return (g_list_next(list));
-}
-
 
 /*
  * GObject

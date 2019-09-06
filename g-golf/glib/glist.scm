@@ -27,12 +27,13 @@
 
 
 (define-module (g-golf glib glist)
+  #:use-module (ice-9 match)
   #:use-module (system foreign)
   #:use-module (g-golf init)
-  #:use-module (g-golf support libg-golf)
 
   #:export (g-list-data
             g-list-next
+            g-list-prev
             
             g-list-length
             g-list-nth-data))
@@ -42,20 +43,29 @@
 ;;; Glib Low level API
 ;;;
 
+(define %g-list-struct
+  (list '* '* '*))
 
-;; from libg-golf
-(define (g-list-data glist)
-  (g_list_data glist))
+(define (g-list-parse g-list)
+  (parse-c-struct g-list %g-list-struct))
 
-;; from libg-golf
-(define (g-list-next glist)
-  (g_list_next glist))
+(define (g-list-data g-list)
+  (match (g-list-parse g-list)
+    ((data _ _) data)))
 
-(define (g-list-length glist)
-  (g_list_length glist))
+(define (g-list-next g-list)
+  (match (g-list-parse g-list)
+    ((_ next _) next)))
 
-(define (g-list-nth-data glist n)
-  (let ((foreign (g_list_nth_data glist n)))
+(define (g-list-prev g-list)
+  (match (g-list-parse g-list)
+    ((_ _ prev) prev)))
+
+(define (g-list-length g-list)
+  (g_list_length g-list))
+
+(define (g-list-nth-data g-list n)
+  (let ((foreign (g_list_nth_data g-list n)))
     (if (null-pointer? foreign)
         #f
         foreign)))

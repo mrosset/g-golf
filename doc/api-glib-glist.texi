@@ -21,6 +21,7 @@ directions
 @table @code
 @item @ref{g-list-data}
 @item @ref{g-list-next}
+@item @ref{g-list-prev}
 @item @ref{g-list-length}
 @item @ref{g-list-nth-data}
 @end table
@@ -46,42 +47,52 @@ section from the Glib reference manual for a complete description.
 
 
 @anchor{g-list-data}
-@deffn Procedure g-list-data glist
+@deffn Procedure g-list-data g-list
 
 Returns a pointer.
 
-Obtains and returns a pointer to the data in @var{glist}, or any integer
+Obtains and returns a pointer to the data in @var{g-list}, or any integer
 value, in which case, it is the responsibility of the caller to apply
 the appropirate type conversion procedure.
 @end deffn
 
 
 @anchor{g-list-next}
-@deffn Procedure g-list-next glist
+@deffn Procedure g-list-next g-list
 
 Returns a pointer or #f.
 
-Obtains and returns the next element in @var{glist}, or #f if there are
+Obtains and returns the next element in @var{g-list}, or #f if there are
 no more elements.
 @end deffn
 
 
+@anchor{g-list-prev}
+@deffn Procedure g-list-prev g-list
+
+Returns a pointer or #f.
+
+Obtains and returns the previous element in @var{g-list}, or #f if there
+are no previous element.
+@end deffn
+
+
 @anchor{g-list-length}
-@deffn Procedure g-list-length glist
+@deffn Procedure g-list-length g-list
 
 Returns an integer.
 
-Obtains and returns the number of elements in @var{glist}. This function
+Obtains and returns the number of elements in @var{g-list}. This function
 iterates over the whole list to count its elements.
 @end deffn
 
 
 @anchor{g-list-nth-data}
-@deffn Procedure g-list-nth-data glist n
+@deffn Procedure g-list-nth-data g-list n
 
 Returns a pointer or #f.
 
 Obtains and returns a pointer to the data of the @var{n}-th element of
-@var{glist}. This iterates over the list until it reaches the n-th
-position. If @var{n} is off the end of @var{glist}, it returns #f.
+@var{g-list}. This iterates over the list until it reaches the n-th
+position. If @var{n} is off the end of @var{g-list}, it returns #f.
 @end deffn

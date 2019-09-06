@@ -143,37 +143,37 @@
       #f
       pointer))
 
-(define (gi-glist->scm glist type-desc)
-  ;; The reason glist, which is supposed to be a pointer, can be #f is
+(define (gi-glist->scm g-list type-desc)
+  ;; The reason g-list, which is supposed to be a pointer, can be #f is
   ;; that the caller may have already processed its value, which is what
   ;; gi-argument-ref does for 'v-pointer fields for example. In this
   ;; case, gi-pointer->scm has been called, which returns #f its
   ;; argument is a %null-pointer.
-  (if (or (not glist)
-          (null-pointer? glist))
+  (if (or (not g-list)
+          (null-pointer? g-list))
       '()
-      (gi-glist-1->scm glist type-desc)))
+      (gi-glist-1->scm g-list type-desc)))
 
-(define (gi-glist-1->scm glist type-desc)
+(define (gi-glist-1->scm g-list type-desc)
   (match type-desc
     ((_ interface? i-desc is-pointer?)
      (if interface?
-         (gi-glist-interface->scm glist i-desc)
+         (gi-glist-interface->scm g-list i-desc)
          (warning "Unimplemented glist type" type-desc)))))
 
-(define (gi-glist-interface->scm glist i-desc)
+(define (gi-glist-interface->scm g-list i-desc)
   (match i-desc
     ((type name gi-type g-type confirmed?)
      (case type
        ((object)
-        (let ((n-object (g-list-length glist)))
-          (let loop ((glist glist)
+        (let ((n-object (g-list-length g-list)))
+          (let loop ((g-list g-list)
                      (result '()))
-            (if (null-pointer? glist)
+            (if (null-pointer? g-list)
                 (reverse! result)
-                (loop (g-list-next glist)
+                (loop (g-list-next g-list)
                       (cons (make gi-type
-                              #:g-inst (g-list-data glist))
+                              #:g-inst (g-list-data g-list))
                             result))))))
        (else
         (warning "Unimplemented glist type" i-desc))))))

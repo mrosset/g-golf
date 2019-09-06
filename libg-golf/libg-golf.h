@@ -41,12 +41,9 @@ int float_to_int (float f);
 
 
 /*
- * GObject
+ * Glib
  *
 */
-
-g_list_data (GList *list);
-g_list_next_ (GList *list);
 
 
 /*
