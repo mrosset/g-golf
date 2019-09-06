@@ -221,7 +221,34 @@ Returns a list.
 
 Obtains and returns a (possibly empty) list composed of the scheme
 representation of the @code{data} field of ech element of @var{g-list}
-or  @var{g-slist} respectively.
+or @var{g-slist} respectively.
+
+The @var{type-desc} is a list composed of the @var{g-list} or
+@var{g-slist} type tag, @code{'interface} if the list element param-tag
+is interface or #f otherwise, the interface description (if the previous
+is not #f), followed by a boolean which is #t if the g-list (g-slist)
+@code{data} field is a pointer, #f otherwise.
+
+An interface description is a list composed of the interface GI type
+tag, the G-Golf type name, the G-Golf type, the g-type id and a boolean
+which is #t if the last three values have been verified@footnote{It
+happens, due to the (unspecified) order at which @samp{things} are
+imported from a GI typelib, that a G-Golf class or instance hasn't been
+finalized when the procedure or method is being imported, hence these
+must be verified, which is done at the first (and only once) procedure
+or method call.}. As an example, here is the type description of the
+returned value for @code{clutter-actor-get-children}:
+
+@lisp
+(glist
+ interface
+ (object
+  <clutter-actor>
+  #<<gobject-class> <clutter-actor> 561c2e9c2960>
+  94679044057632
+  #f)
+ #f)
+@end lisp
 @end deffn
 
 
