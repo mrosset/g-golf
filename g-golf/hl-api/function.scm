@@ -782,10 +782,10 @@
               (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) 'strings)
               (warning "Unimplemented type - array;"
                        (format #f "~S" type-desc))))))
-      ((glist)
-       (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) 'glist type-desc))
-      ((gslist
-        ghash
+      ((glist
+        gslist)
+       (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) return-type type-desc))
+      ((ghash
         error)
        (warning "Unimplemented type" (symbol->string return-type)))
       ((utf8

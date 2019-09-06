@@ -39,6 +39,7 @@
   #:use-module (g-golf support bytevector)
   #:use-module (g-golf glib mem-alloc)
   #:use-module (g-golf glib glist)
+  #:use-module (g-golf glib gslist)
 
   #:export (%gi-pointer-size
 	    gi-pointer-new
@@ -46,12 +47,18 @@
 	    gi-attribute-iter-new
 	    with-gerror
 	    gi->scm
-            scm->gi
             gi-boolean->scm
             gi-string->scm
             gi-strings->scm
             gi-cvs-string->scm
 	    gi-pointer->scm
+            gi-glist->scm
+            gi-gslist->scm
+            scm->gi
+            scm->gi-boolean
+            scm->gi-string
+            scm->gi-strings
+            scm->gi-pointer
 	    gi-integer->gflags
 	    gi-gflags->integer))
 
@@ -109,6 +116,7 @@
     ((csv-string) (gi-cvs-string->scm value))
     ((pointer) (gi-pointer->scm value))
     ((glist) (gi-glist->scm value type-desc))
+    ((gslist) (gi-gslist->scm value type-desc))
     (else
      (error "No such type: " type))))
 
@@ -166,17 +174,50 @@
     ((type name gi-type g-type confirmed?)
      (case type
        ((object)
-        (let ((n-object (g-list-length g-list)))
-          (let loop ((g-list g-list)
-                     (result '()))
-            (if (null-pointer? g-list)
-                (reverse! result)
-                (loop (g-list-next g-list)
-                      (cons (make gi-type
-                              #:g-inst (g-list-data g-list))
-                            result))))))
+        (let loop ((g-list g-list)
+                   (result '()))
+          (if (null-pointer? g-list)
+              (reverse! result)
+              (loop (g-list-next g-list)
+                    (cons (make gi-type
+                            #:g-inst (g-list-data g-list))
+                          result)))))
        (else
         (warning "Unimplemented glist type" i-desc))))))
+
+(define (gi-gslist->scm g-slist type-desc)
+  ;; The reason g-slist, which is supposed to be a pointer, can be #f is
+  ;; that the caller may have already processed its value, which is what
+  ;; gi-argument-ref does for 'v-pointer fields for example. In this
+  ;; case, gi-pointer->scm has been called, which returns #f its
+  ;; argument is a %null-pointer.
+  (if (or (not g-slist)
+          (null-pointer? g-slist))
+      '()
+      (gi-gslist-1->scm g-slist type-desc)))
+
+(define (gi-gslist-1->scm g-slist type-desc)
+  (match type-desc
+    ((_ interface? i-desc is-pointer?)
+     (if interface?
+         (gi-gslist-interface->scm g-slist i-desc)
+         (warning "Unimplemented gslist type" type-desc)))))
+
+(define (gi-gslist-interface->scm g-slist i-desc)
+  (match i-desc
+    ((type name gi-type g-type confirmed?)
+     (case type
+       ((object)
+        (let loop ((g-slist g-slist)
+                   (result '()))
+          (if (null-pointer? g-slist)
+              (reverse! result)
+              (loop (g-slist-next g-slist)
+                    (cons (make gi-type
+                            #:g-inst (g-slist-data g-slist))
+                          result)))))
+       (else
+        (warning "Unimplemented gslist type" i-desc))))))
 
 
 ;;;
