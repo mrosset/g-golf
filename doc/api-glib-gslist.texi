@@ -21,6 +21,7 @@ direction
 @table @code
 @item @ref{g-slist-data}
 @item @ref{g-slist-next}
+@item @ref{g-slist-free}
 @item @ref{g-slist-length}
 @item @ref{g-slist-nth-data}
 @end table
@@ -62,6 +63,15 @@ Returns a pointer or #f.
 
 Obtains and returns the next element in @var{g-slist}, or #f if there are
 no more elements.
+@end deffn
+
+
+@anchor{g-slist-free}
+@deffn Procedure g-slist-free g-slist
+
+Returns nothing.
+
+Frees all of the memory used by @var{g-slist}.
 @end deffn
 
 

@@ -34,7 +34,8 @@
   #:export (g-list-data
             g-list-next
             g-list-prev
-            
+
+            g-list-free
             g-list-length
             g-list-nth-data))
 
@@ -61,6 +62,9 @@
   (match (g-list-parse g-list)
     ((_ _ prev) prev)))
 
+(define (g-list-free g-list)
+  (g_list_free g-list))
+
 (define (g-list-length g-list)
   (g_list_length g-list))
 
@@ -74,6 +78,12 @@
 ;;;
 ;;; Glib Bindings
 ;;;
+
+(define g_list_free
+  (pointer->procedure void
+                      (dynamic-func "g_list_free"
+				    %libglib)
+                      (list '*)))
 
 (define g_list_length
   (pointer->procedure unsigned-int

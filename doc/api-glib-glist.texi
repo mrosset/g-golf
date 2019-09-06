@@ -22,6 +22,7 @@ directions
 @item @ref{g-list-data}
 @item @ref{g-list-next}
 @item @ref{g-list-prev}
+@item @ref{g-list-free}
 @item @ref{g-list-length}
 @item @ref{g-list-nth-data}
 @end table
@@ -74,6 +75,15 @@ Returns a pointer or #f.
 
 Obtains and returns the previous element in @var{g-list}, or #f if there
 are no previous element.
+@end deffn
+
+
+@anchor{g-list-free}
+@deffn Procedure g-list-free g-list
+
+Returns nothing.
+
+Frees all of the memory used by @var{g-list}.
 @end deffn
 
 
