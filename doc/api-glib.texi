@@ -24,10 +24,12 @@ though they might be some exception in the future.
 
 * Memory Allocation:: General memory handling.
 * The Main Event Loop:: Manages all available sources of events.
-* Doubly-Linked Lists:: Linked lists that can be iterated over in both directions
+* Doubly-Linked Lists:: Linked lists that can be iterated in both directions
+* Singly-Linked Lists:: Linked lists that can be iterated in one direction
 @end menu
 
 
 @include api-glib-mem-alloc.texi
 @include api-glib-main-event-loop.texi
 @include api-glib-glist.texi
+@include api-glib-gslist.texi

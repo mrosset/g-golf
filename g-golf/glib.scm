@@ -49,6 +49,7 @@
   #:use-module (g-golf glib mem-alloc)
   #:use-module (g-golf glib main-event-loop)
   #:use-module (g-golf glib glist)
+  #:use-module (g-golf glib gslist)
 
   #:duplicates (merge-generics
 		replace
@@ -70,4 +71,5 @@
 			      (g-golf init)
 			      (g-golf glib mem-alloc)
                               (g-golf glib main-event-loop)
-                              (g-golf glib glist)))
+                              (g-golf glib glist)
+                              (g-golf glib gslist)))
