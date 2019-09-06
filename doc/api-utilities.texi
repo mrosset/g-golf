@@ -27,6 +27,8 @@ G-Golf GObject Introspetion Utilities low level API.@*
 @item @ref{gi-strings->scm}
 @item @ref{gi-csv-string->scm}
 @item @ref{gi-pointer->scm}
+@item @ref{gi-glist->scm}
+@item @ref{gi-gslist->scm}
 @item @ref{gi-integer->gflags}
 @item @ref{gi-gflags->integer}
 @end table
@@ -207,6 +209,19 @@ Returns a pointer or @code{#f}.
 
 The GType of @var{value} is @code{gpointer}.  When @var{value} is the
 @code{%null-pointer}, the procedure returns @code{#f}.
+@end deffn
+
+
+@anchor{gi-glist->scm}
+@anchor{gi-gslist->scm}
+@deffn Procedure gi-glist->scm g-list type-desc
+@deffnx Procedure gi-gslist->scm g-slist type-desc
+
+Returns a list.
+
+Obtains and returns a (possibly empty) list composed of the scheme
+representation of the @code{data} field of ech element of @var{g-list}
+or  @var{g-slist} respectively.
 @end deffn
 
 
