@@ -160,7 +160,9 @@
   (if (or (not g-list)
           (null-pointer? g-list))
       '()
-      (gi-glist-1->scm g-list type-desc)))
+      (let ((result (gi-glist-1->scm g-list type-desc)))
+        (g-list-free g-list)
+        result)))
 
 (define (gi-glist-1->scm g-list type-desc)
   (match type-desc
@@ -194,7 +196,9 @@
   (if (or (not g-slist)
           (null-pointer? g-slist))
       '()
-      (gi-gslist-1->scm g-slist type-desc)))
+      (let ((result (gi-gslist-1->scm g-slist type-desc)))
+        (g-slist-free g-slist)
+        result)))
 
 (define (gi-gslist-1->scm g-slist type-desc)
   (match type-desc
