@@ -20,6 +20,10 @@ GIStructInfo — Structs representing a C structure.
 @table @code
 @item @ref{gi-struct-import}
 @item @ref{gi-struct-field-types}
+@item @ref{g-struct-info-get-alignment}
+@item @ref{g-struct-info-get-size}
+@item @ref{g-struct-info-is-gtype-struct}
+@item @ref{g-struct-info-is-foreign}
 @item @ref{g-struct-info-get-n-fields}
 @item @ref{g-struct-info-get-field}
 @item @ref{g-struct-info-get-n-methods}
@@ -77,6 +81,44 @@ Returns a list.
 
 Obtains and returns the list of (field) types the C struct GI definition
 pointed by @var{info} contains.
+@end deffn
+
+
+@anchor{g-struct-info-get-alignment}
+@deffn Procedure g-struct-info-get-alignment info
+
+Returns an integer.
+
+Obtains and returns the required alignment for @var{info}.
+@end deffn
+
+
+@anchor{g-struct-info-get-size}
+@deffn Procedure g-struct-info-get-size info
+
+Returns an integer.
+
+Obtains and returns the total size of the structure specified
+@var{info}.
+@end deffn
+
+
+@anchor{g-struct-info-is-gtype-struct}
+@deffn Procedure g-struct-info-is-gtype-struct info
+
+Returns #t or #f.
+
+Return true if the structure specified by @var{info} represents the
+"class structure" for some GObject or GInterface.
+@end deffn
+
+
+@anchor{g-struct-info-is-foreign}
+@deffn Procedure g-struct-info-is-foreign info
+
+Returns #t or #f.
+
+FIXME. No upstream documentation, though the procedure works.
 @end deffn
 
 

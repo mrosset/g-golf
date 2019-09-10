@@ -37,38 +37,47 @@
 
 (g-export !gi-name
           !scm-name
+          !alignment
+          !size
+          !is-gtype-struct?
+          !is-foreign?
           !field-types
           !scm-types
           !init-vals
-
-          is-opaque?)
+          is-opaque?
+          is-semi-opaque?)
 
 
 (define-class <gi-struct> ()
   (gi-name #:accessor !gi-name
            #:init-keyword #:gi-name)
   (scm-name #:accessor !scm-name)
+  (alignment #:accessor !alignment
+             #:init-keyword #:alignment)
+  (size #:accessor !size
+        #:init-keyword #:size)
+  (is-gtype-struct? #:accessor !is-gtype-struct?
+                    #:init-keyword #:is-gtype-struct?)
+  (is-foreign? #:accessor !is-foreign?
+               #:init-keyword #:is-foreign?)
   (field-types #:accessor !field-types
                #:init-keyword #:field-types)
   (scm-types #:accessor !scm-types)
-  (init-vals #:accessor !init-vals))
-
+  (init-vals #:accessor !init-vals)
+  (is-opaque? #:accessor !is-opaque?)
+  (is-semi-opaque? #:accessor !is-semi-opaque?))
 
 (define-method (initialize (self <gi-struct>) initargs)
   (next-method)
   (let ((gi-name (get-keyword #:gi-name initargs))
-        (field-types (get-keyword #:field-types initargs)))
+        (field-types (get-keyword #:field-types initargs #f)))
     (and gi-name
-         (set! (!gi-name self) gi-name)
-         (set! (!scm-name self)
-               (g-name->scm-name gi-name)))
+         (mslot-set! self
+                     'gi-name gi-name
+                     'scm-name (g-name->scm-name gi-name)))
     (and field-types
-         (set! (!scm-types self)
-               (map gi-type-tag->ffi field-types)))
-    (and field-types
-         (set! (!init-vals self)
-               (map gi-type-tag->init-val field-types)))))
-
-(define-method (is-opaque? (self <gi-struct>))
-  (null? (!field-types self)))
-
+         (mslot-set! self
+                     'scm-types (map gi-type-tag->ffi field-types)
+                     'init-vals (map gi-type-tag->init-val field-types)
+                     'is-opaque? (null? (!field-types self))
+                     'is-semi-opaque? (if (memq 'void field-types) #t #f)))))

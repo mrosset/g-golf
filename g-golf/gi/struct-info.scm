@@ -47,6 +47,10 @@
   #:export (gi-struct-import
             gi-struct-field-types
 
+            g-struct-info-get-alignment
+            g-struct-info-get-size
+            g-struct-info-is-gtype-struct
+            g-struct-info-is-foreign
             g-struct-info-get-n-fields
             g-struct-info-get-field
             g-struct-info-get-n-methods
@@ -62,6 +66,10 @@
          (field-types (gi-struct-field-types info)))
     (make <gi-struct>
       #:gi-name type-name
+      #:alignment (g-struct-info-get-alignment info)
+      #:size (g-struct-info-get-size info)
+      #:is-gtype-struct? (g-struct-info-is-gtype-struct info)
+      #:is-foreign? (g-struct-info-is-foreign info)
       #:field-types field-types)))
 
 (define (gi-struct-field-types info)
@@ -88,6 +96,18 @@
 ;;; Low level API
 ;;;
 
+(define (g-struct-info-get-alignment info)
+  (g_struct_info_get_alignment info))
+
+(define (g-struct-info-get-size info)
+  (g_struct_info_get_size info))
+
+(define (g-struct-info-is-gtype-struct info)
+  (gi->scm (g_struct_info_is_gtype_struct info) 'boolean))
+
+(define (g-struct-info-is-foreign info)
+  (gi->scm (g_struct_info_is_foreign info) 'boolean))
+
 (define (g-struct-info-get-n-fields info)
   (g_struct_info_get_n_fields info))
 
@@ -104,6 +124,30 @@
 ;;;
 ;;; GI Bindings
 ;;;
+
+(define g_struct_info_get_alignment
+  (pointer->procedure size_t
+                      (dynamic-func "g_struct_info_get_alignment"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_struct_info_get_size
+  (pointer->procedure size_t
+                      (dynamic-func "g_struct_info_get_size"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_struct_info_is_gtype_struct
+  (pointer->procedure int
+                      (dynamic-func "g_struct_info_is_gtype_struct"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_struct_info_is_foreign
+  (pointer->procedure int
+                      (dynamic-func "g_struct_info_is_foreign"
+				    %libgirepository)
+                      (list '*)))
 
 (define g_struct_info_get_n_fields
   (pointer->procedure int
