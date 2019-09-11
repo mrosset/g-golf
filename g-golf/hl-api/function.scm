@@ -582,10 +582,14 @@
                          (error "No such flag(s) " arg " in " gi-type))))
                   ((struct)
                    (gi-argument-set! gi-argument-in 'v-pointer
-                                     (if (is-opaque? gi-type)
-                                         arg
-                                         (make-c-struct (!scm-types gi-type)
-                                                        arg))))
+                                     (cond ((!is-opaque? gi-type)
+                                            arg)
+                                           ((!is-semi-opaque? gi-type)
+                                            (bytevector->pointer
+                                             (make-bytevector (!size gi-type) 0)))
+                                           (else
+                                            (make-c-struct (!scm-types gi-type)
+                                                           arg)))))
                   ((object)
                    (gi-argument-set! gi-argument-in 'v-pointer
                                      (if arg
@@ -652,10 +656,14 @@
                    (gi-argument-set! gi-argument-out 'v-int -1))
                   ((struct)
                    (gi-argument-set! gi-argument-out 'v-pointer
-                                     (if (is-opaque? gi-type)
-                                         %null-pointer
-                                         (make-c-struct (!scm-types gi-type)
-                                                        (!init-vals gi-type)))))
+                                     (cond ((!is-opaque? gi-type)
+                                            %null-pointer)
+                                           ((!is-semi-opaque? gi-type)
+                                            (bytevector->pointer
+                                             (make-bytevector (!size gi-type) 0)))
+                                           (else
+                                            (make-c-struct (!scm-types gi-type)
+                                                           (!init-vals gi-type))))))
                   ((object)
                    (warning "Arg out"
                             "type-tag object - not sure this will ever happen ...")
@@ -708,7 +716,8 @@
              (let ((val (gi-argument-ref gi-argument-out 'v-int)))
                (gi-integer->gflags gi-type val)))
             ((struct)
-             (if (is-opaque? gi-type)
+             (if (or (!is-opaque? gi-type)
+                     (!is-semi-opaque? gi-type))
                  (gi-argument-ref gi-argument-out 'v-pointer)
                  (parse-c-struct (gi-argument-ref gi-argument-out 'v-pointer)
                                  (!scm-types gi-type))))))))
@@ -752,7 +761,8 @@
              (let ((val (gi-argument-ref gi-arg-res 'v-int)))
                (gi-integer->gflags gi-type val)))
             ((struct)
-             (if (is-opaque? gi-type)
+             (if (or (!is-opaque? gi-type)
+                     (!is-semi-opaque? gi-type))
                  (gi-argument-ref gi-arg-res 'v-pointer)
                  (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
                                  (!scm-types gi-type))))
