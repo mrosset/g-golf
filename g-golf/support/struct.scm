@@ -44,8 +44,8 @@
           !field-types
           !scm-types
           !init-vals
-          is-opaque?
-          is-semi-opaque?)
+          !is-opaque?
+          !is-semi-opaque?)
 
 
 (define-class <gi-struct> ()
