@@ -582,11 +582,9 @@
                          (error "No such flag(s) " arg " in " gi-type))))
                   ((struct)
                    (gi-argument-set! gi-argument-in 'v-pointer
-                                     (cond ((!is-opaque? gi-type)
+                                     (cond ((or (!is-opaque? gi-type)
+                                                (!is-semi-opaque? gi-type))
                                             arg)
-                                           ((!is-semi-opaque? gi-type)
-                                            (bytevector->pointer
-                                             (make-bytevector (!size gi-type) 0)))
                                            (else
                                             (make-c-struct (!scm-types gi-type)
                                                            arg)))))
