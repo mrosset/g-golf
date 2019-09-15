@@ -19,6 +19,8 @@ The G-Golf GIR namespace (Typelib) import high level API.
 @indentedblock
 @table @code
 @item @ref{gi-import}
+@item @ref{gi-import-info}
+@item @ref{gi-import-by-name}
 @end table
 @end indentedblock
 
@@ -40,13 +42,21 @@ The G-Golf GIR namespace (Typelib) import high level API.
 
 
 @anchor{gi-import}
+@anchor{gi-import-info}
+@anchor{gi-import-by-name}
 @deffn Procedure gi-import namespace
+@deffnx Procedure gi-import-info info
+@deffnx Procedure gi-import-by-name namespace name
 
 Returns nothing.
 
-Imports the GIR @var{namespace} (Typelib) in Guile and exports its
-interface - functions (procedures), classes, methods and properties
-accessors.
+Respectively imports (and exports their interface) a @var{namespace} (a
+GIR Typelib), a specific @var{info} (a pointer to a GIBaseInfo item), or
+the (top level) @var{name} GIBaseInfo in @var{namespace} .
+
+The @var{namespace} and @var{name} arguments are case sensitive. It is
+an error to call any of these three procedures using an invalid
+@var{namespace}, @var{info} and @var{namespace} @var{name} combination.
 @end deffn
 
 
@@ -67,13 +77,12 @@ passed to @ref{gi-import}; (b) the (top level) base info types that have
 effectively been imported - when @code{G-Golf} is complete, both lists
 should be identical.
 
-Initially, these variables are empty. As @ref{gi-import} is being
-called, they are filled, and not that it particularly matters, but the
-order in which the types appear in the first imported namespace is
-preserved. Then new types, if any, are added to the end of both lists,
-in the order they appear in subsequent @ref{gi-import} calls.
+Initially, these variables are empty. As @ref{gi-import},
+@ref{gi-import-info} and/or @ref{gi-import-by-name} are being called,
+they are filled with new types, which are added to both lists.
 
-As a consequence, the order in which (top level) base info types appear
-may slightly vary, depending on the order of the namespace used for the
-successive @ref{gi-import} calls and how complete is @code{G-Golf}.
+Note that theorder in which base info types appear in these two lists is
+rrelevant, and may slightly vary, depending on the order of the
+namespace used for the successive @ref{gi-import} calls and how complete
+is @code{G-Golf}.
 @end defvar

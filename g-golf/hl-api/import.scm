@@ -47,6 +47,8 @@
   #:export (%gi-base-info-types
             %gi-imported-base-info-types
             gi-import
+            gi-import-info
+            gi-import-by-name
             gi-import-enum
             gi-import-struct))
 
@@ -63,47 +65,52 @@
 
 (define (gi-import namespace)
   (g-irepository-require namespace)
-  (let ((n-info (g-irepository-get-n-infos namespace))
-        (base-info-types (reverse %gi-base-info-types))
-        (imported-base-info-types (reverse %gi-imported-base-info-types)))
+  (let ((n-info (g-irepository-get-n-infos namespace)))
     (do ((i 0
             (+ i 1)))
         ((= i n-info))
-      (let* ((info (g-irepository-get-info namespace i))
-             (i-type (g-base-info-get-type info)))
-        #;(dimfi (g-base-info-get-name info) " " i-type)
-        (unless (memq i-type
-                      base-info-types)
-          (push! i-type base-info-types))
-        (case i-type
-          ((enum flags)
-           (unless (memq i-type
-                         imported-base-info-types)
-             (push! i-type imported-base-info-types))
-           (gi-import-enum info))
-          ((struct)
-           (unless (memq i-type
-                         imported-base-info-types)
-             (push! i-type imported-base-info-types))
-           (gi-import-struct info))
-          ((function)
-           (unless (memq i-type
-                         imported-base-info-types)
-             (push! i-type imported-base-info-types))
-           (gi-import-function info))
-          ((object)
-           (unless (memq i-type
-                         imported-base-info-types)
-             (push! i-type imported-base-info-types))
-           (gi-import-object info))
-          (else
-           ;; I won't do nothing, not even displaying a message, till
-           ;; G-Golf is complete, because it would fill the repl ...
-           ;; Ultimately, it will raise an exception
-           'nothing))))
-    (set! %gi-base-info-types (reverse! base-info-types))
-    (set! %gi-imported-base-info-types (reverse! imported-base-info-types))
+      (gi-import-info (g-irepository-get-info namespace i)))
     (values)))
+
+(define (gi-import-info info)
+  (let ((i-type (g-base-info-get-type info)))
+    (unless (memq i-type
+                  %gi-base-info-types)
+      (push! i-type %gi-base-info-types))
+    (case i-type
+      ((enum flags)
+       (unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-enum info))
+      ((struct)
+       (unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-struct info))
+      ((function)
+       (unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-function info))
+      ((object)
+       (unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-object info))
+      (else
+       ;; I won't do nothing, not even displaying a message, till
+       ;; G-Golf is complete, because it would fill the repl ...
+       ;; Ultimately, it will raise an exception
+       'nothing))
+    (values)))
+
+(define (gi-import-by-name namespace name)
+  (g-irepository-require namespace)
+  (let ((info (g-irepository-find-by-name namespace name)))
+    (if info
+        (gi-import-info info)
+        (error "No such namespace name: " namespace name))))
 
 (define (gi-import-enum info)
   (let* ((id (g-registered-type-info-get-g-type info))
