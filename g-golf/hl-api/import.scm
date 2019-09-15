@@ -46,6 +46,7 @@
   
   #:export (%gi-base-info-types
             %gi-imported-base-info-types
+            gi-is-info-a?
             gi-import
             gi-import-info
             gi-import-by-name
@@ -63,16 +64,20 @@
 (define %gi-base-info-types '())
 (define %gi-imported-base-info-types '())
 
-(define (gi-import namespace)
+(define (gi-is-info-a? info type)
+  (eq? (g-base-info-get-type info) type))
+
+(define* (gi-import namespace #:key (debug #f))
   (g-irepository-require namespace)
   (let ((n-info (g-irepository-get-n-infos namespace)))
     (do ((i 0
             (+ i 1)))
         ((= i n-info))
-      (gi-import-info (g-irepository-get-info namespace i)))
+      (gi-import-info (g-irepository-get-info namespace i)
+                      #:debug debug))
     (values)))
 
-(define (gi-import-info info)
+(define* (gi-import-info info #:key (debug #f))
   (let ((i-type (g-base-info-get-type info)))
     (unless (memq i-type
                   %gi-base-info-types)
@@ -99,17 +104,19 @@
          (push! i-type %gi-imported-base-info-types))
        (gi-import-object info))
       (else
-       ;; I won't do nothing, not even displaying a message, till
-       ;; G-Golf is complete, because it would fill the repl ...
-       ;; Ultimately, it will raise an exception
-       'nothing))
+       (if debug
+           (if (procedure? debug)
+               (and (debug info)
+                    (dimfi i-type (g-base-info-get-name info) "not imported"))
+               (dimfi i-type (g-base-info-get-name info) "not imported"))
+           'nothing)))
     (values)))
 
-(define (gi-import-by-name namespace name)
+(define* (gi-import-by-name namespace name #:key (debug #f))
   (g-irepository-require namespace)
   (let ((info (g-irepository-find-by-name namespace name)))
     (if info
-        (gi-import-info info)
+        (gi-import-info info #:debug debug)
         (error "No such namespace name: " namespace name))))
 
 (define (gi-import-enum info)
