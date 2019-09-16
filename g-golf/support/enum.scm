@@ -130,7 +130,7 @@
 
 (define-method (initialize (self <gi-enum>) initargs)
   (next-method)
-  (let ((gi-name (get-keyword #:gi-name initargs)))
+  (let ((gi-name (get-keyword #:gi-name initargs #f)))
     (and gi-name
          (set! (!gi-name self) gi-name)
          (set! (!scm-name self)
