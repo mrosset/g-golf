@@ -117,7 +117,7 @@
   ;; manually built, from the list of fundamental types starting with
   ;; G_TYPE_INVALID -> G_TYPE_OBJECT
   (make <gi-enum>
-    #:gi-name "GTypeFundamentalFlags"
+    #:gi-name "GTypeFundamentalTypes"
     #:enum-set '(invalid
                  none
                  interface
