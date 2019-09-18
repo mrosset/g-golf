@@ -29,7 +29,13 @@
 (define-module (tests support)
   #:use-module (oop goops)
   #:use-module (unit-test)
-  #:use-module (g-golf))
+  #:use-module (g-golf)
+
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last))
 
 
 (define-class <g-golf-test-support> (<test-case>))

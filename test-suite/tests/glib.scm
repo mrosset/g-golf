@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -30,7 +30,13 @@
   #:use-module (ice-9 threads)
   #:use-module (oop goops)
   #:use-module (unit-test)
-  #:use-module (g-golf))
+  #:use-module (g-golf)
+
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last))
 
 
 #;(g-irepository-require "Clutter")

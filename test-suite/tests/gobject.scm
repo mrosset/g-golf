@@ -29,16 +29,33 @@
 (define-module (tests gobject)
   #:use-module (oop goops)
   #:use-module (unit-test)
-  #:use-module (g-golf))
+  #:use-module (g-golf)
+
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last))
 
 
 (g-irepository-require "Clutter")
 
+(define %align-info
+  (g-irepository-find-by-name "Clutter" "ActorAlign"))
 
-(define %align-info (g-irepository-find-by-name "Clutter" "ActorAlign"))
-(define %gtype (g-registered-type-info-get-g-type %align-info))
+(define %align-info-g-type
+  (g-registered-type-info-get-g-type %align-info))
 
 (gi-import-enum %align-info)
+
+(define %flags-info
+  (g-irepository-find-by-name "Clutter" "ActorFlags"))
+
+(define %flags-info-g-type
+  (g-registered-type-info-get-g-type %flags-info))
+
+(gi-import-enum %flags-info)
+
 
 (define-class <g-golf-test-gobject> (<test-case>))
 
@@ -54,8 +71,8 @@
            (g-value-init (symbol->g-type 'float)))))
 
 (define-method (test-g-value->g-type* (self <g-golf-test-gobject>))
-  (let ((g-value (g-value-init %gtype)))
-    (assert-true (= (g-value->g-type-id g-value) %gtype))
+  (let ((g-value (g-value-init %align-info-g-type)))
+    (assert-true (= (g-value->g-type-id g-value) %align-info-g-type))
     (assert-true (eq? (g-value->g-type g-value) 'enum))))
 
 (define-method (test-g-value-get-boolean (self <g-golf-test-gobject>))
@@ -103,15 +120,22 @@
     (assert (g-value-set! g-value 5.0))))
 
 (define-method (test-g-value-get-enum (self <g-golf-test-gobject>))
-  (let ((g-value (g-value-init %gtype
-                               #;(symbol->g-type 'enum))))
+  (let ((g-value (g-value-init %align-info-g-type)))
     (assert (g-value-ref g-value))))
 
 (define-method (test-g-value-set-enum (self <g-golf-test-gobject>))
-  (let ((g-value (g-value-init %gtype
-                               #;(symbol->g-type 'enum))))
+  (let ((g-value (g-value-init %align-info-g-type)))
     (assert (g-value-set! g-value 1))
     (assert (g-value-set! g-value 'start))))
+
+(define-method (test-g-value-get-flags (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init %flags-info-g-type)))
+    (assert (g-value-ref g-value))))
+
+(define-method (test-g-value-set-flags (self <g-golf-test-gobject>))
+  (let ((g-value (g-value-init %flags-info-g-type)))
+    (assert (g-value-set! g-value 1))
+    (assert (g-value-set! g-value '(flags_none)))))
 
 (define-method (test-g-value-get-string (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'string))))
@@ -140,7 +164,7 @@
 
 
 (define-method (test-g-type-name (self <g-golf-test-gobject>))
-  (assert-equal "ClutterActorAlign" (g-type-name %gtype))
+  (assert-equal "ClutterActorAlign" (g-type-name %align-info-g-type))
   (assert-equal "gfloat" (g-type-name 56)))
 
 

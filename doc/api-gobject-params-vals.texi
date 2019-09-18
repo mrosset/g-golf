@@ -31,6 +31,8 @@ Parameters and Values — Standard Parameter and Value Types
 @item @ref{g-value-set-double}
 @item @ref{g-value-get-enum}
 @item @ref{g-value-set-enum}
+@item @ref{g-value-get-flags}
+@item @ref{g-value-set-flags}
 @item @ref{g-value-get-string}
 @item @ref{g-value-set-string}
 @item @ref{g-value-get-boxed}
@@ -231,6 +233,29 @@ Sets the content of @var{g-value} to @var{id}, or to the id
 corresponding to @var{sym} respectively.  The @var{id} or the @var{sym}
 must be valid (as in being a valid member of the (registered) enum type
 info for @var{g-value}), otherwise an exception is raised.
+@end deffn
+
+
+@anchor{g-value-get-flags}
+@deffn Procedure g-value-get-flags g-value
+
+Returns a list.
+
+Gets and returns the (registered) list of flags for @var{g-value}.
+@end deffn
+
+
+@anchor{g-value-set-flags}
+@deffn Method g-value-set-flags g-value (val <integer>)
+@deffnx Method g-value-set-flags g-value (flags <list>)
+
+Returns nothing.
+
+Sets the content of @var{g-value} to @var{val}, or to the value given by
+calling @ref{gi-gflags->integer} upon the list of @var{flags},
+respectively. The @var{val} or the @var{flags} must be valid (as in
+being a valid member of the (registered) gflags type for @var{g-value}),
+otherwise an exception is raised.
 @end deffn
 
 

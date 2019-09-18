@@ -62,6 +62,7 @@
             g-value-get-double
             g-value-set-double
             g-value-get-enum
+            g-value-get-flags
             g-value-get-string
             g-value-set-string
             g-value-get-boxed
@@ -71,7 +72,9 @@
             g-value-get-object
             g-value-set-object))
 
-(g-export g-value-set-enum)
+
+(g-export g-value-set-enum
+          g-value-set-flags)
 
 
 ;;;
@@ -107,6 +110,8 @@
      (g-value-get-double g-value))
     ((enum)
      (g-value-get-enum g-value))
+    ((flags)
+     (g-value-get-flags g-value))
     ((string)
      (g-value-get-string g-value))
     ((boxed)
@@ -132,6 +137,8 @@
      (g-value-set-double g-value value))
     ((enum)
      (g-value-set-enum g-value value))
+    ((flags)
+     (g-value-set-flags g-value value))
     ((string)
      (g-value-set-string g-value value))
     ((boxed)
@@ -187,8 +194,8 @@
         (error "No such enum type: " key))))
 
 (define (g-value-get-enum g-value)
-  (let* ((gi-enum (g-value-get-gi-enum g-value))
-         (val (g_value_get_enum g-value)))
+  (let ((gi-enum (g-value-get-gi-enum g-value))
+        (val (g_value_get_enum g-value)))
     (or (enum->symbol gi-enum val)
         (error "No such " (!scm-name gi-enum) " value: " val))))
 
@@ -204,6 +211,25 @@
     (if val
         (g_value_set_enum g-value val)
         (error "No such " (!scm-name gi-enum) " key: " sym))))
+
+(define (g-value-get-flags g-value)
+  (let ((gflags (g-value-get-gi-enum g-value))
+        (val (g_value_get_flags g-value)))
+    (or (gi-integer->gflags gflags val)
+        (error "No such " (!scm-name gflags) " value: " val))))
+
+(define-method (g-value-set-flags g-value (val <integer>))
+  (let ((gflags (g-value-get-gi-enum g-value)))
+    (if (gi-integer->gflags gflags val)
+        (g_value_set_flags g-value val)
+        (error "No such " (!scm-name gflags) " value: " val))))
+
+(define-method (g-value-set-flags g-value (flags <list>))
+  (let* ((gflags (g-value-get-gi-enum g-value))
+         (val (gi-gflags->integer gflags flags)))
+    (if val
+        (g_value_set_flags g-value val)
+        (error "No such " (!scm-name gflags) " key: " flags))))
 
 (define (g-value-get-string g-value)
   (let ((pointer (g_value_get_string g-value)))
@@ -334,6 +360,19 @@
 				    %libgobject)
                       (list '*
                             int)))
+
+(define g_value_get_flags
+  (pointer->procedure unsigned-int
+                      (dynamic-func "g_value_get_flags"
+				    %libgobject)
+                      (list '*)))
+
+(define g_value_set_flags
+  (pointer->procedure void
+                      (dynamic-func "g_value_set_flags"
+				    %libgobject)
+                      (list '*
+                            unsigned-int)))
 
 (define g_value_get_string
   (pointer->procedure '*
