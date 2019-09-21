@@ -51,17 +51,38 @@
 #;(g-export )
 
 (define (gi-import-object info)
-  (let* ((module (resolve-module '(g-golf hl-api gobject)))
-         (r-type (g-registered-type-info-get-g-type info))
-         (gi-name (g-type-name r-type))
-         (c-name (g-name->class-name gi-name))
-         (c-inst (make-class (list <gobject>)
-                             '()
-                             #:name c-name
-                             #:info info)))
-    (module-define! module c-name c-inst)
-    (module-g-export! module `(,c-name))
-    (gi-object-import-methods info)))
+  (let ((module (resolve-module '(g-golf hl-api gobject)))
+        (info-cpl (g-object-class-precedence-list info)))
+    (let loop ((r-info-cpl (reverse info-cpl)))
+      (match r-info-cpl
+        ((item)
+         'done)
+        ((parent child . rest)
+         (g-object-import child parent module)
+         (loop (cons child rest)))))))
+
+(define (g-object-import child parent module)
+  (match parent
+    ((p-info p-namespace p-name)
+     (let* ((p-r-type (g-registered-type-info-get-g-type p-info))
+            (p-gi-name (g-type-name p-r-type))
+            (p-c-name (g-name->class-name p-gi-name)))
+       (match child
+         ((info namespace name)
+          (unless (member namespace
+                          (g-irepository-get-loaded-namespaces)
+                          string=?)
+            g-irepository-require namespace)
+          (let* ((r-type (g-registered-type-info-get-g-type info))
+                 (gi-name (g-type-name r-type))
+                 (c-name (g-name->class-name gi-name))
+                 (c-inst (make-class (list (module-ref module p-c-name))
+                                     '()
+                                     #:name c-name
+                                     #:info info)))
+            (module-define! module c-name c-inst)
+            (module-g-export! module `(,c-name))
+            (gi-object-import-methods info))))))))
 
 (define (gi-object-import-methods info)
   (let ((n-method (g-object-info-get-n-methods info)))
@@ -70,3 +91,16 @@
         ((= i n-method))
       (let ((m-info (g-object-info-get-method info i)))
         (gi-import-function m-info)))))
+
+(define (g-object-class-precedence-list info)
+  (let  loop ((parent (g-object-info-get-parent info))
+              (results (list (list info
+                                   (g-base-info-get-namespace info)
+                                   (g-object-info-get-type-name info)))))
+    (if (null-pointer? parent)
+        (reverse! results)
+        (loop (g-object-info-get-parent parent)
+              (cons (list parent
+                          (g-base-info-get-namespace parent)
+                          (g-object-info-get-type-name parent))
+                    results)))))

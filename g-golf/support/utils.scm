@@ -155,7 +155,7 @@
   ;; define exceptions for now, let's see.
   '(("BLuefox" . "bluefox") ;; to test
     ;; ("GEnum" . "genum")  ;; no sure yet
-    ))
+    ("GObject" . "gobject")))
 
 (define (g-name->scm-name name)
   (or (assoc-ref %g-name-transform-exceptions name)
