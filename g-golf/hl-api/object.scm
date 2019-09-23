@@ -52,8 +52,13 @@
 
 (define (gi-import-object info)
   (let ((module (resolve-module '(g-golf hl-api gobject)))
-        (info-cpl (g-object-class-precedence-list info)))
-    (let loop ((r-info-cpl (reverse info-cpl)))
+        (r-info-cpl (reverse! (g-object-class-precedence-list info))))
+    (unless (is-g-object-subclass? r-info-cpl)
+      ;; A 'fundamental type' class, not a GObject subclass.
+      (match r-info-cpl
+        ((parent . rest)
+         (g-object-import-with-supers parent '() module))))
+    (let loop ((r-info-cpl r-info-cpl))
       (match r-info-cpl
         ((item)
          'done)
@@ -61,28 +66,42 @@
          (g-object-import child parent module)
          (loop (cons child rest)))))))
 
+(define (is-g-object-subclass? info-cpl)
+  (letrec ((is-g-object-info-cpl-item?
+            (lambda (what info-cpl-item)
+              (match info-cpl-item
+                ((info namespace name)
+                 (string=? name what))))))
+    (member "GObject" info-cpl is-g-object-info-cpl-item?)))
+
 (define (g-object-import child parent module)
   (match parent
     ((p-info p-namespace p-name)
      (let* ((p-r-type (g-registered-type-info-get-g-type p-info))
             (p-gi-name (g-type-name p-r-type))
             (p-c-name (g-name->class-name p-gi-name)))
-       (match child
-         ((info namespace name)
-          (unless (member namespace
-                          (g-irepository-get-loaded-namespaces)
-                          string=?)
-            g-irepository-require namespace)
-          (let* ((r-type (g-registered-type-info-get-g-type info))
-                 (gi-name (g-type-name r-type))
-                 (c-name (g-name->class-name gi-name))
-                 (c-inst (make-class (list (module-ref module p-c-name))
-                                     '()
-                                     #:name c-name
-                                     #:info info)))
-            (module-define! module c-name c-inst)
-            (module-g-export! module `(,c-name))
-            (gi-object-import-methods info))))))))
+       (g-object-import-with-supers child
+                                    (list (module-ref module p-c-name))
+                                    module)))))
+
+(define (g-object-import-with-supers child supers module)
+  (match child
+    ((info namespace name)
+     (unless (member namespace
+                     (g-irepository-get-loaded-namespaces)
+                     string=?)
+       g-irepository-require namespace)
+     (let* ((r-type (g-registered-type-info-get-g-type info))
+            (gi-name (g-type-name r-type))
+            (c-name (g-name->class-name gi-name)))
+       (unless (module-bound? module c-name)
+         (let ((c-inst (make-class supers
+                                   '()
+                                   #:name c-name
+                                   #:info info)))
+           (module-define! module c-name c-inst)
+           (module-g-export! module `(,c-name))
+           (gi-object-import-methods info)))))))
 
 (define (gi-object-import-methods info)
   (let ((n-method (g-object-info-get-n-methods info)))
