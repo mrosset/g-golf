@@ -37,6 +37,7 @@
   #:use-module (g-golf hl-api gobject)
   #:use-module (g-golf hl-api function)
   #:use-module (g-golf hl-api object)
+  #:use-module (g-golf hl-api callback)  
 
   #:duplicates (merge-generics
 		replace
@@ -103,6 +104,11 @@
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
        (gi-import-object info))
+      ((callback)
+       #;(unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-callback info))
       (else
        (if debug
            (if (procedure? debug)

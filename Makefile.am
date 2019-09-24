@@ -77,6 +77,7 @@ SOURCES = \
 	g-golf/hl-api/gobject.scm		\
 	g-golf/hl-api/function.scm		\
 	g-golf/hl-api/object.scm		\
+	g-golf/hl-api/callback.scm		\
 	g-golf/hl-api/import.scm		\
 	g-golf/hl-api.scm			\
 	g-golf.scm

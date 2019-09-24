@@ -88,6 +88,7 @@
   #:use-module (g-golf hl-api gobject)
   #:use-module (g-golf hl-api function)
   #:use-module (g-golf hl-api object)
+  #:use-module (g-golf hl-api callback)
   #:use-module (g-golf hl-api import)
 
   #:duplicates (merge-generics
@@ -151,4 +152,5 @@
                               (g-golf hl-api gobject)
                               (g-golf hl-api function)
                               (g-golf hl-api object)
+                              (g-golf hl-api callback)
                               (g-golf hl-api import)))
