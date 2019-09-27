@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -37,22 +37,22 @@
 		warn
 		last)
 
-  #:export (g-golf-go-source-set-closure))
+  #:export (g-source-set-closure))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
 
-(define (g-golf-go-source-set-closure source closure)
-  (g-source-set-closure source closure))
+(define (g-source-set-closure source closure)
+  (g_source_set_closure source closure))
 
 
 ;;;
 ;;; GObject Bindings
 ;;;
 
-(define g-source-set-closure
+(define g_source_set_closure
   (pointer->procedure void
                       (dynamic-func "g_source_set_closure"
 				    %libgobject)

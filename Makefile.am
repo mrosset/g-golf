@@ -53,6 +53,7 @@ SOURCES = \
 	g-golf/gobject/generic-values.scm	\
 	g-golf/gobject/params-vals.scm		\
 	g-golf/gobject/param-spec.scm		\
+	g-golf/gobject/closures.scm		\
 	g-golf/gobject/signals.scm		\
 	g-golf/gobject.scm			\
 	g-golf/gi/utils.scm			\

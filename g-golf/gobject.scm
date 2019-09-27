@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -52,6 +52,7 @@
   #:use-module (g-golf gobject generic-values)
   #:use-module (g-golf gobject params-vals)
   #:use-module (g-golf gobject param-spec)
+  #:use-module (g-golf gobject closures)
   #:use-module (g-golf gobject signals)
 
   #:duplicates (merge-generics
@@ -77,4 +78,5 @@
 			      (g-golf gobject generic-values)
                               (g-golf gobject params-vals)
 			      (g-golf gobject param-spec)
+                              (g-golf gobject closures)
                               (g-golf gobject signals)))

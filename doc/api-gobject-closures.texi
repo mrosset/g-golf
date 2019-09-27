@@ -1,0 +1,72 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@node Closures
+@subsection Closures
+
+G-Golf GObject Closures low level API.@*
+
+Closures - Functions as first-class objects
+
+
+@c @subheading Procedures
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{g-source-set-closure}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-signal-flags}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Object Hierarchy
+
+@indentedblock
+GBoxed           	       @*
+@ @ +--- GClosure
+@end indentedblock
+
+
+@subheading Description
+
+A @code{GClosure} represents a callback supplied by the programmer. It
+will generally comprise a function of some kind and a marshaller used to
+call it. It is the responsibility of the marshaller to convert the
+arguments for the invocation from @code{GValues} into a suitable form,
+perform the callback on the converted arguments, and transform the
+return value back into a @code{GValue}.
+
+Please read the @uref{@value{UGOBJECT-Closures}, Closures} section from
+the GObject reference manual for a complete description.
+
+
+@subheading Procedures
+
+
+@anchor{g-source-set-closure}
+@deffn Procedure g-source-set-closure source closure
+
+Returns nothing.
+
+Set the callback for @var{source} (a pointer to a @code{GSource}) as
+@var{closure} (a ponter to a @code{GClosure}.
+
+If the source is not one of the standard GLib types, the
+closure_callback and closure_marshal fields of the GSourceFuncs
+structure must have been filled in with pointers to appropriate
+functions.
+@end deffn
+
+
+@c @subheading Types and Values
