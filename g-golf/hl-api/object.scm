@@ -101,15 +101,8 @@
                                    #:info info)))
            (module-define! module c-name c-inst)
            (module-g-export! module `(,c-name))
-           (gi-object-import-methods info)))))))
-
-(define (gi-object-import-methods info)
-  (let ((n-method (g-object-info-get-n-methods info)))
-    (do ((i 0
-            (+ i 1)))
-        ((= i n-method))
-      (let ((m-info (g-object-info-get-method info i)))
-        (gi-import-function m-info)))))
+           (gi-object-import-methods info)
+           (gi-object-import-signals info)))))))
 
 (define (g-object-class-precedence-list info)
   (let  loop ((parent (g-object-info-get-parent info))
@@ -123,3 +116,23 @@
                           (g-base-info-get-namespace parent)
                           (g-object-info-get-type-name parent))
                     results)))))
+
+(define (gi-object-import-methods info)
+  (let ((n-method (g-object-info-get-n-methods info)))
+    (do ((i 0
+            (+ i 1)))
+        ((= i n-method))
+      (let ((m-info (g-object-info-get-method info i)))
+        (gi-import-function m-info)))))
+
+(define (gi-object-import-signals info)
+  (let ((n-signal (g-object-info-get-n-signals info)))
+    (dimfi (g-object-info-get-type-name info)
+           " " n-signal "signals")
+    (do ((i 0
+            (+ i 1)))
+        ((= i n-signal))
+      (let ((s-info (g-object-info-get-signal info i)))
+        (dimfi "  " (g-base-info-get-namespace s-info)
+               (g-base-info-get-name s-info)
+               " (signal)")))))

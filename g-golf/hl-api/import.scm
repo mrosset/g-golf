@@ -104,8 +104,8 @@
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
        (gi-import-object info))
-      ((callback)
-       #;(unless (memq i-type
+      #;((callback)
+       (unless (memq i-type
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
        (gi-import-callback info))
