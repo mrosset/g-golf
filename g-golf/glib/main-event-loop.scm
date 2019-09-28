@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -31,6 +31,8 @@
   #:use-module (g-golf init)
 
   #:export (g-main-loop-new
+            g-main-loop-ref
+            g-main-loop-unref
             g-main-loop-run
             g-main-loop-quit
             g-idle-source-new))
@@ -43,6 +45,12 @@
 (define* (g-main-loop-new #:optional (context #f) (is-running? #f))
   (g_main_loop_new (if context context %null-pointer)
                    (if is-running? 1 0)))
+
+(define (g-main-loop-ref loop)
+  (g_main_loop_ref loop))
+
+(define (g-main-loop-unref loop)
+  (g_main_loop_unref loop))
 
 (define (g-main-loop-run loop)
   (g_main_loop_run loop))
@@ -64,6 +72,18 @@
 				    %libglib)
                       (list '*		;; context
                             int)))	;; is-running?
+
+(define g_main_loop_ref
+  (pointer->procedure '*
+                      (dynamic-func "g_main_loop_ref"
+				    %libglib)
+                      (list '*)))	;; loop
+
+(define g_main_loop_unref
+  (pointer->procedure void
+                      (dynamic-func "g_main_loop_unref"
+				    %libglib)
+                      (list '*)))	;; loop
 
 (define g_main_loop_run
   (pointer->procedure void

@@ -20,6 +20,8 @@ The Main Event Loop — manages all available sources of events
 @table @code
 @item @ref{g-main-loop-new}
 @item @ref{g-main-loop-run}
+@item @ref{g-main-loop-ref}
+@item @ref{g-main-loop-unref}
 @item @ref{g-main-loop-quit}
 @item @ref{g-idle-source-new}
 @end table
@@ -70,6 +72,25 @@ The @var{context} must be a pointer to a @code{GMainContext} of
 @var{is-running?} is @code{#t}, it indicates that the loop is
 running. This is not very important since calling @code{g-main-loop-run}
 will set this to @code{#t} anyway.
+@end deffn
+
+
+@anchor{g-main-loop-ref}
+@deffn Procedure g-main-loop-ref loop
+
+Returns loop.
+
+Increases the @var{loop} reference count by one.
+@end deffn
+
+
+@anchor{g-main-loop-unref}
+@deffn Procedure g-main-loop-unref loop
+
+Returns nothing.
+
+Decreases the @var{loop} reference count by one. If the result is zero,
+free the loop and free all associated memory.
 @end deffn
 
 

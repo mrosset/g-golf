@@ -86,7 +86,9 @@
   (assert (g-main-loop-new #f #f))
   (let* ((loop (g-main-loop-new))
          (thread (make-thread g-main-loop-run loop)))
-    (g-main-loop-quit loop)
+    (assert (g-main-loop-ref loop))
+    (assert (g-main-loop-unref loop))
+    (assert (g-main-loop-quit loop))
     (cancel-thread thread))
   (assert (g-idle-source-new)))
 
