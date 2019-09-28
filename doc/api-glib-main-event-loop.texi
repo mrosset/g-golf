@@ -26,6 +26,8 @@ The Main Event Loop — manages all available sources of events
 @item @ref{g-main-context-new}
 @item @ref{g-main-context-default}
 @item @ref{g-idle-source-new}
+@item @ref{g-source-attach}
+@item @ref{g-source-destroy}
 @end table
 @end indentedblock
 
@@ -146,15 +148,42 @@ and corresponds to the @samp{main} main loop.
 @anchor{g-idle-source-new}
 @deffn Procedure g-idle-source-new
 
-Returns a pointer to a new @code{GSource}.
+Returns a pointer.
 
-Creates a new idle source.
+Creates and returns (a pointer to) a new (idle) @code{GSource}.
 
 The source will not initially be associated with any @code{GMainContext}
-and must be added to one with @code{g-source-attach} before it will be
+and must be added to one with @ref{g-source-attach} before it will be
 executed. Note that the default priority for idle sources is @code{200},
 as compared to other sources which have a default priority of
 @code{300}.
+@end deffn
+
+
+@anchor{g-source-attach}
+@deffn Procedure g-source-attach source context
+
+Returns an integer.
+
+Adds @var{source} to @var{context} so that it will be executed within
+that context.
+
+Returns the ID (greater than 0) for the @var{source} within the
+@var{context}.
+
+Remove it by calling @ref{g-source-destroy}.
+@end deffn
+
+
+@anchor{g-source-destroy}
+@deffn Procedure g-source-destroy source
+
+Returns nothing.
+
+Removes @var{source} from its @code{GMainContext}, if any, and mark it
+as destroyed. The source cannot be subsequently added to another
+context. It is safe to call this on sources which have already been
+removed from their context.
 @end deffn
 
 

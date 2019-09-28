@@ -38,7 +38,9 @@
             g-main-loop-quit
             g-main-context-new
             g-main-context-default
-            g-idle-source-new))
+            g-idle-source-new
+            g-source-attach
+            g-source-destroy))
 
 
 ;;;
@@ -69,6 +71,12 @@
 
 (define (g-idle-source-new)
   (g_idle_source_new))
+
+(define (g-source-attach source context)
+  (g_source_attach source context))
+
+(define (g-source-destroy source)
+  (g_source_destroy source))
 
 
 ;;;
@@ -123,3 +131,16 @@
                       (dynamic-func "g_idle_source_new"
 				    %libglib)
                       (list )))	;; void
+
+(define g_source_attach
+  (pointer->procedure unsigned-int
+                      (dynamic-func "g_source_attach"
+				    %libglib)
+                      (list '*		;; source
+                            '*)))	;; context
+
+(define g_source_destroy
+  (pointer->procedure void
+                      (dynamic-func "g_source_destroy"
+				    %libglib)
+                      (list '*)))	;; source

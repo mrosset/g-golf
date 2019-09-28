@@ -89,13 +89,20 @@
     (assert (g-main-loop-ref loop))
     (assert (g-main-loop-unref loop))
     (assert (g-main-loop-quit loop))
-    (cancel-thread thread))
-  (assert (g-idle-source-new)))
+    (cancel-thread thread)))
 
 
 (define-method (test-main-context (self <g-golf-test-glib>))
   (assert (g-main-context-new))
   (assert (g-main-context-default)))
+
+
+(define-method (test-source (self <g-golf-test-glib>))
+  (and (assert (g-idle-source-new))
+       (let ((source (g-idle-source-new))
+             (context (g-main-context-new)))
+         (assert (g-source-attach source context))
+         (assert (g-source-destroy source)))))
 
 
 (exit-with-summary (run-all-defined-test-cases))
