@@ -23,6 +23,8 @@ The Main Event Loop — manages all available sources of events
 @item @ref{g-main-loop-ref}
 @item @ref{g-main-loop-unref}
 @item @ref{g-main-loop-quit}
+@item @ref{g-main-context-new}
+@item @ref{g-main-context-default}
 @item @ref{g-idle-source-new}
 @end table
 @end indentedblock
@@ -116,6 +118,28 @@ Stops a @code{GMainLoop} from running. Any calls to
 
 Note that sources that have already been dispatched when
 @code{g-main-loop-quit} is called will still be executed.
+@end deffn
+
+
+@anchor{g-main-context-new}
+@deffn Procedure g-main-context-new
+
+Returns a pointer.
+
+Creates and returns a (pointer to a) new @code{GMainContext} structure.
+@end deffn
+
+
+@anchor{g-main-context-default}
+@deffn Procedure g-main-context-default
+
+Returns a pointer.
+
+Returns the global default main context. This is the main context used
+for main loop functions when a main loop is not explicitly specified,
+and corresponds to the @samp{main} main loop.
+
+@c See also g_main_context_get_thread_default().
 @end deffn
 
 

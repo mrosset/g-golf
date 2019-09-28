@@ -93,4 +93,9 @@
   (assert (g-idle-source-new)))
 
 
+(define-method (test-main-context (self <g-golf-test-glib>))
+  (assert (g-main-context-new))
+  (assert (g-main-context-default)))
+
+
 (exit-with-summary (run-all-defined-test-cases))

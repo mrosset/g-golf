@@ -36,6 +36,8 @@
             g-main-loop-unref
             g-main-loop-run
             g-main-loop-quit
+            g-main-context-new
+            g-main-context-default
             g-idle-source-new))
 
 
@@ -58,6 +60,12 @@
 
 (define (g-main-loop-quit loop)
   (g_main_loop_quit loop))
+
+(define (g-main-context-new)
+  (gi->scm (g_main_context_new) 'pointer))
+
+(define (g-main-context-default)
+  (gi->scm (g_main_context_default) 'pointer))
 
 (define (g-idle-source-new)
   (g_idle_source_new))
@@ -97,6 +105,18 @@
                       (dynamic-func "g_main_loop_quit"
 				    %libglib)
                       (list '*)))	;; loop
+
+(define g_main_context_new
+  (pointer->procedure '*
+                      (dynamic-func "g_main_context_new"
+				    %libglib)
+                      (list )))	;; void
+
+(define g_main_context_default
+  (pointer->procedure '*
+                      (dynamic-func "g_main_context_default"
+				    %libglib)
+                      (list )))	;; void
 
 (define g_idle_source_new
   (pointer->procedure '*
