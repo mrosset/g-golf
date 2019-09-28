@@ -29,7 +29,8 @@
 (define-module (g-golf glib main-event-loop)
   #:use-module (system foreign)
   #:use-module (g-golf init)
-
+  #:use-module (g-golf gi utils)
+  
   #:export (g-main-loop-new
             g-main-loop-ref
             g-main-loop-unref
@@ -47,7 +48,7 @@
                    (if is-running? 1 0)))
 
 (define (g-main-loop-ref loop)
-  (g_main_loop_ref loop))
+  (gi->scm (g_main_loop_ref loop) 'pointer))
 
 (define (g-main-loop-unref loop)
   (g_main_loop_unref loop))
