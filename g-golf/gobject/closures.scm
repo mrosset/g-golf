@@ -31,6 +31,7 @@
   #:use-module (system foreign)
   #:use-module (g-golf init)
   #:use-module (g-golf support libg-golf)
+  #:use-module (g-golf gi utils)
 
   #:duplicates (merge-generics
 		replace
@@ -39,6 +40,10 @@
 		last)
 
   #:export (g-closure-size
+            g-closure-ref
+            g-closure-sink
+            g-closure-unref
+            g-closure-set-marshal
             g-source-set-closure))
 
 
@@ -50,6 +55,18 @@
 (define (g-closure-size)
   (g_closure_size))
 
+(define (g-closure-ref closure)
+  (gi->scm (g_closure_ref closure) 'pointer))
+
+(define (g-closure-sink closure)
+  (g_closure_sink closure))
+
+(define (g-closure-unref closure)
+  (g_closure_unref closure))
+
+(define (g-closure-set-marshal closure marshal)
+  (g_closure_set_marshal closure marshal))
+
 (define (g-source-set-closure source closure)
   (g_source_set_closure source closure))
 
@@ -57,6 +74,31 @@
 ;;;
 ;;; GObject Bindings
 ;;;
+
+(define g_closure_ref
+  (pointer->procedure '*
+                      (dynamic-func "g_closure_ref"
+				    %libgobject)
+                      (list '*)))	;; closure
+
+(define g_closure_sink
+  (pointer->procedure void
+                      (dynamic-func "g_closure_sink"
+				    %libgobject)
+                      (list '*)))	;; closure
+
+(define g_closure_unref
+  (pointer->procedure void
+                      (dynamic-func "g_closure_unref"
+				    %libgobject)
+                      (list '*)))	;; closure
+
+(define g_closure_set_marshal
+  (pointer->procedure void
+                      (dynamic-func "g_closure_set_marshal"
+				    %libgobject)
+                      (list '*		;; closure
+                            '*)))	;; marshal
 
 (define g_source_set_closure
   (pointer->procedure void

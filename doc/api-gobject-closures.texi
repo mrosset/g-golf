@@ -17,6 +17,10 @@ Closures - Functions as first-class objects
 @indentedblock
 @table @code
 @item @ref{g-closure-size}
+@item @ref{g-closure-ref}
+@item @ref{g-closure-sink}
+@item @ref{g-closure-unref}
+@item @ref{g-closure-set-marshal}
 @item @ref{g-source-set-closure}
 @end table
 @end indentedblock
@@ -62,6 +66,56 @@ Returns an integer.
 
 Obtains and returns the size (the number of bytes) that a
 @code{GClosure} occupies in memory.
+@end deffn
+
+
+@anchor{g-closure-ref}
+@deffn Procedure g-closure-ref closure
+
+Returns a pointer.
+
+Increments the reference count of @var{closure}, to force it staying
+alive while the caller holds a pointer to it.
+@end deffn
+
+
+@anchor{g-closure-sink}
+@deffn Procedure g-closure-sink closure
+
+Returns nothing.
+
+Takes over the initial ownership of @var{closure}. Each closure is
+initially created in a @samp{floating} state, which means that the
+initial reference count is not owned by any caller. @ref{g-closure-sink}
+checks to see if the object is still floating, and if so, unsets the
+floating state and decreases the reference count. If the closure is not
+floating, @ref{g-closure-sink} does nothing.
+
+Because @ref{g-closure-sink} may decrement the reference count of
+@var{closure} (if it hasn't been called on closure yet) just like
+@ref{g-closure-unref}, @ref{g-closure-ref} should be called prior to
+this function.
+@end deffn
+
+
+@anchor{g-closure-unref}
+@deffn Procedure g-closure-unref closure
+
+Returns nothing.
+
+Decrements the reference count of @var{closure} after it was previously
+incremented by the same caller. If no other callers are using
+@var{closure}closure, then it will be destroyed and freed.
+@end deffn
+
+
+@anchor{g-closure-set-marshal}
+@deffn Procedure g-closure-set-marshal closure marshal
+
+Returns nothing.
+
+Sets the @var{closure} (a pointer to a @code{GClosure}) marshaller to
+@var{marshal} (a pointer to a @code{GClosureMarshal}).
 @end deffn
 
 
