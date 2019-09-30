@@ -40,7 +40,10 @@
             g_value_size
             g_object_type
             #;g_object_type_name
-            g_object_ref_count))
+            g_object_ref_count
+
+            g_closure_size
+            g_closure_marshal_size))
 
 
 ;;;
@@ -108,3 +111,15 @@ later.
                       (dynamic-func "g_object_ref_count"
                                     %libg-golf)
                       (list '*)))
+
+(define g_closure_size
+  (pointer->procedure size_t
+                      (dynamic-func "g_closure_size"
+                                    %libg-golf)
+                      (list)))
+
+(define g_closure_marshal_size
+  (pointer->procedure size_t
+                      (dynamic-func "g_closure_marshal_size"
+                                    %libg-golf)
+                      (list)))

@@ -30,6 +30,7 @@
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf init)
+  #:use-module (g-golf support libg-golf)
 
   #:duplicates (merge-generics
 		replace
@@ -37,12 +38,22 @@
 		warn
 		last)
 
-  #:export (g-source-set-closure))
+  #:export (g-closure-size
+            g-closure-marshal-size
+            g-source-set-closure))
 
 
 ;;;
 ;;; GObject Low level API
 ;;;
+
+;; from libg-golf
+(define (g-closure-size)
+  (g_closure_size))
+
+;; from libg-golf
+(define (g-closure-marshal-size)
+  (g_closure_marshal_size))
 
 (define (g-source-set-closure source closure)
   (g_source_set_closure source closure))

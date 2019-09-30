@@ -12,13 +12,15 @@ G-Golf GObject Closures low level API.@*
 Closures - Functions as first-class objects
 
 
-@c @subheading Procedures
+@subheading Procedures
 
-@c @indentedblock
-@c @table @code
-@c @item @ref{g-source-set-closure}
-@c @end table
-@c @end indentedblock
+@indentedblock
+@table @code
+@item @ref{g-closure-size}
+@item @ref{g-closure-marshal-size}
+@item @ref{g-source-set-closure}
+@end table
+@end indentedblock
 
 
 @c @subheading Types and Values
@@ -52,6 +54,19 @@ the GObject reference manual for a complete description.
 
 
 @subheading Procedures
+
+
+@anchor{g-closure-size}
+@anchor{g-closure-marshal-size}
+@deffn Procedure g-closure-size
+@deffnx Procedure g-closure-marshal-size
+
+Returns an integer.
+
+Obtains and returns the size (the number of bytes) that a
+@code{GClosure} and a @code{GClosureMarshal} occupies in memory,
+respectively.
+@end deffn
 
 
 @anchor{g-source-set-closure}

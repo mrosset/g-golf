@@ -114,3 +114,19 @@ g_object_ref_count (GObject *obj)
 {
     return (obj->ref_count);
 }
+
+size_t
+g_closure_size ()
+{
+  size_t n = sizeof(GClosure);
+
+  return n;
+}
+
+size_t
+g_closure_marshal_size ()
+{
+  size_t n = sizeof(GClosureMarshal);
+
+  return n;
+}
