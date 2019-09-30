@@ -60,5 +60,3 @@ const gchar * g_object_type_name (GObject *obj);
 uint g_object_ref_count (GObject *obj);
 
 size_t g_closure_size ();
-
-size_t g_closure_marshal_size ();

@@ -17,7 +17,6 @@ Closures - Functions as first-class objects
 @indentedblock
 @table @code
 @item @ref{g-closure-size}
-@item @ref{g-closure-marshal-size}
 @item @ref{g-source-set-closure}
 @end table
 @end indentedblock
@@ -57,15 +56,12 @@ the GObject reference manual for a complete description.
 
 
 @anchor{g-closure-size}
-@anchor{g-closure-marshal-size}
 @deffn Procedure g-closure-size
-@deffnx Procedure g-closure-marshal-size
 
 Returns an integer.
 
 Obtains and returns the size (the number of bytes) that a
-@code{GClosure} and a @code{GClosureMarshal} occupies in memory,
-respectively.
+@code{GClosure} occupies in memory.
 @end deffn
 
 

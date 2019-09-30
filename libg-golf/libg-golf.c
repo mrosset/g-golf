@@ -122,11 +122,3 @@ g_closure_size ()
 
   return n;
 }
-
-size_t
-g_closure_marshal_size ()
-{
-  size_t n = sizeof(GClosureMarshal);
-
-  return n;
-}
