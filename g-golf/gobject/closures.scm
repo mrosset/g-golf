@@ -66,7 +66,8 @@
   (g_closure_unref closure))
 
 (define (g-closure-new-simple size data)
-  (g_closure_new_simple size data))
+  (g_closure_new_simple size
+                        (scm->gi data 'pointer)))
 
 (define (g-closure-set-marshal closure marshal)
   (g_closure_set_marshal closure marshal))
@@ -98,7 +99,7 @@
                       (list '*)))	;; closure
 
 (define g_closure_new_simple
-  (pointer->procedure void
+  (pointer->procedure '*
                       (dynamic-func "g_closure_new_simple"
 				    %libgobject)
                       (list unsigned-int	;; size
