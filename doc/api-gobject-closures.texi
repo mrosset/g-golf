@@ -20,6 +20,7 @@ Closures - Functions as first-class objects
 @item @ref{g-closure-ref}
 @item @ref{g-closure-sink}
 @item @ref{g-closure-unref}
+@item @ref{g-closure-new-simple}
 @item @ref{g-closure-set-marshal}
 @item @ref{g-source-set-closure}
 @end table
@@ -106,6 +107,20 @@ Returns nothing.
 Decrements the reference count of @var{closure} after it was previously
 incremented by the same caller. If no other callers are using
 @var{closure}closure, then it will be destroyed and freed.
+@end deffn
+
+
+@anchor{g-closure-new-simple}
+@deffn Procedure g-closure-new-simple size data
+
+Returns a pointer.
+
+Allocates a structure of the given @var{size} and initializes the
+initial part as a @code{GClosure}. The @var{data} (if any) are used to
+iitialize the data fields of the newly allocated @code{GClosure}.
+
+The returned value is a floating reference (a pointer) to a new
+@code{GClosure}.
 @end deffn
 
 

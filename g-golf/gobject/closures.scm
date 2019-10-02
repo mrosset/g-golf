@@ -43,6 +43,7 @@
             g-closure-ref
             g-closure-sink
             g-closure-unref
+            g-closure-new-simple
             g-closure-set-marshal
             g-source-set-closure))
 
@@ -63,6 +64,9 @@
 
 (define (g-closure-unref closure)
   (g_closure_unref closure))
+
+(define (g-closure-new-simple size data)
+  (g_closure_new_simple size data))
 
 (define (g-closure-set-marshal closure marshal)
   (g_closure_set_marshal closure marshal))
@@ -92,6 +96,13 @@
                       (dynamic-func "g_closure_unref"
 				    %libgobject)
                       (list '*)))	;; closure
+
+(define g_closure_new_simple
+  (pointer->procedure void
+                      (dynamic-func "g_closure_new_simple"
+				    %libgobject)
+                      (list unsigned-int	;; size
+                            '*)))		;; data
 
 (define g_closure_set_marshal
   (pointer->procedure void
