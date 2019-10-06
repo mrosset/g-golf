@@ -43,6 +43,8 @@
             g-closure-ref
             g-closure-sink
             g-closure-unref
+            g-closure-invoke
+            g-closure-add-invalidate-notifier
             g-closure-new-simple
             g-closure-set-marshal
             g-source-set-closure))
@@ -64,6 +66,22 @@
 
 (define (g-closure-unref closure)
   (g_closure_unref closure))
+
+(define (g-closure-invoke closure
+                          return-value
+                          n-param
+                          param-vals
+                          invocation-hint)
+  (g_closure_invoke closure
+                    return-value
+                    n-param
+                    param-vals
+                    (scm->gi invocation-hint 'pointer)))
+
+(define (g-closure-add-invalidate-notifier closure data function)
+  (g_closure_add_invalidate_notifier closure
+                                     (scm->gi data 'pointer)
+                                     function))
 
 (define (g-closure-new-simple size data)
   (g_closure_new_simple size
@@ -97,6 +115,24 @@
                       (dynamic-func "g_closure_unref"
 				    %libgobject)
                       (list '*)))	;; closure
+
+(define g_closure_invoke
+  (pointer->procedure void
+                      (dynamic-func "g_closure_invoke"
+				    %libgobject)
+                      (list '*			;; closure
+                            '*			;; return-value
+                            unsigned-int	;; n-param
+                            '*			;; param-values
+                            '*)))		;; invocation-hint
+
+(define g_closure_add_invalidate_notifier
+  (pointer->procedure void
+                      (dynamic-func "g_closure_add_invalidate_notifier"
+				    %libgobject)
+                      (list '*		;; closure
+                            '*		;; data
+                            '*)))	;; function
 
 (define g_closure_new_simple
   (pointer->procedure '*

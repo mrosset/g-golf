@@ -20,6 +20,8 @@ Closures - Functions as first-class objects
 @item @ref{g-closure-ref}
 @item @ref{g-closure-sink}
 @item @ref{g-closure-unref}
+@item @ref{g-closure-invoke}
+@item @ref{g-closure-add-invalidate-notifier}
 @item @ref{g-closure-new-simple}
 @item @ref{g-closure-set-marshal}
 @item @ref{g-source-set-closure}
@@ -107,6 +109,39 @@ Returns nothing.
 Decrements the reference count of @var{closure} after it was previously
 incremented by the same caller. If no other callers are using
 @var{closure}closure, then it will be destroyed and freed.
+@end deffn
+
+
+@anchor{g-closure-invoke}
+@deffn Procedure g-closure-invoke closure return-value @
+       n-param param-vals invocation-hit
+
+Returns nothing.
+
+Invokes the @var{closure}, i.e. executes the callback represented by the
+closure.
+
+The arguments are @var{closure} (a pointer to a @code{GClosure}),
+@var{return-value} (a pointer to a @code{GValue}), @var{n-param} (the
+length of the param-vals array), @var{param-vals} (a pointer to an array
+of @code{GValue}) and @var{invocation-hint} (a context dependent
+invocation hint).
+@end deffn
+
+
+@anchor{g-closure-add-invalidate-notifier}
+@deffn Procedure g-closure-add-invalidate-notifier closure data @
+       function
+
+Returns nothing.
+
+Registers an invalidation notifier which will be called when the closure
+is invalidated with @code{g-closure-invalidate}. Invalidation notifiers
+are invoked before finalization notifiers, in an unspecified order.
+
+The arguments are @var{closure} (a pointer to a @code{GClosure}),
+@var{data} (a pointer to the notifier data (or #f)) and @var{function}
+(a pointer to a@code{GClosureNotify} function).
 @end deffn
 
 
