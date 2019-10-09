@@ -35,6 +35,7 @@
   #:use-module (g-golf gi)
   #:use-module (g-golf glib)
   #:use-module (g-golf gobject)
+  #:use-module (g-golf hl-api gtype)
 
   #:duplicates (merge-generics
 		replace
@@ -61,7 +62,9 @@
 (g-export !g-closure
           !function
           !return-type
-          !param-types)
+          !param-types
+
+          invoke)
 
 
 (define-class <closure> ()
@@ -86,12 +89,104 @@
     (g-closure-set-marshal g-closure %g-closure-marshal)
     (g-closure-add-invalidate-notifier g-closure #f %g-closure-free)))
 
+;; the following two lines are for debugging purposes,
+;; and will later be removed ...
+(define %g-closure-invoke-args #f)
+(export %g-closure-invoke-args)
+
+(define-method (invoke (self <closure>) . args)
+  (let* ((%g-value-size (g-value-size))
+        (return-type (!return-type self))
+        (return-value? (not (eq? return-type 'none)))
+        (return-value (if return-value?
+                          (bytevector->pointer
+                           (make-bytevector %g-value-size 0))
+                          %null-pointer))
+        (param-types (!param-types self))
+        (n-param (length param-types))
+        (param-vals (if (= n-param 0)
+                        %null-pointer
+                        (bytevector->pointer
+                         (make-bytevector (* n-param %g-value-size) 0)))))
+    (if (= (length args) n-param)
+        (begin
+          (when return-value?
+            (%g_value_init return-value (symbol->g-type return-type)))
+          (let loop ((i 0)
+                     (g-value param-vals))
+            (if (= i n-param)
+                'done
+                (let ((type (list-ref param-types i))
+                      (val (list-ref args i)))
+                  (prepare-g-value-in g-value type val)
+                  (loop (+ i 1)
+                        (gi-pointer-inc g-value %g-value-size)))))
+          ;; so i can 'directly' debug g-closure-invoke in a repl
+          (set! %g-closure-invoke-args
+                (list (!g-closure self)
+                      return-value
+                      n-param
+                      param-vals
+                      #f))
+          (g-closure-invoke (!g-closure self)
+                            return-value
+                            n-param
+                            param-vals
+                            #f) ;; invocation-hint
+          (dimfi "g-closure-invoke done!")
+          (if return-value?
+              (return-value->scm return-value)
+              (values)))
+        (error "Argument arity mismatch: " args))))
+
+(define %g_value_init
+  (@@ (g-golf gobject generic-values) g_value_init))
+
+(define (prepare-g-value-in g-value type val)
+  (case type
+    ((boolean)
+     (%g_value_init g-value (symbol->g-type type))
+     (g-value-set! g-value (scm->gi val 'boolean)))
+    #;((enum))
+    #;((flags))
+    ((string)
+     (%g_value_init g-value (symbol->g-type type))
+     (g-value-set! g-value (scm->gi val 'string)))
+    ((pointer)
+     (%g_value_init g-value (symbol->g-type type))
+     (g-value-set! g-value (scm->gi val 'pointer)))
+    #;((boxed))
+    #;((param))
+    ((object)
+     (let ((gtype-id (!gtype-id (class-of val)))
+           (g-inst (!g-inst val)))
+       (%g_value_init g-value gtype-id)
+       (g-value-set! g-value g-inst)))
+    (else
+     (%g_value_init g-value (symbol->g-type type))
+     (g-value-set! g-value val))))
+
+(define (return-value->scm g-value)
+  (let ((val (g-value-ref g-value)))
+    (case (g-value->g-type g-value)
+      #;((enum))
+      #;((flags))
+      #;((boxed))
+      #;((param))
+      ((object)
+       (let ((gtype-id (g-value->g-type-id g-value)))
+         (dimfi "This is an objct, its g-type is " gtype-id ", g-inst: " val)
+         val))
+    (else
+     val))))
+
 (define (g-closure-marshal g-closure
                            return-val
                            n-param
                            param-vals
                            invocation-hint
                            marshal-data)
+  (dimfi "This is the g-closure-marshal ...")
   (let* ((function (g-closure-function-cache-ref g-closure))
          (args (let loop ((i 0)
                           (g-values-ptr param-vals)
@@ -104,6 +199,7 @@
                                  results)))))
          (result (apply function args)))
     (g-value-set! return-val result)
+    (dimfi "g-closure-marshal done! Returned value(s): " result)
     (values)))
 
 (define %g-closure-marshal
