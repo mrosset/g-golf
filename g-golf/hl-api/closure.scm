@@ -36,6 +36,7 @@
   #:use-module (g-golf glib)
   #:use-module (g-golf gobject)
   #:use-module (g-golf hl-api gtype)
+  #:use-module (g-golf hl-api gobject)
 
   #:duplicates (merge-generics
 		replace
@@ -96,13 +97,21 @@
 (define %g-closure-invoke-args #f)
 (export %g-closure-invoke-args)
 
+;; so one can 'directly' debug g-closure-invoke in a repl
+#;(set! %g-closure-invoke-args
+      (list (!g-closure self)
+            return-value
+            n-param
+            param-vals
+            #f))
+
 !#
 
 (define-method (invoke (self <closure>) . args)
   (let* ((%g-value-size (g-value-size))
         (return-type (!return-type self))
-        (return-value? (not (eq? return-type 'none)))
-        (return-value (if return-value?
+        (return-val? (not (eq? return-type 'none)))
+        (return-val (if return-val?
                           (bytevector->pointer
                            (make-bytevector %g-value-size 0))
                           %null-pointer))
@@ -114,8 +123,8 @@
                          (make-bytevector (* n-param %g-value-size) 0)))))
     (if (= (length args) n-param)
         (begin
-          (when return-value?
-            (%g_value_init return-value (symbol->g-type return-type)))
+          (when return-val?
+            (prepare-return-val return-val return-type))
           (let loop ((i 0)
                      (g-value param-vals))
             (if (= i n-param)
@@ -125,63 +134,74 @@
                   (prepare-g-value-in g-value type val)
                   (loop (+ i 1)
                         (gi-pointer-inc g-value %g-value-size)))))
-          ;; so one can 'directly' debug g-closure-invoke in a repl
-          #;(set! %g-closure-invoke-args
-                (list (!g-closure self)
-                      return-value
-                      n-param
-                      param-vals
-                      #f))
           (g-closure-invoke (!g-closure self)
-                            return-value
+                            return-val
                             n-param
                             param-vals
                             #f) ;; invocation-hint
-          (if return-value?
-              (return-value->scm return-value)
+          (if return-val?
+              (return-val->scm return-type return-val)
               (values)))
         (error "Argument arity mismatch: " args))))
 
 (define %g_value_init
   (@@ (g-golf gobject generic-values) g_value_init))
 
-(define (prepare-g-value-in g-value type val)
-  (case type
-    ((boolean)
-     (%g_value_init g-value (symbol->g-type type))
-     (g-value-set! g-value (scm->gi val 'boolean)))
-    #;((enum))
-    #;((flags))
-    ((string)
-     (%g_value_init g-value (symbol->g-type type))
-     (g-value-set! g-value (scm->gi val 'string)))
-    ((pointer)
-     (%g_value_init g-value (symbol->g-type type))
-     (g-value-set! g-value (scm->gi val 'pointer)))
-    #;((boxed))
-    #;((param))
-    ((object)
-     (let ((gtype-id (!gtype-id (class-of val)))
-           (g-inst (!g-inst val)))
-       (%g_value_init g-value gtype-id)
-       (g-value-set! g-value g-inst)))
-    (else
-     (%g_value_init g-value (symbol->g-type type))
-     (g-value-set! g-value val))))
+(define (prepare-return-val g-value type)
+  (cond #;((is-a? type <gi-enum>)
+         )
+        #;((is-a? type <gi-flag>)
+         )
+        #;((boxed))
+        #;((param))
+        ((gobject-class? type)
+         (%g_value_init g-value (!gtype-id type)))
+        (else
+         (%g_value_init g-value (symbol->g-type type)))))
 
-(define (return-value->scm g-value)
+(define (prepare-g-value-in g-value type val)
+  (cond ((eq? type 'boolean)
+         (%g_value_init g-value (symbol->g-type type))
+         (g-value-set! g-value (scm->gi val 'boolean)))
+        #;((is-a? type <gi-enum>)
+         )
+        #;((is-a? type <gi-flag>)
+         )
+        ((eq? type 'string)
+         (%g_value_init g-value (symbol->g-type type))
+         (g-value-set! g-value (scm->gi val 'string)))
+        ((eq? type 'pointer)
+         (%g_value_init g-value (symbol->g-type type))
+         (g-value-set! g-value (scm->gi val 'pointer)))
+        #;((boxed))
+        #;((param))
+        ((gobject-class? type)
+         (let ((gtype-id (!gtype-id type))
+               (g-inst (!g-inst val)))
+           (%g_value_init g-value gtype-id)
+           (g-value-set! g-value g-inst)))
+        (else
+         (%g_value_init g-value (symbol->g-type type))
+         (g-value-set! g-value val))))
+
+(define (return-val->scm type g-value)
   (let ((val (g-value-ref g-value)))
-    (case (g-value->g-type g-value)
-      #;((enum))
-      #;((flags))
-      #;((boxed))
-      #;((param))
-      ((object)
-       (let ((gtype-id (g-value->g-type-id g-value)))
-         (dimfi "This is an objct, its g-type is " gtype-id ", g-inst: " val)
-         val))
-    (else
-     val))))
+    (cond ((eq? type 'boolean)
+           (gi->scm val 'boolean))
+          #;((is-a? type <gi-enum>)
+          )
+          #;((is-a? type <gi-flag>)
+          )
+          ((eq? type 'string)
+           (gi->scm val 'string))
+          ((eq? type 'pointer)
+           (gi->scm val 'pointer))
+          #;((boxed))
+          #;((param))
+          ((gobject-class? type)
+           (make type #:g-inst (gi->scm val 'pointer)))
+          (else
+           val))))
 
 (define (g-closure-marshal g-closure
                            return-val
@@ -200,7 +220,8 @@
                            (cons (g-value-ref g-values-ptr)
                                  results)))))
          (result (apply function args)))
-    (g-value-set! return-val result)))
+    (g-value-set! return-val result)
+    (values)))
 
 (define %g-closure-marshal
   (procedure->pointer void
