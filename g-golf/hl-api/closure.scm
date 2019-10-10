@@ -89,10 +89,14 @@
     (g-closure-set-marshal g-closure %g-closure-marshal)
     (g-closure-add-invalidate-notifier g-closure #f %g-closure-free)))
 
-;; the following two lines are for debugging purposes,
-;; and will later be removed ...
+#!
+
+;; For debugging purposes, kept them for a little while just in case.
+
 (define %g-closure-invoke-args #f)
 (export %g-closure-invoke-args)
+
+!#
 
 (define-method (invoke (self <closure>) . args)
   (let* ((%g-value-size (g-value-size))
@@ -121,8 +125,8 @@
                   (prepare-g-value-in g-value type val)
                   (loop (+ i 1)
                         (gi-pointer-inc g-value %g-value-size)))))
-          ;; so i can 'directly' debug g-closure-invoke in a repl
-          (set! %g-closure-invoke-args
+          ;; so one can 'directly' debug g-closure-invoke in a repl
+          #;(set! %g-closure-invoke-args
                 (list (!g-closure self)
                       return-value
                       n-param
@@ -133,7 +137,6 @@
                             n-param
                             param-vals
                             #f) ;; invocation-hint
-          (dimfi "g-closure-invoke done!")
           (if return-value?
               (return-value->scm return-value)
               (values)))
@@ -186,7 +189,6 @@
                            param-vals
                            invocation-hint
                            marshal-data)
-  (dimfi "This is the g-closure-marshal ...")
   (let* ((function (g-closure-function-cache-ref g-closure))
          (args (let loop ((i 0)
                           (g-values-ptr param-vals)
@@ -198,12 +200,10 @@
                            (cons (g-value-ref g-values-ptr)
                                  results)))))
          (result (apply function args)))
-    (g-value-set! return-val result)
-    (dimfi "g-closure-marshal done! Returned value(s): " result)
-    (values)))
+    (g-value-set! return-val result)))
 
 (define %g-closure-marshal
-  (procedure->pointer int
+  (procedure->pointer void
                       g-closure-marshal
                       (list '*			;; gclosure
                             '*			;; return-value
