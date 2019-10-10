@@ -23,16 +23,20 @@ The G-Golf integration with the GObject object system.
 @end indentedblock
 
 
-@c @subheading Procedures and Methods
+@subheading Procedures
+@c and Methods
 
-@c @indentedblock
-@c @table @code
-@c @item @ref{!info}
-@c @end table
-@c @end indentedblock
+@indentedblock
+@table @code
+@item @ref{gobject-class?}
+@end table
+@end indentedblock
 
 
-@c @subheading Classes
+@subheading Description
+
+
+@subheading Classes
 
 @anchor{<gobject>}
 @deftp Class <gobject>
@@ -40,3 +44,11 @@ The G-Golf integration with the GObject object system.
 The base class for GLib’s default object system.
 
 @end deftp
+
+
+@anchor{gobject-class?}
+@deffn Procedure gobject-class? class
+
+Returns #t if @code{<gobject>} is a member of the class-precedence-list
+for @var{class}. Otherwise, it returns #f.
+@end deffn

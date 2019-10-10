@@ -51,7 +51,8 @@
 		warn
 		last)
 
-  #:export (<gobject>))
+  #:export (<gobject>
+            gobject-class?))
 
 
 #;(g-export )
@@ -186,9 +187,6 @@
       (else
        (next-method)))))
 
-(define (gobject-class? class)
-  (memq <gobject> (class-precedence-list class)))
-
 (define-method (initialize (class <gobject-class>) initargs)
   (let ((info (get-keyword #:info initargs #f)))
     (next-method
@@ -288,3 +286,6 @@
 			       "#<unbound>"))))))
 	    (class-slots (class-of x)))
   *unspecified*)
+
+(define (gobject-class? class)
+  (memq <gobject> (class-precedence-list class)))
