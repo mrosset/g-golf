@@ -287,5 +287,6 @@
 	    (class-slots (class-of x)))
   *unspecified*)
 
-(define (gobject-class? class)
-  (memq <gobject> (class-precedence-list class)))
+(define (gobject-class? val)
+  (memq val
+        (class-subclasses <gobject>)))
