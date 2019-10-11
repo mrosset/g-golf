@@ -56,6 +56,7 @@
 	  enum->symbols
 	  enum->name
 	  enum->names
+          !gtype-id
           !gi-name
           !scm-name)
 
@@ -124,6 +125,9 @@
 ;;;
 
 (define-class <gi-enum> (<enum>)
+  (gtype-id #:accessor !gtype-id
+            #:init-keyword #:gtype-id
+            #:init-value #f)
   (gi-name #:accessor !gi-name
            #:init-keyword #:gi-name)
   (scm-name #:accessor !scm-name))

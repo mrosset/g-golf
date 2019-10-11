@@ -32,6 +32,7 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf init)
+  #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
@@ -58,10 +59,12 @@
 ;;;
 
 (define (gi-enum-import info)
-  (let* ((type-name (g-registered-type-info-get-type-name info))
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-studly-caps-expand (g-type-name id)))
 	 (e-vals (gi-enum-value-values info)))
     (make <gi-enum>
-      #:gi-name type-name
+      #:gtype-id id
+      #:gi-name name
       #:enum-set e-vals)))
 
 (define (gi-enum-value-values info)

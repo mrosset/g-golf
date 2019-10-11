@@ -27,6 +27,7 @@
 @item @ref{enum->symbols}
 @item @ref{enum->name}
 @item @ref{enum->names}
+@item @ref{!gtype-id_}
 @item @ref{!gi-name}
 @item @ref{!scm-name}
 @end table
@@ -129,6 +130,11 @@ The @code{<gi-enum>} class is a subclass of @code{<enum>}.  Its
 
 @indentedblock
 @table @code
+@item @emph{gtype-id}
+#:accessor !gtype-id	   @*
+#:init-keyword #:gtype-id  @*
+#:init-value #f
+
 @item @emph{gi-name}
 #:accessor !gi-name @*
 #:init-keyword #:gi-name
@@ -146,11 +152,13 @@ Conventions}, 'Slots are not Immutable').
 @end deftp
 
 
+@anchor{!gtype-id_}
 @anchor{!gi-name}
 @anchor{!scm-name}
-@deffn Method !gi-name gi-enum
+@deffn Method !gtype-id gi-enum
+@deffnx Method !gi-name gi-enum
 @deffnx Method !scm-name gi-enum
 
-Returns the content of the gi-name or scm-name slot for @var{gi-enum},
-respectively.
+Returns the content of the gtype-id, gi-name or scm-name slot for
+@var{gi-enum}, respectively.
 @end deffn
