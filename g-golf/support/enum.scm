@@ -45,6 +45,12 @@
   #:use-module (g-golf support keyword)
   #:use-module (g-golf support utils)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (<enum>
             <gi-enum>))
 

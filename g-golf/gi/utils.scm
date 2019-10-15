@@ -58,9 +58,7 @@
             scm->gi-boolean
             scm->gi-string
             scm->gi-strings
-            scm->gi-pointer
-	    gi-integer->gflags
-	    gi-gflags->integer))
+            scm->gi-pointer))
 
 
 (define %gi-pointer-size (sizeof '*))
@@ -266,19 +264,3 @@
   (if value
       value
       %null-pointer))
-
-(define (gi-gflags->integer gflags flags)
-  (list->integer
-   (reverse (map (lambda (name)
-		   (if (member name flags) #t #f))
-	      (enum->symbols gflags)))))
-
-(define (gi-integer->gflags gflags n)
-  (let ((symbols (enum->symbols gflags)))
-    (fold-right (lambda (symbol bool result)
-		  (if bool
-		      (cons symbol result)
-		      result))
-		'()
-		symbols
-		(reverse (integer->list n (length symbols))))))

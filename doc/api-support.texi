@@ -16,6 +16,7 @@ support goops))}, ...
 * Goops::
 * G-export::
 * Enum::
+* Flag::
 * Struct::
 * Union::
 * Utilities_::
@@ -29,6 +30,7 @@ support goops))}, ...
 @subsection G-export
 
 @include api-support-enum.texi
+@include api-support-flag.texi
 @include api-support-struct.texi
 @include api-support-union.texi
 @include api-support-utils.texi

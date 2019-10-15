@@ -37,6 +37,7 @@ SOURCES = \
 	g-golf/support/push.scm			\
 	g-golf/support/keyword.scm		\
 	g-golf/support/enum.scm			\
+	g-golf/support/flag.scm			\
 	g-golf/support/struct.scm		\
 	g-golf/support/union.scm		\
 	g-golf/support/bytevector.scm		\

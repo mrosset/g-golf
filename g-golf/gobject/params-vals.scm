@@ -33,6 +33,7 @@
   #:use-module (g-golf init)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support flag)
   #:use-module (g-golf support struct)
   #:use-module (g-golf support utils)
   #:use-module (g-golf gi cache)

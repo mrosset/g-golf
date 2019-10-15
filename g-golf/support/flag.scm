@@ -26,16 +26,15 @@
 ;;; Code:
 
 
-(define-module (g-golf gi signal-info)
+(define-module (g-golf support flag)
+  #:use-module (srfi srfi-1)
+  #:use-module (srfi srfi-60)
   #:use-module (oop goops)
-  #:use-module (system foreign)
+  #:use-module (g-golf support goops)
+  #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
+  #:use-module (g-golf support keyword)
   #:use-module (g-golf support enum)
-  #:use-module (g-golf support flag)
-  #:use-module (g-golf init)
-  #:use-module (g-golf gobject signals)
-  #:use-module (g-golf gi utils)
-  #:use-module (g-golf gi base-info)
 
   #:duplicates (merge-generics
 		replace
@@ -43,24 +42,42 @@
 		warn
 		last)
 
-  #:export (g-signal-info-get-flags))
+  #:export (<gi-flag>
+
+            gi-gflags->integer
+            gi-integer->gflags))
+
+
+#;(g-export )
 
 
 ;;;
-;;; Low level API
+;;; GI Flag
 ;;;
 
-(define (g-signal-info-get-flags info)
-  (gi-integer->gflags %g-signal-flags
-                      (g_signal_info_get_flags info)))
+(define-class <gi-flag> (<gi-enum>)
+  )
 
+#;(define-method (initialize (self <gi-enum>) initargs)
+  (next-method)
+  (let ((gi-name (get-keyword #:gi-name initargs #f)))
+    (and gi-name
+         (set! (!gi-name self) gi-name)
+         (set! (!scm-name self)
+               (g-name->scm-name gi-name)))))
 
-;;;
-;;; GI Bindings
-;;;
+(define (gi-gflags->integer gflags flags)
+  (list->integer
+   (reverse (map (lambda (name)
+		   (if (member name flags) #t #f))
+	      (enum->symbols gflags)))))
 
-(define g_signal_info_get_flags
-  (pointer->procedure int
-                      (dynamic-func "g_signal_info_get_flags"
-				    %libgirepository)
-                      (list '*)))
+(define (gi-integer->gflags gflags n)
+  (let ((symbols (enum->symbols gflags)))
+    (fold-right (lambda (symbol bool result)
+		  (if bool
+		      (cons symbol result)
+		      result))
+		'()
+		symbols
+		(reverse (integer->list n (length symbols))))))

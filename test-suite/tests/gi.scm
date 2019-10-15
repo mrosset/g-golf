@@ -48,11 +48,7 @@
 (define-method (test-utils (self <g-golf-test-gi>))
   (assert (gi-pointer-new))
   (assert (gi-pointer-inc (gi-pointer-new) 0))
-  (assert (gi-attribute-iter-new))
-  (assert (gi-integer->gflags %g-function-info-flags 2))
-  (assert-true (= (gi-gflags->integer %g-function-info-flags
-                                      '(is-constructor))
-                  2)))
+  (assert (gi-attribute-iter-new)))
 
 (define-method (test-utils-strings (self <g-golf-test-gi>))
   (let ((a '("the" "bluefox" "and" "the" "red" "bear")))

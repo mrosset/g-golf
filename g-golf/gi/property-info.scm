@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2019
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -31,6 +31,7 @@
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support flag)
   #:use-module (g-golf init)
   #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gobject param-spec)

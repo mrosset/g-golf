@@ -92,6 +92,17 @@
     (assert-false (enum->name enum 2))
     (assert (enum->names enum))))
 
+
+;;;
+;;; Flag
+;;;
+
+(define-method (test-flag (self <g-golf-test-support>))
+  (assert (gi-integer->gflags %g-function-info-flags 2))
+  (assert-true (= (gi-gflags->integer %g-function-info-flags
+                                      '(is-constructor))
+                  2)))
+
 ;;;
 ;;; Utils
 ;;;
