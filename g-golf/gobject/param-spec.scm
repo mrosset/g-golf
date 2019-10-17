@@ -29,6 +29,7 @@
 (define-module (g-golf gobject param-spec)
   #:use-module (oop goops)  
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support flag)
 
   #:duplicates (merge-generics
 		replace

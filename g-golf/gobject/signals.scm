@@ -31,6 +31,7 @@
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support flag)
   #:use-module (g-golf init)
 
   #:duplicates (merge-generics
