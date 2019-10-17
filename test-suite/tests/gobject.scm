@@ -54,7 +54,7 @@
 (define %flags-info-g-type
   (g-registered-type-info-get-g-type %flags-info))
 
-(gi-import-enum %flags-info)
+(gi-import-flag %flags-info)
 
 
 (define-class <g-golf-test-gobject> (<test-case>))
@@ -134,7 +134,6 @@
 
 (define-method (test-g-value-set-flags (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init %flags-info-g-type)))
-    (assert (g-value-set! g-value 1))
     (assert (g-value-set! g-value '(flags_none)))))
 
 (define-method (test-g-value-get-string (self <g-golf-test-gobject>))
