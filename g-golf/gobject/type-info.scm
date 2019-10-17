@@ -106,7 +106,7 @@
 ;;;
 
 (define %g-type-fundamental-flags
-  (make <gi-enum>
+  (make <gi-flag>
     #:gi-name "GTypeFundamentalFlags"
     #:enum-set '(classed
                  instantiable

@@ -57,7 +57,7 @@
 ;;;
 
 (define %g-signal-flags
-  (make <gi-enum>
+  (make <gi-flag>
     #:gi-name "GsignalFlags"
     #:enum-set '(run-first
                  run-last

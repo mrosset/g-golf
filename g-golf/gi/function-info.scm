@@ -146,7 +146,7 @@
 ;;;
 
 (define %g-function-info-flags
-  (make <gi-enum>
+  (make <gi-flag>
     #:gi-name "GIFunctionInfoFlags"
     #:enum-set '(is-method
                  is-constructor
