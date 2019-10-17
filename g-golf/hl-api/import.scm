@@ -52,6 +52,7 @@
             gi-import-info
             gi-import-by-name
             gi-import-enum
+            gi-import-flag
             gi-import-struct))
 
 
@@ -84,11 +85,16 @@
                   %gi-base-info-types)
       (push! i-type %gi-base-info-types))
     (case i-type
-      ((enum flags)
+      ((enum)
        (unless (memq i-type
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
        (gi-import-enum info))
+      ((flags)
+       (unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-flag info))
       ((struct)
        (unless (memq i-type
                      %gi-imported-base-info-types)
@@ -134,6 +140,16 @@
           (gi-cache-set! 'enum key gi-enum)
           (gi-enum-import-methods info)
           gi-enum))))
+
+(define (gi-import-flag info)
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-studly-caps-expand (g-type-name id)))
+         (key (string->symbol name)))
+    (or (gi-cache-ref 'flag key)
+        (let ((gi-flag (gi-enum-import info #:flag #t)))
+          (gi-cache-set! 'flag key gi-flag)
+          (gi-enum-import-methods info)
+          gi-flag))))
 
 (define (gi-import-struct info)
   (let* ((id (g-registered-type-info-get-g-type info))

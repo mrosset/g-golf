@@ -213,20 +213,21 @@
         (g_value_set_enum g-value val)
         (error "No such " (!scm-name gi-enum) " key: " sym))))
 
+(define (g-value-get-gi-flag g-value)
+  (let* ((id (g-value->g-type-id g-value))
+         (name (g-studly-caps-expand (g-type-name id)))
+         (key (string->symbol name)))
+    (or (gi-cache-ref 'flag key)
+        (error "No such flag type: " key))))
+
 (define (g-value-get-flags g-value)
-  (let ((gflags (g-value-get-gi-enum g-value))
+  (let ((gflags (g-value-get-gi-flag g-value))
         (val (g_value_get_flags g-value)))
     (or (gi-integer->gflags gflags val)
         (error "No such " (!scm-name gflags) " value: " val))))
 
-(define-method (g-value-set-flags g-value (val <integer>))
-  (let ((gflags (g-value-get-gi-enum g-value)))
-    (if (gi-integer->gflags gflags val)
-        (g_value_set_flags g-value val)
-        (error "No such " (!scm-name gflags) " value: " val))))
-
-(define-method (g-value-set-flags g-value (flags <list>))
-  (let* ((gflags (g-value-get-gi-enum g-value))
+(define (g-value-set-flags g-value flags)
+  (let* ((gflags (g-value-get-gi-flag g-value))
          (val (gi-gflags->integer gflags flags)))
     (if val
         (g_value_set_flags g-value val)

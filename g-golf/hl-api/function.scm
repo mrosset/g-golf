@@ -347,12 +347,21 @@
          (gi-name (g-type-name id))
          (name (string->symbol (g-studly-caps-expand gi-name))))
     (case type
-      ((enum flags)
+      ((enum)
        (values id
                name
                (or (gi-cache-ref 'enum name)
                    (let ((gi-enum (gi-enum-import info)))
                      (gi-cache-set! 'enum name gi-enum)
+                     (gi-enum-import-methods info)
+                     gi-enum))
+               #t))
+      ((flags)
+       (values id
+               name
+               (or (gi-cache-ref 'flag name)
+                   (let ((gi-enum (gi-enum-import info #:flag #t)))
+                     (gi-cache-set! 'flag name gi-enum)
                      (gi-enum-import-methods info)
                      gi-enum))
                #t))

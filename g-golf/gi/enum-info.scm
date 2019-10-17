@@ -31,6 +31,7 @@
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
+  #:use-module (g-golf support flag)
   #:use-module (g-golf init)
   #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gi utils)
@@ -58,11 +59,11 @@
 ;;; Build Interface
 ;;;
 
-(define (gi-enum-import info)
+(define* (gi-enum-import info #:key (flag #f))
   (let* ((id (g-registered-type-info-get-g-type info))
          (name (g-studly-caps-expand (g-type-name id)))
 	 (e-vals (gi-enum-value-values info)))
-    (make <gi-enum>
+    (make (if flag <gi-flag> <gi-enum>)
       #:gtype-id id
       #:gi-name name
       #:enum-set e-vals)))
