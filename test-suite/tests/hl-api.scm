@@ -40,6 +40,23 @@
 
 (gi-import-object %grid-layout-info)
 
+(define %actor-info
+  (g-irepository-find-by-name "Clutter" "Actor"))
+
+(gi-import-object %actor-info)
+
+
+(define %actor-align-info
+  (g-irepository-find-by-name "Clutter" "ActorAlign"))
+
+(gi-import-enum %actor-align-info)
+
+(define %actor-flags-info
+  (g-irepository-find-by-name "Clutter" "ActorFlags"))
+
+(gi-import-flag %actor-flags-info)
+
+
 (define-class <g-golf-test-hl-api> (<test-case>))
 
 
@@ -61,6 +78,56 @@
     (assert-true (eq? (!orientation a-foo) 'horizontal))
     (assert (set! (!orientation a-foo) 'vertical))
     (assert-true (eq? (!orientation a-foo) 'vertical))))
+
+
+(define-method (test-closure-enum (self <g-golf-test-hl-api>))
+  (let* ((enum %gi-type-tag)
+         (closure (make <closure>
+                    #:function (lambda (a) a)
+                    #:return-type enum
+                    #:param-types (list enum))))
+    (assert-true (eq? (invoke closure 'interface)
+                      'interface))))
+
+
+(define-method (test-closure-gi-enum (self <g-golf-test-hl-api>))
+  (let* ((enum (gi-cache-ref 'enum 'clutter-actor-align))
+         (closure (make <closure>
+                    #:function (lambda (a) a)
+                    #:return-type enum
+                    #:param-types (list enum))))
+    (assert-true (eq? (invoke closure 'start)
+                      'start))))
+
+
+(define-method (test-closure-flags (self <g-golf-test-hl-api>))
+  (let* ((flags %g-type-fundamental-flags)
+         (closure (make <closure>
+                    #:function (lambda (a) a)
+                    #:return-type flags
+                    #:param-types (list flags))))
+    (assert-true (let ((result (invoke closure '(classed))))
+                   (eq? (car result) 'classed)))))
+
+
+(define-method (test-closure-gi-flags (self <g-golf-test-hl-api>))
+  (let* ((flags (gi-cache-ref 'flag 'clutter-actor-flags))
+         (closure (make <closure>
+                    #:function (lambda (a) a)
+                    #:return-type flags
+                    #:param-types (list flags))))
+    (assert-true (let ((result (invoke closure '(realized))))
+                   (eq? (car result) 'realized)))))
+
+
+(define-method (test-closure-gobject (self <g-golf-test-hl-api>))
+  (let* ((actor (make <clutter-actor>))
+         (closure (make <closure>
+                    #:function (lambda (a) a)
+                    #:return-type <clutter-actor>
+                    #:param-types (list <clutter-actor>))))
+    (assert-true (eq? (invoke closure actor)
+                      actor))))
 
 
 (exit-with-summary (run-all-defined-test-cases))
