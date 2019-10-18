@@ -148,11 +148,11 @@
   (@@ (g-golf gobject generic-values) g_value_init))
 
 (define (prepare-return-val g-value type)
-  (cond ((is-a? type <gi-enum>)
+  (cond ((or (is-a? type <gi-flag>)
+             (is-a? type <gi-enum>))
          (let ((gtype-id (!gtype-id type)))
-           (%g_value_init g-value (or gtype-id int))))
-        #;((is-a? type <gi-flag>)
-         )
+           (%g_value_init g-value (or gtype-id
+                                      (symbol->g-type 'int)))))
         #;((boxed))
         #;((param))
         ((gobject-class? type)
@@ -164,12 +164,25 @@
   (cond ((eq? type 'boolean)
          (%g_value_init g-value (symbol->g-type type))
          (g-value-set! g-value (scm->gi val 'boolean)))
+        ((is-a? type <gi-flag>)
+         (let ((gtype-id (!gtype-id type)))
+           (if gtype-id
+               (begin
+                 (%g_value_init g-value gtype-id)
+                 (g-value-set! g-value val))
+               (begin
+                 (%g_value_init g-value (symbol->g-type 'int))
+                 (g-value-set! g-value
+                               (gi-gflags->integer type val))))))
         ((is-a? type <gi-enum>)
          (let ((gtype-id (!gtype-id type)))
-           (%g_value_init g-value (or gtype-id int))
-           (g-value-set! g-value (enum->value type val))))
-        #;((is-a? type <gi-flag>)
-         )
+           (if gtype-id
+               (begin
+                 (%g_value_init g-value gtype-id)
+                 (g-value-set! g-value val))
+               (begin
+                 (%g_value_init g-value (symbol->g-type 'int))
+                 (g-value-set! g-value (enum->value type val))))))
         ((eq? type 'string)
          (%g_value_init g-value (symbol->g-type type))
          (g-value-set! g-value (scm->gi val 'string)))
@@ -179,17 +192,23 @@
         #;((boxed))
         #;((param))
         ((gobject-class? type)
-         (let ((gtype-id (!gtype-id type))
-               (g-inst (!g-inst val)))
-           (%g_value_init g-value gtype-id)
-           (g-value-set! g-value g-inst)))
+         (%g_value_init g-value (!gtype-id type))
+         (g-value-set! g-value (!g-inst val)))
         (else
          (%g_value_init g-value (symbol->g-type type))
          (g-value-set! g-value val))))
 
 (define (return-val->scm type g-value)
   (let ((val (g-value-ref g-value)))
-    (cond ((gobject-class? type)
+    (cond ((is-a? type <gi-flag>)
+           (if (!gtype-id type)
+               val
+               (gi-integer->gflags type val)))
+          ((is-a? type <gi-enum>)
+           (if (!gtype-id type)
+               val
+               (enum->symbol type val)))
+          ((gobject-class? type)
            (make type #:g-inst (gi->scm val 'pointer)))
           (else
            val))))
