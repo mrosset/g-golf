@@ -100,7 +100,7 @@
 ;; so one can 'directly' debug g-closure-invoke in a repl
 #;(set! %g-closure-invoke-args
       (list (!g-closure self)
-            return-value
+            return-val
             n-param
             param-vals
             #f))
@@ -219,15 +219,16 @@
                            param-vals
                            invocation-hint
                            marshal-data)
-  (let* ((function (g-closure-function-cache-ref g-closure))
+  (let* ((%g-value-size (g-value-size))
+         (function (g-closure-function-cache-ref g-closure))
          (args (let loop ((i 0)
-                          (g-values-ptr param-vals)
+                          (g-value param-vals)
                           (results '()))
                  (if (= i n-param)
                      (reverse! results)
                      (loop (+ i 1)
-                           (gi-pointer-inc g-values-ptr)
-                           (cons (g-value-ref g-values-ptr)
+                           (gi-pointer-inc g-value %g-value-size)
+                           (cons (g-value-ref g-value)
                                  results)))))
          (result (apply function args)))
     (g-value-set! return-val result)
