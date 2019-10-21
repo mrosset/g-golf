@@ -127,12 +127,13 @@
 
 (define (gi-object-import-signals info)
   (let ((n-signal (g-object-info-get-n-signals info)))
-    (dimfi (g-object-info-get-type-name info)
+    #;(dimfi (g-object-info-get-type-name info)
            " " n-signal "signals")
     (do ((i 0
             (+ i 1)))
         ((= i n-signal))
       (let ((s-info (g-object-info-get-signal info i)))
-        (dimfi "  " (g-base-info-get-namespace s-info)
+        #;(dimfi "  " (g-base-info-get-namespace s-info)
                (g-base-info-get-name s-info)
-               " (signal)")))))
+               " (signal)")
+        'wip))))
