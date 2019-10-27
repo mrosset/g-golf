@@ -74,7 +74,7 @@ representation of the @code{GSignalFlags}:
 @table @code
 
 @item run-first
-nvoke the object method handler in the first emission stage.
+Invoke the object method handler in the first emission stage.
 
 @item run-last
 Invoke the object method handler in the third emission stage.
