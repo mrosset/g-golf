@@ -80,7 +80,8 @@
 		    (get-enum-values info
 				     n
 				     (+ i 1)
-				     (cons (cons (string->symbol name)
+				     (cons (cons (string->symbol
+                                                  (g-studly-caps-expand name))
                                                  value)
 					   v-set)))))))
     (get-enum-values info
