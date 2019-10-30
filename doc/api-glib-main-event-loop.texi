@@ -25,6 +25,8 @@ The Main Event Loop — manages all available sources of events
 @item @ref{g-main-loop-quit}
 @item @ref{g-main-context-new}
 @item @ref{g-main-context-default}
+@item @ref{g-timeout-source-new}
+@item @ref{g-timeout-source-new-seconds}
 @item @ref{g-idle-source-new}
 @item @ref{g-source-attach}
 @item @ref{g-source-destroy}
@@ -144,6 +146,36 @@ for main loop functions when a main loop is not explicitly specified,
 and corresponds to the @samp{main} main loop.
 
 @c See also g_main_context_get_thread_default().
+@end deffn
+
+
+@anchor{g-timeout-source-new}
+@deffn Procedure g-timeout-source-new interval
+
+Returns a pointer.
+
+Creates and returns (a pointer to) a new (timeout) @code{GSource}.
+
+The source will not initially be associated with any @code{GMainContext}
+and must be added to one with @ref{g-source-attach} before it will be
+executed.
+
+The timeout @var{interval} is in milliseconds.
+@end deffn
+
+
+@anchor{g-timeout-source-new-seconds}
+@deffn Procedure g-timeout-source-new-seconds interval
+
+Returns a pointer.
+
+Creates and returns (a pointer to) a new (timeout) @code{GSource}.
+
+The source will not initially be associated with any @code{GMainContext}
+and must be added to one with @ref{g-source-attach} before it will be
+executed.
+
+The timeout @var{interval} is in seconds.
 @end deffn
 
 

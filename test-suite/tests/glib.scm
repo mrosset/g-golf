@@ -97,16 +97,24 @@
   (assert (g-main-context-default)))
 
 
-(define-method (test-source (self <g-golf-test-glib>))
+(define-method (test-idle-source (self <g-golf-test-glib>))
   (and (assert (g-idle-source-new))
        (let ((source (g-idle-source-new))
              (context (g-main-context-new)))
          (assert (g-source-attach source context))
-         (assert (g-source-destroy source))
          (assert (g-source-get-priority source))
          (assert (g-source-set-priority source 300))
          (assert-true (= (g-source-get-priority source)
-                         300)))))
+                         300))
+         (assert (g-source-destroy source)))))
+
+
+(define-method (test-timeout-source (self <g-golf-test-glib>))
+  (assert (g-timeout-source-new 1000)))
+
+
+(define-method (test-timeout-source-seconds (self <g-golf-test-glib>))
+  (assert (g-timeout-source-new-seconds 1)))
 
 
 (exit-with-summary (run-all-defined-test-cases))

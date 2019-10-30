@@ -38,6 +38,8 @@
             g-main-loop-quit
             g-main-context-new
             g-main-context-default
+            g-timeout-source-new
+            g-timeout-source-new-seconds
             g-idle-source-new
             g-source-attach
             g-source-destroy
@@ -70,6 +72,12 @@
 
 (define (g-main-context-default)
   (gi->scm (g_main_context_default) 'pointer))
+
+(define (g-timeout-source-new interval)
+  (g_timeout_source_new interval))
+
+(define (g-timeout-source-new-seconds interval)
+  (g_timeout_source_new_seconds interval))
 
 (define (g-idle-source-new)
   (g_idle_source_new))
@@ -134,6 +142,18 @@
                       (dynamic-func "g_main_context_default"
 				    %libglib)
                       (list )))	;; void
+
+(define g_timeout_source_new
+  (pointer->procedure '*
+                      (dynamic-func "g_timeout_source_new"
+				    %libglib)
+                      (list unsigned-int)))	;; interval
+
+(define g_timeout_source_new_seconds
+  (pointer->procedure '*
+                      (dynamic-func "g_timeout_source_new_seconds"
+				    %libglib)
+                      (list unsigned-int)))	;; interval
 
 (define g_idle_source_new
   (pointer->procedure '*
