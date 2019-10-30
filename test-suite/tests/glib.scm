@@ -83,8 +83,7 @@
 
 
 (define-method (test-main-loop (self <g-golf-test-glib>))
-  (assert (g-main-loop-new #f #f))
-  (let* ((loop (g-main-loop-new))
+  (let* ((loop (assert (g-main-loop-new #f #f)))
          (thread (make-thread g-main-loop-run loop)))
     (assert (g-main-loop-ref loop))
     (assert (g-main-loop-unref loop))
@@ -98,15 +97,14 @@
 
 
 (define-method (test-idle-source (self <g-golf-test-glib>))
-  (and (assert (g-idle-source-new))
-       (let ((source (g-idle-source-new))
-             (context (g-main-context-new)))
-         (assert (g-source-attach source context))
-         (assert (g-source-get-priority source))
-         (assert (g-source-set-priority source 300))
-         (assert-true (= (g-source-get-priority source)
-                         300))
-         (assert (g-source-destroy source)))))
+  (let ((source (assert (g-idle-source-new)))
+        (context (g-main-context-new)))
+    (assert (g-source-attach source context))
+    (assert (g-source-get-priority source))
+    (assert (g-source-set-priority source 300))
+    (assert-true (= (g-source-get-priority source)
+                    300))
+    (assert (g-source-destroy source))))
 
 
 (define-method (test-timeout-source (self <g-golf-test-glib>))
