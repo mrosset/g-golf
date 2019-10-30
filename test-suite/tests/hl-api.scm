@@ -130,4 +130,12 @@
                       actor))))
 
 
+(define-method (test-closure-sum (self <g-golf-test-hl-api>))
+  (let ((closure (make <closure>
+                   #:function (lambda (a b) (+ a b))
+                   #:return-type 'int
+                   #:param-types '(int int))))
+    (assert-true (= (invoke closure 2 3) 5))))
+
+
 (exit-with-summary (run-all-defined-test-cases))
