@@ -28,6 +28,8 @@ The Main Event Loop — manages all available sources of events
 @item @ref{g-idle-source-new}
 @item @ref{g-source-attach}
 @item @ref{g-source-destroy}
+@item @ref{g-source-set-priority}
+@item @ref{g-source-get-priority}
 @end table
 @end indentedblock
 
@@ -184,6 +186,30 @@ Removes @var{source} from its @code{GMainContext}, if any, and mark it
 as destroyed. The source cannot be subsequently added to another
 context. It is safe to call this on sources which have already been
 removed from their context.
+@end deffn
+
+
+@anchor{g-source-set-priority}
+@deffn Procedure g-source-set-priority source priority
+
+Returns nothing.
+
+Sets the @var{source} priority. While the main loop is being run, a
+source will be dispatched if it is ready to be dispatched and no sources
+at a higher (numerically smaller) priority are ready to be dispatched.
+
+A child source always has the same priority as its parent. It is not
+permitted to change the priority of a source once it has been added as a
+child of another source.
+@end deffn
+
+
+@anchor{g-source-get-priority}
+@deffn Procedure g-source-get-priority source priority
+
+Returns an integer.
+
+Obtains and returns the @var{source} priority.
 @end deffn
 
 

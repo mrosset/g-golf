@@ -40,7 +40,9 @@
             g-main-context-default
             g-idle-source-new
             g-source-attach
-            g-source-destroy))
+            g-source-destroy
+            g-source-set-priority
+            g-source-get-priority))
 
 
 ;;;
@@ -78,6 +80,12 @@
 
 (define (g-source-destroy source)
   (g_source_destroy source))
+
+(define (g-source-set-priority source priority)
+  (g_source_set_priority source priority))
+
+(define (g-source-get-priority source)
+  (g_source_get_priority source))
 
 
 ;;;
@@ -143,5 +151,18 @@
 (define g_source_destroy
   (pointer->procedure void
                       (dynamic-func "g_source_destroy"
+				    %libglib)
+                      (list '*)))	;; source
+
+(define g_source_set_priority
+  (pointer->procedure void
+                      (dynamic-func "g_source_set_priority"
+				    %libglib)
+                      (list '*		;; source
+                            int)))	;; priority
+
+(define g_source_get_priority
+  (pointer->procedure int
+                      (dynamic-func "g_source_get_priority"
 				    %libglib)
                       (list '*)))	;; source

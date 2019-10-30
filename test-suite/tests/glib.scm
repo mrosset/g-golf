@@ -102,7 +102,11 @@
        (let ((source (g-idle-source-new))
              (context (g-main-context-new)))
          (assert (g-source-attach source context))
-         (assert (g-source-destroy source)))))
+         (assert (g-source-destroy source))
+         (assert (g-source-get-priority source))
+         (assert (g-source-set-priority source 300))
+         (assert-true (= (g-source-get-priority source)
+                         300)))))
 
 
 (exit-with-summary (run-all-defined-test-cases))
