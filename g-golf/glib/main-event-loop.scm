@@ -73,7 +73,8 @@
   (g_idle_source_new))
 
 (define (g-source-attach source context)
-  (g_source_attach source context))
+  (g_source_attach source
+                   (scm->gi context 'pointer)))
 
 (define (g-source-destroy source)
   (g_source_destroy source))
