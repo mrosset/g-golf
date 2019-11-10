@@ -46,18 +46,13 @@
   
   #:export (<closure>
 
-            g-closure-marshal
-            %g-closure-marshal
-            g-closure-free
-            %g-closure-free
-
-            %g-closure-function-cache-default-size
-            %g-closure-function-cache
-            g-closure-function-cache-ref
-            g-closure-function-cache-set!
-            g-closure-function-cache-remove!
-            g-closure-function-cache-for-each
-            g-closure-function-cache-show))
+            %gi-closure-cache-default-size
+            %gi-closure-cache
+            gi-closure-cache-ref
+            gi-closure-cache-set!
+            gi-closure-cache-remove!
+            gi-closure-cache-for-each
+            gi-closure-cache-show))
 
 
 (g-export !g-closure
@@ -84,7 +79,7 @@
          (g-closure (g-closure-new-simple (g-closure-size) #f)))
     (next-method)
     (set! (!g-closure self) g-closure)
-    (g-closure-function-cache-set! g-closure function)
+    (gi-closure-cache-set! g-closure function)
     (g-closure-ref g-closure)
     (g-closure-sink g-closure)
     (g-closure-set-marshal g-closure %g-closure-marshal)
@@ -220,7 +215,7 @@
                            invocation-hint
                            marshal-data)
   (let* ((%g-value-size (g-value-size))
-         (function (g-closure-function-cache-ref g-closure))
+         (function (gi-closure-cache-ref g-closure))
          (args (let loop ((i 0)
                           (g-value param-vals)
                           (results '()))
@@ -245,7 +240,7 @@
                             '*)))		;; marshal-data
 
 (define (g-closure-free data g-closure)
-  (g-closure-function-cache-remove! g-closure))
+  (gi-closure-cache-remove! g-closure))
 
 (define %g-closure-free
   (procedure->pointer void
@@ -256,40 +251,40 @@
 
 
 ;;;
-;;; The g-closure-function-cache
+;;; The gi-closure-cache
 ;;;
 
-(define %g-closure-function-cache-default-size 1013)
+(define %gi-closure-cache-default-size 1013)
 
-(define %g-closure-function-cache
-  (make-hash-table %g-closure-function-cache-default-size))
+(define %gi-closure-cache
+  (make-hash-table %gi-closure-cache-default-size))
 
-(define (g-closure-function-cache-ref g-closure)
-  (hashq-ref %g-closure-function-cache
+(define (gi-closure-cache-ref g-closure)
+  (hashq-ref %gi-closure-cache
              (pointer-address g-closure)))
 
-(define (g-closure-function-cache-set! g-closure function)
-  (hashq-set! %g-closure-function-cache
+(define (gi-closure-cache-set! g-closure function)
+  (hashq-set! %gi-closure-cache
               (pointer-address g-closure)
               function))
 
-(define (g-closure-function-cache-remove! g-closure)
-  (hashq-remove! %g-closure-function-cache
+(define (gi-closure-cache-remove! g-closure)
+  (hashq-remove! %gi-closure-cache
                  (pointer-address g-closure)))
 
-(define (g-closure-function-cache-for-each proc)
+(define (gi-closure-cache-for-each proc)
   (hash-for-each proc
-                 %g-closure-function-cache))
+                 %gi-closure-cache))
 
-(define %g-closure-function-cache-show-prelude
+(define %gi-closure-cache-show-prelude
   "The g-closure function cache entries are")
 
-(define* (g-closure-function-cache-show #:optional
+(define* (gi-closure-cache-show #:optional
                                         (port (current-output-port)))
   (format port "~A~%"
-          %g-closure-function-cache-show-prelude)
+          %gi-closure-cache-show-prelude)
   (letrec ((show (lambda (key value)
                    (format port "  ~S  -  ~S~%"
                            key
                            value))))
-    (g-closure-function-cache-for-each show)))
+    (gi-closure-cache-for-each show)))
