@@ -41,10 +41,14 @@
             g-timeout-source-new
             g-timeout-source-new-seconds
             g-idle-source-new
+            g-source-ref
+            g-source-unref
             g-source-attach
             g-source-destroy
+            g-source-is-destroyed?
             g-source-set-priority
-            g-source-get-priority))
+            g-source-get-priority
+            g-source-remove))
 
 
 ;;;
@@ -82,6 +86,12 @@
 (define (g-idle-source-new)
   (g_idle_source_new))
 
+(define (g-source-ref source)
+  (g_source_ref source))
+
+(define (g-source-unref source)
+  (g_source_unref source))
+
 (define (g-source-attach source context)
   (g_source_attach source
                    (scm->gi context 'pointer)))
@@ -89,11 +99,17 @@
 (define (g-source-destroy source)
   (g_source_destroy source))
 
+(define (g-source-is-destroyed? source)
+  (gi->scm (g_source_is_destroyed source) 'boolean))
+
 (define (g-source-set-priority source priority)
   (g_source_set_priority source priority))
 
 (define (g-source-get-priority source)
   (g_source_get_priority source))
+
+(define (g-source-remove id)
+  (gi->scm (g_source_remove id) 'boolean))
 
 
 ;;;
@@ -161,6 +177,18 @@
 				    %libglib)
                       (list )))	;; void
 
+(define g_source_ref
+  (pointer->procedure '*
+                      (dynamic-func "g_source_ref"
+				    %libglib)
+                      (list '*)))	;; source
+
+(define g_source_unref
+  (pointer->procedure void
+                      (dynamic-func "g_source_unref"
+				    %libglib)
+                      (list '*)))	;; source
+
 (define g_source_attach
   (pointer->procedure unsigned-int
                       (dynamic-func "g_source_attach"
@@ -171,6 +199,12 @@
 (define g_source_destroy
   (pointer->procedure void
                       (dynamic-func "g_source_destroy"
+				    %libglib)
+                      (list '*)))	;; source
+
+(define g_source_is_destroyed
+  (pointer->procedure int
+                      (dynamic-func "g_source_is_destroyed"
 				    %libglib)
                       (list '*)))	;; source
 
@@ -186,3 +220,9 @@
                       (dynamic-func "g_source_get_priority"
 				    %libglib)
                       (list '*)))	;; source
+
+(define g_source_remove
+  (pointer->procedure int
+                      (dynamic-func "g_source_remove"
+				    %libglib)
+                      (list unsigned-int)))	;; tag (the source ID)

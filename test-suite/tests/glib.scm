@@ -97,14 +97,20 @@
 
 
 (define-method (test-idle-source (self <g-golf-test-glib>))
-  (let ((source (assert (g-idle-source-new)))
-        (context (g-main-context-new)))
+  (let* ((source (assert (g-idle-source-new)))
+         (context (g-main-context-new))
+         (id (assert (g-source-attach source context))))
     (assert (g-source-attach source context))
     (assert (g-source-get-priority source))
     (assert (g-source-set-priority source 300))
     (assert-true (= (g-source-get-priority source)
                     300))
-    (assert (g-source-destroy source))))
+    (assert (g-source-ref source))
+    (assert (g-source-unref source))
+    (assert-false (g-source-is-destroyed? source))
+    (assert (g-source-remove id))
+    (assert (g-source-destroy source))
+    (assert-true (g-source-is-destroyed? source))))
 
 
 (define-method (test-timeout-source (self <g-golf-test-glib>))
