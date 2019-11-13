@@ -29,6 +29,7 @@ The Main Event Loop — manages all available sources of events
 @item @ref{g-timeout-source-new-seconds}
 @item @ref{g-idle-source-new}
 @item @ref{g-source-ref}
+@item @ref{g-source-unref}
 @item @ref{g-source-attach}
 @item @ref{g-source-destroy}
 @item @ref{g-source-is-destroyed?}
