@@ -60,7 +60,8 @@
           !return-type
           !param-types
 
-          invoke)
+          invoke
+          free)
 
 
 (define-class <closure> ()
@@ -138,6 +139,11 @@
               (return-val->scm return-type return-val)
               (values)))
         (error "Argument arity mismatch: " args))))
+
+(define-method (free (self <closure>))
+  (let ((g-closure (!g-closure self)))
+    (gi-closure-cache-remove! g-closure)
+    (g-closure-unref g-closure)))
 
 (define %g_value_init
   (@@ (g-golf gobject generic-values) g_value_init))
