@@ -17,9 +17,11 @@ Closures - Functions as first-class objects
 @indentedblock
 @table @code
 @item @ref{g-closure-size}
+@item @ref{g-closure-ref-count}
 @item @ref{g-closure-ref}
 @item @ref{g-closure-sink}
 @item @ref{g-closure-unref}
+@item @ref{g-closure-free}
 @item @ref{g-closure-invoke}
 @item @ref{g-closure-add-invalidate-notifier}
 @item @ref{g-closure-new-simple}
@@ -62,6 +64,12 @@ the GObject reference manual for a complete description.
 @subheading Procedures
 
 
+Note: in this section, the @var{closure}, @var{marshal}, @var{source}
+and @var{function} arguments are [must be] pointers to a
+@code{GClosure}, a @code{GSource}, a @code{GClosureMarshal} and
+a @code{GClosureNotify} respectively.
+
+
 @anchor{g-closure-size}
 @deffn Procedure g-closure-size
 
@@ -69,6 +77,15 @@ Returns an integer.
 
 Obtains and returns the size (the number of bytes) that a
 @code{GClosure} occupies in memory.
+@end deffn
+
+
+@anchor{g-closure-ref-count}
+@deffn Procedure g-closure-ref-count closure
+
+Returns an integer.
+
+Obtains and returns the reference count of @var{closure}.
 @end deffn
 
 
@@ -112,6 +129,16 @@ incremented by the same caller. If no other callers are using
 @end deffn
 
 
+@anchor{g-closure-free}
+@deffn Procedure g-closure-free closure
+
+Returns nothing.
+
+Decrements the reference count of @var{closure} to 0 (so @var{closure}
+will be destroyed and freed).
+@end deffn
+
+
 @anchor{g-closure-invoke}
 @deffn Procedure g-closure-invoke closure return-value @
        n-param param-vals invocation-hit
@@ -139,9 +166,8 @@ Registers an invalidation notifier which will be called when the closure
 is invalidated with @code{g-closure-invalidate}. Invalidation notifiers
 are invoked before finalization notifiers, in an unspecified order.
 
-The arguments are @var{closure} (a pointer to a @code{GClosure}),
-@var{data} (a pointer to the notifier data (or #f)) and @var{function}
-(a pointer to a@code{GClosureNotify} function).
+The @var{data} argumet is (must be) a pointer to the notifier data (or
+#f).
 @end deffn
 
 
@@ -164,8 +190,7 @@ The returned value is a floating reference (a pointer) to a new
 
 Returns nothing.
 
-Sets the @var{closure} (a pointer to a @code{GClosure}) marshaller to
-@var{marshal} (a pointer to a @code{GClosureMarshal}).
+Sets the @var{closure} marshaller to @var{marshal}.
 @end deffn
 
 
@@ -174,13 +199,12 @@ Sets the @var{closure} (a pointer to a @code{GClosure}) marshaller to
 
 Returns nothing.
 
-Set the callback for @var{source} (a pointer to a @code{GSource}) as
-@var{closure} (a ponter to a @code{GClosure}.
+Set the @var{source} callback to @var{closure}.
 
 If the source is not one of the standard GLib types, the
-closure_callback and closure_marshal fields of the GSourceFuncs
-structure must have been filled in with pointers to appropriate
-functions.
+@code{closure_callback} and @code{closure_marshal} fields of the
+@code{GSourceFuncs} structure must have been filled in with pointers to
+appropriate functions.
 @end deffn
 
 

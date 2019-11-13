@@ -99,7 +99,7 @@ g_object_type (GObject *obj)
     return (type);
 }
 
-const gchar *
+const gchar*
 g_object_type_name (GObject *obj)
 {
     const gchar *name;
@@ -121,4 +121,10 @@ g_closure_size ()
   size_t n = sizeof(GClosure);
 
   return n;
+}
+
+uint
+g_closure_ref_count (GClosure *closure)
+{
+    return (closure->ref_count);
 }

@@ -29,7 +29,8 @@
  *
 */
 
-size_t pointer_address_size ();
+size_t
+pointer_address_size ();
 
 
 /*
@@ -37,7 +38,8 @@ size_t pointer_address_size ();
  *
 */
 
-int float_to_int (float f);
+int
+float_to_int (float f);
 
 
 /*
@@ -51,12 +53,20 @@ int float_to_int (float f);
  *
 */
 
-size_t g_value_size ();
+size_t
+g_value_size ();
 
-GType g_object_type (GObject *obj);
+GType
+g_object_type (GObject *obj);
 
-const gchar * g_object_type_name (GObject *obj);
+const gchar*
+g_object_type_name (GObject *obj);
 
-uint g_object_ref_count (GObject *obj);
+uint
+g_object_ref_count (GObject *obj);
 
-size_t g_closure_size ();
+size_t
+g_closure_size ();
+
+uint
+g_closure_ref_count (GClosure *closure);
