@@ -64,8 +64,9 @@
                    #:param-types '()))
         (source (g-idle-source-new)))
     (g-source-set-closure source (!g-closure closure))
-    (g-source-set-priority source 200) ; G_PRIORITY_DEFAULT_IDLE
-    (g-source-attach source #f)))
+    (values (g-source-attach source #f)
+            source
+            closure)))
 
 (define (g-timeout-add interval proc)
   (let ((closure (make <closure>
@@ -74,7 +75,9 @@
                    #:param-types '()))
         (source (g-timeout-source-new interval)))
     (g-source-set-closure source (!g-closure closure))
-    (g-source-attach source #f)))
+    (values (g-source-attach source #f)
+            source
+            closure)))
 
 (define (g-timeout-add-seconds interval proc)
   (let ((closure (make <closure>
@@ -83,4 +86,6 @@
                    #:param-types '()))
         (source (g-timeout-source-new-seconds interval)))
     (g-source-set-closure source (!g-closure closure))
-    (g-source-attach source #f)))
+    (values (g-source-attach source #f)
+            source
+            closure)))
