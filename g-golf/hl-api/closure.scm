@@ -84,7 +84,9 @@
     (g-closure-ref g-closure)
     (g-closure-sink g-closure)
     (g-closure-set-marshal g-closure %g-closure-marshal)
-    (g-closure-add-invalidate-notifier g-closure #f %g-closure-free)))
+    (g-closure-add-invalidate-notifier g-closure
+                                       #f
+                                       %g-closure-invalidate-notifier)))
 
 #!
 
@@ -143,7 +145,7 @@
 (define-method (free (self <closure>))
   (let ((g-closure (!g-closure self)))
     (gi-closure-cache-remove! g-closure)
-    (g-closure-unref g-closure)))
+    (g-closure-free g-closure)))
 
 (define %g_value_init
   (@@ (g-golf gobject generic-values) g_value_init))
@@ -245,12 +247,24 @@
                             '*			;; invocation-hint
                             '*)))		;; marshal-data
 
-(define (g-closure-free data g-closure)
-  (gi-closure-cache-remove! g-closure))
+(define (g-closure-invalidate-notifier data g-closure)
+  ;; It seems to me there is a bug in g-closure-unref: it calls the
+  ;; g-closure-invalidate-notifier (if there is one) when the g-closure
+  ;; ref-count 'will reach' zero, but it does call it before to set the
+  ;; counter ... and when I try to display its value here, it says it's
+  ;; 2 (??). So, in our ivalidate notifier procedure, we can't rely on
+  ;; the g-closure ref-count value to be 'correct'.  This said, it seems
+  ;; the notifier will always be called if and only if the g-closure
+  ;; ref-count 'will reach' zero, so we can 'assume it is zero' ... and
+  ;; only remove the corresponding <closure> instance, if it hasn't been
+  ;; done already, from the %gi-closure-cache.
+  (let ((closure (gi-closure-cache-ref g-closure)))
+    (and closure
+         (gi-closure-cache-remove! closure))))
 
-(define %g-closure-free
+(define %g-closure-invalidate-notifier
   (procedure->pointer void
-                      g-closure-free
+                      g-closure-invalidate-notifier
                       (list '*		;; data
                             '*)))	;; gclosure
 

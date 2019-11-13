@@ -88,7 +88,8 @@
                     #:return-type enum
                     #:param-types (list enum))))
     (assert-true (eq? (invoke closure 'interface)
-                      'interface))))
+                      'interface))
+    (assert (free closure))))
 
 
 (define-method (test-closure-gi-enum (self <g-golf-test-hl-api>))
@@ -98,7 +99,8 @@
                     #:return-type enum
                     #:param-types (list enum))))
     (assert-true (eq? (invoke closure 'start)
-                      'start))))
+                      'start))
+    (assert (free closure))))
 
 
 (define-method (test-closure-flags (self <g-golf-test-hl-api>))
@@ -108,7 +110,8 @@
                     #:return-type flags
                     #:param-types (list flags))))
     (assert-true (let ((result (invoke closure '(classed))))
-                   (eq? (car result) 'classed)))))
+                   (eq? (car result) 'classed)))
+    (assert (free closure))))
 
 
 (define-method (test-closure-gi-flags (self <g-golf-test-hl-api>))
@@ -118,7 +121,8 @@
                     #:return-type flags
                     #:param-types (list flags))))
     (assert-true (let ((result (invoke closure '(realized))))
-                   (eq? (car result) 'realized)))))
+                   (eq? (car result) 'realized)))
+    (assert (free closure))))
 
 
 (define-method (test-closure-gobject (self <g-golf-test-hl-api>))
@@ -128,7 +132,8 @@
                     #:return-type <clutter-actor>
                     #:param-types (list <clutter-actor>))))
     (assert-true (eq? (invoke closure actor)
-                      actor))))
+                      actor))
+    (assert (free closure))))
 
 
 (define-method (test-closure-sum (self <g-golf-test-hl-api>))
@@ -136,7 +141,8 @@
                    #:function (lambda (a b) (+ a b))
                    #:return-type 'int
                    #:param-types '(int int))))
-    (assert-true (= (invoke closure 2 3) 5))))
+    (assert-true (= (invoke closure 2 3) 5))
+    (assert (free closure))))
 
 
 (define-method (test-g-idle-add (self <g-golf-test-hl-api>))
