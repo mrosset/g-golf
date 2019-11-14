@@ -75,6 +75,12 @@ float_to_int (float f)
  *
 */
 
+uint
+g_source_ref_count (GSource *source)
+{
+    return (source->ref_count);
+}
+
 
 /*
  * GObject

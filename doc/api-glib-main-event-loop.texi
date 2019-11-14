@@ -28,8 +28,10 @@ The Main Event Loop — manages all available sources of events
 @item @ref{g-timeout-source-new}
 @item @ref{g-timeout-source-new-seconds}
 @item @ref{g-idle-source-new}
+@item @ref{g-source-ref-count}
 @item @ref{g-source-ref}
 @item @ref{g-source-unref}
+@item @ref{g-source-free}
 @item @ref{g-source-attach}
 @item @ref{g-source-destroy}
 @item @ref{g-source-is-destroyed?}
@@ -203,6 +205,15 @@ as compared to other sources which have a default priority of
 @end deffn
 
 
+@anchor{g-source-ref-count}
+@deffn Procedure g-source-ref-count source
+
+Returns an integer.
+
+Obtains and returns the reference count of @var{source}.
+@end deffn
+
+
 @anchor{g-source-ref}
 @deffn Procedure g-source-ref source
 
@@ -220,6 +231,16 @@ Returns nothing.
 Decreases the @var{source} reference count by one. If the resulting
 reference count is zero the source and associated memory will be
 destroyed.
+@end deffn
+
+
+@anchor{g-source-free}
+@deffn Procedure g-source-free source
+
+Returns nothing.
+
+Calls @ref{g-source-destroy} and decrements the reference count of
+@var{source} to 0 (so @var{source} will be destroyed and freed).
 @end deffn
 
 

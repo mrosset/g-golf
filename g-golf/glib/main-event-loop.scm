@@ -29,6 +29,8 @@
 (define-module (g-golf glib main-event-loop)
   #:use-module (system foreign)
   #:use-module (g-golf init)
+  #:use-module (g-golf support libg-golf)
+  #:use-module (g-golf support utils)
   #:use-module (g-golf gi utils)
   
   #:export (g-main-loop-new
@@ -41,8 +43,10 @@
             g-timeout-source-new
             g-timeout-source-new-seconds
             g-idle-source-new
+            g-source-ref-count
             g-source-ref
             g-source-unref
+            g-source-free
             g-source-attach
             g-source-destroy
             g-source-is-destroyed?
@@ -86,11 +90,22 @@
 (define (g-idle-source-new)
   (g_idle_source_new))
 
+(define (g-source-ref-count source)
+  (g_source_ref_count source))
+
 (define (g-source-ref source)
   (g_source_ref source))
 
 (define (g-source-unref source)
   (g_source_unref source))
+
+(define (g-source-free source)
+  (g-source-destroy source)
+  (do ((i (g-source-ref-count source)
+          (- i 1)))
+      ((= i 0)
+       (values))
+    (g_source_unref source)))
 
 (define (g-source-attach source context)
   (g_source_attach source

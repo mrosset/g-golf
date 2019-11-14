@@ -36,6 +36,9 @@
             ;; floats
             float_to_int
 
+            ;; Glib
+            g_source_ref_count
+
             ;; GObject
             g_value_size
             g_object_type
@@ -65,6 +68,18 @@
                       (dynamic-func "float_to_int"
                                     %libg-golf)
                       (list float)))
+
+
+;;;
+;;; Glib
+;;;
+
+
+(define g_source_ref_count
+  (pointer->procedure unsigned-int
+                      (dynamic-func "g_source_ref_count"
+                                    %libg-golf)
+                      (list '*)))
 
 
 ;;;
