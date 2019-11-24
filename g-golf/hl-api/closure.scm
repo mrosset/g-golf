@@ -27,6 +27,7 @@
 
 
 (define-module (g-golf hl-api closure)
+  #:use-module (ice-9 threads)
   #:use-module (ice-9 match)
   #:use-module (ice-9 receive)
   #:use-module (srfi srfi-1)
@@ -276,25 +277,44 @@
 
 (define %gi-closure-cache-default-size 1013)
 
-(define %gi-closure-cache
-  (make-hash-table %gi-closure-cache-default-size))
+(define %gi-closure-cache #f)
+(define gi-closure-cache-ref #f)
+(define gi-closure-cache-set! #f)
+(define gi-closure-cache-remove! #f)
+(define gi-closure-cache-for-each #f)
 
-(define (gi-closure-cache-ref g-closure)
-  (hashq-ref %gi-closure-cache
-             (pointer-address g-closure)))
+(let* ((gi-closure-size %gi-closure-cache-default-size)
+       (gi-closure-cache (make-hash-table
+                          %gi-closure-cache-default-size))
+       (gi-closure-mutex (make-mutex)))
 
-(define (gi-closure-cache-set! g-closure function)
-  (hashq-set! %gi-closure-cache
-              (pointer-address g-closure)
-              function))
+  (set! %gi-closure-cache
+        (lambda () gi-closure-cache))
 
-(define (gi-closure-cache-remove! g-closure)
-  (hashq-remove! %gi-closure-cache
-                 (pointer-address g-closure)))
+  (set! gi-closure-cache-ref
+        (lambda (g-closure)
+          (with-mutex gi-closure-mutex
+            (hashq-ref gi-closure-cache
+                       (pointer-address g-closure)))))
 
-(define (gi-closure-cache-for-each proc)
-  (hash-for-each proc
-                 %gi-closure-cache))
+  (set! gi-closure-cache-set!
+        (lambda (g-closure function)
+          (with-mutex gi-closure-mutex
+            (hashq-set! gi-closure-cache
+                        (pointer-address g-closure)
+                        function))))
+
+  (set! gi-closure-cache-remove!
+        (lambda (g-closure)
+          (with-mutex gi-closure-mutex
+            (hashq-remove! gi-closure-cache
+                           (pointer-address g-closure)))))
+
+  (set! gi-closure-cache-for-each
+        (lambda (proc)
+          (with-mutex gi-closure-mutex
+            (hash-for-each proc
+                           gi-closure-cache)))))
 
 (define %gi-closure-cache-show-prelude
   "The g-closure function cache entries are")
