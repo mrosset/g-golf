@@ -58,34 +58,38 @@
 
 
 (define (g-idle-add proc)
-  (let ((closure (make <closure>
-                   #:function proc
-                   #:return-type 'boolean
-                   #:param-types '()))
-        (source (g-idle-source-new)))
-    (g-source-set-closure source (!g-closure closure))
-    (values (g-source-attach source #f)
-            source
-            closure)))
+  (let* ((closure (make <closure>
+                    #:function proc
+                    #:return-type 'boolean
+                    #:param-types '()))
+         (g-closure (!g-closure closure))
+         (source (g-idle-source-new))
+         (dummy (g-source-set-closure source g-closure))
+         (id (g-source-attach source #f)))
+    (g-source-unref source)
+    (g-closure-unref g-closure)
+    id))
 
 (define (g-timeout-add interval proc)
-  (let ((closure (make <closure>
-                   #:function proc
-                   #:return-type 'boolean
-                   #:param-types '()))
-        (source (g-timeout-source-new interval)))
-    (g-source-set-closure source (!g-closure closure))
-    (values (g-source-attach source #f)
-            source
-            closure)))
+  (let* ((closure (make <closure>
+                    #:function proc
+                    #:return-type 'boolean
+                    #:param-types '()))
+         (g-closure (!g-closure closure))
+         (source (g-timeout-source-new interval))
+         (id (g-source-attach source #f)))
+    (g-source-unref source)
+    (g-closure-unref g-closure)
+    id))
 
 (define (g-timeout-add-seconds interval proc)
-  (let ((closure (make <closure>
-                   #:function proc
-                   #:return-type 'boolean
-                   #:param-types '()))
-        (source (g-timeout-source-new-seconds interval)))
-    (g-source-set-closure source (!g-closure closure))
-    (values (g-source-attach source #f)
-            source
-            closure)))
+  (let* ((closure (make <closure>
+                    #:function proc
+                    #:return-type 'boolean
+                    #:param-types '()))
+         (g-closure (!g-closure closure))
+         (source (g-timeout-source-new-seconds interval))
+         (id (g-source-attach source #f)))
+    (g-source-unref source)
+    (g-closure-unref g-closure)
+    id))
