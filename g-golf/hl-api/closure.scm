@@ -261,7 +261,7 @@
   ;; done already, from the %gi-closure-cache.
   (let ((closure (gi-closure-cache-ref g-closure)))
     (and closure
-         (gi-closure-cache-remove! closure))))
+         (gi-closure-cache-remove! g-closure))))
 
 (define %g-closure-invalidate-notifier
   (procedure->pointer void
