@@ -145,7 +145,10 @@
 
 (define-method (free (self <closure>))
   (let ((g-closure (!g-closure self)))
-    (gi-closure-cache-remove! g-closure)
+    ;; Note that g-closure-free will unref g-closure till its ref_count
+    ;; reaches 0. This will trigger a call to the g-closure invalidate
+    ;; notifier, which ensures its entry in the gi-closure-cache is
+    ;; removed (so we don't need to do this here).
     (g-closure-free g-closure)))
 
 (define %g_value_init
