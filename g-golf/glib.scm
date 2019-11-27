@@ -48,6 +48,7 @@
   #:use-module (g-golf init)
   #:use-module (g-golf glib mem-alloc)
   #:use-module (g-golf glib main-event-loop)
+  #:use-module (g-golf glib io-channels)
   #:use-module (g-golf glib glist)
   #:use-module (g-golf glib gslist)
 
@@ -71,5 +72,6 @@
 			      (g-golf init)
 			      (g-golf glib mem-alloc)
                               (g-golf glib main-event-loop)
+                              (g-golf glib io-channels)
                               (g-golf glib glist)
                               (g-golf glib gslist)))
