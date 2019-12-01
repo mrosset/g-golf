@@ -61,7 +61,7 @@
 
 (define* (gi-enum-import info #:key (flag #f))
   (let* ((id (g-registered-type-info-get-g-type info))
-         (name (g-studly-caps-expand (g-type-name id)))
+         (name (g-type-name id))
 	 (e-vals (gi-enum-value-values info)))
     (make (if flag <gi-flag> <gi-enum>)
       #:gtype-id id
