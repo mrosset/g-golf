@@ -33,6 +33,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf support flag)
   #:use-module (g-golf support utils)
+  #:use-module (g-golf gi cache)
   #:use-module (g-golf gi utils)
 
   #:duplicates (merge-generics
@@ -118,12 +119,16 @@
                  hup 
                  nval)))
 
-(define %g-io-condition
-  (make <gi-flag>
-    #:gi-name "gio-condition"
-    #:enum-set '((in . 1)
-                 (out . 4)
-                 (pri . 2)
-                 (err . 8)
-                 (hup . 16)
-                 (nval . 32))))
+(define %g-io-condition #f)
+
+(eval-when (expand load eval)
+  (let ((g-io-condition (make <gi-flag>
+                          #:gi-name  "GIOCondition"
+                          #:enum-set '((in . 1)
+                                       (out . 4)
+                                       (pri . 2)
+                                       (err . 8)
+                                       (hup . 16)
+                                       (nval . 32)))))
+    (set! %g-io-condition g-io-condition)
+    (gi-cache-set! 'boxed 'gio-condition g-io-condition)))
