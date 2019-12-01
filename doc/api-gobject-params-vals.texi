@@ -280,9 +280,12 @@ Sets the content of @var{g-value} to @var{str}.
 @anchor{g-value-get-boxed}
 @deffn Procedure g-value-get-boxed g-value
 
-Returns a list.
+Returns either a list of values, or a pointer.
 
-Gets and returns the content of @var{g-value}.
+Gets and returns the content of @var{g-value}. If the boxed type
+@ref{!is-opaque?} or @ref{!is-semi-opaque?}, it @samp{blindingly}
+returns the boxed instance @var{g-value} pointer. Otherwise, the boxed
+instance is @samp{decoded}, and a list of its field values is returned.
 @end deffn
 
 
@@ -291,7 +294,12 @@ Gets and returns the content of @var{g-value}.
 
 Returns nothing.
 
-Sets the content of @var{g-value} to @var{boxed}.
+Sets the content of @var{g-value} to @var{boxed}. If the boxed type
+@ref{!is-opaque?} or @ref{!is-semi-opaque?}, then @var{boxed} is
+(supposed to be) a pointer, used to @samp{blindingly} set
+@var{g-value}. Otherwise, the boxed instance is (supposed to be) a list
+of values, that are @samp{encoded}, and its (newly created) pointer is
+used to set @var{g-value}.
 @end deffn
 
 

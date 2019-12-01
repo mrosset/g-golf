@@ -146,6 +146,19 @@
     (assert (g-value-set! g-value "Hello!"))
     (assert (g-value-set! g-value "Apresentação"))))
 
+(define %g-io-channel
+  (gi-cache-ref 'boxed 'gio-channel))
+
+(define-method (test-g-value-boxed-semi-opaque (self <g-golf-test-gobject>))
+  (let* ((port (open "/dev/tty" O_RDONLY))
+         (fd (fileno port))
+         (channel (g-io-channel-unix-new fd))
+         (g-value (g-value-init (slot-ref %g-io-channel 'gtype-id))))
+    (assert (g-value-set! g-value channel))
+    (assert-true (eq? (pointer-address (g-value-ref g-value))
+                      (pointer-address channel)))
+    (close port)))
+
 (define-method (test-g-value-get-pointer (self <g-golf-test-gobject>))
   (let ((g-value (g-value-init (symbol->g-type 'pointer))))
     (assert (g-value-ref g-value))))

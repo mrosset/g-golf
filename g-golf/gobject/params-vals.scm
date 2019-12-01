@@ -30,6 +30,7 @@
   #:use-module (ice-9 match)
   #:use-module (oop goops)
   #:use-module (system foreign)
+  #:use-module (rnrs bytevectors)
   #:use-module (g-golf init)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
@@ -253,11 +254,21 @@
 (define (g-value-get-boxed g-value)
   (let ((gi-boxed (g-value-get-gi-boxed g-value))
         (value (g_value_get_boxed g-value)))
-    (parse-c-struct value (!scm-types gi-boxed))))
+    (if (or (!is-opaque? gi-boxed)
+            (!is-semi-opaque? gi-boxed))
+        value
+        (parse-c-struct value
+                        (!scm-types gi-boxed)))))
 
 (define (g-value-set-boxed g-value boxed)
   (let* ((gi-boxed (g-value-get-gi-boxed g-value))
-         (value (make-c-struct (!scm-types gi-boxed) boxed)))
+         (value (cond  ((!is-opaque? gi-boxed)
+                        %null-pointer)
+                       ((!is-semi-opaque? gi-boxed)
+                        boxed)
+                       (else
+                        (make-c-struct (!scm-types gi-boxed)
+                                       boxed)))))
     (g_value_set_boxed g-value value)))
 
 (define (g-value-get-pointer g-value)
