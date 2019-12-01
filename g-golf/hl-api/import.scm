@@ -121,8 +121,7 @@
                (and (debug info)
                     (dimfi i-type (g-base-info-get-name info) "not imported"))
                (dimfi i-type (g-base-info-get-name info) "not imported"))
-           'nothing)))
-    (values)))
+           'nothing)))))
 
 (define* (gi-import-by-name namespace name #:key (debug #f))
   (g-irepository-require namespace)
