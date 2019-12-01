@@ -15,15 +15,21 @@
 @end table
 @end indentedblock
 
-@subheading Procedures and Methods
+@subheading Procedures and Accessors
 
 @indentedblock
 @table @code
 @item @ref{!gi-name_}
 @item @ref{!scm-name__}
+@item @ref{!alignment}
+@item @ref{!size}
+@item @ref{!is-gtype-struct?}
+@item @ref{!is-foreign?}
 @item @ref{!field-types}
 @item @ref{!scm-types}
-@item @ref{is-opaque?}
+@item @ref{!init-vals}
+@item @ref{!is-opaque?}
+@item @ref{!is-semi-opaque?}
 @end table
 @end indentedblock
 
@@ -43,12 +49,33 @@ The @code{<gi-struct>} class is a subclass of @code{<struct>}.  Its
 @item @emph{scm-name}
 #:accessor !scm-name
 
+@item @emph{alignment}
+#:accessor !alignment @*
+#:init-keyword #:alignment
+
+@item @emph{size}
+#:accessor !size @*
+#:init-keyword #:size
+
+@item @emph{is-gtype-struct?}
+#:accessor !is-gtype-struct? @*
+#:init-keyword #:is-gtype-struct?
+
 @item @emph{field-types}
 #:accessor !field-types @*
 #:init-keyword #:field-types
 
 @item @emph{scm-types}
 #:accessor !scm-types
+
+@item @emph{init-vals}
+#:accessor !init-vals
+
+@item @emph{is-opaque?}
+#:accessor !is-opaque?
+
+@item @emph{is-semi-opaque}
+#:accessor !is-semi-opaque?
 @end table
 @end indentedblock
 
@@ -63,20 +90,28 @@ are not meant to be mutated, see @ref{GOOPS Notes and Conventions},
 
 @anchor{!gi-name_}
 @anchor{!scm-name__}
+@anchor{!alignment}
+@anchor{!size}
+@anchor{!is-gtype-struct?}
+@anchor{!is-foreign?}
 @anchor{!field-types}
 @anchor{!scm-types}
-@deffn Method !gi-name gi-struct
-@deffnx Method !scm-name gi-struct
-@deffnx Method !field-types gi-struct
-@deffnx Method !scm-types gi-struct
+@anchor{!init-vals}
+@deffn Accessor !gi-name gi-struct
+@deffnx Accessor !scm-name gi-struct
+@deffnx Accessor !alignment gi-struct
+@deffnx Accessor !size gi-struct
+@deffnx Accessor !is-gtype-struct? gi-struct
+@deffnx Accessor !field-types gi-struct
+@deffnx Accessor !scm-types gi-struct
+@deffnx Accessor !init-vals gi-struct
 
-Returns the content of the gi-name, scm-name, field-types or scm-types
-slot for @var{gi-struct}, respectively.
+Returns the content of their respective slot for @var{gi-struct}.
 @end deffn
 
 
-@anchor{is-opaque?}
-@deffn Method is-opaque? gi-struct
+@anchor{!is-opaque?}
+@deffn Accessor !is-opaque? gi-struct
 
 Returns @code{#t} if @var{gi-struct} is @samp{opaque}, otherwise,
 it returns @code{#f}.
@@ -86,6 +121,21 @@ A <gi-struct> instance is said to be @samp{opaque} when the call to
 @code{zero}. In scheme, these <gi-struct> instances have no fields.
 
 @samp{Opaque} boxed types should never be @samp{decoded}, nor
-@samp{encoded}. Instead, procedures and methods should @samp{blindingly}
-receive, pass and/or return their pointer(s).
+@samp{encoded}. Instead, procedures, accessors and methods should
+@samp{blindingly} receive, pass and/or return their pointer(s).
+@end deffn
+
+
+@anchor{!is-semi-opaque?}
+@deffn Accessor !is-semi-opaque? gi-struct
+
+Returns @code{#t} if @var{gi-struct} is @samp{semi-opaque}, otherwise,
+it returns @code{#f}.
+
+A <gi-struct> instance is said to be @samp{semi-opaque} when one of its
+field types is @code{void}.
+
+@samp{Semi-opaque} boxed types should never be @samp{decoded}, nor
+@samp{encoded}. Instead, procedures, accessors and methods should
+@samp{blindingly} receive, pass and/or return their pointer(s).
 @end deffn
