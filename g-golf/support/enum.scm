@@ -41,7 +41,6 @@
   #:use-module (oop goops)
   #:use-module (g-golf support goops)
   #:use-module (g-golf support g-export)
-  #:use-module (g-golf support utils)
   #:use-module (g-golf support keyword)
   #:use-module (g-golf support utils)
 
