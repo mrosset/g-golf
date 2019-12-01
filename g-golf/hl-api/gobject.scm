@@ -52,6 +52,7 @@
 		last)
 
   #:export (<gobject>
+            <gobject-class>
             gobject-class?))
 
 
