@@ -32,10 +32,16 @@
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support utils)
 
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
   #:export (<gi-struct>))
 
 
-(g-export !gtype-id
+(g-export #;!gtype-id
           !gi-name
           !scm-name
           !alignment
