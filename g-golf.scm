@@ -164,3 +164,10 @@
                               (g-golf hl-api glib)
                               (g-golf hl-api callback)
                               (g-golf hl-api import)))
+
+
+;;;
+;;; Mandatory selective imports
+;;;
+
+(gi-import-by-name "GLib" "IOChannel" #:recur #f)
