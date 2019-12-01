@@ -79,7 +79,7 @@
                       #:debug debug))
     (values)))
 
-(define* (gi-import-info info #:key (debug #f))
+(define* (gi-import-info info #:key (debug #f) (recur #t))
   (let ((i-type (g-base-info-get-type info)))
     (unless (memq i-type
                   %gi-base-info-types)
@@ -89,17 +89,17 @@
        (unless (memq i-type
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
-       (gi-import-enum info))
+       (gi-import-enum info #:recur recur))
       ((flags)
        (unless (memq i-type
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
-       (gi-import-flag info))
+       (gi-import-flag info #:recur recur))
       ((struct)
        (unless (memq i-type
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
-       (gi-import-struct info))
+       (gi-import-struct info #:recur recur))
       ((function)
        (unless (memq i-type
                      %gi-imported-base-info-types)
@@ -123,39 +123,43 @@
                (dimfi i-type (g-base-info-get-name info) "not imported"))
            'nothing)))))
 
-(define* (gi-import-by-name namespace name #:key (debug #f))
+(define* (gi-import-by-name namespace name
+                            #:key (debug #f) (recur #t))
   (g-irepository-require namespace)
   (let ((info (g-irepository-find-by-name namespace name)))
     (if info
-        (gi-import-info info #:debug debug)
+        (gi-import-info info #:debug debug #:recur recur)
         (error "No such namespace name: " namespace name))))
 
-(define (gi-import-enum info)
+(define* (gi-import-enum info #:key (recur #t))
   (let* ((id (g-registered-type-info-get-g-type info))
          (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'enum key)
         (let ((gi-enum (gi-enum-import info)))
           (gi-cache-set! 'enum key gi-enum)
-          (gi-enum-import-methods info)
+          (when recur
+            (gi-enum-import-methods info))
           gi-enum))))
 
-(define (gi-import-flag info)
+(define* (gi-import-flag info #:key (recur #t))
   (let* ((id (g-registered-type-info-get-g-type info))
          (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'flag key)
         (let ((gi-flag (gi-enum-import info #:flag #t)))
           (gi-cache-set! 'flag key gi-flag)
-          (gi-enum-import-methods info)
+          (when recur
+            (gi-enum-import-methods info))
           gi-flag))))
 
-(define (gi-import-struct info)
+(define* (gi-import-struct info #:key (recur #t))
   (let* ((id (g-registered-type-info-get-g-type info))
          (name (g-studly-caps-expand (g-type-name id)))
          (key (string->symbol name)))
     (or (gi-cache-ref 'boxed key)
         (let ((gi-struct (gi-struct-import info)))
           (gi-cache-set! 'boxed key gi-struct)
-          (gi-struct-import-methods info)
+          (when recur
+            (gi-struct-import-methods info))
           gi-struct))))
