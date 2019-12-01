@@ -32,6 +32,7 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf support struct)
   #:use-module (g-golf init)
+  #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
@@ -62,10 +63,12 @@
 ;;;
 
 (define (gi-struct-import info)
-  (let* ((type-name (g-registered-type-info-get-type-name info))
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-type-name id))
          (field-types (gi-struct-field-types info)))
     (make <gi-struct>
-      #:gi-name type-name
+      #:gtype-id id
+      #:gi-name name
       #:alignment (g-struct-info-get-alignment info)
       #:size (g-struct-info-get-size info)
       #:is-gtype-struct? (g-struct-info-is-gtype-struct info)

@@ -35,7 +35,8 @@
   #:export (<gi-struct>))
 
 
-(g-export !gi-name
+(g-export !gtype-id
+          !gi-name
           !scm-name
           !alignment
           !size
@@ -49,6 +50,9 @@
 
 
 (define-class <gi-struct> ()
+  (gtype-id #:accessor !gtype-id
+            #:init-keyword #:gtype-id
+            #:init-value #f)
   (gi-name #:accessor !gi-name
            #:init-keyword #:gi-name)
   (scm-name #:accessor !scm-name)
