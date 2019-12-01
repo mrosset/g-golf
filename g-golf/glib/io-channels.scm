@@ -131,4 +131,4 @@
                                        (hup . 16)
                                        (nval . 32)))))
     (set! %g-io-condition g-io-condition)
-    (gi-cache-set! 'boxed 'gio-condition g-io-condition)))
+    (gi-cache-set! 'flag 'gio-condition g-io-condition)))
