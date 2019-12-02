@@ -51,11 +51,17 @@
 
   #:export (g-idle-add
             g-timeout-add
-            g-timeout-add-seconds))
+            g-timeout-add-seconds
+
+            g-io-add-watch-fd))
 
 
 #;(g-export )
 
+
+;;;
+;;; Main Event Loop
+;;;
 
 (define (g-idle-add proc)
   (let* ((closure (make <closure>
@@ -94,4 +100,25 @@
          (id (g-source-attach source #f)))
     (g-source-unref source)
     (g-closure-unref g-closure)
+    id))
+
+;;;
+;;; IO Channels
+;;;
+
+(define (g-io-add-watch-fd fd condition proc)
+  (let* ((closure (make <closure>
+                    #:function proc
+                    #:return-type 'boolean
+                    #:param-types '(pointer	;; source
+                                    uint32	;; condition
+                                    #;pointer)))	;; data
+         (g-closure (!g-closure closure))
+         (channel (g-io-channel-unix-new fd))
+         (source (g-io-create-watch channel condition))
+         (dummy (g-source-set-closure source g-closure))
+         (id (g-source-attach source #f)))
+    (g-source-unref source)
+    (g-closure-unref g-closure)
+    (g-io-channel-unref channel)
     id))
