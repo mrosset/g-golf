@@ -46,6 +46,7 @@ SOURCES = \
 	g-golf/glib/mem-alloc.scm		\
 	g-golf/glib/main-event-loop.scm		\
 	g-golf/glib/io-channels.scm		\
+	g-golf/glib/unix-utils.scm		\
 	g-golf/glib/glist.scm			\
 	g-golf/glib/gslist.scm			\
 	g-golf/glib.scm				\
