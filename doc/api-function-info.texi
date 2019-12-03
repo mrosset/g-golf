@@ -183,9 +183,9 @@ recommended way for procedure calls that need such a pointer is to
 
 
 @anchor{%g-function-info-flags}
-@defivar <gi-enum> %g-function-info-flags
+@defivar <gi-flag> %g-function-info-flags
 
-An instance of @code{<gi-enum>}, who's members are the scheme
+An instance of @code{<gi-flag>}, who's members are the scheme
 representation of the @code{GIFunctionInfoFlags}:
 
 @indentedblock
