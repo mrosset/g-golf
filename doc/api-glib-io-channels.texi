@@ -1,0 +1,152 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node IO Channels
+@subsection IO Channels
+
+G-Golf Glib IO Channels low level API.@*
+IO Channels — portable support for using files, pipes and sockets
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-io-channel-unix-new}
+@item @ref{g-io-channel-ref}
+@item @ref{g-io-channel-unref}
+@item @ref{g-io-create-watch}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-io-condition}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+
+The @code{GIOChannel} data type aims to provide a portable method for
+using file descriptors, pipes, and sockets, and integrating them into
+the main event loop. Currently, full support is available on UNIX
+platforms, support for Windows is only partially complete.
+
+
+Please read the @uref{@value{UGLIB-IO-Channels}, IO Channels} section
+from the Glib reference manual for a complete description.
+
+
+@subheading Procedures
+
+Note: in this section, the @var{fd}, @var{channel} and @var{condition}
+arguments are [must be] respectively an integer (a @samp{valid} file
+descriptor), a pointer to a @code{GIOChannel} and a list of one or more
+@ref{%g-io-condition} flags.
+
+
+@anchor{g-io-channel-unix-new}
+@deffn Procedure g-io-channel-unix-new fd
+
+Returns a pointer.
+
+Creates and returns a pointer to a new @code{GIOChannel} for @var{fd}
+(file descriptor). On UNIX systems this works for plain files, pipes,
+and sockets.
+
+The newly created @code{GIOChannel} has a reference count of 1.
+
+The default encoding for @code{GIOChannel} is UTF-8. If your application
+is reading output from a command using via pipe, you may need to set the
+encoding to the encoding of the current locale (FIXME - still missing a
+binding to g_io_channel_set_encoding).
+@end deffn
+
+
+@anchor{g-io-channel-ref}
+@deffn Procedure g-io-channel-ref channel
+
+Returns @var{channel}.
+
+Increments the @var{channel} reference count.
+@end deffn
+
+
+@anchor{g-io-channel-unref}
+@deffn Procedure g-io-channel-unref channel
+
+Returns nothing.
+
+Decrements the @var{channel} reference count.
+@end deffn
+
+
+@anchor{g-io-create-watch}
+@deffn Procedure g-io-create-watch channel condition
+
+Returns a pointer.
+
+Creates and returns a pointer to a @code{GSource} that's dispatched when
+condition is met for the given @var{channel}. For example, if condition
+is @code{'(in)}, the source will be dispatched when there's data available
+for reading.
+@end deffn
+
+
+@subheading Types and Values
+
+
+@anchor{%g-io-condition}
+@defivar <gi-flag> %g-io-condition
+
+An instance of @code{<gi-flag>}, who's members are the scheme
+representation of the @code{GIOCondition} flags:
+
+@indentedblock
+@emph{gi-name}: GIOCondition    @*
+@emph{scm-name}: gio-condition  @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+
+@item in
+There is data to read.
+
+@item out
+Data can be written (without blocking).
+
+@item pri
+There is urgent data to read.
+
+@item err
+Error condition.
+
+@item hup
+Hung up (the connection has been broken, usually for pipes and sockets).
+
+@item nval
+Invalid request. The file descriptor is not open.
+
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar

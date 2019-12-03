@@ -24,6 +24,7 @@ though they might be some exception in the future.
 
 * Memory Allocation:: General memory handling.
 * The Main Event Loop:: Manages all available sources of events.
+* IO Channels::  Portable support for using files, pipes and sockets.
 * Doubly-Linked Lists:: Linked lists that can be iterated in both directions
 * Singly-Linked Lists:: Linked lists that can be iterated in one direction
 @end menu
@@ -31,5 +32,6 @@ though they might be some exception in the future.
 
 @include api-glib-mem-alloc.texi
 @include api-glib-main-event-loop.texi
+@include api-glib-io-channels.texi
 @include api-glib-glist.texi
 @include api-glib-gslist.texi
