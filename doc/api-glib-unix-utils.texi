@@ -1,0 +1,69 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node UNIX-specific utilities and integration
+@subsection UNIX-specific utilities and integration
+
+G-Golf Glib UNIX-specific utilities and integration low level API.@*
+UNIX-specific utilities and integration — pipes, signal handling.
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-unix-fd-source-new}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-io-condition}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+
+Most of GLib is intended to be portable; in contrast, this set of
+functions is designed for programs which explicitly target UNIX, or are
+using it to build higher level abstractions which would be conditionally
+compiled if the platform matches G_OS_UNIX.
+
+
+@subheading Procedures
+
+Note: in this section, the @var{fd} and @var{condition} arguments are
+[must be] respectively an integer (a @samp{valid} file descriptor) and a
+list of one or more @ref{%g-io-condition} flags.
+
+
+@anchor{g-unix-fd-source-new}
+@deffn Procedure g-unix-fd-source-new fd condition
+
+Returns a pointer.
+
+Creates and returns a pointer to a new @code{GSource} to watch for a
+particular IO @var{condition} on @var{fd}.
+
+The source will never close the file descriptor, you must do it
+yourself.
+@end deffn
