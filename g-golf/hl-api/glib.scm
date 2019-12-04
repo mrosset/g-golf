@@ -53,7 +53,7 @@
             g-timeout-add
             g-timeout-add-seconds
 
-            g-io-add-watch-fd))
+            g-unix-fd-add))
 
 
 #;(g-export )
@@ -102,17 +102,17 @@
     (g-closure-unref g-closure)
     id))
 
+
 ;;;
 ;;; IO Channels
 ;;;
 
-(define (g-io-add-watch-fd fd condition proc)
+#;(define (g-io-add-watch-fd fd condition proc)
   (let* ((closure (make <closure>
                     #:function proc
                     #:return-type 'boolean
                     #:param-types '(pointer	;; source
-                                    uint32	;; condition
-                                    #;pointer)))	;; data
+                                    uint32)))	;; condition
          (g-closure (!g-closure closure))
          (channel (g-io-channel-unix-new fd))
          (source (g-io-create-watch channel condition))
@@ -121,4 +121,23 @@
     (g-source-unref source)
     (g-closure-unref g-closure)
     (g-io-channel-unref channel)
+    id))
+
+
+;;;
+;;; UNIX-specific utilities and integration
+;;;
+
+(define (g-unix-fd-add fd condition proc)
+  (let* ((closure (make <closure>
+                    #:function proc
+                    #:return-type 'boolean
+                    #:param-types '(int		 ;; fd
+                                    uint32)))	 ;; condition
+         (g-closure (!g-closure closure))
+         (source (g-unix-fd-source-new fd condition))
+         (dummy (g-source-set-closure source g-closure))
+         (id (g-source-attach source #f)))
+    (g-source-unref source)
+    (g-closure-unref g-closure)
     id))
