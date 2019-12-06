@@ -66,7 +66,7 @@
 ;;; Main Event Loop
 ;;;
 
-(define* (g-idle-add proc #:optional (priority 'default-hidle))
+(define* (g-idle-add proc #:optional (priority 'default-idle))
   (let* ((closure (make <closure>
                     #:function proc
                     #:return-type 'boolean
@@ -170,10 +170,10 @@
                   "PRIORITY_HIGH_IDLE"
                   "PRIORITY_LOW"))
          (scm-names '(default
-                       default-idle
-                       high
-                       high-idle
-                       low))
+                      default-idle
+                      high
+                      high-idle
+                      low))
          (infos (map (lambda (name)
                        (g-irepository-find-by-name "GLib" name))
                   names))
