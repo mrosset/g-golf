@@ -37,6 +37,7 @@ Intropection (manual) section, but there are some exceptions, such as
 * Struct Info::	  	  Struct representing a C structure.
 * Object Info::	  	  Struct representing a GObject.
 * Arg Info::		  Struct representing an argument.
+* Constant Info::	  Struct representing a constant.
 * Field Info::		  Struct representing a struct or a union field.
 * Property Info::	  Struct representing a property.
 * Type Info::		  Struct representing a type.
@@ -60,6 +61,7 @@ Intropection (manual) section, but there are some exceptions, such as
 @include api-struct-info.texi
 @include api-object-info.texi
 @include api-arg-info.texi
+@include api-constant-info.texi
 @include api-field-info.texi
 @include api-property-info.texi
 @include api-type-info.texi

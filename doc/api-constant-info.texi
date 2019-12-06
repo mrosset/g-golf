@@ -1,0 +1,80 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2016 - 2018 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@defindex ai
+
+
+@node Constant Info
+@subsection Constant Info
+
+G-Golf Constant Info low level API.@*
+GIConstantInfo — Struct representing a constant.
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-constant-info-free-value}
+@item @ref{g-constant-info-get-type}
+@item @ref{g-constant-info-get-value}
+@end table
+@end indentedblock
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       @*
+@ @ +--- GIConstantInfo	       @*
+@end indentedblock
+
+
+@subheading Description
+
+@code{GIConstantInfo} represents a constant. A constant has a type
+associated which can be obtained by calling
+@ref{g-constant-info-get-type} and a value, which can be obtained by
+calling @ref{g-constant-info-get-value}.
+
+
+@subheading Procedures
+
+Note: in this section, the @var{info} and @var{value} arguments are
+[must be] pointers to a @code{GIConstantInfo} and a @code{GIArgument},
+respectively.
+
+
+@anchor{g-constant-info-free-value}
+@deffn Procedure g-constant-info-free-value info value
+
+Returns nothing.
+
+Frees the value returned from  @ref{g-constant-info-get-value}.
+@end deffn
+
+
+@anchor{g-constant-info-get-type}
+@deffn Procedure g-constant-info-get-type info
+
+Returns a pointer.
+
+Obtains and returns a pointer to the @code{GITypeInfo} for
+@var{info}. Free it using @ref{g-base-info-unref} when done.
+@end deffn
+
+
+@anchor{g-constant-info-get-value}
+@deffn Procedure g-constant-info-get-value info value
+
+Returns an integer (the size of a constant).
+
+Obtains the value associated with @var{info} and store it in the
+@var{value} parameter, which must be allocated before passing it.
+
+The size of the constant value stored in argument will be returned. Free
+the @var{value} argument with @ref{g-constant-info-free-value}.
+@end deffn

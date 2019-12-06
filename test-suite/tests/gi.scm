@@ -157,6 +157,18 @@
 
 
 ;;;
+;;; Constant Info
+;;;
+
+(define-method (test-constant-info (self <g-golf-test-gi>))
+  (let ((info (g-irepository-find-by-name "GLib" "PRIORITY_DEFAULT"))
+        (value (make-gi-argument)))
+    (assert (g-constant-info-get-type info))    
+    (assert (g-constant-info-get-value info value))
+    (assert (g-constant-info-free-value info value))))
+
+
+;;;
 ;;; Field Info
 ;;;
 
