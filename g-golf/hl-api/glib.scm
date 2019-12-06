@@ -42,6 +42,7 @@
   #:use-module (g-golf gobject)
   #:use-module (g-golf gi)
   #:use-module (g-golf hl-api closure)
+  #:use-module (g-golf hl-api import)
 
   #:duplicates (merge-generics
 		replace
@@ -53,7 +54,9 @@
             g-timeout-add
             g-timeout-add-seconds
 
-            g-unix-fd-add))
+            g-unix-fd-add
+
+            %g-priorities))
 
 
 #;(g-export )
@@ -63,39 +66,46 @@
 ;;; Main Event Loop
 ;;;
 
-(define (g-idle-add proc)
+(define* (g-idle-add proc #:optional (priority 'default-hidle))
   (let* ((closure (make <closure>
                     #:function proc
                     #:return-type 'boolean
                     #:param-types '()))
          (g-closure (!g-closure closure))
          (source (g-idle-source-new))
+         (dummy (g-source-set-priority source
+                                       (ensure-priority priority)))
          (dummy (g-source-set-closure source g-closure))
          (id (g-source-attach source #f)))
     (g-source-unref source)
     (g-closure-unref g-closure)
     id))
 
-(define (g-timeout-add interval proc)
+(define* (g-timeout-add interval proc #:optional (priority 'default))
   (let* ((closure (make <closure>
                     #:function proc
                     #:return-type 'boolean
                     #:param-types '()))
          (g-closure (!g-closure closure))
          (source (g-timeout-source-new interval))
+         (dummy (g-source-set-priority source
+                                       (ensure-priority priority)))
          (dummy (g-source-set-closure source g-closure))
          (id (g-source-attach source #f)))
     (g-source-unref source)
     (g-closure-unref g-closure)
     id))
 
-(define (g-timeout-add-seconds interval proc)
+(define* (g-timeout-add-seconds interval proc
+                                #:optional (priority 'default))
   (let* ((closure (make <closure>
                     #:function proc
                     #:return-type 'boolean
                     #:param-types '()))
          (g-closure (!g-closure closure))
          (source (g-timeout-source-new-seconds interval))
+         (dummy (g-source-set-priority source
+                                       (ensure-priority priority)))
          (dummy (g-source-set-closure source g-closure))
          (id (g-source-attach source #f)))
     (g-source-unref source)
@@ -128,7 +138,8 @@
 ;;; UNIX-specific utilities and integration
 ;;;
 
-(define (g-unix-fd-add fd condition proc)
+(define* (g-unix-fd-add fd condition proc
+                        #:optional (priority 'default))
   (let* ((closure (make <closure>
                     #:function proc
                     #:return-type 'boolean
@@ -137,7 +148,50 @@
          (g-closure (!g-closure closure))
          (source (g-unix-fd-source-new fd condition))
          (dummy (g-source-set-closure source g-closure))
+         (dummy (g-source-set-priority source
+                                       (ensure-priority priority)))
          (id (g-source-attach source #f)))
     (g-source-unref source)
     (g-closure-unref g-closure)
     id))
+
+
+;;;
+;;; Priorities
+;;;
+
+(define %g-priorities #f)
+
+(eval-when (expand load eval)
+  (g-irepository-require "GLib")
+  (let* ((names '("PRIORITY_DEFAULT"
+                  "PRIORITY_DEFAULT_IDLE"
+                  "PRIORITY_HIGH"
+                  "PRIORITY_HIGH_IDLE"
+                  "PRIORITY_LOW"))
+         (scm-names '(default
+                       default-idle
+                       high
+                       high-idle
+                       low))
+         (infos (map (lambda (name)
+                       (g-irepository-find-by-name "GLib" name))
+                  names))
+         (values (map gi-import-constant infos))
+         (priorities (map (lambda (priority)
+                            (match priority
+                              ((name value)
+                               (cons name value))))
+                       (zip scm-names values))))
+    (map g-base-info-unref infos)
+    (set! %g-priorities
+          (make <gi-enum>
+            #:gi-name "G_PRIORITIES"
+            #:enum-set priorities))))
+
+(define (ensure-priority priority)
+  (if (number? priority)
+      priority
+      (let ((g-priority (enum->value %g-priorities priority)))
+        (or g-priority
+            (error "No such priority: " priority)))))
