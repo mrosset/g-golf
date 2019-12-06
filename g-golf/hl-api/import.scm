@@ -53,7 +53,8 @@
             gi-import-by-name
             gi-import-enum
             gi-import-flag
-            gi-import-struct))
+            gi-import-struct
+            gi-import-constant))
 
 
 #;(g-export )
@@ -163,3 +164,17 @@
           (when recur
             (gi-struct-import-methods info))
           gi-struct))))
+
+(define* (gi-import-constant info)
+  (let* ((gi-name (g-base-info-get-name info))
+         ;; (scm-name (g-name->scm-name gi-name))
+         ;; (name (string->symbol scm-name))
+         (type-info (g-constant-info-get-type info))
+         (type-tag (g-type-info-get-tag type-info))
+         (field (gi-type-tag->field type-tag))
+         (value (make-gi-argument))
+         (dummy (g-constant-info-get-value info value))
+         (constant (gi-argument-ref value field)))
+    (g-base-info-unref type-info)
+    (values constant
+            gi-name)))
