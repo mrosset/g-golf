@@ -81,6 +81,7 @@ g_golf_TEXINFOS = \
   api-hl-api.texi		\
   api-hl-api-gtype.texi		\
   api-hl-api-gobject.texi	\
+  api-hl-api-closure.texi	\
   api-hl-api-function.texi	\
   api-hl-api-object.texi	\
   api-hl-api-import.texi	\

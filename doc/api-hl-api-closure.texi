@@ -1,0 +1,138 @@
+@c -*-texinfo-*-
+
+@c This is part of the GNU G-Golf Reference Manual.  Copyright (C) 2019
+@c Free Software Foundation, Inc.  See the file g-golf.texi for copying
+@c conditions.
+
+
+@c @defindex ei
+
+
+@node Closure
+@subsection Closure
+
+G-Golf closure high level API.@*
+The G-Golf integration with GObject Closures.
+
+
+@subheading Classes
+
+@indentedblock
+@table @code
+@item @ref{<closure>}
+@end table
+@end indentedblock
+
+
+@subheading Procedures and Methods
+
+@indentedblock
+@table @code
+@item @ref{!g-closure}
+@item @ref{!function}
+@item @ref{!return-type}
+@item @ref{!param-types}
+@item @ref{invoke}
+@end table
+@end indentedblock
+
+
+@subheading Description
+
+The GLib/GObject type system supports the creation and invocation of
+@samp{Closures}, which represents a callback supplied by the programmer
+(see @ref{Closures} if you are curious about the low-level description
+and API, though you don't need to to understand and use the high level
+API described here).
+
+Its infrastructure allows one to pass a Scheme function to C, and have C
+call into Scheme, and vice versa. In Scheme, a @code{<closure>} instance
+holds a pointer to a @code{GClosure} instance, a Scheme procedure, the
+type of its return value, and a list of the type of its
+arguments.
+
+Closures can be invoked with @ref{invoke}, for example:
+
+@lisp
+,use (g-golf)
+
+(make <closure>
+      #:function (lambda (a b) (+ a b))
+      #:return-type 'int
+      #:param-types '(int int))
+@print{}
+$2 = #<<closure> 55f24a0228d0>
+
+(invoke $2 3 2)
+@print{}
+$3 = 5
+@end lisp
+
+
+@subheading Classes
+
+@anchor{<closure>}
+@deftp Class <closure>
+
+Its slots are:
+
+@indentedblock
+@table @code
+@item @emph{g-closure}
+#:accessor !g-closure @*
+
+@item @emph{function}
+#:accessor !function @*
+#:init-keyword #:function
+
+@item @emph{return-type}
+#:accessor !return-type @*
+#:init-keyword #:return-type
+
+@item @emph{param-types}
+#:accessor !param-types @*
+#:init-keyword #:param-types
+@end table
+@end indentedblock
+
+The @code{#:return-type} and @code{#:param-types} accept respectively
+one symbol and a list of symbols that are members of the
+@ref{%g-type-fundamental-types}.
+
+Instances of the @code{<closure>} class are immutable (to be precise,
+there are not meant to be mutated, see @ref{GOOPS Notes and
+Conventions}, 'Slots are not Immutable').
+
+@end deftp
+
+
+@subheading Accessors and Methods
+
+Note: in this section, the @var{closure} argument is [must be] a
+@code{<closure>} instance.
+
+
+@anchor{!g-closure}
+@anchor{!function}
+@anchor{!return-type}
+@anchor{!param-types}
+@deffn Accessor !g-closure closure
+@deffnx Accessor !function closure
+@deffnx Accessor !return-type closure
+@deffnx Accessor !param-types closure
+
+Returns the content of their respective slot for @var{closure}.
+@end deffn
+
+
+@anchor{invoke}
+@deffn Method invoke closure . args
+
+Returns the result of the invocation of @var{closure}, using (the
+possibly empty list of) @var{args}.
+
+This is a @samp{low level} method, not used internally, provided mainly
+for debugging (or demonstration) purposes, so you may test and verify
+your callbacks and signals procedures@footnote{From scheme, you would
+@samp{immediately} call the procedure instead of course.}.
+@end deffn
