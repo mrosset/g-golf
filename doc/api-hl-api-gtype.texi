@@ -24,7 +24,7 @@ The base of the GObject type system.
 @end indentedblock
 
 
-@subheading Procedures and Methods
+@subheading Accessors and Methods
 
 @indentedblock
 @table @code
@@ -76,35 +76,35 @@ have an @code{info} slot, holding a pointer to a
 
 
 @anchor{!info}
-@deffn Method !info class
+@deffn Accessor !info class
 
 Returns the content of the @var{info} slot for @var{class}.
 @end deffn
 
 
 @anchor{!namespace}
-@deffn Method !namespace class
+@deffn Accessor !namespace class
 
 Returns the namespace of @var{class}.
 @end deffn
 
 
 @anchor{!gtype-id}
-@deffn Method !gtype-id class
+@deffn Accessor !gtype-id class
 
 Returns the @code{GType} for @var{class}.
 @end deffn
 
 
 @anchor{!gtype-name}
-@deffn Method !gtype-name class
+@deffn Accessor !gtype-name class
 
 Returns the name of the object type for @var{class}.
 @end deffn
 
 
 @anchor{!scm-name_}
-@deffn Method !scm-name class
+@deffn Accessor !scm-name class
 
 Returns the scheme name of the object type for @var{class}.
 @end deffn
@@ -131,7 +131,7 @@ Conventions}, 'Slots are not Immutable').
 
 
 @anchor{!g-inst}
-@deffn Method !g-inst instance
+@deffn Accessor !g-inst instance
 
 Returns the content of the @var{g-inst} slot for @var{instance}.
 @end deffn
