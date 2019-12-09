@@ -145,7 +145,7 @@ The GType of @var{value} is @code{**gchar} (an array of pointers to
 @var{value} is the @code{%null-pointer}).
 
 @item csv-string
-The GType of @var{value} is @code{g*char}. The returned value is a list
+The GType of @var{value} is @code{*gchar}. The returned value is a list
 of strings, obtained by splitting @var{value} using @code{#\,} as the
 @code{char-pred}, or @code{#f} (when @var{value} is the
 @code{%null-pointer}).
@@ -153,6 +153,30 @@ of strings, obtained by splitting @var{value} using @code{#\,} as the
 @item pointer
 The GType of @var{value} is @code{gpointer}. The returned value is a
 pointer or @code{#f} (when @var{value} is the @code{%null-pointer}).
+
+@item glist
+The GType of @var{value} is @code{glist}. The returned value is a
+(possibly empty) list of items contained in the glist poited by
+@var{value}.
+
+Note: currently, the only supported item type is @code{object} (which
+implies that the @var{type} argument is a type description as documented
+below (see @ref{gi-glist->scm}, @ref{gi-gslist->scm}). G-Golf will of
+course provide translation for all other glist gslist item types, but in
+the mean time, if you encounter such a missing glist gslist item type,
+please @ref{Contact} us so we immediately fix that for you.
+
+@item gslist
+The GType of @var{value} is @code{gslist}. The returned value is a
+(possibly empty) list of items contained in the glist poited by
+@var{value}.
+
+Note: currently, the only supported item type is @code{object} (which
+implies that the @var{type} argument is a type description as documented
+below (see @ref{gi-glist->scm}, @ref{gi-gslist->scm}). G-Golf will of
+course provide translation for all other glist gslist item types, but in
+the mean time, if you encounter such a missing glist gslist item type,
+please @ref{Contact} us so we immediately fix that for you.
 
 @end table
 @end indentedblock
