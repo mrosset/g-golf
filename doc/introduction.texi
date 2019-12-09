@@ -258,9 +258,9 @@ of G-Golf, including development and enhancement requests.
 Please use @samp{G-Golf - } to preceed the subject line of G-Golf
 related emails, thanks!
 
-You can (un)subscribe to the bugs report list by following instructions
-on their respective @uref{@value{UGUILE-LISTINFO}, list information
-page}.
+You can (un)subscribe to the one or both of these mailing lists by
+following instructions on their respective
+@uref{@value{UGUILE-LISTINFO}, list information page}.
 
 
 @subheading IRC
