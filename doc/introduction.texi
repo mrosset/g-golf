@@ -242,14 +242,25 @@ make check
 
 @subheading Mailing list
 
-G-Golf uses the following mailing list:
+G-Golf uses Guile's mailing lists:
 
 @itemize @bullet
-@item g-golf-user at gnu dot org
+@item @email{guile-user@@gnu.org} is for general user help and
+discussion.
+@ifhtml
+@*@*
+@end ifhtml
+
+@item @email{guile-devel@@gnu.org} is used to discuss most aspects
+of G-Golf, including development and enhancement requests.
 @end itemize
 
-You can (un)subscribe to the list by following instructions on the
-@uref{@value{UG-GOLF-LISTINFO}, list information page}.
+Please use @samp{G-Golf - } to preceed the subject line of G-Golf
+related emails, thanks!
+
+You can (un)subscribe to the bugs report list by following instructions
+on their respective @uref{@value{UGUILE-LISTINFO}, list information
+page}.
 
 
 @subheading IRC
@@ -268,7 +279,7 @@ G-Golf uses a bug control and manipulation mailserver. You may send your
 bugs report here:
 
 @itemize @bullet
-@item bug-g-golf at gnu dot org
+@item @email{bug-g-golf@@gnu.org}
 @end itemize
 
 You can (un)subscribe to the bugs report list by following instructions
