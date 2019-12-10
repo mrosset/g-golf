@@ -19,8 +19,8 @@ The G-Golf GIR namespace (Typelib) import high level API.
 @indentedblock
 @table @code
 @item @ref{gi-import}
-@item @ref{gi-import-info}
 @item @ref{gi-import-by-name}
+@item @ref{gi-import-info}
 @end table
 @end indentedblock
 
@@ -42,21 +42,102 @@ The G-Golf GIR namespace (Typelib) import high level API.
 
 
 @anchor{gi-import}
-@anchor{gi-import-info}
-@anchor{gi-import-by-name}
 @deffn Procedure gi-import namespace
-@deffnx Procedure gi-import-info info
-@deffnx Procedure gi-import-by-name namespace name
 
 Returns nothing.
 
-Respectively imports (and exports their interface) a @var{namespace} (a
-GIR Typelib), a specific @var{info} (a pointer to a GIBaseInfo item), or
-the (top level) @var{name} GIBaseInfo in @var{namespace} .
+Imports the @var{namespace} GIR Typelib and exports its interface. For
+example:
 
-The @var{namespace} and @var{name} arguments are case sensitive. It is
-an error to call any of these three procedures using an invalid
-@var{namespace}, @var{info} and @var{namespace} @var{name} combination.
+@lisp
+,use (g-golf
+(gi-import "Clutter")
+@end lisp
+
+The @var{namespace} is a case sensitive string. It is an error to call
+this procedure using an invalid @var{namespace}.
+
+This procedure is certainly one of the first thing you will want to try
+and use, but it has a cost: you will not @samp{feel it} if the number of
+objects in @var{namespace} is relatively small, but importing the "Gtk"
+namespace, on a laptop equiped with a i5-2450M CPU @ 2.50GHz × 4 and 6GB
+of memory takes nearly 2 seconds.
+
+So, either early in the development cycle, or when your application is
+more stable, at your best convenience, you may consider making a series
+of selective import instead, see @ref{gi-import-by-name} here below.
+@end deffn
+
+
+@anchor{gi-import-by-name}
+@deffn Procedure gi-import-by-name namespace name [#:recur #t]
+
+Returns the object or constant returned by @ref{gi-import-info} called
+upon the GIBaseInfo @code{info} named @var{name} in @var{namespace}.
+
+Obtains and imports the GIBaseInfo @code{info} named @var{name} in
+@var{namespace}. The @var{namespace} and @var{name} arguments are case
+sensitive. It is an error to call this procedure using an invalid
+@var{namespace} or @var{name}.
+
+The optional keyword @var{#:recur} argument - which is #t by default -
+is passed to the @code{gi-import-enum}, @code{gi-import-flag} and
+@code{gi-import-struct}. When @var{#:recur} is #f, then the enum, flag
+or struct @code{info} will be imported without their respective
+methods. This is likely o only be the case if/when you intend to
+selectively import an enum, gflag or struct from GLib or GObject, which
+is what G-Golf itself does, for example, in the top level (g-golf)
+module:
+
+@lisp
+(gi-import-by-name "GLib" "IOChannel" #:recur #f)
+@end lisp
+
+As mentioned above, early in the development cycle, or when your
+application is more stable, at your best convenience, you may consider
+making a series of selective import instead, see gi-import-by-name here
+below.
+@end deffn
+
+
+@anchor{gi-import-info}
+deffn Procedure gi-import-info info
+
+Returns the object or constant returned by the one of the
+@code{gi-import-enum}, @code{gi-import-flag}, @dots{}, called upon
+@code{info}.
+
+Obtains the GIBaseInfo type for @code{info} and uses it to dispatch a
+call to @code{gi-import-enum}, @code{gi-import-enum}, @dots{}, and
+returns the object or constant returned by the procedure that has been
+called.
+
+You probably will prefer to call @ref{gi-import-by-name} most of the
+time, but here is a example:
+
+@lisp
+,use (g-golf)
+(g-irepository-require "Clutter")
+@print{}
+$2 = #<pointer 0x5642cb065e30>
+
+(g-irepository-find-by-name "Clutter" "ActorFlags")
+@print{}
+$3 = #<pointer 0x5642cb067de0>
+
+(gi-import-info $3)
+@print{}
+$4 = #<<gi-flag> 5642cb13c5d0>
+
+(describe $4)
+@print{}
+#<<gi-flag> 5642cb13c5d0> is an instance of class <gi-flag>
+Slots are:
+     enum-set = ((mapped . 2) (realized . 4) (reactive . 8) (visible . 16) (no-layout . 32))
+     gtype-id = 94844874149456
+     gi-name = "ClutterActorFlags"
+     scm-name = "clutter-actor-flags"
+@end lisp
 @end deffn
 
 
