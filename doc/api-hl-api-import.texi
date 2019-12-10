@@ -101,7 +101,7 @@ below.
 
 
 @anchor{gi-import-info}
-deffn Procedure gi-import-info info
+@deffn Procedure gi-import-info info
 
 Returns the object or constant returned by the one of the
 @code{gi-import-enum}, @code{gi-import-flag}, @dots{}, called upon
