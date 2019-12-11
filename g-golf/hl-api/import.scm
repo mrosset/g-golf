@@ -49,8 +49,8 @@
             %gi-imported-base-info-types
             gi-is-info-a?
             gi-import
-            gi-import-info
             gi-import-by-name
+            gi-import-info
             gi-import-enum
             gi-import-flag
             gi-import-struct
@@ -79,6 +79,14 @@
       (gi-import-info (g-irepository-get-info namespace i)
                       #:debug debug))
     (values)))
+
+(define* (gi-import-by-name namespace name
+                            #:key (debug #f) (recur #t))
+  (g-irepository-require namespace)
+  (let ((info (g-irepository-find-by-name namespace name)))
+    (if info
+        (gi-import-info info #:debug debug #:recur recur)
+        (error "No such namespace name: " namespace name))))
 
 (define* (gi-import-info info #:key (debug #f) (recur #t))
   (let ((i-type (g-base-info-get-type info)))
@@ -123,14 +131,6 @@
                     (dimfi i-type (g-base-info-get-name info) "not imported"))
                (dimfi i-type (g-base-info-get-name info) "not imported"))
            'nothing)))))
-
-(define* (gi-import-by-name namespace name
-                            #:key (debug #f) (recur #t))
-  (g-irepository-require namespace)
-  (let ((info (g-irepository-find-by-name namespace name)))
-    (if info
-        (gi-import-info info #:debug debug #:recur recur)
-        (error "No such namespace name: " namespace name))))
 
 (define* (gi-import-enum info #:key (recur #t))
   (let* ((id (g-registered-type-info-get-g-type info))
