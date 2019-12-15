@@ -103,60 +103,61 @@
   (let* ((gi-name (g-function-info-get-symbol info))
          (scm-name (g-name->scm-name gi-name))
          (name (string->symbol scm-name)))
-    (unless (gi-cache-ref 'function name)
-      (let* ((module (resolve-module '(g-golf hl-api function)))
-             (function (make <function> #:info info))
-             (name (!name function)))
-        ;; unlike one may think 'at first glance', we don't unref the function
-        ;; info, it is needed by g-function-info-invoke ...
-        ;; (g-base-info-unref info)
-        (gi-cache-set! 'function name function)
-        (module-define! module
-                        name
-                        (lambda ( . args)
-                          (let ((info info)
-                                (function function)
-                                (name name)
-                                (return-type (!return-type function))
-                                (n-gi-arg-in (!n-gi-arg-in function))
-                                (gi-args-in (!gi-args-in function))
-                                (n-gi-arg-out (!n-gi-arg-out function))
-                                (gi-args-out (!gi-args-out function))
-                                (gi-arg-res (!gi-arg-res function)))
-                            (check-n-arg n-gi-arg-in args)
-                            (prepare-gi-arguments function args)
-                            (with-gerror g-error
-                                         (g-function-info-invoke info
-                                                                 gi-args-in
-                                                                 n-gi-arg-in
-			                                         gi-args-out
-                                                                 n-gi-arg-out
-			                                         gi-arg-res
-                                                                 g-error))
-                            (if (> n-gi-arg-out 0)
-                                (case return-type
-                                  ((boolean)
-                                   (if (memq name
-                                             %gi-strip-boolean-result)
-                                       (if (return-value->scm function)
-                                           (apply values
-                                                  (map arg-out->scm (!args-out function)))
-                                           (error " " name " failed."))
-                                       (apply values
-                                              (cons (return-value->scm function)
-                                                    (map arg-out->scm (!args-out function))))))
-                                  ((void)
-                                   (apply values
-                                          (map arg-out->scm (!args-out function))))
-                                  (else
-                                   (apply values
-                                          (cons (return-value->scm function)
-                                                (map arg-out->scm (!args-out function))))))
-                                (case return-type
-                                  ((void) (values))
-                                  (else
-                                   (return-value->scm function)))))))
-        (module-g-export! module `(,name))))))
+    (or (gi-cache-ref 'function name)
+        (let* ((module (resolve-module '(g-golf hl-api function)))
+               (function (make <function> #:info info))
+               (name (!name function)))
+          ;; unlike one may think 'at first glance', we don't unref the function
+          ;; info, it is needed by g-function-info-invoke ...
+          ;; (g-base-info-unref info)
+          (gi-cache-set! 'function name function)
+          (module-define! module
+                          name
+                          (lambda ( . args)
+                            (let ((info info)
+                                  (function function)
+                                  (name name)
+                                  (return-type (!return-type function))
+                                  (n-gi-arg-in (!n-gi-arg-in function))
+                                  (gi-args-in (!gi-args-in function))
+                                  (n-gi-arg-out (!n-gi-arg-out function))
+                                  (gi-args-out (!gi-args-out function))
+                                  (gi-arg-res (!gi-arg-res function)))
+                              (check-n-arg n-gi-arg-in args)
+                              (prepare-gi-arguments function args)
+                              (with-gerror g-error
+                                           (g-function-info-invoke info
+                                                                   gi-args-in
+                                                                   n-gi-arg-in
+			                                           gi-args-out
+                                                                   n-gi-arg-out
+			                                           gi-arg-res
+                                                                   g-error))
+                              (if (> n-gi-arg-out 0)
+                                  (case return-type
+                                    ((boolean)
+                                     (if (memq name
+                                               %gi-strip-boolean-result)
+                                         (if (return-value->scm function)
+                                             (apply values
+                                                    (map arg-out->scm (!args-out function)))
+                                             (error " " name " failed."))
+                                         (apply values
+                                                (cons (return-value->scm function)
+                                                      (map arg-out->scm (!args-out function))))))
+                                    ((void)
+                                     (apply values
+                                            (map arg-out->scm (!args-out function))))
+                                    (else
+                                     (apply values
+                                            (cons (return-value->scm function)
+                                                  (map arg-out->scm (!args-out function))))))
+                                  (case return-type
+                                    ((void) (values))
+                                    (else
+                                     (return-value->scm function)))))))
+          (module-g-export! module `(,name))
+          function))))
 
 (define-class <function> ()
   (info #:accessor !info)
