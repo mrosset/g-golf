@@ -70,7 +70,7 @@
           !n-gi-arg-out
           !args-out
           !gi-args-out
-          !gi-arg-res
+          !gi-arg-result
 
           !closure	;; argument
           !destroy
@@ -122,7 +122,7 @@
                                   (gi-args-in (!gi-args-in function))
                                   (n-gi-arg-out (!n-gi-arg-out function))
                                   (gi-args-out (!gi-args-out function))
-                                  (gi-arg-res (!gi-arg-res function)))
+                                  (gi-arg-result (!gi-arg-result function)))
                               (check-n-arg n-gi-arg-in args)
                               (prepare-gi-arguments function args)
                               (with-gerror g-error
@@ -131,7 +131,7 @@
                                                                    n-gi-arg-in
 			                                           gi-args-out
                                                                    n-gi-arg-out
-			                                           gi-arg-res
+			                                           gi-arg-result
                                                                    g-error))
                               (if (> n-gi-arg-out 0)
                                   (case return-type
@@ -175,7 +175,7 @@
   (n-gi-arg-out #:accessor !n-gi-arg-out)
   (args-out #:accessor !args-out)
   (gi-args-out #:accessor !gi-args-out)
-  (gi-arg-res #:accessor !gi-arg-res))
+  (gi-arg-result #:accessor !gi-arg-result))
 
 (define-method (initialize (self <function>) initargs)
   (let ((info (or (get-keyword #:info initargs #f)
@@ -210,7 +210,7 @@
                     'n-gi-arg-out n-gi-arg-out
                     'args-out args-out
                     'gi-args-out gi-args-out
-                    'gi-arg-res (make-gi-argument))))))
+                    'gi-arg-result (make-gi-argument))))))
 
 #;(define-method* (describe (self <function>) #:key (port #t))
   (next-method self #:port port)
@@ -755,33 +755,33 @@
 (define (return-value->scm function)
   (let ((return-type (!return-type function))
         (type-desc (!type-desc function))
-        (gi-arg-res (!gi-arg-res function)))
+        (gi-arg-result (!gi-arg-result function)))
     (case return-type
       ((interface)
        (match type-desc
          ((type name gi-type g-type confirmed?)
           (case type
             ((enum)
-             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
+             (let ((val (gi-argument-ref gi-arg-result 'v-int)))
                (or (enum->symbol gi-type val)
                    (error "No such " name " value: " val))))
             ((flags)
-             (let ((val (gi-argument-ref gi-arg-res 'v-int)))
+             (let ((val (gi-argument-ref gi-arg-result 'v-int)))
                (gi-integer->gflags gi-type val)))
             ((struct)
              (if (or (!is-opaque? gi-type)
                      (!is-semi-opaque? gi-type))
-                 (gi-argument-ref gi-arg-res 'v-pointer)
-                 (parse-c-struct (gi-argument-ref gi-arg-res 'v-pointer)
+                 (gi-argument-ref gi-arg-result 'v-pointer)
+                 (parse-c-struct (gi-argument-ref gi-arg-result 'v-pointer)
                                  (!scm-types gi-type))))
             ((object)
              ;; See the comment in registered-type->gi-type which
              ;; describes the role of confirmed? in the pattern.
              (if confirmed?
                  (make gi-type
-                   #:g-inst (gi-argument-ref gi-arg-res 'v-pointer))
+                   #:g-inst (gi-argument-ref gi-arg-result 'v-pointer))
                  (let* ((module (resolve-module '(g-golf hl-api object)))
-                        (foreign (gi-argument-ref gi-arg-res 'v-pointer))
+                        (foreign (gi-argument-ref gi-arg-result 'v-pointer))
                         (type (g-object-type foreign))
                         (gi-name (g-object-type-name foreign))
                         (c-name (g-name->class-name gi-name))
@@ -797,21 +797,21 @@
                    is-zero-terminated
                    (= param-n -1)
                    (eq? param-tag 'utf8))
-              (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) 'strings)
+              (gi->scm (gi-argument-ref gi-arg-result 'v-pointer) 'strings)
               (warning "Unimplemented type - array;"
                        (format #f "~S" type-desc))))))
       ((glist
         gslist)
-       (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) return-type type-desc))
+       (gi->scm (gi-argument-ref gi-arg-result 'v-pointer) return-type type-desc))
       ((ghash
         error)
        (warning "Unimplemented type" (symbol->string return-type)))
       ((utf8
         filename)
        ;; not sure, but this shouldn't arm.
-       (gi->scm (gi-argument-ref gi-arg-res 'v-pointer) 'string))
+       (gi->scm (gi-argument-ref gi-arg-result 'v-pointer) 'string))
       (else
-       (gi-argument-ref gi-arg-res
+       (gi-argument-ref gi-arg-result
                         (gi-type-tag->field return-type))))))
 
 
