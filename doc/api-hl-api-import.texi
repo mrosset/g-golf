@@ -24,6 +24,7 @@ The G-Golf GIR namespace (Typelib) import high level API.
 @item @ref{gi-import-enum}
 @item @ref{gi-import-flag}
 @item @ref{gi-import-struct}
+@item @ref{gi-import-function}
 @item @ref{gi-import-constant}
 @end table
 @end indentedblock
@@ -174,6 +175,20 @@ introduced above, you would retreive its @ref{<gi-flag>} instance as is:
 (gi-cache-ref 'flag 'clutter-actor-flags)
 $6 = #<<gi-flag> 5642cb13c5d0>
 @end lisp
+@end deffn
+
+
+@anchor{gi-import-function}
+@deffn Procedure gi-import-function info
+
+Returns a @ref{<function>} instance.
+
+Imports @var{info} in Guile and exports its interface.
+
+Make sure to carefully read and understand the
+@ref{%gi-strip-boolean-result} documentation. Initially,
+@ref{%gi-strip-boolean-result} is empty, and it is a user responsibility
+to fill it appropriately, for each namespace they are importing.
 @end deffn
 
 
