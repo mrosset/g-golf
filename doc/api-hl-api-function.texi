@@ -10,15 +10,59 @@
 @node Function
 @subsection Function
 
-G-Golf Function import high level API.@*
-The G-Golf GI function import high level API.
+G-Golf GI function and argument high level API.@*
+The G-Golf GI function and argument high level API.
 
 
-@subheading Procedures
+@subheading Classes
 
 @indentedblock
 @table @code
-@item @ref{gi-import-function}
+@item @ref{<function>}
+@item @ref{<argument>}
+@end table
+@end indentedblock
+
+@subheading Accessors and Methods
+
+@indentedblock
+@table @code
+@item @ref{!info_}
+@item @ref{!name}
+@item @ref{!flags}
+@item @ref{!n-arg}
+@item @ref{!caller-owns}
+@item @ref{!return-type_}
+@item @ref{!type-desc}
+@item @ref{!may-return-null}
+@item @ref{!arguments}
+@item @ref{!n-gi-arg-in}
+@item @ref{!args-in}
+@item @ref{!gi-args-in}
+@item @ref{!n-gi-arg-out}
+@item @ref{!args-out}
+@item @ref{!gi-args-out}
+@item @ref{!gi-arg-result}
+@item @ref{!name_}
+@item @ref{!closure}
+@item @ref{!destroy}
+@item @ref{!direction}
+@item @ref{!transfert}
+@item @ref{!scope}
+@item @ref{!type-tag}
+@item @ref{!type-desc_}
+@item @ref{!forced-type}
+@item @ref{!string-pointer}
+@item @ref{!is-pointer?}
+@item @ref{!may-be-null?}
+@item @ref{!is-caller-allocate?}
+@item @ref{!is-optional?}
+@item @ref{!is-return-value?}
+@item @ref{!is-skip?}
+@item @ref{!gi-argument-in}
+@item @ref{!gi-argument-out}
+@item @ref{!gi-argument-field}
+@item @ref{is-interface?}
 @end table
 @end indentedblock
 
@@ -32,21 +76,253 @@ The G-Golf GI function import high level API.
 @end indentedblock
 
 
-@c @subheading Description
+@subheading Classes
 
 
-@subheading Procedures
+@anchor{<function>}
+@deftp Class <function>
 
-Note: in this section, the @var{info} argument is [must be] a pointer to
-a @code{GIFunctionInfo}.
+Its slots are:
+
+@indentedblock
+@table @code
+
+@item @emph{info}
+#:accessor !info
+
+@item @emph{name}
+#:accessor !name
+
+@item @emph{flags}
+#:accessor !flags
+
+@item @emph{n-arg}
+#:accessor !n-arg
+
+@item @emph{caller-owns}
+#:accessor !caller-owns
+
+@item @emph{return-type}
+#:accessor !return-type
+
+@item @emph{type-desc}
+#:accessor !type-desc
+
+@item @emph{may-return-null?}
+#:accessor !may-return-null?
+
+@item @emph{arguments}
+#:accessor !arguments
+
+@item @emph{n-gi-arg-in}
+#:accessor !n-gi-arg-in
+
+@item @emph{args-in}
+#:accessor !args-in
+
+@item @emph{gi-args-in}
+#:accessor !gi-args-in
+
+@item @emph{n-gi-arg-out}
+#:accessor !n-gi-arg-out
+
+@item @emph{args-out}
+#:accessor !args-out
+
+@item @emph{gi-args-out}
+#:accessor !gi-args-out
+
+@item @emph{gi-arg-result}
+#:accessor !gi-arg-result
+
+@end table
+@end indentedblock
+
+Instances of the @code{<function>} class are immutable (to be precise,
+there are not meant to be mutated, see @ref{GOOPS Notes and
+Conventions}, 'Slots are not Immutable').
+
+@end deftp
 
 
-@anchor{gi-import-function}
-@deffn Procedure gi-import-function info
+@anchor{<argument>}
+@deftp Class <argument>
 
-Returns nothing.
+Its slots are:
 
-Imports @var{info} in Guile and exports its interface.
+@indentedblock
+@table @code
+
+@item @emph{name}
+#:accessor !name	@*
+#:init-keyword #:name
+
+@item @emph{closure}
+#:accessor !closure
+
+@item @emph{destroy}
+#:accessor !destroy
+
+@item @emph{direction}
+#:accessor !direction	@*
+#:init-keyword #:direction
+
+@item @emph{transfert}
+#:accessor !transfert
+
+@item @emph{scope}
+#:accessor !scope
+
+@item @emph{type-tag}
+#:accessor !type-tag	@*
+#:init-keyword #:type-tag
+
+@item @emph{type-desc}
+#:accessor !type-desc	@*
+#:init-keyword #:type-desc
+
+@item @emph{forced-type}
+#:accessor !forced-type	@*
+#:init-keyword #:forced-type
+
+@item @emph{string-pointer}
+#:accessor !string-pointer
+
+@item @emph{is-pointer?}
+#:accessor !is-pointer?	@*
+#:init-keyword #:is-pointer?
+
+@item @emph{may-be-null?}
+#:accessor !may-be-nul?	@*
+#:init-keyword #:may-be-null?
+
+@item @emph{is-caller-allocate?}
+#:accessor !is-caller-allocate?
+
+@item @emph{is-optional?}
+#:accessor !is-optional?
+
+@item @emph{is-return-value?}
+#:accessor !is-return-value?
+
+@item @emph{is-skip?}
+#:accessor !is-skip?
+
+@item @emph{gi-argument-in}
+#:accessor !gi-argument-in	@*
+#:init-value #f
+
+@item @emph{gi-argument-out}
+#:accessor !gi-argument-out	@*
+#:init-value #f
+
+@item @emph{name}
+#:accessor !gi-argument-field	@*
+#:init-keyword #:gi-argument-field
+
+@end table
+@end indentedblock
+
+Instances of the @code{<argument>} class are immutable (to be precise,
+there are not meant to be mutated, see @ref{GOOPS Notes and
+Conventions}, 'Slots are not Immutable').
+
+@end deftp
+
+
+
+@subheading Accessors and Methods
+
+Note: in this section, the @var{function} and @var{argument} arguments
+are [must be] a @code{<function>} and a @code{<argumet>} instance,
+respectively.
+
+
+@anchor{!info_}
+@anchor{!name}
+@anchor{!flags}
+@anchor{!n-arg}
+@anchor{!caller-owns}
+@anchor{!return-type_}
+@anchor{!type-desc}
+@anchor{!may-return-null}
+@anchor{!arguments}
+@anchor{!n-gi-arg-in}
+@anchor{!args-in}
+@anchor{!gi-args-in}
+@anchor{!n-gi-arg-out}
+@anchor{!args-out}
+@anchor{!gi-args-out}
+@anchor{!gi-arg-result}
+@deffn Accessor !info function
+@deffnx Accessor !name function
+@deffnx Accessor !flags function
+@deffnx Accessor !n-arg function
+@deffnx Accessor !caller-owns function
+@deffnx Accessor !return-type function
+@deffnx Accessor !type-desc function
+@deffnx Accessor !may-return-null function
+@deffnx Accessor !arguments function
+@deffnx Accessor !n-gi-arg-in function
+@deffnx Accessor !args-in function
+@deffnx Accessor !gi-args-in function
+@deffnx Accessor !n-gi-arg-out function
+@deffnx Accessor !args-out function
+@deffnx Accessor !gi-args-out function
+@deffnx Accessor !gi-arg-result function
+
+Returns the content of their respective slot for @var{function}.
+@end deffn
+
+
+@anchor{!name_}
+@anchor{!closure}
+@anchor{!destroy}
+@anchor{!direction}
+@anchor{!transfert}
+@anchor{!scope}
+@anchor{!type-tag}
+@anchor{!type-desc_}
+@anchor{!forced-type}
+@anchor{!string-pointer}
+@anchor{!is-pointer?}
+@anchor{!may-be-null?}
+@anchor{!is-caller-allocate?}
+@anchor{!is-optional?}
+@anchor{!is-return-value?}
+@anchor{!is-skip?}
+@anchor{!gi-argument-in}
+@anchor{!gi-argument-out}
+@anchor{!gi-argument-field}
+@deffn Accessor !name argument
+@deffnx Accessor !closure argument
+@deffnx Accessor !destroy argument
+@deffnx Accessor !direction argument
+@deffnx Accessor !transfert argument
+@deffnx Accessor !scope argument
+@deffnx Accessor !type-tag argument
+@deffnx Accessor !type-desc argument
+@deffnx Accessor !forced-type argument
+@deffnx Accessor !string-pointer argument
+@deffnx Accessor !is-pointer? argument
+@deffnx Accessor !may-be-null? argument
+@deffnx Accessor !is-caller-allocate? argument
+@deffnx Accessor !is-optional? argument
+@deffnx Accessor !is-return-value? argument
+@deffnx Accessor !is-skip? argument
+@deffnx Accessor !gi-argument-in argument
+@deffnx Accessor !gi-argument-out argument
+@deffnx Accessor !gi-argument-field argument
+
+Returns the content of their respective slot for @var{argument}.
+@end deffn
+
+
+@anchor{is-interface?}
+@deffn Method is-interface? argument
+
+Returns #t if the @code{type-tag} slot value for @var{argument} is
+@code{'interface}. Otherwise, it returns #f.
 @end deffn
 
 
