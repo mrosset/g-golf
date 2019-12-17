@@ -234,7 +234,7 @@ Conventions}, 'Slots are not Immutable').
 @subheading Accessors and Methods
 
 Note: in this section, the @var{function} and @var{argument} arguments
-are [must be] a @code{<function>} and a @code{<argumet>} instance,
+are [must be] a @code{<function>} and an @code{<argument>} instance,
 respectively.
 
 
@@ -332,10 +332,10 @@ Returns #t if the @code{type-tag} slot value for @var{argument} is
 @anchor{%gi-strip-boolean-result}
 @defvar %gi-strip-boolean-result
 
-A list of procedure and method names that return either @code{#t} or
+A list of procedure and method names that that have at least one
+@code{'inout} or @code{'out} argument(s) and return either @code{#t} or
 @code{#f}, solely to indicate that the procedure or method call was
-successful or not, and at least one @code{'inout} or @code{'out}
-qargument(s).
+successful or not.
 
 These procedures and methods, if (and only if) their name is a member of
 @var{%gi-strip-boolean-result}, will see their returned valued eluded if

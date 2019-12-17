@@ -183,12 +183,65 @@ $6 = #<<gi-flag> 5642cb13c5d0>
 
 Returns a @ref{<function>} instance.
 
-Imports @var{info} in Guile and exports its interface.
+Imports @var{info} - a pointer to a @code{GIFunctionInfo} (see
+@ref{Function Info}), which represents a function, a method or a
+constructor - in Guile and exports its interface. This procedure also
+imports, recursively (and exports the interface of) its argument's
+type(s) and method(s).
 
-Make sure to carefully read and understand the
-@ref{%gi-strip-boolean-result} documentation. Initially,
-@ref{%gi-strip-boolean-result} is empty, and it is a user responsibility
-to fill it appropriately, for each namespace they are importing.
+Every imported function, method and constructor is cached under
+@code{'function} main key, and using the value of their @ref{<function>}
+instance @code{name} slot as the secondary key. Here is an example:
+
+@lisp
+,use (g-golf)
+(g-irepository-require "Clutter")
+$2 = #<pointer 0x55c191f3fe30>
+
+(g-irepository-find-by-name "Clutter" "init")
+$3 = #<pointer 0x55c191f41de0>
+
+(gi-import-function $3)
+$4 = #<<function> 55c191e81510>
+
+(describe $4)
+#<<function> 55c191e81510> is an instance of class <function>
+Slots are:
+     info = #<pointer 0x55c191f41de0>
+     name = clutter-init
+     flags = ()
+     n-arg = 2
+     caller-owns = nothing
+     return-type = interface
+@dots{}
+
+(gi-cache-ref 'function 'clutter-init)
+$5 = #<<function> 55c191e81510>
+@end lisp
+
+@emph{Returned value(s):}
+
+In most situations, but when the @code{return-type} is @code{'void} (in
+which case nothing is returned), the function or method returned value
+comes first, then in order, if any, the @code{'inout} and/or
+@code{'out} argument(s).
+
+However, some function and method, that have at least one @code{'inout}
+or @code{'out} argument(s), do return a @code{'boolean}, but solely to
+indicate that the function or method call was successful or not. It is
+only if the call is successful that the @code{'inout} and/or @code{'out}
+argument(s) have been @samp{correctly} set and may be safely used.
+
+In scheme, when binding such a function or method, we would rather (a)
+when the call is successful, elude the boolean and return, in order,
+the @code{'inout} and/or @code{'out} argument(s) value(s); and (b), when
+the call is unsuccessful, raise an exception.
+
+Since it is not possible to automatically @samp{detect} these functions
+and methods, G-Golf defines a @ref{%gi-strip-boolean-result} variable,
+initially empty, that users may fill appropriately, using the function
+or method (symbol) name, as described in its documentation: make sure to
+carefully read and understand it.
 @end deffn
 
 
