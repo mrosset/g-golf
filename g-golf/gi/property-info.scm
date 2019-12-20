@@ -94,7 +94,7 @@
 ;;;
 
 (define g_property_info_get_flags
-  (pointer->procedure uint32
+  (pointer->procedure unsigned-int
                       (dynamic-func "g_property_info_get_flags"
 				    %libgirepository)
                       (list '*)))

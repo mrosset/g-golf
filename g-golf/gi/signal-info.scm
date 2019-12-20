@@ -60,7 +60,7 @@
 ;;;
 
 (define g_signal_info_get_flags
-  (pointer->procedure int
+  (pointer->procedure unsigned-int
                       (dynamic-func "g_signal_info_get_flags"
 				    %libgirepository)
                       (list '*)))
