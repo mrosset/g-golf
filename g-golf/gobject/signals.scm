@@ -27,6 +27,7 @@
 
 
 (define-module (g-golf gobject signals)
+  #:use-module (rnrs bytevectors)
   #:use-module (ice-9 match)
   #:use-module (oop goops)
   #:use-module (system foreign)
@@ -43,11 +44,7 @@
 		warn
 		last)
 
-  #:export (%g-signal-query-struct
-            g-signal-query-parse
-            g-signal-query-make
-
-            g-signal-query
+  #:export (g-signal-query
             g-signal-lookup
 
             %g-signal-flags))
@@ -80,7 +77,7 @@
                        0
                        %null-pointer)))
 
-(define (g-signal-query->id g-signal-query)
+#;(define (g-signal-query->id g-signal-query)
   (match (g-signal-query-parse g-signal-query)
     ((id _ _ _ _ _ _) id)))
 
@@ -96,7 +93,7 @@
              (gi-integer->gflags %g-signal-flags flags)
              (g-type->symbol return-type)
              n-param
-             param-types)))))
+             (decode-param-types n-param param-types))))))
 
 (define (g-signal-lookup name g-type)
   (let ((gsl (g_signal_lookup (scm->gi name 'string)
@@ -106,6 +103,24 @@
        (error "No such g-type signal: " g-type name))
       (else
        gsl))))
+
+
+;;;
+;;; Utils
+;;;
+
+(define (decode-param-types n-param param-types)
+  (let* ((p-size (sizeof unsigned-long))
+         (bv (pointer->bytevector param-types
+                                  (* n-param p-size))))
+    (let loop ((i 0)
+               (results '()))
+      (if (= i n-param)
+          (reverse! results)
+          (loop (+ i 1)
+                (cons (g-type->symbol
+                       (bytevector-u64-native-ref bv i))
+                      results))))))
 
 
 ;;;
