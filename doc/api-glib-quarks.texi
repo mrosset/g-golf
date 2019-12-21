@@ -1,0 +1,57 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node Quarks
+@subsection Quarks
+
+G-Golf Glib Quarks low level API.@*
+Quarks — a 2-way association between a string and a unique integer
+identifier.
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-quark-from-string}
+@item @ref{g-quark-to-string}
+@end table
+@end indentedblock
+
+
+@subheading Description
+
+Quarks are associations between strings and integer identifiers. Given
+either the string or the @code{GQuark} identifier it is possible to
+retrieve the other.
+
+
+@subheading Procedures
+
+
+@anchor{g-quark-from-string}
+@deffn Procedure g-quark-from-string str
+
+Returns an integer.
+
+Obtains and returns the @code{GQuark} identifying the string given by
+@var{str}. If the string does not currently have an associated
+@code{GQuark}, a new @code{GQuark} is created, using a copy of the
+string.
+@end deffn
+
+
+@anchor{g-quark-to-string}
+@deffn Procedure g-quark-to-string g-quark
+
+Returns a string.
+
+Obtains and returns the string associated with the  @code{GQuark}
+given by @var{g-quark}.
+@end deffn

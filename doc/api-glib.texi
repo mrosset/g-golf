@@ -28,6 +28,7 @@ though they might be some exception in the future.
 * UNIX-specific utilities and integration:: Pipes, signal handling.
 * Doubly-Linked Lists:: Linked lists that can be iterated in both directions
 * Singly-Linked Lists:: Linked lists that can be iterated in one direction
+* Quarks:: a2-way association between a string and a unique integer identifier
 @end menu
 
 
@@ -37,3 +38,4 @@ though they might be some exception in the future.
 @include api-glib-unix-utils.texi
 @include api-glib-glist.texi
 @include api-glib-gslist.texi
+@include api-glib-quarks.texi

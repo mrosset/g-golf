@@ -52,6 +52,7 @@
   #:use-module (g-golf glib unix-utils)
   #:use-module (g-golf glib glist)
   #:use-module (g-golf glib gslist)
+  #:use-module (g-golf glib quarks)
 
 
   #:duplicates (merge-generics
@@ -77,4 +78,5 @@
                               (g-golf glib io-channels)
                               (g-golf glib unix-utils)
                               (g-golf glib glist)
-                              (g-golf glib gslist)))
+                              (g-golf glib gslist)
+                              (g-golf glib quarks)))

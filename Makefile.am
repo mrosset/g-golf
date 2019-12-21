@@ -49,6 +49,7 @@ SOURCES = \
 	g-golf/glib/unix-utils.scm		\
 	g-golf/glib/glist.scm			\
 	g-golf/glib/gslist.scm			\
+	g-golf/glib/quarks.scm			\
 	g-golf/glib.scm				\
 	g-golf/gobject/type-info.scm		\
 	g-golf/gobject/gobject.scm		\

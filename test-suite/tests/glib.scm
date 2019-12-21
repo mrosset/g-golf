@@ -126,4 +126,10 @@
   (assert (g-timeout-source-new-seconds 1)))
 
 
+(define-method (test-g-quark (self <g-golf-test-glib>))
+  (assert-true (string=? (g-quark-to-string
+                          (g-quark-from-string "destroy"))
+                         "destroy")))
+
+
 (exit-with-summary (run-all-defined-test-cases))
