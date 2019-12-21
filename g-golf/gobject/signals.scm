@@ -27,11 +27,14 @@
 
 
 (define-module (g-golf gobject signals)
+  #:use-module (ice-9 match)
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support flag)
+  #:use-module (g-golf gobject type-info)
+  #:use-module (g-golf gi utils)
   #:use-module (g-golf init)
 
   #:duplicates (merge-generics
@@ -40,17 +43,88 @@
 		warn
 		last)
 
-  #:export (%g-signal-flags))
+  #:export (%g-signal-query-struct
+            g-signal-query-parse
+            g-signal-query-make
+
+            g-signal-query
+            g-signal-lookup
+
+            %g-signal-flags))
 
 
 ;;;
 ;;; Low level API
 ;;;
 
+(define %g-signal-query-struct
+  (list unsigned-int	;; id
+        '*		;; name
+        unsigned-long	;; g-type
+        unsigned-int	;; flags
+        unsigned-long	;; return-type
+        unsigned-int	;; n-param
+        '*))		;; param-types
+
+(define (g-signal-query-parse g-signal-query)
+  (parse-c-struct g-signal-query
+                  %g-signal-query-struct))
+
+(define (g-signal-query-make)
+  (make-c-struct %g-signal-query-struct
+                 (list 0
+                       %null-pointer
+                       0
+                       0
+                       0
+                       0
+                       %null-pointer)))
+
+(define (g-signal-query->id g-signal-query)
+  (match (g-signal-query-parse g-signal-query)
+    ((id _ _ _ _ _ _) id)))
+
+(define (g-signal-query id)
+  (let ((gsq (g-signal-query-make)))
+    (g_signal_query id gsq)
+    (match (parse-c-struct gsq
+                           %g-signal-query-struct)
+      ((id name g-type flags return-type n-param param-types)
+       (list id
+             (gi->scm name 'string)
+             g-type
+             (gi-integer->gflags %g-signal-flags flags)
+             (g-type->symbol return-type)
+             n-param
+             param-types)))))
+
+(define (g-signal-lookup name g-type)
+  (let ((gsl (g_signal_lookup (scm->gi name 'string)
+                              g-type)))
+    (case gsl
+      ((0)
+       (error "No such g-type signal: " g-type name))
+      (else
+       gsl))))
+
 
 ;;;
 ;;; Signals Bindings
 ;;;
+
+(define g_signal_query
+  (pointer->procedure void
+                      (dynamic-func "g_signal_query"
+				    %libgobject)
+                      (list unsigned-int	;; id
+                            '*)))		;; query
+
+(define g_signal_lookup
+  (pointer->procedure unsigned-int
+                      (dynamic-func "g_signal_lookup"
+				    %libgobject)
+                      (list '*			;; name
+                            unsigned-long)))	;; g-type
 
 
 ;;;
