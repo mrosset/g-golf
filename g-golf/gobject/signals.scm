@@ -35,6 +35,7 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support flag)
+  #:use-module (g-golf glib mem-alloc)
   #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf init)
@@ -47,6 +48,7 @@
 
   #:export (g-signal-query
             g-signal-lookup
+            g-signal-list-ids
 
             %g-signal-flags))
 
@@ -92,6 +94,18 @@
              n-param
              (decode-param-types n-param param-types))))))
 
+(define (g-signal-list-ids g-type)
+  (let* ((s-uint (sizeof unsigned-int))
+         (n-id-bv (make-bytevector s-uint 0))
+         (ids (g_signal_list_ids g-type
+                                 (bytevector->pointer n-id-bv)))
+         (n-id (u32vector-ref n-id-bv 0))
+         (results (u32vector->list
+                   (pointer->bytevector ids
+                                        (* n-id s-uint) 0))))
+    (g-free ids)
+    results))
+
 (define (g-signal-lookup name g-type)
   (let ((gsl (g_signal_lookup (scm->gi name 'string)
                               g-type)))
@@ -126,6 +140,13 @@
 				    %libgobject)
                       (list unsigned-int	;; id
                             '*)))		;; query
+
+(define g_signal_list_ids
+  (pointer->procedure '*
+                      (dynamic-func "g_signal_list_ids"
+				    %libgobject)
+                      (list unsigned-long	;; g-type
+                            '*)))		;; n-id (pointer to guint)
 
 (define g_signal_lookup
   (pointer->procedure unsigned-int
