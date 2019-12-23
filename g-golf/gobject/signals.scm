@@ -31,6 +31,7 @@
   #:use-module (ice-9 match)
   #:use-module (oop goops)
   #:use-module (system foreign)
+  #:use-module (srfi srfi-4)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support flag)
@@ -77,10 +78,6 @@
                        0
                        %null-pointer)))
 
-#;(define (g-signal-query->id g-signal-query)
-  (match (g-signal-query-parse g-signal-query)
-    ((id _ _ _ _ _ _) id)))
-
 (define (g-signal-query id)
   (let ((gsq (g-signal-query-make)))
     (g_signal_query id gsq)
@@ -110,17 +107,13 @@
 ;;;
 
 (define (decode-param-types n-param param-types)
-  (let* ((p-size (sizeof unsigned-long))
-         (bv (pointer->bytevector param-types
-                                  (* n-param p-size))))
-    (let loop ((i 0)
-               (results '()))
-      (if (= i n-param)
-          (reverse! results)
-          (loop (+ i 1)
-                (cons (g-type->symbol
-                       (bytevector-u64-native-ref bv i))
-                      results))))))
+  (if (= n-param 0)
+      '()
+      (map g-type->symbol
+        (u64vector->list
+         (pointer->bytevector param-types
+                              (* n-param
+                                 (sizeof unsigned-long)))))))
 
 
 ;;;
