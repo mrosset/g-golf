@@ -8,18 +8,19 @@
 @subsection Signals
 
 G-Golf GObject Signals low level API.@*
-
 Signals — A means for customization of object behaviour and a general
 purpose notification mechanism
 
 
-@c @subheading Procedures
+@subheading Procedures
 
-@c @indentedblock
-@c @table @code
-@c @item @ref{g-type-name}
-@c @end table
-@c @end indentedblock
+@indentedblock
+@table @code
+@item @ref{g-signal-query}
+@item @ref{g-signal-lookup}
+@item @ref{g-signal-list-ids}
+@end table
+@end indentedblock
 
 
 @subheading Types and Values
@@ -43,14 +44,69 @@ Please read the @uref{@value{UGOBJECT-Signals}, Signals} section from
 the GObject reference manual for a complete description.
 
 
-@c @subheading Procedures
+@subheading Procedures
 
 
-@c @anchor{g-type->symbol}
-@c @deffn Procedure g-type->symbol g-type
+@anchor{g-signal-query}
+@deffn Procedure g-signal-query id
 
-@c Returns a symbol.
-@c @end deffn
+Returns a list.
+
+Obtains and returns a list composed of the signal id, name,
+interface-type@footnote{Within this context, the interface-type is the
+@code{GType} of the @code{GObject} subclass the signal is @samp{attached
+to} - knowing that signals are inhereted.}, flags, return-type, number
+of arguments and their types. For example@footnote{At least one
+@code{GObject} subclass instance must have been created prior to attempt
+to query any of its class signal(s).}:
+
+@lisp
+,use (g-golf)
+(gi-import "Clutter")
+
+(make <clutter-actor>)
+$2 = #<<clutter-actor> 565218c88a80>
+
+(!gtype-id (class-of $2))
+$3 = 94910597864000
+
+(g-signal-list-ids $3)
+$4 = (5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30)
+
+(g-signal-query 20)
+$5 = (20 "enter-event" 94910597864000 (run-last) boolean 1 (boxed))
+@end lisp
+
+As you may have noticed, the signal query argument(s) list does not
+include the instance (and its type) upon which the signal is called, but
+both at C level and within the context of @code{GClosure}, callbacks
+must assume that the instance upon which a signal is called is always
+the first argument of the callback.
+@end deffn
+
+
+@anchor{g-signal-lookup}
+@deffn Procedure g-signal-lookup name g-type
+
+Returns an integer.
+
+Obtains and returns the signal's identifying integer, given the
+@var{name} of the signal and the object @var{g-type} it connects to. If
+a signal identifier can't be find for the given @var{name} and
+@var{g-type}, an exception is raised.
+@end deffn
+
+
+@anchor{g-signal-list-ids}
+@deffn Procedure g-signal-list-ids g-type
+
+Returns a list of integers.
+
+Obtains and returns the list of signal's identifying integers for
+@var{g-type} (Note that at least one @var{g-type} instance must have
+been created prior to attempt to list or query signal's identifying
+integers for a given @var{g-type}).
+@end deffn
 
 
 @subheading Types and Values
