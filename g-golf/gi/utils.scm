@@ -50,7 +50,7 @@
             gi-boolean->scm
             gi-string->scm
             gi-strings->scm
-            gi-cvs-string->scm
+            gi-csv-string->scm
 	    gi-pointer->scm
             gi-glist->scm
             gi-gslist->scm
@@ -111,7 +111,7 @@
     ((boolean) (gi-boolean->scm value))
     ((string) (gi-string->scm value))
     ((strings) (gi-strings->scm value))
-    ((csv-string) (gi-cvs-string->scm value))
+    ((csv-string) (gi-csv-string->scm value))
     ((pointer) (gi-pointer->scm value))
     ((glist) (gi-glist->scm value type-desc))
     ((gslist) (gi-gslist->scm value type-desc))
@@ -231,7 +231,7 @@
     ((boolean) (scm->gi-boolean value))
     ((string) (scm->gi-string value))
     ((strings) (scm->gi-strings value))
-    #;((csv-string) (scm->gi-cvs-string value))
+    #;((csv-string) (scm->gi-csv-string value))
     ((pointer) (scm->gi-pointer value))
     (else
      value)))
