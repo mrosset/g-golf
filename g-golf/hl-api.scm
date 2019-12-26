@@ -37,6 +37,7 @@
   #:use-module (g-golf hl-api function)
   #:use-module (g-golf hl-api object)
   #:use-module (g-golf hl-api closure)
+  #:use-module (g-golf hl-api signal)
   #:use-module (g-golf hl-api glib)
   #:use-module (g-golf hl-api callback)
 
@@ -56,5 +57,6 @@
                             (g-golf hl-api function)
                             (g-golf hl-api object)
                             (g-golf hl-api closure)
+                            (g-golf hl-api signal)
                             (g-golf hl-api glib)
                             (g-golf hl-api callback))
