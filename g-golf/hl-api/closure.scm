@@ -238,7 +238,8 @@
                            (cons (g-value-ref g-value)
                                  results)))))
          (result (apply function args)))
-    (g-value-set! return-val result)
+    (unless (null-pointer? return-val)
+      (g-value-set! return-val result))
     (values)))
 
 (define %g-closure-marshal
