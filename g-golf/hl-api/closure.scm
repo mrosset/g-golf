@@ -238,11 +238,14 @@
                          (loop (+ i 1)
                                (gi-pointer-inc g-value %g-value-size)
                                (cons (g-value-ref g-value)
-                                     results))))))
-         (result (apply function args)))
-    (unless (null-pointer? return-val)
-      (g-value-set! return-val result))
-    (values)))
+                                     results)))))))
+  (if (null-pointer? return-val)
+      (begin
+        (apply function args)
+        (values))
+      (let ((result (apply function args)))
+        (g-value-set! return-val result)
+        (values)))))
 
 (define %g-closure-marshal
   (procedure->pointer void
