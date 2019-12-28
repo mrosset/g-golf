@@ -36,6 +36,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf support flag)
   #:use-module (g-golf glib mem-alloc)
+  #:use-module (g-golf glib quarks)
   #:use-module (g-golf gobject type-info)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf init)
@@ -49,6 +50,7 @@
   #:export (g-signal-query
             g-signal-lookup
             g-signal-list-ids
+            g-signal-connect-closure-by-id
 
             %g-signal-flags))
 
@@ -111,9 +113,19 @@
                               g-type)))
     (case gsl
       ((0)
-       (error "No such g-type signal: " g-type name))
+       #f)
       (else
        gsl))))
+
+(define (g-signal-connect-closure-by-id g-inst
+                                        signal-id detail closure after?)
+  (g_signal_connect_closure_by_id g-inst
+                                  signal-id
+                                  (if detail
+                                      (g-quark-from-string detail)
+                                      0)
+                                  closure
+                                  (scm->gi after? 'boolean)))
 
 
 ;;;
@@ -154,6 +166,16 @@
 				    %libgobject)
                       (list '*			;; name
                             unsigned-long)))	;; g-type
+
+(define g_signal_connect_closure_by_id
+  (pointer->procedure unsigned-long
+                      (dynamic-func "g_signal_connect_closure_by_id"
+				    %libgobject)
+                      (list '*			;; g-inst
+                            unsigned-int	;; signal id
+                            uint32		;; detail (g-quark)
+                            '*			;; closure
+                            int)))		;; after (boolean)
 
 
 ;;;
