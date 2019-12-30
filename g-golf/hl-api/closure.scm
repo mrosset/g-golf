@@ -237,7 +237,7 @@
                          (reverse! results)
                          (loop (+ i 1)
                                (gi-pointer-inc g-value %g-value-size)
-                               (cons (g-value-ref g-value)
+                               (cons (g-closure-marshal-g-value-ref g-value)
                                      results)))))))
   (if (null-pointer? return-val)
       (begin
@@ -246,6 +246,14 @@
       (let ((result (apply function args)))
         (g-value-set! return-val result)
         (values)))))
+
+(define (g-closure-marshal-g-value-ref g-value)
+  (let ((value (g-value-ref g-value)))
+    (case (g-value->g-type g-value)
+      ((object)
+       (g-inst-cache-ref value))
+      (else
+       value))))
 
 (define %g-closure-marshal
   (procedure->pointer void
