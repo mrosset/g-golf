@@ -289,7 +289,7 @@
 
 (define (g-value-set-object g-value object)
   (g_value_set_object g-value
-                       (if object object %null-pointer)))
+                      (if object object %null-pointer)))
 
 
 ;;;

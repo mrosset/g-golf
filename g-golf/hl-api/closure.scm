@@ -244,7 +244,8 @@
         (apply function args)
         (values))
       (let ((result (apply function args)))
-        (g-value-set! return-val result)
+        (g-value-set! return-val
+                      (g-closure-marshal-g-value-return-val return-val result))
         (values)))))
 
 (define (g-closure-marshal-g-value-ref g-value)
@@ -254,6 +255,13 @@
        (g-inst-cache-ref value))
       (else
        value))))
+
+(define (g-closure-marshal-g-value-return-val g-value return-val)
+  (case (g-value->g-type g-value)
+    ((object)
+     (!g-inst return-val))
+      (else
+       return-val)))
 
 (define %g-closure-marshal
   (procedure->pointer void
