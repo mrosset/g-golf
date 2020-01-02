@@ -1,0 +1,163 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2019 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex ei
+
+
+@node Union Info
+@subsection Union Info
+
+G-Golf Union Info low level API.@*
+GIUnionInfo — Struct representing a C union.
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{g-union-info-get-n-fields}
+@item @ref{g-union-info-get-field}
+@item @ref{g-union-info-get-n-methods}
+@item @ref{g-union-info-get-method}
+@item @ref{g-union-info-is-discriminated?}
+@item @ref{g-union-info-get-discriminator-offset}
+@item @ref{g-union-info-get-discriminator-type}
+@item @ref{g-union-info-get-discriminator}
+@item @ref{g-union-info-get-size}
+@item @ref{g-union-info-get-alignment}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%g-arg-info-transfer}
+@c @end table
+@c @end indentedblock
+
+
+@subheading Description
+
+@code{GIUnionInfo} represents a union type.
+
+A union has methods and fields. Unions can optionally have a
+discriminator, which is a field deciding what type of real union fields
+is valid for specified instance.
+
+
+@subheading Struct Hierarchy
+
+@indentedblock
+GIBaseInfo           	       		@*
+@ @ +--- GIRegisteredTypeInfo  		@*
+@ @ @ @ @ @ @ @ @ @ @  +--- GIUnionInfo
+@end indentedblock
+
+
+@subheading Procedures
+
+Note: in this section, unless otherwise specified, the @var{info}
+argument is [must be] a pointer to a @code{GIUnionInfo}.
+
+
+@anchor{g-union-info-get-n-fields}
+@deffn Procedure g-union-info-get-n-fields info
+
+Returns an integer.
+
+Obtains and returns the number of fields the @var{info} union has.
+@end deffn
+
+
+@anchor{g-union-info-get-field}
+@deffn Procedure g-union-info-get-field info n
+
+Returns a pointer.
+
+Obtains and returns a pointer to the @code{GIFieldInfo} for @var{info},
+given its @var{n}. The @code{GIFieldInfo} must be free'd by calling
+@ref{g-base-info-unref} when done.
+@end deffn
+
+
+@anchor{g-union-info-get-n-methods}
+@deffn Procedure g-union-info-get-n-methods info
+
+Returns an integer.
+
+Obtains and returns the number of methods the @var{info} union has.
+@end deffn
+
+
+@anchor{g-union-info-get-method}
+@deffn Procedure g-union-info-get-method info n
+
+Returns a pointer.
+
+Obtains and returns a pointer to the @code{GIFunctionInfo} for
+@var{info}, given its @var{n}, which must be free'd by calling
+@ref{g-base-info-unref} when done.
+@end deffn
+
+
+@anchor{g-union-info-is-discriminated?}
+@deffn Procedure g-union-info-is-discriminated? info
+
+Returns #t if @var{info} contains a discriminator field, otherwise it
+returns #f.
+@end deffn
+
+
+@anchor{g-union-info-get-discriminator-offset}
+@deffn Procedure g-union-info-get-discriminator-offset info
+
+Returns an integer.
+
+Obtains and returns the offset of the discriminator field for
+@var{info}.
+@end deffn
+
+
+@anchor{g-union-info-get-discriminator-type}
+@deffn Procedure g-union-info-get-discriminator-type info
+
+Returns a pointer.
+
+Obtains and returns a pointer to the @code{GITypeInfo} for @var{info},
+which must be free'd by calling @ref{g-base-info-unref} when done.
+@end deffn
+
+
+@anchor{g-union-info-get-discriminator}
+@deffn Procedure g-union-info-get-discriminator info n
+
+Returns a pointer.
+
+Obtains and returns a pointer to the @code{GIConstantInfo} assigned for
+the @var{info} @var{n}-th union field - i.e. the @var{n}-th union field
+is the active one if discriminator contains this constant (value) -
+which must be free'd by calling @ref{g-base-info-unref} when done.
+@end deffn
+
+
+@anchor{g-union-info-get-size}
+@deffn Procedure g-union-info-get-size info
+
+Returns an integer.
+
+Obtains and returns the total size of the union specified by @var{info}.
+@end deffn
+
+
+@anchor{g-union-info-get-alignment}
+@deffn Procedure g-union-info-get-alignment info
+
+Returns an integer.
+
+Obtains and returns the required alignment for @var{info}.
+@end deffn

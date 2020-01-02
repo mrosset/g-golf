@@ -141,6 +141,22 @@
 
 
 ;;;
+;;; Union Info
+;;;
+
+(define-method (test-union-info (self <g-golf-test-gi>))
+  (assert (g-irepository-require "Gdk"))
+  (let ((info (g-irepository-find-by-name "Gdk" "Event")))
+    (assert (g-union-info-get-n-fields info))
+    (assert (g-union-info-get-field info 0))
+    (assert (g-union-info-get-n-methods info))
+    (assert (g-union-info-get-method info 0))
+    (assert (g-union-info-is-discriminated? info))
+    (assert (g-union-info-get-size info))
+    (assert (g-union-info-get-alignment info))))
+
+
+;;;
 ;;; Object Info
 ;;;
 

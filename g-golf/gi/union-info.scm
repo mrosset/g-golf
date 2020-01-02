@@ -1,0 +1,217 @@
+;; -*- mode: scheme; coding: utf-8 -*-
+
+;;;;
+;;;; Copyright (C) 2019
+;;;; Free Software Foundation, Inc.
+
+;;;; This file is part of GNU G-Golf
+
+;;;; GNU G-Golf is free software; you can redistribute it and/or modify
+;;;; it under the terms of the GNU Lesser General Public License as
+;;;; published by the Free Software Foundation; either version 3 of the
+;;;; License, or (at your option) any later version.
+
+;;;; GNU G-Golf is distributed in the hope that it will be useful, but
+;;;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;;;; Lesser General Public License for more details.
+
+;;;; You should have received a copy of the GNU Lesser General Public
+;;;; License along with GNU G-Golf.  If not, see
+;;;; <https://www.gnu.org/licenses/lgpl.html>.
+;;;;
+
+;;; Commentary:
+
+;;; Code:
+
+
+(define-module (g-golf gi union-info)
+  #:use-module (oop goops)
+  #:use-module (system foreign)
+  #:use-module (g-golf support utils)
+  #:use-module (g-golf support enum)
+  #:use-module (g-golf support flag)
+  #:use-module (g-golf init)
+  #:use-module (g-golf gobject type-info)
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi base-info)
+  #:use-module (g-golf gi registered-type-info)
+
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
+
+  #:export (#;gi-union-import
+	    #;gi-union-value-values
+
+	    g-union-info-get-n-fields
+	    g-union-info-get-field
+	    g-union-info-get-n-methods
+	    g-union-info-get-method
+            g-union-info-is-discriminated?
+            g-union-info-get-discriminator-offset
+            g-union-info-get-discriminator-type
+            g-union-info-get-discriminator
+            g-union-info-find-method
+	    g-union-info-get-size
+            g-union-info-get-alignment))
+
+
+;;;
+;;; Build Interface
+;;;
+
+#!
+(define* (gi-union-import info #:key (flag #f))
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-type-name id))
+	 (e-vals (gi-union-value-values info)))
+    (make (if flag <gi-flag> <gi-union>)
+      #:gtype-id id
+      #:gi-name name
+      #:union-set e-vals)))
+
+(define (gi-union-value-values info)
+  (letrec ((get-union-values
+	    (lambda (info n i v-set)
+	      (if (= i n)
+		  (reverse! v-set)
+		  (let* ((value-info (g-union-info-get-value info i))
+			 (name (g-base-info-get-name value-info))
+			 (value (g-value-info-get-value value-info)))
+		    (g-base-info-unref value-info)
+		    (get-union-values info
+				     n
+				     (+ i 1)
+				     (cons (cons (string->symbol
+                                                  (g-studly-caps-expand name))
+                                                 value)
+					   v-set)))))))
+    (get-union-values info
+		     (g-union-info-get-n-values info)
+		     0
+		     '())))
+!#
+
+
+;;;
+;;; Low level API
+;;;
+
+(define (g-union-info-get-n-fields info)
+  (g_union_info_get_n_fields info))
+
+(define (g-union-info-get-field info n)
+  (gi->scm (g_union_info_get_field info n)
+           'pointer))
+
+(define (g-union-info-get-n-methods info)
+  (g_union_info_get_n_methods info))
+
+(define (g-union-info-get-method info n)
+  (gi->scm (g_union_info_get_method info n)
+           'pointer))
+
+(define (g-union-info-is-discriminated? info)
+  (gi->scm (g_union_info_is_discriminated info)
+           'boolean))
+
+(define (g-union-info-get-discriminator-offset info)
+  (g_union_info_get_discriminator_offset info))
+
+(define (g-union-info-get-discriminator-type info)
+  (gi->scm (g_union_info_get_discriminator_type info)
+           'pointer))
+
+(define (g-union-info-get-discriminator info n)
+  (gi->scm (g_union_info_get_discriminator info n)
+           'pointer))
+
+(define (g-union-info-find-method info name)
+  (gi->scm (g_union_info_find_method info
+                                     (string->pointer name))
+           'pointer))
+
+(define (g-union-info-get-size info)
+  (g_union_info_get_size info))
+
+(define (g-union-info-get-alignment info)
+  (g_union_info_get_alignment info))
+
+
+;;;
+;;; GI Bindings
+;;;
+
+(define g_union_info_get_n_fields
+  (pointer->procedure int
+                      (dynamic-func "g_union_info_get_n_fields"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_union_info_get_field
+  (pointer->procedure '*
+                      (dynamic-func "g_union_info_get_field"
+				    %libgirepository)
+                      (list '*		;; info
+                            int)))	;; n
+
+(define g_union_info_get_n_methods
+  (pointer->procedure int
+                      (dynamic-func "g_union_info_get_n_methods"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_union_info_get_method
+  (pointer->procedure '*
+                      (dynamic-func "g_union_info_get_method"
+				    %libgirepository)
+                      (list '*		;; info
+                            int)))	;; n
+
+(define g_union_info_is_discriminated
+  (pointer->procedure int
+                      (dynamic-func "g_union_info_is_discriminated"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_union_info_get_discriminator_offset
+  (pointer->procedure int
+                      (dynamic-func "g_union_info_get_discriminator_offset"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_union_info_get_discriminator_type
+  (pointer->procedure '*
+                      (dynamic-func "g_union_info_get_discriminator_type"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_union_info_get_discriminator
+  (pointer->procedure '*
+                      (dynamic-func "g_union_info_get_discriminator"
+				    %libgirepository)
+                      (list '*		;; info
+                            int)))	;; n
+
+(define g_union_info_find_method
+  (pointer->procedure '*
+                      (dynamic-func "g_union_info_find_method"
+				    %libgirepository)
+                      (list '*		;; info
+                            '*)))	;; name
+
+(define g_union_info_get_size
+  (pointer->procedure unsigned-long
+                      (dynamic-func "g_union_info_get_size"
+				    %libgirepository)
+                      (list '*)))
+
+(define g_union_info_get_alignment
+  (pointer->procedure unsigned-long
+                      (dynamic-func "g_union_info_get_alignment"
+				    %libgirepository)
+                      (list '*)))

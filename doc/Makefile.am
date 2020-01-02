@@ -63,6 +63,7 @@ g_golf_TEXINFOS = \
   api-registered-type-info.texi	\
   api-enum-info.texi		\
   api-struct-info.texi		\
+  api-union-info.texi		\
   api-object-info.texi		\
   api-arg-info.texi		\
   api-constant-info.texi	\

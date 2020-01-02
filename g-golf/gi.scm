@@ -45,6 +45,7 @@
   #:use-module (g-golf gi registered-type-info)
   #:use-module (g-golf gi enum-info)
   #:use-module (g-golf gi struct-info)
+  #:use-module (g-golf gi union-info)
   #:use-module (g-golf gi object-info)
   #:use-module (g-golf gi arg-info)
   #:use-module (g-golf gi constant-info)

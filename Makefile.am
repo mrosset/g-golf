@@ -71,6 +71,7 @@ SOURCES = \
 	g-golf/gi/registered-type-info.scm	\
 	g-golf/gi/enum-info.scm			\
 	g-golf/gi/struct-info.scm		\
+	g-golf/gi/union-info.scm		\
 	g-golf/gi/object-info.scm		\
 	g-golf/gi/arg-info.scm			\
 	g-golf/gi/constant-info.scm		\
