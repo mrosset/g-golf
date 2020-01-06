@@ -80,6 +80,7 @@
                               (g-golf gi registered-type-info)
                               (g-golf gi enum-info)
                               (g-golf gi struct-info)
+                              (g-golf gi union-info)
                               (g-golf gi object-info)
                               (g-golf gi arg-info)
                               (g-golf gi constant-info)
