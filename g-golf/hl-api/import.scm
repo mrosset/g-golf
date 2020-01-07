@@ -27,6 +27,7 @@
 
 
 (define-module (g-golf hl-api import)
+  #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
   #:use-module (oop goops)
   #:use-module (g-golf support)
@@ -54,6 +55,7 @@
             gi-import-enum
             gi-import-flag
             gi-import-struct
+            gi-import-union
             gi-import-constant))
 
 
@@ -109,6 +111,11 @@
                      %gi-imported-base-info-types)
          (push! i-type %gi-imported-base-info-types))
        (gi-import-struct info #:recur recur))
+      ((union)
+       (unless (memq i-type
+                     %gi-imported-base-info-types)
+         (push! i-type %gi-imported-base-info-types))
+       (gi-import-union info #:recur recur))
       ((function)
        (unless (memq i-type
                      %gi-imported-base-info-types)
@@ -164,6 +171,38 @@
           (when recur
             (gi-struct-import-methods info))
           gi-struct))))
+
+(define %type-description
+  (@@ (g-golf hl-api function) type-description))
+
+(define* (gi-import-union info #:key (recur #t))
+  (let* ((id (g-registered-type-info-get-g-type info))
+         (name (g-type-name id))
+         (scm-name (string->symbol (g-studly-caps-expand name))))
+    (or (gi-cache-ref 'boxed scm-name)
+        (let* ((fields
+                (map (lambda (field)
+                       (match field
+                         ((f-name f-type-info)
+                          (let ((f-desc (%type-description f-type-info)))
+                            (g-base-info-unref f-type-info)
+                            (list f-name f-desc)))))
+                  (gi-union-import info)))
+               (gi-union
+                (make <gi-union>
+                  #:gtype-id id
+                  #:gi-name name
+                  #:scm-name scm-name
+                  #:size (g-union-info-get-size info)
+                  #:alignment (g-union-info-get-alignment info)
+                  #:fields fields
+                  #:is-discriminated? (g-union-info-is-discriminated? info)
+                  #:discriminator-offset (g-union-info-get-discriminator-offset info))))
+          (gi-cache-set! 'boxed scm-name gi-union)
+          #;(when recur
+            (gi-union-import-methods info))
+          (g-base-info-unref info)
+          gi-union))))
 
 (define* (gi-import-constant info)
   (let* ((gi-name (g-base-info-get-name info))
