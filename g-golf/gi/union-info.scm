@@ -37,6 +37,8 @@
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi base-info)
   #:use-module (g-golf gi registered-type-info)
+  #:use-module (g-golf gi field-info)
+  #:use-module (g-golf gi type-info)
 
   #:duplicates (merge-generics
 		replace
@@ -44,8 +46,8 @@
 		warn
 		last)
 
-  #:export (#;gi-union-import
-	    #;gi-union-value-values
+  #:export (gi-union-import
+	    gi-union-field-desc
 
 	    g-union-info-get-n-fields
 	    g-union-info-get-field
@@ -64,37 +66,38 @@
 ;;; Build Interface
 ;;;
 
-#!
 (define* (gi-union-import info #:key (flag #f))
   (let* ((id (g-registered-type-info-get-g-type info))
          (name (g-type-name id))
-	 (e-vals (gi-union-value-values info)))
-    (make (if flag <gi-flag> <gi-union>)
-      #:gtype-id id
-      #:gi-name name
-      #:union-set e-vals)))
+	 (u-fields (gi-union-field-desc info)))
+    ;; The union fields need to be further processed, but the
+    ;; functionlty to do so is part of the (g-golf hl-api function)
+    ;; module. For this reason, unlike for gi-struct-import, we do not
+    ;; create the <gi-union> instance and let this to be done by the
+    ;; caller.
+    u-fields))
 
-(define (gi-union-value-values info)
-  (letrec ((get-union-values
-	    (lambda (info n i v-set)
+(define (gi-union-field-desc info)
+  (letrec ((get-union-field-desc
+	    (lambda (info n i u-desc)
 	      (if (= i n)
-		  (reverse! v-set)
-		  (let* ((value-info (g-union-info-get-value info i))
-			 (name (g-base-info-get-name value-info))
-			 (value (g-value-info-get-value value-info)))
-		    (g-base-info-unref value-info)
-		    (get-union-values info
-				     n
-				     (+ i 1)
-				     (cons (cons (string->symbol
-                                                  (g-studly-caps-expand name))
-                                                 value)
-					   v-set)))))))
-    (get-union-values info
-		     (g-union-info-get-n-values info)
-		     0
-		     '())))
-!#
+		  (reverse! u-desc)
+		  (let* ((f-info (g-union-info-get-field info i))
+			 (f-name (g-base-info-get-name f-info))
+			 (f-type-info (g-field-info-get-type f-info))
+                         (f-type (g-type-info-get-tag f-type-info)))
+		    (g-base-info-unref f-info)
+		    (get-union-field-desc info
+				          n
+				          (+ i 1)
+				          (cons (list (string->symbol
+                                                       (g-studly-caps-expand f-name))
+                                                      f-type-info)
+					        u-desc)))))))
+    (get-union-field-desc info
+		          (g-union-info-get-n-fields info)
+		          0
+		          '())))
 
 
 ;;;
