@@ -38,10 +38,33 @@
 (define-module (g-golf support union)
   #:use-module (system foreign)
   #:use-module (rnrs bytevectors)
+  #:use-module (oop goops)
+  #:use-module (g-golf support goops)
+  #:use-module (g-golf support g-export)
+  #:use-module (g-golf support utils)
+
+  #:duplicates (merge-generics
+		replace
+		warn-override-core
+		warn
+		last)
 
   #:export (make-c-union
             c-union-ref
-            c-union-set!))
+            c-union-set!
+
+            <gi-union>))
+
+
+(g-export #;!gtype-id
+          !gi-name
+          !scm-name
+          !size
+          !alignment
+          !fields
+          !is-discriminated?
+          !discriminator-offset
+          !discriminator)
 
 
 (define %readers
@@ -70,3 +93,23 @@
   (let ((bv (pointer->bytevector foreign size))
         (offset (%align 0 (alignof type))))
     ((assv-ref %writers type) bv offset val)))
+
+
+(define-class <gi-union> ()
+  (gtype-id #:accessor !gtype-id #:init-keyword #:gtype-id)
+  (gi-name #:accessor !gi-name #:init-keyword #:gi-name)
+  (scm-name #:accessor !scm-name)
+  (size #:accessor !size #:init-keyword #:size)
+  (alignment #:accessor !alignment #:init-keyword #:alignment)
+  (fields #:accessor !fields #:init-keyword #:fields)
+  (is-discriminated? #:accessor !is-discriminated?
+                     #:init-keyword #:is-discriminated?)
+  (discriminator-offset #:accessor !discriminator-offset
+                        #:init-keyword #:discriminator-offset
+                        #:init-value #f)
+  (discriminator #:accessor !discriminator
+                 #:init-keyword #:discriminator
+                 #:init-value #f))
+
+#;(define-method (initialize (self <gi-union>) initargs)
+  (next-method))
