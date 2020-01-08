@@ -36,6 +36,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf support flag)
   #:use-module (g-golf support struct)
+  #:use-module (g-golf support union)
   #:use-module (g-golf support utils)
   #:use-module (g-golf gi cache)
   #:use-module (g-golf gi utils)
@@ -254,7 +255,8 @@
 (define (g-value-get-boxed g-value)
   (let ((gi-boxed (g-value-get-gi-boxed g-value))
         (value (g_value_get_boxed g-value)))
-    (if (or (!is-opaque? gi-boxed)
+    (if (or (is-a? gi-boxed <gi-union>)
+            (!is-opaque? gi-boxed)
             (!is-semi-opaque? gi-boxed))
         value
         (parse-c-struct value
