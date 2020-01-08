@@ -111,5 +111,9 @@
                  #:init-keyword #:discriminator
                  #:init-value #f))
 
-#;(define-method (initialize (self <gi-union>) initargs)
-  (next-method))
+(define-method (initialize (self <gi-union>) initargs)
+  (next-method)
+  (let ((gi-name (get-keyword #:gi-name initargs #f)))
+    (and gi-name
+         (slot-set! self
+                    'scm-name (g-name->scm-name gi-name)))))
