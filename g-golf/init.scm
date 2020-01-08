@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2016 - 2018
+;;;; Copyright (C) 2016 - 2020
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -31,6 +31,7 @@
 
   #:export (%libgirepository
 	    %libglib
+            %libgdk
 	    %libgobject
             %libg-golf
             %use-par-map))
@@ -38,6 +39,7 @@
 
 (define %libgirepository (dynamic-link "libgirepository-1.0"))
 (define %libglib (dynamic-link "libglib-2.0"))
+(define %libgdk (dynamic-link "libgdk-3"))
 (define %libgobject (dynamic-link "libgobject-2.0"))
 
 (define %libg-golf (dynamic-link "libg-golf"))
