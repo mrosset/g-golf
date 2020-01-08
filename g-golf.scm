@@ -58,6 +58,7 @@
   #:use-module (g-golf support union)
   #:use-module (g-golf support bytevector)
   #:use-module (g-golf init)
+  #:use-module (g-golf gdk events)
   #:use-module (g-golf glib mem-alloc)
   #:use-module (g-golf glib main-event-loop)
   #:use-module (g-golf glib io-channels)
@@ -131,6 +132,7 @@
                               (g-golf support union)
                               (g-golf support bytevector)
 			      (g-golf init)
+                              (g-golf gdk events)
 			      (g-golf glib mem-alloc)
                               (g-golf glib main-event-loop)
                               (g-golf glib io-channels)
@@ -181,3 +183,4 @@
 ;;;
 
 (gi-import-by-name "GLib" "IOChannel" #:recur #f)
+(gi-import-by-name "Gdk" "Event")

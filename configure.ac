@@ -6,7 +6,7 @@ dnl
 
 define(G_GOLF_CONFIGURE_COPYRIGHT,[[
 
-Copyright (C) 2016 - 2018
+Copyright (C) 2016 - 2020
 Free Software Foundation, Inc.
 
 This file is part of GNU G-Golf
