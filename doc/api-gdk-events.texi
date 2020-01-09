@@ -1,0 +1,263 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2020 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node Events
+@subsection Events
+
+G-Golf Gdk Events low level API.@*
+Events — Functions for handling events from the window system
+
+
+@subheading Procedures
+
+@indentedblock
+@table @code
+@item @ref{gdk-event-get-event-type}
+@end table
+@end indentedblock
+
+
+@subheading Types and Values
+
+@indentedblock
+@table @code
+@item @ref{%gdk-event-type}
+@end table
+@end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+
+This section describes functions dealing with events from the window
+system.
+
+
+@subheading Procedures
+
+Note: in this section, the @var{event} argument is [must be] a pointer to
+a @code{GdkEvent}.
+
+
+@anchor{gdk-event-get-event-type}
+@deffn Procedure gdk-event-get-event-type event
+
+Returns the event type name.
+
+Obtains and returns the @ref{%gdk-event-type} (symbol) name for
+@var{event}.
+@end deffn
+
+
+@subheading Types and Values
+
+
+@anchor{%gdk-event-type}
+@defivar <gi-enum> %gdk-event-type
+
+Specifies the type of the event.
+
+Do not confuse these events with the signals that GTK+ widgets
+emit. Although many of these events result in corresponding signals
+being emitted, the events are often transformed or filtered along the
+way.
+
+An instance of @code{<gi-enum>}, who's members are the scheme
+representation of the @code{GdkEventType}.
+
+@indentedblock
+@emph{gi-name}: GdkEventType @*
+@emph{scm-name}: gdk-event-type @*
+@emph{enum-set}:
+@indentedblock
+@table @code
+
+@item nothing
+A special code to indicate a null event.
+
+@item delete
+
+The window manager has requested that the toplevel window be hidden or
+destroyed, usually when the user clicks on a special icon in the title
+bar.
+
+@item destroy
+The window has been destroyed.
+
+@item expose
+All or part of the window has become visible and needs to be redrawn.
+
+@item motion-notify
+The pointer (usually a mouse) has moved.
+
+@item button-press
+A mouse button has been pressed.
+
+@item 2button-press
+A mouse button has been double-clicked (clicked twice within a short
+period of time). Note that each click also generates a button-press
+event.
+
+@item double-button-press
+Alias for 2button-press, added in 3.6.
+
+@item 3button-press
+A mouse button has been clicked 3 times in a short period of time. Note
+that each click also generates a button-press event.
+
+@item triple-button-press
+Alias for 3button-press, added in 3.6.
+
+@item button-release
+A mouse button has been released.
+
+@item key-press
+A key has been pressed.
+
+@item key-release
+A key has been released.
+
+@item enter-notify
+The pointer has entered the window.
+
+@item leave-notify
+The pointer has left the window.
+
+@item focus-change
+The keyboard focus has entered or left the window.
+
+@item configure
+The size, position or stacking order of the window has changed. Note
+that GTK+ discards these events for window-child windows.
+
+@item map
+The window has been mapped.
+
+@item unmap
+The window has been unmapped.
+
+@item property-notify
+A property on the window has been changed or deleted.
+
+@item selection-clear
+
+The application has lost ownership of a selection.
+
+@item selection-request
+Another application has requested a selection.
+
+@item selection-notify
+A selection has been received.
+
+@item proximity-in
+An input device has moved into contact with a sensing surface (e.g. a
+touchscreen or graphics tablet).
+
+@item proximity-out
+An input device has moved out of contact with a sensing surface.
+
+@item drag-enter
+The mouse has entered the window while a drag is in progress.
+
+@item drag-leave
+The mouse has left the window while a drag is in progress.
+
+@item drag-motion
+The mouse has moved in the window while a drag is in progress.
+
+@item drag-status
+The status of the drag operation initiated by the window has changed.
+
+@item drop-start
+A drop operation onto the window has started.
+
+@item drop-finished
+The drop operation initiated by the window has completed.
+
+@item client-event
+A message has been received from another application.
+
+@item visibility-notify
+The window visibility status has changed.
+
+@item scroll
+The scroll wheel was turned
+
+@item window-state
+The state of a window has changed. See GdkWindowState for the possible
+window states
+
+@item setting
+A setting has been modified.
+
+@item owner-change
+The owner of a selection has changed. This event type was added in 2.6
+
+@item grab-broken
+A pointer or keyboard grab was broken. This event type was added in 2.8.
+
+@item damage
+The content of the window has been changed. This event type was added in
+2.14.
+
+@item touch-begin
+A new touch event sequence has just started. This event type was added
+in 3.4.
+
+@item touch-update
+A touch event sequence has been updated. This event type was added in
+3.4.
+
+@item touch-end
+A touch event sequence has finished. This event type was added in 3.4.
+
+@item touch-cancel
+A touch event sequence has been canceled. This event type was added in
+3.4.
+
+@item touchpad-swipe
+A touchpad swipe gesture event, the current state is determined by its
+phase field. This event type was added in 3.18.
+
+@item touchpad-pinch
+A touchpad pinch gesture event, the current state is determined by its
+phase field. This event type was added in 3.18.
+
+@item pad-button-press
+A tablet pad button press event. This event type was added in 3.22.
+
+@item pad-button-release
+A tablet pad button release event. This event type was added in 3.22.
+
+@item pad-ring
+A tablet pad axis event from a "ring". This event type was added in
+3.22.
+
+@item pad-strip
+A tablet pad axis event from a "strip". This event type was added in
+3.22.
+
+@item pad-group-mode
+A tablet pad group mode change. This event type was added in 3.22.
+
+@item event-last
+marks the end of the GdkEventType enumeration. Added in 2.18
+
+@end table
+@end indentedblock
+@end indentedblock
+@end defivar

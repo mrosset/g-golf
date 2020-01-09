@@ -15,6 +15,7 @@
 * API Overview::
 * Glib::
 * GObject::
+* Gdk::
 * GObject Introspection::
 * Support::
 * G-Golf High Level API::
@@ -37,6 +38,12 @@
 @section GObject
 
 @include api-gobject.texi
+
+
+@node Gdk
+@section Gdk
+
+@include api-gdk.texi
 
 
 @node GObject Introspection

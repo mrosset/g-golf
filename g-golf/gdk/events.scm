@@ -55,7 +55,7 @@
 
 (define (gdk-event-get-event-type event)
   (enum->symbol %gdk-event-type
-                (dimfi (gdk_event_get_event_type event))))
+                (gdk_event_get_event_type event)))
 
 
 ;;;
