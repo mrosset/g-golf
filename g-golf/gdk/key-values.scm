@@ -26,44 +26,48 @@
 ;;; Code:
 
 
-(define-module (g-golf gdk)
+(define-module (g-golf gdk key-values)
+  #:use-module (ice-9 match)
   #:use-module (oop goops)
-  #:use-module (oop goops describe)
-  #:use-module (ice-9 binary-ports)
-  #:use-module (rnrs bytevectors)
   #:use-module (system foreign)
-  #:use-module (g-golf support modules)
-  #:use-module (g-golf support goops)
-  #:use-module (g-golf support g-export)
+  #:use-module (g-golf init)
+  #:use-module (g-golf support libg-golf)
   #:use-module (g-golf support utils)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support struct)
   #:use-module (g-golf support union)
-  #:use-module (g-golf init)
-  #:use-module (g-golf gdk events)
-  #:use-module (g-golf gdk event-structures)
-  #:use-module (g-golf gdk key-values)
-
+  #:use-module (g-golf gi utils)
+  #:use-module (g-golf gi cache)
+  
   #:duplicates (merge-generics
 		replace
 		warn-override-core
 		warn
-		last))
+		last)
+
+  #:export (gdk-keyval-name))
 
 
-(eval-when (expand load eval)
-  (re-export-public-interface (oop goops)
-                              (oop goops describe)
-			      (ice-9 binary-ports)
-			      (rnrs bytevectors)
-			      (system foreign)
-			      (g-golf support goops)
-			      (g-golf support g-export)
-			      (g-golf support utils)
-			      (g-golf support enum)
-                              (g-golf support struct)
-                              (g-golf support union)
-			      (g-golf init)
-			      (g-golf gdk events)
-                              (g-golf gdk event-structures)
-                              (g-golf gdk key-values)))
+;;;
+;;; Low level API
+;;;
+
+(define (gdk-keyval-name keyval)
+  (string->symbol (gi->scm (gdk_keyval_name keyval)
+                           'string)))
+
+
+;;;
+;;; Gdk Bindings
+;;;
+
+(define gdk_keyval_name
+  (pointer->procedure '*
+                      (dynamic-func "gdk_keyval_name"
+				    %libgdk)
+                      (list unsigned-int)))	;; keyval
+
+
+;;;
+;;; Types and Values
+;;;

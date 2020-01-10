@@ -45,6 +45,7 @@ SOURCES = \
 	g-golf/init.scm				\
 	g-golf/gdk/events.scm			\
 	g-golf/gdk/event-structures.scm		\
+	g-golf/gdk/key-values.scm		\
 	g-golf/gdk.scm				\
 	g-golf/glib/mem-alloc.scm		\
 	g-golf/glib/main-event-loop.scm		\
