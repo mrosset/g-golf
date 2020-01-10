@@ -32,6 +32,7 @@
   #:use-module (g-golf init)
   #:use-module (g-golf support libg-golf)
   #:use-module (g-golf support utils)
+  #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
   #:use-module (g-golf support struct)
   #:use-module (g-golf support union)
@@ -44,9 +45,25 @@
 		warn
 		last)
 
-  #:export (gdk-event-get-event-type
+  #:export (<gdk-event>
+
+            gdk-event-get-event-type
 
             %gdk-event-type))
+
+
+(g-export !event
+          !event-items
+
+          gdk-event:type)
+
+
+(define-class <gdk-event> ()
+  (event #:accessor !event #:init-keyword #:event)
+  (event-items #:accessor !event-items #:init-keyword #:event-items))
+
+(define-method (gdk-event:type (self <gdk-event>))
+  (gdk-event-get-event-type (!event self)))
 
 
 ;;;
