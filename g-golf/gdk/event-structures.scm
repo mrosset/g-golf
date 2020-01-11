@@ -48,7 +48,9 @@
 		warn
 		last)
 
-  #:export (<gdk-event-key>
+  #:export (make-gdk-event
+
+            <gdk-event-key>
             gdk-event-key:window
             gdk-event-key:send-event
             gdk-event-key:time
@@ -72,6 +74,14 @@
 ;;;
 ;;;
 ;;;
+
+(define (make-gdk-event event)
+  (case (gdk-event-get-event-type event)
+    ((key-press
+      key-release)
+     (make <gdk-event-key> #:event event))
+    (else
+     event)))
 
 (define-class <gdk-event-key> (<gdk-event>))
 
