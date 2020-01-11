@@ -52,11 +52,7 @@
   
   #:export (<gtype-class>
             <gtype-instance>
-            %g-inst-cache-default-size
-            %g-inst-cache
-            g-inst-cache-ref
-            g-inst-cache-set!
-            g-inst-cache-for-each
+
             g-inst-cache-show))
 
 
@@ -212,22 +208,8 @@
 
 
 ;;;
-;;; The g-inst(ance) cache
+;;; Instance cache methods 'completion'
 ;;;
-
-(define %g-inst-cache-default-size 1013)
-
-(define %g-inst-cache
-  (make-hash-table %g-inst-cache-default-size))
-
-(define (g-inst-cache-ref g-inst)
-  (hashq-ref %g-inst-cache
-             (pointer-address g-inst)))
-
-(define (g-inst-cache-set! g-inst inst)
-  (hashq-set! %g-inst-cache
-              (pointer-address g-inst)
-              inst))
 
 (define-method (g-inst-cache-remove! (self <foreign>))
   (hashq-remove! %g-inst-cache
@@ -237,15 +219,11 @@
   (hashq-remove! %g-inst-cache
                  (pointer-address (!g-inst self))))
 
-(define (g-inst-cache-for-each proc)
-  (hash-for-each proc
-                 %g-inst-cache))
-
 (define %g-inst-cache-show-prelude
   "The g-inst cache entries are")
 
 (define* (g-inst-cache-show #:optional
-                                (port (current-output-port)))
+                            (port (current-output-port)))
   (format port "~A~%"
           %g-inst-cache-show-prelude)
   (letrec ((show (lambda (key value)

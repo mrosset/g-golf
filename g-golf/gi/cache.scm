@@ -36,6 +36,7 @@
 (define-module (g-golf gi cache)
   #:use-module (ice-9 match)
   #:use-module (srfi srfi-1)
+  #:use-module (system foreign)
 
   #:export (%gi-cache
 
@@ -43,7 +44,14 @@
             gi-cache-set!
 
             gi-cache-show
-            gi-cache-find))
+            gi-cache-find
+
+            ;; instance cache
+            %g-inst-cache-default-size
+            %g-inst-cache
+            g-inst-cache-ref
+            g-inst-cache-set!
+            g-inst-cache-for-each))
 
 
 (define %gi-cache
@@ -106,3 +114,26 @@ and returns a list of the S-KEY for which (PRED S-VAL) was satisfied."
            (and (pred s-val)
                 s-key))))
       (assq-ref %gi-cache m-key)))
+
+
+;;;
+;;; The g-inst(ance) cache
+;;;
+
+(define %g-inst-cache-default-size 1013)
+
+(define %g-inst-cache
+  (make-hash-table %g-inst-cache-default-size))
+
+(define (g-inst-cache-ref g-inst)
+  (hashq-ref %g-inst-cache
+             (pointer-address g-inst)))
+
+(define (g-inst-cache-set! g-inst inst)
+  (hashq-set! %g-inst-cache
+              (pointer-address g-inst)
+              inst))
+
+(define (g-inst-cache-for-each proc)
+  (hash-for-each proc
+                 %g-inst-cache))
