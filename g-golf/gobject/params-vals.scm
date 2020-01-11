@@ -38,6 +38,7 @@
   #:use-module (g-golf support struct)
   #:use-module (g-golf support union)
   #:use-module (g-golf support utils)
+  #:use-module (g-golf gdk)
   #:use-module (g-golf gi cache)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gobject type-info)
@@ -255,12 +256,16 @@
 (define (g-value-get-boxed g-value)
   (let ((gi-boxed (g-value-get-gi-boxed g-value))
         (value (g_value_get_boxed g-value)))
-    (if (or (is-a? gi-boxed <gi-union>)
-            (!is-opaque? gi-boxed)
-            (!is-semi-opaque? gi-boxed))
-        value
-        (parse-c-struct value
-                        (!scm-types gi-boxed)))))
+    (cond ((is-a? gi-boxed <gi-union>)
+           (if (string=? (!scm-name gi-boxed) "gdk-event")
+               (make-gdk-event value)
+               value))
+          ((or (!is-opaque? gi-boxed)
+               (!is-semi-opaque? gi-boxed))
+           value)
+          (else
+           (parse-c-struct value
+                           (!scm-types gi-boxed))))))
 
 (define (g-value-set-boxed g-value boxed)
   (let* ((gi-boxed (g-value-get-gi-boxed g-value))
