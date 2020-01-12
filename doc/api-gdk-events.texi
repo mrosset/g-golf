@@ -14,10 +14,21 @@ G-Golf Gdk Events low level API.@*
 Events — Functions for handling events from the window system
 
 
-@subheading Procedures
+@subheading Class
 
 @indentedblock
 @table @code
+@item @ref{<gdk-event>}
+@end table
+@end indentedblock
+
+
+@subheading Procedures, Accessors and Methods
+
+@indentedblock
+@table @code
+@item @ref{!event}
+@item @ref{!event-items}
 @item @ref{gdk-event-get-event-type}
 @end table
 @end indentedblock
@@ -47,10 +58,55 @@ This section describes functions dealing with events from the window
 system.
 
 
-@subheading Procedures
+@subheading Classes
+
+@anchor{<gdk-event>}
+@deftp Class <gdk-event>
+
+The superclass of all Gdk type of event. Its slots are:
+
+@indentedblock
+@table @code
+@item @emph{event}
+#:accessor !event @*
+#:init-keyword #:event
+
+A pointer to a @code{GdkEvent}.
+
+@item @emph{event-items}
+#:accessor !event-items @*
+#:init-keyword #:event-items
+
+The list of items resulting from the parsing of @var{event}, according
+to its corresponding event structure definition.
+@end table
+@end indentedblock
+
+@end deftp
+
+
+@anchor{!event}
+@anchor{!event-items}
+@deffn Accessor !event inst
+@deffnx Accessor !event-items inst
+
+Returns the content of their respective slot for @var{inst}.
+@end deffn
+
+
+
+@subheading Procedures, Accessors and Methods
 
 Note: in this section, the @var{event} argument is [must be] a pointer to
 a @code{GdkEvent}.
+
+@anchor{gdk-event:type}
+@deffn Method gdk-event:type inst
+
+Returns a symbol.
+
+Obtains and returns the event type (symbol) name for @var{inst}.
+@end deffn
 
 
 @anchor{gdk-event-get-event-type}
