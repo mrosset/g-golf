@@ -85,6 +85,12 @@ to its corresponding event structure definition.
 @end deftp
 
 
+@subheading Procedures, Accessors and Methods
+
+Note: in this section, the @var{event} argument is [must be] a pointer to
+a @code{GdkEvent}.
+
+
 @anchor{!event}
 @anchor{!event-items}
 @deffn Accessor !event inst
@@ -93,12 +99,6 @@ to its corresponding event structure definition.
 Returns the content of their respective slot for @var{inst}.
 @end deffn
 
-
-
-@subheading Procedures, Accessors and Methods
-
-Note: in this section, the @var{event} argument is [must be] a pointer to
-a @code{GdkEvent}.
 
 @anchor{gdk-event:type}
 @deffn Method gdk-event:type inst
