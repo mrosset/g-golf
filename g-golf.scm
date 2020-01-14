@@ -188,3 +188,4 @@
 
 (gi-import-by-name "GLib" "IOChannel" #:recur #f)
 (gi-import-by-name "Gdk" "Event")
+(gi-import-by-name "Gdk" "ModifierType")

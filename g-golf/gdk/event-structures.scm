@@ -37,6 +37,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf support struct)
   #:use-module (g-golf support union)
+  #:use-module (g-golf support flag)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi cache)
   #:use-module (g-golf gdk events)
@@ -87,7 +88,7 @@
 
 (define-method (initialize (self <gdk-event-key>) initargs)
   (let ((event (or (get-keyword #:event initargs #f)
-                  (error "Missing #:event initarg: " initargs))))
+                   (error "Missing #:event initarg: " initargs))))
     (next-method)
     (slot-set! self 'event-items
                (gdk-event-key-parse event))))
@@ -108,9 +109,10 @@
      time)))
 
 (define-method (gdk-event-key:state (self <gdk-event-key>))
-  (match (!event-items self)
-    ((_ _ _ _ state _ _ _ _ _ _)
-     state)))
+  (let ((modifier-flags (gi-cache-ref 'flag 'gdk-modifier-type)))
+    (match (!event-items self)
+      ((_ _ _ _ state _ _ _ _ _ _)
+       (gi-integer->gflags modifier-flags state)))))
 
 (define-method (gdk-event-key:keyval (self <gdk-event-key>))
   (match (!event-items self)
