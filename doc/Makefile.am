@@ -55,6 +55,7 @@ g_golf_TEXINFOS = \
   api-gobject-signals.texi	\
   api-gdk.texi			\
   api-gdk-events.texi		\
+  api-gdk-event-structures.texi \
   api-gir.texi			\
   api-repository.texi		\
   api-common-types.texi		\

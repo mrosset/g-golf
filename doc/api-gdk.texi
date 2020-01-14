@@ -23,8 +23,9 @@ they might be some exception in the future.
 @menu
 
 * Events:: Functions for handling events from the window system.
+* Event Structures:: Data structures specific to each type of event.
 @end menu
 
 
 @include api-gdk-events.texi
-
+@include api-gdk-event-structures.texi

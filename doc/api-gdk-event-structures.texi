@@ -1,0 +1,185 @@
+@c -*-texinfo-*-
+@c This is part of the GNU G-Golf Reference Manual.
+@c Copyright (C) 2020 Free Software Foundation, Inc.
+@c See the file g-golf.texi for copying conditions.
+
+
+@c @defindex tl
+
+
+@node Event Structures
+@subsection Event Structures
+
+G-Golf Gdk Events Structures low level API.@*
+Events Structures — Data structures specific to each type of event
+
+
+@subheading Class
+
+@indentedblock
+@table @code
+@item @ref{<gdk-event-key>}
+@end table
+@end indentedblock
+
+
+@subheading Procedures and Methods
+
+@indentedblock
+@table @code
+@item @ref{make-gdk-event}
+@item @ref{gdk-event-key:window}
+@item @ref{gdk-event-key:send-event}
+@item @ref{gdk-event-key:time}
+@item @ref{gdk-event-key:state}
+@item @ref{gdk-event-key:keyval}
+@item @ref{gdk-event-key:keyname}
+@item @ref{gdk-event-key:length}
+@item @ref{gdk-event-key:string}
+@item @ref{gdk-event-key:hardware-keycode}
+@item @ref{gdk-event-key:group}
+@item @ref{gdk-event-key:is-modifier}
+@end table
+@end indentedblock
+
+
+@c @subheading Types and Values
+
+@c @indentedblock
+@c @table @code
+@c @item @ref{%gdk-event-key-struct}
+@c @end table
+@c @end indentedblock
+
+
+@c @subheading Struct Hierarchy
+
+@c @indentedblock
+@c GIBaseInfo           	       		@*
+@c @ @ +--- GIRegisteredTypeInfo  		@*
+@c @ @ @ @ @ @ @ @ @ @ @  +--- GIEnumInfo
+@c @end indentedblock
+
+
+@subheading Description
+
+The event structures contain data specific to each type of event in
+@code{GDK}.
+
+
+@subheading Classes
+
+@anchor{<gdk-event-key>}
+@deftp Class <gdk-event-key> (@ref{<gdk-event>})
+
+Describes a key press or key release event.
+@end deftp
+
+
+@subheading Procedures and Methods
+
+Note: in this section, the @var{event} argument is [must be] a pointer to
+a @code{GdkEvent}.
+
+
+@anchor{make-gdk-event}
+@deffn Procedure make-gdk-event event
+
+Returns an instance.
+
+Creates and returns an instance of the gdk event subclass for @var{event},
+according to its event type.
+@end deffn
+
+
+@anchor{gdk-event-key:window}
+@anchor{gdk-event-key:send-event}
+@anchor{gdk-event-key:time}
+@anchor{gdk-event-key:state}
+@anchor{gdk-event-key:keyval}
+@anchor{gdk-event-key:keyname}
+@anchor{gdk-event-key:length}
+@anchor{gdk-event-key:string}
+@anchor{gdk-event-key:hardware-keycode}
+@anchor{gdk-event-key:group}
+@anchor{gdk-event-key:is-modifier}
+@deffn Method gdk-event-key:window (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:send-event (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:time (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:state (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:keyval (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:keyname (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:length (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:string (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:hardware-keycode (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:group (inst <gdk-event-key>)
+@deffnx Method gdk-event-key:is-modifier (inst <gdk-event-key>)
+
+Respectively returns the scheme representation of the content of the
+@var{inst} event key element, refered to by its name - the part of the
+method name that follows the semi-colon, which are:
+
+
+@indentedblock
+@table @code
+@item @emph{window}
+
+A pointer to the  @var{GdkWindow} that received the event.
+
+@item @emph{send-event}
+
+#t if the event was sent explicitly.
+
+@item @emph{time}
+
+The time of the event in milliseconds.
+
+@item @emph{state}
+
+A list representing the state of the modifier keys (e.g. Control, Shift
+and Alt) and the pointer buttons@footnote{The @code{GdkModifierType} is
+obtained by introspection, from the "Gdk" namespace, when the (g-golf)
+module is imported (used). You may obtain its @code{<gi-flag>} instance
+doing @code{(gi-cache-ref 'flag 'gdk-modifier-type)}, and visualize its
+content using @code{describe}.} Please refer to the
+@uref{@value{UGDK-ModifierType}, enum GdkModifierType} section of the
+Gdk Reference Manual for a complete list and description of all modifier
+bit-flags.
+
+@item @emph{keyval}
+
+The key value (an unsigned integer) that was pressed or released.
+
+@item @emph{keyname}
+
+The key (symbol) name as returned by calling @code{(gdk-keyval-name
+keyval)}.
+
+@item @emph{length}
+
+The length of @code{string}.
+
+@item @emph{string}
+
+A string containing an approximation of the text that would result from
+this keypress.
+
+@item @emph{hardware-keycode}
+
+The raw code of the key that was pressed or released.
+
+@item @emph{group}
+
+The keyboard group.
+
+@item @emph{is-modifier}
+
+A flag that indicates if hardware-keycode is mapped to a modifier.
+@end table
+@end indentedblock
+
+
+@end deffn
+
+
+@c @subheading Types and Values
