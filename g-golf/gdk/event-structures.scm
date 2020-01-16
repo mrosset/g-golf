@@ -35,8 +35,8 @@
   #:use-module (g-golf support utils)
   #:use-module (g-golf support g-export)
   #:use-module (g-golf support enum)
-  #:use-module (g-golf support struct)
-  #:use-module (g-golf support union)
+  ;;#:use-module (g-golf support struct)
+  ;;#:use-module (g-golf support union)
   #:use-module (g-golf support flag)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi cache)
@@ -53,20 +53,20 @@
 
             <gdk-event-key>
             gdk-event-key:window
-            gdk-event-key:send-event
+            ;; gdk-event-key:send-event
             gdk-event-key:time
             gdk-event-key:state
             gdk-event-key:keyval
             gdk-event-key:keyname
-            gdk-event-key:length
-            gdk-event-key:string
+            ;; gdk-event-key:length
+            ;; gdk-event-key:string
             gdk-event-key:hardware-keycode
-            gdk-event-key:group
-            gdk-event-key:is-modifier
+            ;; gdk-event-key:group
+            ;; gdk-event-key:is-modifier
 
-            gdk-event-key-parse
+            #;gdk-event-key-parse
 
-            %gdk-event-key))
+            #;%gdk-event-key))
 
 
 #;(g-export !items)
@@ -90,59 +90,50 @@
   (let ((event (or (get-keyword #:event initargs #f)
                    (error "Missing #:event initarg: " initargs))))
     (next-method)
-    (slot-set! self 'event-items
+    #;(slot-set! self 'event-items
                (gdk-event-key-parse event))))
 
 (define-method (gdk-event-key:window (self <gdk-event-key>))
-  (match (!event-items self)
-    ((_ window _ _ _ _ _ _ _ _ _)
-     window)))
+  (gdk-event-get-window (!event self)))
 
-(define-method (gdk-event-key:send-event (self <gdk-event-key>))
+#;(define-method (gdk-event-key:send-event (self <gdk-event-key>))
   (match (!event-items self)
     ((_ _ send-event _ _ _ _ _ _ _ _)
      (gi->scm send-event 'boolean))))
 
 (define-method (gdk-event-key:time (self <gdk-event-key>))
-  (match (!event-items self)
-    ((_ _ _ time _ _ _ _ _ _ _)
-     time)))
+  (gdk-event-get-state (!event self)))
 
 (define-method (gdk-event-key:state (self <gdk-event-key>))
   (let ((modifier-flags (gi-cache-ref 'flag 'gdk-modifier-type)))
-    (match (!event-items self)
-      ((_ _ _ _ state _ _ _ _ _ _)
-       (gi-integer->gflags modifier-flags state)))))
+    (gi-integer->gflags modifier-flags
+                        (gdk-event-get-state (!event self)))))
 
 (define-method (gdk-event-key:keyval (self <gdk-event-key>))
-  (match (!event-items self)
-    ((_ _ _ _ _ keyval _ _ _ _ _)
-     keyval)))
+  (gdk-event-get-keyval (!event self)))
 
 (define-method (gdk-event-key:keyname (self <gdk-event-key>))
   (gdk-keyval-name (gdk-event-key:keyval self)))
 
-(define-method (gdk-event-key:length (self <gdk-event-key>))
+#;(define-method (gdk-event-key:length (self <gdk-event-key>))
   (match (!event-items self)
     ((_ _ _ _ _ _ length _ _ _ _)
      length)))
 
-(define-method (gdk-event-key:string (self <gdk-event-key>))
+#;(define-method (gdk-event-key:string (self <gdk-event-key>))
   (match (!event-items self)
     ((_ _ _ _ _ _ _ str _ _ _)
      (gi->scm str 'string))))
 
 (define-method (gdk-event-key:hardware-keycode (self <gdk-event-key>))
-  (match (!event-items self)
-    ((_ _ _ _ _ _ _ _ hardware-keycode _ _)
-     hardware-keycode)))
+  (gdk-event-get-keycode (!event self)))
 
-(define-method (gdk-event-key:group (self <gdk-event-key>))
+#;(define-method (gdk-event-key:group (self <gdk-event-key>))
   (match (!event-items self)
     ((_ _ _ _ _ _ _ _ _ group _)
      group)))
 
-(define-method (gdk-event-key:is-modifier (self <gdk-event-key>))
+#;(define-method (gdk-event-key:is-modifier (self <gdk-event-key>))
   (match (!event-items self)
     ((_ _ _ _ _ _ _ _ _ _ is-modifier)
      (gi->scm is-modifier 'boolean))))
@@ -152,7 +143,7 @@
 ;;; Low level API
 ;;;
 
-(define (gdk-event-key-parse event)
+#;(define (gdk-event-key-parse event)
   (parse-c-struct event
                   %gdk-event-key-struct))
 
@@ -163,7 +154,7 @@
 ;;; Types and Values
 ;;;
 
-(define %gdk-event-key-struct
+#;(define %gdk-event-key-struct
   (list int		;; type
         '*		;; window
         int8		;; send event

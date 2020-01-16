@@ -29,16 +29,16 @@ Events Structures — Data structures specific to each type of event
 @table @code
 @item @ref{make-gdk-event}
 @item @ref{gdk-event-key:window}
-@item @ref{gdk-event-key:send-event}
+@c @item @ref{gdk-event-key:send-event}
 @item @ref{gdk-event-key:time}
 @item @ref{gdk-event-key:state}
 @item @ref{gdk-event-key:keyval}
 @item @ref{gdk-event-key:keyname}
-@item @ref{gdk-event-key:length}
-@item @ref{gdk-event-key:string}
+@c @item @ref{gdk-event-key:length}
+@c @item @ref{gdk-event-key:string}
 @item @ref{gdk-event-key:hardware-keycode}
-@item @ref{gdk-event-key:group}
-@item @ref{gdk-event-key:is-modifier}
+@c @item @ref{gdk-event-key:group}
+@c @item @ref{gdk-event-key:is-modifier}
 @end table
 @end indentedblock
 
@@ -93,27 +93,27 @@ according to its event type.
 
 
 @anchor{gdk-event-key:window}
-@anchor{gdk-event-key:send-event}
+@c @anchor{gdk-event-key:send-event}
 @anchor{gdk-event-key:time}
 @anchor{gdk-event-key:state}
 @anchor{gdk-event-key:keyval}
 @anchor{gdk-event-key:keyname}
-@anchor{gdk-event-key:length}
-@anchor{gdk-event-key:string}
+@c @anchor{gdk-event-key:length}
+@c @anchor{gdk-event-key:string}
 @anchor{gdk-event-key:hardware-keycode}
-@anchor{gdk-event-key:group}
-@anchor{gdk-event-key:is-modifier}
+@c @anchor{gdk-event-key:group}
+@c @anchor{gdk-event-key:is-modifier}
 @deffn Method gdk-event-key:window (inst <gdk-event-key>)
-@deffnx Method gdk-event-key:send-event (inst <gdk-event-key>)
+@c @deffnx Method gdk-event-key:send-event (inst <gdk-event-key>)
 @deffnx Method gdk-event-key:time (inst <gdk-event-key>)
 @deffnx Method gdk-event-key:state (inst <gdk-event-key>)
 @deffnx Method gdk-event-key:keyval (inst <gdk-event-key>)
 @deffnx Method gdk-event-key:keyname (inst <gdk-event-key>)
-@deffnx Method gdk-event-key:length (inst <gdk-event-key>)
-@deffnx Method gdk-event-key:string (inst <gdk-event-key>)
+@c @deffnx Method gdk-event-key:length (inst <gdk-event-key>)
+@c @deffnx Method gdk-event-key:string (inst <gdk-event-key>)
 @deffnx Method gdk-event-key:hardware-keycode (inst <gdk-event-key>)
-@deffnx Method gdk-event-key:group (inst <gdk-event-key>)
-@deffnx Method gdk-event-key:is-modifier (inst <gdk-event-key>)
+@c @deffnx Method gdk-event-key:group (inst <gdk-event-key>)
+@c @deffnx Method gdk-event-key:is-modifier (inst <gdk-event-key>)
 
 Respectively returns the scheme representation of the content of the
 @var{inst} event key element, refered to by its name - the part of the
@@ -126,9 +126,8 @@ method name that follows the semi-colon, which are:
 
 A pointer to the  @var{GdkWindow} that received the event.
 
-@item @emph{send-event}
-
-#t if the event was sent explicitly.
+@c @item @emph{send-event}
+@c #t if the event was sent explicitly.
 
 @item @emph{time}
 
@@ -155,26 +154,22 @@ The key value (an unsigned integer) that was pressed or released.
 The key (symbol) name as returned by calling @code{(gdk-keyval-name
 keyval)}.
 
-@item @emph{length}
+@c @item @emph{length}
+@c The length of @code{string}.
 
-The length of @code{string}.
-
-@item @emph{string}
-
-A string containing an approximation of the text that would result from
-this keypress.
+@c @item @emph{string}
+@c A string containing an approximation of the text that would result from
+@c this keypress.
 
 @item @emph{hardware-keycode}
 
 The raw code of the key that was pressed or released.
 
-@item @emph{group}
+@c @item @emph{group}
+@c The keyboard group.
 
-The keyboard group.
-
-@item @emph{is-modifier}
-
-A flag that indicates if hardware-keycode is mapped to a modifier.
+@c @item @emph{is-modifier}
+@c A flag that indicates if hardware-keycode is mapped to a modifier.
 @end table
 @end indentedblock
 

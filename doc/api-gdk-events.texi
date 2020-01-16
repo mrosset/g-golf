@@ -28,7 +28,6 @@ Events — Functions for handling events from the window system
 @indentedblock
 @table @code
 @item @ref{!event}
-@item @ref{!event-items}
 @item @ref{gdk-event-get-event-type}
 @end table
 @end indentedblock
@@ -72,13 +71,6 @@ The superclass of all Gdk type of event. Its slots are:
 #:init-keyword #:event
 
 A pointer to a @code{GdkEvent}.
-
-@item @emph{event-items}
-#:accessor !event-items @*
-#:init-keyword #:event-items
-
-The list of items resulting from the parsing of @var{event}, according
-to its corresponding event structure definition.
 @end table
 @end indentedblock
 
@@ -92,11 +84,9 @@ a @code{GdkEvent}.
 
 
 @anchor{!event}
-@anchor{!event-items}
 @deffn Accessor !event inst
-@deffnx Accessor !event-items inst
 
-Returns the content of their respective slot for @var{inst}.
+Returns the content of the @code{event} slot for @var{inst}.
 @end deffn
 
 

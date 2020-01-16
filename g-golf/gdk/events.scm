@@ -27,6 +27,8 @@
 
 
 (define-module (g-golf gdk events)
+  #:use-module (rnrs bytevectors)
+  #:use-module (srfi srfi-4)
   #:use-module (oop goops)
   #:use-module (system foreign)
   #:use-module (g-golf init)
@@ -47,20 +49,25 @@
 
   #:export (<gdk-event>
 
+            gdk-event-get-keycode
+            gdk-event-get-keyval
+            gdk-event-get-state
+            gdk-event-get-time
+            gdk-event-get-window
             gdk-event-get-event-type
 
             %gdk-event-type))
 
 
 (g-export !event
-          !event-items
+          ;; !event-items
 
           gdk-event:type)
 
 
 (define-class <gdk-event> ()
   (event #:accessor !event #:init-keyword #:event)
-  (event-items #:accessor !event-items #:init-keyword #:event-items))
+  #;(event-items #:accessor !event-items #:init-keyword #:event-items))
 
 (define-method (gdk-event:type (self <gdk-event>))
   (gdk-event-get-event-type (!event self)))
@@ -70,6 +77,30 @@
 ;;; Gdk Low level API
 ;;;
 
+(define (gdk-event-get-keycode event)
+  (let ((bv (make-bytevector (sizeof uint16) 0)))
+    (and (gdk_event_get_keycode event
+                                (bytevector->pointer bv))
+         (u16vector-ref bv 0))))
+
+(define (gdk-event-get-keyval event)
+  (let ((bv (make-bytevector (sizeof unsigned-int) 0)))
+    (and (gdk_event_get_keyval event
+                               (bytevector->pointer bv))
+         (u32vector-ref bv 0))))
+
+(define (gdk-event-get-state event)
+  (let ((bv (make-bytevector (sizeof int) 0)))
+    (and (gdk_event_get_state event
+                              (bytevector->pointer bv))
+         (s32vector-ref bv 0))))
+
+(define (gdk-event-get-time event)
+  (gdk_event_get_time event))
+
+(define (gdk-event-get-window event)
+  (gi->scm (gdk_event_get_window event) 'pointer))
+
 (define (gdk-event-get-event-type event)
   (enum->symbol %gdk-event-type
                 (gdk_event_get_event_type event)))
@@ -78,6 +109,39 @@
 ;;;
 ;;; Gdk Bindings
 ;;;
+
+(define gdk_event_get_keycode
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_keycode"
+				    %libgdk)
+                      (list '*		;; event
+                            '*)))	;; *keycode
+
+(define gdk_event_get_keyval
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_keyval"
+				    %libgdk)
+                      (list '*		;; event
+                            '*)))	;; *keyval
+
+(define gdk_event_get_state
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_state"
+				    %libgdk)
+                      (list '*		;; event
+                            '*)))	;; *state
+
+(define gdk_event_get_time
+  (pointer->procedure unsigned-int
+                      (dynamic-func "gdk_event_get_time"
+				    %libgdk)
+                      (list '*)))	;; event
+
+(define gdk_event_get_window
+  (pointer->procedure '*
+                      (dynamic-func "gdk_event_get_window"
+				    %libgdk)
+                      (list '*)))	;; event
 
 (define gdk_event_get_event_type
   (pointer->procedure int
