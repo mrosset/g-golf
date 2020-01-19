@@ -100,33 +100,35 @@
 (define (signal-connect inst s-name function after? detail)
   ;; Below, i- stands for interface-, s- for signal-
   (let* ((i-class (class-of inst))
-         (i-class-name (class-name i-class)))
-    (or (gi-signal-cache-ref i-class-name s-name)
-        (let* ((i-type (!gtype-id i-class))
-               (s-id (or (g-signal-lookup (symbol->string s-name) i-type)
-                         (error "No such signal: " i-class-name s-name)))
-               (g-signal (g-signal-query s-id)))
-          (match g-signal
-            ((id name i-type flags return-type n-param param-types)
-             (let ((signal (make <signal>
-                             #:id id
-                             #:name name
-                             #:interface-type i-type
-                             #:flags flags
-                             #:return-type return-type
-                             #:n-param n-param
-                             #:param-types param-types))
-                   (closure (make <closure>
-                              #:function function
-                              #:return-type return-type
-                              #:param-types (cons 'object param-types))))
-               (gi-signal-cache-set! i-class-name s-name signal)
-               (g-signal-connect-closure-by-id (!g-inst inst)
-                                               id
-                                               detail
-                                               (!g-closure closure)
-                                               after?)
-               (values))))))))
+         (i-class-name (class-name i-class))
+         (signal (or (gi-signal-cache-ref i-class-name s-name)
+                     (let* ((i-type (!gtype-id i-class))
+                            (s-id (or (g-signal-lookup (symbol->string s-name) i-type)
+                                      (error "No such signal: " i-class-name s-name)))
+                            (g-signal (g-signal-query s-id)))
+                       (match g-signal
+                         ((id name i-type flags return-type n-param param-types)
+                          (let ((s-inst (make <signal>
+                                          #:id id
+                                          #:name name
+                                          #:interface-type i-type
+                                          #:flags flags
+                                          #:return-type return-type
+                                          #:n-param n-param
+                                          #:param-types param-types)))
+                            (gi-signal-cache-set! i-class-name s-name s-inst)
+                            s-inst))))))
+         (closure (make <closure>
+                    #:function function
+                    #:return-type (!return-type signal)
+                    #:param-types (cons 'object
+                                        (!param-types signal)))))
+    (g-signal-connect-closure-by-id (!g-inst inst)
+                                    (!id signal)
+                                    detail
+                                    (!g-closure closure)
+                                    after?)
+    (values)))
 
 
 ;;;
