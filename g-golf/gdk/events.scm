@@ -80,21 +80,24 @@
 
 (define (gdk-event-get-keycode event)
   (let ((bv (make-bytevector (sizeof uint16) 0)))
-    (and (gdk_event_get_keycode event
-                                (bytevector->pointer bv))
+    (and (gi->scm (gdk_event_get_keycode event
+                                         (bytevector->pointer bv))
+                  'boolean)
          (u16vector-ref bv 0))))
 
 (define (gdk-event-get-keyval event)
   (let ((bv (make-bytevector (sizeof unsigned-int) 0)))
-    (and (gdk_event_get_keyval event
-                               (bytevector->pointer bv))
+    (and (gi->scm (gdk_event_get_keyval event
+                                        (bytevector->pointer bv))
+                  'boolean)
          (u32vector-ref bv 0))))
 
 (define (gdk-event-get-state event)
   (let ((modifier-flags (gi-cache-ref 'flag 'gdk-modifier-type))
         (bv (make-bytevector (sizeof int) 0)))
-    (and (gdk_event_get_state event
-                              (bytevector->pointer bv))
+    (and (gi->scm (gdk_event_get_state event
+                                       (bytevector->pointer bv))
+                  'boolean)
          (gi-integer->gflags modifier-flags
                              (s32vector-ref bv 0)))))
 
