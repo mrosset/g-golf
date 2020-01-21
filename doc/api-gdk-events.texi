@@ -28,8 +28,12 @@ Events — Functions for handling events from the window system
 @indentedblock
 @table @code
 @item @ref{!event}
+@item @ref{gdk-event-get-button}
+@item @ref{gdk-event-get-click-count}
+@item @ref{gdk-event-get-coords}
 @item @ref{gdk-event-get-keycode}
 @item @ref{gdk-event-get-keyval}
+@item @ref{gdk-event-get-root-coords}
 @item @ref{gdk-event-get-state}
 @item @ref{gdk-event-get-time}
 @item @ref{gdk-event-get-window}
@@ -104,6 +108,37 @@ Obtains and returns the event type (symbol) name for @var{inst}.
 @end deffn
 
 
+@anchor{gdk-event-get-button}
+@deffn Procedure gdk-event-get-button event
+
+Returns an integer or #f.
+
+Extracts and returns the button number from @var{event}. If @var{event}
+did not deliver a button number, it returns #f.
+@end deffn
+
+
+@anchor{gdk-event-get-click-count}
+@deffn Procedure gdk-event-get-click-count event
+
+Returns an integer or #f.
+
+Extracts and returns the click count from @var{event}. If @var{event}
+did not deliver a click count, it returns #f.
+@end deffn
+
+
+@anchor{gdk-event-get-coords}
+@deffn Procedure gdk-event-get-coords event
+
+Returns a list or #f.
+
+Extracts and returns a list of the x and y window relative coordinates
+from @var{event}. If @var{event} did not deliver window coordinates, it
+returns #f.
+@end deffn
+
+
 @anchor{gdk-event-get-keycode}
 @deffn Procedure gdk-event-get-keycode event
 
@@ -121,6 +156,17 @@ Returns an integer or #f.
 
 Extracts and returns the keyval from @var{event}. If @var{event} did not
 deliver a key symbol, it returns #f.
+@end deffn
+
+
+@anchor{gdk-event-get-root-coords}
+@deffn Procedure gdk-event-get-root-coords event
+
+Returns a list or #f.
+
+Extracts and returns a list of the x and y root window relative
+coordinates from @var{event}. If @var{event} did not deliver root window
+coordinates, it returns #f.
 @end deffn
 
 

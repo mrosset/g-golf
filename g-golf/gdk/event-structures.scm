@@ -64,6 +64,18 @@
             ;; gdk-event-key:group
             ;; gdk-event-key:is-modifier
 
+            <gdk-event-button>
+            gdk-event-button:time
+            gdk-event-button:state
+            gdk-event-button:button
+            gdk-event-button:click-count
+            gdk-event-button:coords
+            gdk-event-button:x
+            gdk-event-button:y
+            gdk-event-button:root-coords
+            gdk-event-button:x-root
+            gdk-event-button:y-root
+
             #;gdk-event-key-parse
 
             #;%gdk-event-key))
@@ -81,8 +93,20 @@
     ((key-press
       key-release)
      (make <gdk-event-key> #:event event))
+    ((button-press
+      button-release
+      2button-press
+      2button-release
+      3button-press
+      3button-release)
+     (make <gdk-event-button> #:event event))
     (else
      event)))
+
+
+;;;
+;;; Key
+;;;
 
 (define-class <gdk-event-key> (<gdk-event>))
 
@@ -135,6 +159,52 @@
   (match (!event-items self)
     ((_ _ _ _ _ _ _ _ _ _ is-modifier)
      (gi->scm is-modifier 'boolean))))
+
+
+;;;
+;;; Button
+;;;
+
+(define-class <gdk-event-button> (<gdk-event>))
+
+(define-method (initialize (self <gdk-event-button>) initargs)
+  (let ((event (or (get-keyword #:event initargs #f)
+                   (error "Missing #:event initarg: " initargs))))
+    (next-method)))
+
+(define-method (gdk-event-button:time (self <gdk-event-button>))
+  (gdk-event-get-time (!event self)))
+
+(define-method (gdk-event-button:state (self <gdk-event-button>))
+  (gdk-event-get-state (!event self)))
+
+(define-method (gdk-event-button:button (self <gdk-event-button>))
+  (gdk-event-get-button (!event self)))
+
+(define-method (gdk-event-button:click-count (self <gdk-event-button>))
+  (gdk-event-get-click-count (!event self)))
+
+(define-method (gdk-event-button:coords (self <gdk-event-button>))
+  (gdk-event-get-coords (!event self)))
+
+(define-method (gdk-event-button:x (self <gdk-event-button>))
+  (match (gdk-event-get-coords (!event self))
+    ((x y) x)))
+
+(define-method (gdk-event-button:y (self <gdk-event-button>))
+  (match (gdk-event-get-coords (!event self))
+    ((x y) y)))
+
+(define-method (gdk-event-button:root-coords (self <gdk-event-button>))
+  (gdk-event-get-root-coords (!event self)))
+
+(define-method (gdk-event-button:x-root (self <gdk-event-button>))
+  (match (gdk-event-get-root-coords (!event self))
+    ((x-root y-root) x-root)))
+
+(define-method (gdk-event-button:y-root (self <gdk-event-button>))
+  (match (gdk-event-get-root-coords (!event self))
+    ((x-root y-root) y-root)))
 
 
 ;;;

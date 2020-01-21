@@ -19,6 +19,7 @@ Events Structures — Data structures specific to each type of event
 @indentedblock
 @table @code
 @item @ref{<gdk-event-key>}
+@item @ref{<gdk-event-button>}
 @end table
 @end indentedblock
 
@@ -39,6 +40,16 @@ Events Structures — Data structures specific to each type of event
 @item @ref{gdk-event-key:hardware-keycode}
 @c @item @ref{gdk-event-key:group}
 @c @item @ref{gdk-event-key:is-modifier}
+@item @ref{gdk-event-button:time}
+@item @ref{gdk-event-button:state}
+@item @ref{gdk-event-button:button}
+@item @ref{gdk-event-button:click-count}
+@item @ref{gdk-event-button:coords}
+@item @ref{gdk-event-button:x}
+@item @ref{gdk-event-button:y}
+@item @ref{gdk-event-button:root-coords}
+@item @ref{gdk-event-button:x-root}
+@item @ref{gdk-event-button:y-root}
 @end table
 @end indentedblock
 
@@ -73,6 +84,14 @@ The event structures contain data specific to each type of event in
 @deftp Class <gdk-event-key> (@ref{<gdk-event>})
 
 Describes a key press or key release event.
+@end deftp
+
+
+@anchor{<gdk-event-button>}
+@deftp Class <gdk-event-button> (@ref{<gdk-event>})
+
+Describes a button-press, button-release, 2button-press,
+2button-release, 3button-press and 3button-release event.
 @end deftp
 
 
@@ -172,8 +191,87 @@ The raw code of the key that was pressed or released.
 @c A flag that indicates if hardware-keycode is mapped to a modifier.
 @end table
 @end indentedblock
+@end deffn
 
 
+@anchor{gdk-event-button:time}
+@anchor{gdk-event-button:state}
+@anchor{gdk-event-button:button}
+@anchor{gdk-event-button:click-count}
+@anchor{gdk-event-button:coords}
+@anchor{gdk-event-button:x}
+@anchor{gdk-event-button:y}
+@anchor{gdk-event-button:root-coords}
+@anchor{gdk-event-button:x-root}
+@anchor{gdk-event-button:y-root}
+@deffn Method gdk-event-button:time (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:state (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:button (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:click-count (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:coords (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:x (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:y (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:root-coords (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:x-root (inst <gdk-event-button>)
+@deffnx Method gdk-event-button:y-root (inst <gdk-event-button>)
+
+Respectively returns the scheme representation of the content of the
+@var{inst} event button element, refered to by its name - the part of
+the method name that follows the semi-colon, which are:
+
+
+@indentedblock
+@table @code
+@item @emph{time}
+
+The time of the event in milliseconds.
+
+@item @emph{state}
+
+A list representing the state of the modifier keys (e.g. Control, Shift
+and Alt) and the pointer buttons@footnote{The @code{GdkModifierType} is
+obtained by introspection, from the "Gdk" namespace, when the (g-golf)
+module is imported (used). You may obtain its @code{<gi-flag>} instance
+doing @code{(gi-cache-ref 'flag 'gdk-modifier-type)}, and visualize its
+content using @code{describe}.} Please refer to the
+@uref{@value{UGDK-ModifierType}, enum GdkModifierType} section of the
+Gdk Reference Manual for a complete list and description of all modifier
+bit-flags.
+
+@item @emph{button}
+
+The button number of the event.
+
+@item @emph{click-count}
+
+The click-count of the event.
+
+@item @emph{coords}
+
+The list of the x and y window relative coordinates of the event.
+
+@item @emph{x}
+
+The x window relative coordinate of the event.
+
+@item @emph{y}
+
+The y window relative coordinate of the event.
+
+@item @emph{root-coords}
+
+The list of the x and y root window relative coordinates of the event.
+
+@item @emph{x-root}
+
+The x root window relative coordinate of the event.
+
+@item @emph{y-root}
+
+The y root window relative coordinate of the event.
+
+@end table
+@end indentedblock
 @end deffn
 
 

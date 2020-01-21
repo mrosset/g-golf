@@ -50,8 +50,12 @@
 
   #:export (<gdk-event>
 
+            gdk-event-get-button
+            gdk-event-get-click-count
+            gdk-event-get-coords
             gdk-event-get-keycode
             gdk-event-get-keyval
+            gdk-event-get-root-coords
             gdk-event-get-state
             gdk-event-get-time
             gdk-event-get-window
@@ -78,6 +82,30 @@
 ;;; Gdk Low level API
 ;;;
 
+(define (gdk-event-get-button event)
+  (let ((bv (make-bytevector (sizeof unsigned-int) 0)))
+    (and (gi->scm (gdk_event_get_button event
+                                        (bytevector->pointer bv))
+                  'boolean)
+         (u32vector-ref bv 0))))
+
+(define (gdk-event-get-click-count event)
+  (let ((bv (make-bytevector (sizeof unsigned-int) 0)))
+    (and (gi->scm (gdk_event_get_click_count event
+                                             (bytevector->pointer bv))
+                  'boolean)
+         (u32vector-ref bv 0))))
+
+(define (gdk-event-get-coords event)
+  (let ((bv1 (make-bytevector (sizeof double) 0))
+        (bv2 (make-bytevector (sizeof double) 0)))
+    (and (gi->scm (gdk_event_get_coords event
+                                        (bytevector->pointer bv1)
+                                        (bytevector->pointer bv2))
+                  'boolean)
+         (list (f64vector-ref bv1 0)
+               (f64vector-ref bv2 0)))))
+
 (define (gdk-event-get-keycode event)
   (let ((bv (make-bytevector (sizeof uint16) 0)))
     (and (gi->scm (gdk_event_get_keycode event
@@ -91,6 +119,16 @@
                                         (bytevector->pointer bv))
                   'boolean)
          (u32vector-ref bv 0))))
+
+(define (gdk-event-get-root-coords event)
+  (let ((bv1 (make-bytevector (sizeof double) 0))
+        (bv2 (make-bytevector (sizeof double) 0)))
+    (and (gi->scm (gdk_event_get_root_coords event
+                                             (bytevector->pointer bv1)
+                                             (bytevector->pointer bv2))
+                  'boolean)
+         (list (f64vector-ref bv1 0)
+               (f64vector-ref bv2 0)))))
 
 (define (gdk-event-get-state event)
   (let ((modifier-flags (gi-cache-ref 'flag 'gdk-modifier-type))
@@ -116,6 +154,28 @@
 ;;; Gdk Bindings
 ;;;
 
+(define gdk_event_get_button
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_button"
+				    %libgdk)
+                      (list '*		;; event
+                            '*)))	;; *button
+
+(define gdk_event_get_click_count
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_click_count"
+				    %libgdk)
+                      (list '*		;; event
+                            '*)))	;; *click_count
+
+(define gdk_event_get_coords
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_coords"
+				    %libgdk)
+                      (list '*		;; event
+                            '*		;; *x_win
+                            '*)))	;; *y_win
+
 (define gdk_event_get_keycode
   (pointer->procedure int
                       (dynamic-func "gdk_event_get_keycode"
@@ -129,6 +189,14 @@
 				    %libgdk)
                       (list '*		;; event
                             '*)))	;; *keyval
+
+(define gdk_event_get_root_coords
+  (pointer->procedure int
+                      (dynamic-func "gdk_event_get_root_coords"
+				    %libgdk)
+                      (list '*		;; event
+                            '*		;; *x_root
+                            '*)))	;; *y_root
 
 (define gdk_event_get_state
   (pointer->procedure int
