@@ -102,12 +102,10 @@
      (gi->scm send-event 'boolean))))
 
 (define-method (gdk-event-key:time (self <gdk-event-key>))
-  (gdk-event-get-state (!event self)))
+  (gdk-event-get-time (!event self)))
 
 (define-method (gdk-event-key:state (self <gdk-event-key>))
-  (let ((modifier-flags (gi-cache-ref 'flag 'gdk-modifier-type)))
-    (gi-integer->gflags modifier-flags
-                        (gdk-event-get-state (!event self)))))
+  (gdk-event-get-state (!event self)))
 
 (define-method (gdk-event-key:keyval (self <gdk-event-key>))
   (gdk-event-get-keyval (!event self)))

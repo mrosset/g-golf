@@ -38,6 +38,7 @@
   #:use-module (g-golf support enum)
   #:use-module (g-golf support struct)
   #:use-module (g-golf support union)
+  #:use-module (g-golf support flag)
   #:use-module (g-golf gi utils)
   #:use-module (g-golf gi cache)
   
@@ -90,10 +91,12 @@
          (u32vector-ref bv 0))))
 
 (define (gdk-event-get-state event)
-  (let ((bv (make-bytevector (sizeof int) 0)))
+  (let ((modifier-flags (gi-cache-ref 'flag 'gdk-modifier-type))
+        (bv (make-bytevector (sizeof int) 0)))
     (and (gdk_event_get_state event
                               (bytevector->pointer bv))
-         (s32vector-ref bv 0))))
+         (gi-integer->gflags modifier-flags
+                             (s32vector-ref bv 0)))))
 
 (define (gdk-event-get-time event)
   (gdk_event_get_time event))
