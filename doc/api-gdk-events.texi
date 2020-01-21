@@ -28,6 +28,11 @@ Events — Functions for handling events from the window system
 @indentedblock
 @table @code
 @item @ref{!event}
+@item @ref{gdk-event-get-keycode}
+@item @ref{gdk-event-get-keyval}
+@item @ref{gdk-event-get-state}
+@item @ref{gdk-event-get-time}
+@item @ref{gdk-event-get-window}
 @item @ref{gdk-event-get-event-type}
 @end table
 @end indentedblock
@@ -96,6 +101,65 @@ Returns the content of the @code{event} slot for @var{inst}.
 Returns a symbol.
 
 Obtains and returns the event type (symbol) name for @var{inst}.
+@end deffn
+
+
+@anchor{gdk-event-get-keycode}
+@deffn Procedure gdk-event-get-keycode event
+
+Returns an integer or #f.
+
+Extracts and returns the hardware keycode from @var{event}. If @var{event}
+did not deliver a hardware keycode, it returns #f.
+@end deffn
+
+
+@anchor{gdk-event-get-keyval}
+@deffn Procedure gdk-event-get-keyval event
+
+Returns an integer or #f.
+
+Extracts and returns the keyval from @var{event}. If @var{event} did not
+deliver a key symbol, it returns #f.
+@end deffn
+
+
+@anchor{gdk-event-get-state}
+@deffn Procedure gdk-event-get-state event
+
+Returns a (possibly empty) list of
+@code{GdkModifierType}@footnote{G-Golf imports the
+@code{GdkModifierType} from the Gdk namespace as a <gi-flag> instance,
+which you may get executing @code{(gi-cache-ref 'flag
+'gdk-modifier-type)}, then visualize running @code{describe} on the
+former result. Please refer to the @uref{@value{UGDK-ModifierType}, enum
+GdkModifierType} section of the Gdk Reference Manual for a complete list
+and description of all modifier bit-flags.} or #f.
+ 
+Obtains and returns the list of (the scheme representation of)
+@code{GdkModifierType} for @var{event}. If @var{event} did not contain a
+@samp{state} field, it returns #f.
+@end deffn
+
+
+@anchor{gdk-event-get-time}
+@deffn Procedure gdk-event-get-time event
+
+Returns an integer.
+
+Obtains and returns the time stamp for @var{event}, if there is one,
+otherwise, it returns @code{GDK_CURRENT_TIME} (and so does it if
+@var{event} is @code{%null-pointer}).
+@end deffn
+
+
+@anchor{gdk-event-get-window}
+@deffn Procedure gdk-event-get-window event
+
+Returns a pointer.
+
+Extracts and returns (a pointer to) the @code{GdkWindow} associated with
+@var{event}.
 @end deffn
 
 
