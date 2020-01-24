@@ -1,7 +1,7 @@
 ;; -*- mode: scheme; coding: utf-8 -*-
 
 ;;;;
-;;;; Copyright (C) 2018 - 2019
+;;;; Copyright (C) 2018 - 2020
 ;;;; Free Software Foundation, Inc.
 
 ;;;; This file is part of GNU G-Golf
@@ -42,7 +42,6 @@
   #:use-module (g-golf glib)
   #:use-module (g-golf gobject)
   #:use-module (g-golf gi)
-
   #:use-module (g-golf hl-api gtype)
 
   #:duplicates (merge-generics
@@ -86,10 +85,6 @@
 
 (define (compute-extra-slots class g-properties slots)
   (let* ((c-name (class-name class))
-         ;; we need to cache extra slots init-keywords, needed by the
-         ;; initialize <gtype-instance> method - this is explained in a
-         ;; comment, part that method defined in (g-golf hl-api gtypes).
-         (init-keywords '())
          (extra-slots (filter-map
                           (lambda (g-property)
                             (let* ((module (resolve-module '(g-golf hl-api gobject)))
@@ -120,12 +115,8 @@
                                               #:allocation #:g-property
                                               #:accessor a-inst
                                               #:init-keyword k-name)))
-                                 (push! k-name init-keywords)
                                  slot))))
                           g-properties)))
-    (gi-cache-set! 'g-props-init-kw
-                   c-name
-                   (reverse! init-keywords))
     extra-slots))
 
 (define (gobject-class-properties class)
