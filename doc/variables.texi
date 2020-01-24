@@ -82,6 +82,9 @@
 
 @set UGDK-ModifierType  https://developer.gnome.org/gdk3/stable/gdk3-Windows.html#GdkModifierType
 
+@set UGTK https://developer.gnome.org/gtk3/stable/
+
+
 @c GG -> Guile-Gnome
 @set UGG https://www.gnu.org/software/guile-gnome
 

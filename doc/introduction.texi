@@ -76,20 +76,36 @@ GNU G-Golf needs the following software to run:
 
 @item
 Autoconf >= 2.69
+
 @item
 Automake >= 1.14
+
 @item
 Makeinfo >= 6.6
+
 @item
 @uref{@value{UGUILE}, Guile} >= 2.0.14  [allows 2.2 3.0]
+
 @item
 @uref{@value{UGUILE-LIB}, Guile-Lib} >= 0.2.5
-@item
-@uref{@value{UGLIB}, Glib-2.0} >= 2.48.0
-@item
-@uref{@value{UGOBJECT}, Gobject-2.0} >= 2.48.0
+
 @item 
 @uref{@value{UGI}, GObject-Introspection-1.0} >= 1.48.0
+
+@item
+@uref{@value{UGLIB}, Glib-2.0} >= 2.48.0
+
+@item
+@uref{@value{UGOBJECT}, Gobject-2.0} >= 2.48.0
+
+@item
+@uref{@value{UGTK}, Gtk+-3.0} >= 3.24.0
+
+The @code{gtk+-3.0} module is required because it is the module that
+contains and installs @code{libgdk-3}, which G-Golf requires (as any
+other GI language binding) to support @code{Gdk} (in general) and
+@code{Gdk Events} (in particular).
+
 @end itemize
 
 
