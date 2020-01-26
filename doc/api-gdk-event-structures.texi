@@ -20,6 +20,7 @@ Events Structures — Data structures specific to each type of event
 @table @code
 @item @ref{<gdk-event-key>}
 @item @ref{<gdk-event-button>}
+@item @ref{<gdk-event-motion>}
 @end table
 @end indentedblock
 
@@ -28,7 +29,9 @@ Events Structures — Data structures specific to each type of event
 
 @indentedblock
 @table @code
+
 @item @ref{make-gdk-event}
+
 @item @ref{gdk-event-key:window}
 @c @item @ref{gdk-event-key:send-event}
 @item @ref{gdk-event-key:time}
@@ -40,6 +43,7 @@ Events Structures — Data structures specific to each type of event
 @item @ref{gdk-event-key:hardware-keycode}
 @c @item @ref{gdk-event-key:group}
 @c @item @ref{gdk-event-key:is-modifier}
+
 @item @ref{gdk-event-button:time}
 @item @ref{gdk-event-button:state}
 @item @ref{gdk-event-button:button}
@@ -50,6 +54,14 @@ Events Structures — Data structures specific to each type of event
 @item @ref{gdk-event-button:root-coords}
 @item @ref{gdk-event-button:x-root}
 @item @ref{gdk-event-button:y-root}
+
+@item @ref{gdk-event-motion:time}
+@item @ref{gdk-event-motion:state}
+@item @ref{gdk-event-motion:x}
+@item @ref{gdk-event-motion:y}
+@item @ref{gdk-event-motion:root-coords}
+@item @ref{gdk-event-motion:x-root}
+@item @ref{gdk-event-motion:y-root}
 @end table
 @end indentedblock
 
@@ -92,6 +104,13 @@ Describes a key press or key release event.
 
 Describes a button-press, button-release, 2button-press,
 2button-release, 3button-press and 3button-release event.
+@end deftp
+
+
+@anchor{<gdk-event-motion>}
+@deftp Class <gdk-event-motion> (@ref{<gdk-event>})
+
+Describes a motion-notify event.
 @end deftp
 
 
@@ -245,6 +264,76 @@ The button number of the event.
 @item @emph{click-count}
 
 The click-count of the event.
+
+@item @emph{coords}
+
+The list of the x and y window relative coordinates of the event.
+
+@item @emph{x}
+
+The x window relative coordinate of the event.
+
+@item @emph{y}
+
+The y window relative coordinate of the event.
+
+@item @emph{root-coords}
+
+The list of the x and y root window relative coordinates of the event.
+
+@item @emph{x-root}
+
+The x root window relative coordinate of the event.
+
+@item @emph{y-root}
+
+The y root window relative coordinate of the event.
+
+@end table
+@end indentedblock
+@end deffn
+
+
+@anchor{gdk-event-motion:time}
+@anchor{gdk-event-motion:state}
+@anchor{gdk-event-motion:coords}
+@anchor{gdk-event-motion:x}
+@anchor{gdk-event-motion:y}
+@anchor{gdk-event-motion:root-coords}
+@anchor{gdk-event-motion:x-root}
+@anchor{gdk-event-motion:y-root}
+@deffn Method gdk-event-motion:time (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:state (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:coords (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:x (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:y (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:root-coords (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:x-root (inst <gdk-event-motion>)
+@deffnx Method gdk-event-motion:y-root (inst <gdk-event-motion>)
+
+Respectively returns the scheme representation of the content of the
+@var{inst} event motion element, refered to by its name - the part of
+the method name that follows the semi-colon, which are:
+
+
+@indentedblock
+@table @code
+
+@item @emph{time}
+
+The time of the event in milliseconds.
+
+@item @emph{state}
+
+A list representing the state of the modifier keys (e.g. Control, Shift
+and Alt) and the pointer buttons@footnote{The @code{GdkModifierType} is
+obtained by introspection, from the "Gdk" namespace, when the (g-golf)
+module is imported (used). You may obtain its @code{<gi-flag>} instance
+doing @code{(gi-cache-ref 'flag 'gdk-modifier-type)}, and visualize its
+content using @code{describe}.} Please refer to the
+@uref{@value{UGDK-ModifierType}, enum GdkModifierType} section of the
+Gdk Reference Manual for a complete list and description of all modifier
+bit-flags.
 
 @item @emph{coords}
 

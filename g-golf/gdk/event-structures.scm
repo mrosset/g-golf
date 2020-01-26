@@ -76,6 +76,16 @@
             gdk-event-button:x-root
             gdk-event-button:y-root
 
+            <gdk-event-motion>
+            gdk-event-motion:time
+            gdk-event-motion:state
+            gdk-event-motion:coords
+            gdk-event-motion:x
+            gdk-event-motion:y
+            gdk-event-motion:root-coords
+            gdk-event-motion:x-root
+            gdk-event-motion:y-root
+
             #;gdk-event-key-parse
 
             #;%gdk-event-key))
@@ -100,6 +110,8 @@
       3button-press
       3button-release)
      (make <gdk-event-button> #:event event))
+    ((motion-notify)
+     (make <gdk-event-motion> #:event event))
     (else
      event)))
 
@@ -203,6 +215,46 @@
     ((x-root y-root) x-root)))
 
 (define-method (gdk-event-button:y-root (self <gdk-event-button>))
+  (match (gdk-event-get-root-coords (!event self))
+    ((x-root y-root) y-root)))
+
+
+;;;
+;;; Motion
+;;;
+
+(define-class <gdk-event-motion> (<gdk-event>))
+
+(define-method (initialize (self <gdk-event-motion>) initargs)
+  (let ((event (or (get-keyword #:event initargs #f)
+                   (error "Missing #:event initarg: " initargs))))
+    (next-method)))
+
+(define-method (gdk-event-motion:time (self <gdk-event-motion>))
+  (gdk-event-get-time (!event self)))
+
+(define-method (gdk-event-motion:state (self <gdk-event-motion>))
+  (gdk-event-get-state (!event self)))
+
+(define-method (gdk-event-motion:coords (self <gdk-event-motion>))
+  (gdk-event-get-coords (!event self)))
+
+(define-method (gdk-event-motion:x (self <gdk-event-motion>))
+  (match (gdk-event-get-coords (!event self))
+    ((x y) x)))
+
+(define-method (gdk-event-motion:y (self <gdk-event-motion>))
+  (match (gdk-event-get-coords (!event self))
+    ((x y) y)))
+
+(define-method (gdk-event-motion:root-coords (self <gdk-event-motion>))
+  (gdk-event-get-root-coords (!event self)))
+
+(define-method (gdk-event-motion:x-root (self <gdk-event-motion>))
+  (match (gdk-event-get-root-coords (!event self))
+    ((x-root y-root) x-root)))
+
+(define-method (gdk-event-motion:y-root (self <gdk-event-motion>))
   (match (gdk-event-get-root-coords (!event self))
     ((x-root y-root) y-root)))
 
