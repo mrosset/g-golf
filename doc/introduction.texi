@@ -89,9 +89,6 @@ Makeinfo >= 6.6
 @item
 @uref{@value{UGUILE-LIB}, Guile-Lib} >= 0.2.5
 
-@item 
-@uref{@value{UGI}, GObject-Introspection-1.0} >= 1.48.0
-
 @item
 @uref{@value{UGLIB}, Glib-2.0} >= 2.48.0
 
@@ -105,6 +102,9 @@ The @code{gtk+-3.0} module is required because it is the module that
 contains and installs @code{libgdk-3}, which G-Golf requires (as any
 other GI language binding) to support @code{Gdk} (in general) and
 @code{Gdk Events} (in particular).
+
+@item 
+@uref{@value{UGI}, GObject-Introspection-1.0} >= 1.48.0
 
 @end itemize
 
