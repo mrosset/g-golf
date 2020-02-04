@@ -1,6 +1,6 @@
 
 ####
-#### Copyright (C) 2016 - 2019
+#### Copyright (C) 2016 - 2020
 #### Free Software Foundation, Inc.
 
 #### This file is part of GNU G-Golf
@@ -56,6 +56,7 @@ g_golf_TEXINFOS = \
   api-gdk.texi			\
   api-gdk-events.texi		\
   api-gdk-event-structures.texi \
+  api-gdk-key-values.texi	\
   api-gir.texi			\
   api-repository.texi		\
   api-common-types.texi		\
