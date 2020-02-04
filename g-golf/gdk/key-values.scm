@@ -53,8 +53,10 @@
 ;;;
 
 (define (gdk-keyval-name keyval)
-  (string->symbol (gi->scm (gdk_keyval_name keyval)
-                           'string)))
+  (let ((name (gi->scm (gdk_keyval_name keyval)
+                       'string)))
+    (and name
+         (string->symbol name))))
 
 
 ;;;
